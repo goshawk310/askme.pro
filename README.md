@@ -1,4 +1,3 @@
 # krakenTest
 
 test
-# readme
