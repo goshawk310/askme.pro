@@ -6,7 +6,7 @@
     "main": "index.js",
     "scripts": {
         "test": "grunt test",
-        "dev": "nodemon index.js",
+        "dev": "NODE_ENV=development nodemon index.js",
         "start": "forever start index.js"
     },
     "engines": {
@@ -22,7 +22,8 @@
         "dustjs-helpers": "~1.1.1",
         "makara": "~0.3.0",
         "forever": "~0.10.11",
-        "mongoose": "~3.8.2"
+        "mongoose": "~3.8.2",
+        "mongoose-validator": "~0.2.2"
     },
     "devDependencies": {
         "mocha": "~1.10.0",
