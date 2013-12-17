@@ -2,10 +2,10 @@
 var User = require('../../models/user'),
   errorHandler = require('../../lib/error').handler;
 module.exports = function (server) {
-  server.param('login', /^[a-zA-Z0-9]+$/);
+  server.param('username', /^[a-zA-Z0-9]+$/);
   
-  server.get('/api/user/:login', function (req, res) {
-    User.findOne({login: req.param('login')}, function (err, user) {
+  server.get('/api/user/:username', function (req, res) {
+    User.findOne({username: req.param('username')}, function (err, user) {
       if (err) {
         return errorHandler.db(err, res);
       } else if (user === null) {
@@ -25,8 +25,8 @@ module.exports = function (server) {
     });
   });
 
-  server.put('/api/user/update/:login', function (req, res) {
-    User.update({login: req.param('login')}, req.body, function (err, numberAffected, raw) {
+  server.put('/api/user/update/:username', function (req, res) {
+    User.update({username: req.param('username')}, req.body, function (err, numberAffected, raw) {
       if (err) {
         return errorHandler.db(err, res);
       }

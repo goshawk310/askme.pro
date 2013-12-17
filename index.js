@@ -10,6 +10,8 @@ app.configure = function configure(nconf, next) {
     // Fired when an app configures itself
     //Configure the database
     db.config(nconf.get('database'));
+    //Configure passport
+    
     next(null);
 };
 
@@ -29,6 +31,7 @@ app.requestStart = function requestStart(server) {
       };
     }
   });
+
 };
 
 

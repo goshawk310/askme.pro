@@ -23,7 +23,9 @@
         "makara": "~0.3.0",
         "forever": "~0.10.11",
         "mongoose": "~3.8.2",
-        "mongoose-validator": "~0.2.2"
+        "mongoose-validator": "~0.2.2",
+        "passport": "~0.1.17",
+        "possport-local": "~0.1.6"
     },
     "devDependencies": {
         "mocha": "~1.10.0",
