@@ -3,6 +3,7 @@
 
 var kraken = require('kraken-js'),
 	db = require('./lib/database'),
+	auth = require('./lib/auth'),
   app = {};
 
 
@@ -10,8 +11,6 @@ app.configure = function configure(nconf, next) {
     // Fired when an app configures itself
     //Configure the database
     db.config(nconf.get('database'));
-    //Configure passport
-    
     next(null);
 };
 
@@ -37,6 +36,8 @@ app.requestStart = function requestStart(server) {
 
 app.requestBeforeRoute = function requestBeforeRoute(server) {
   // Fired before routing occurs
+  // Configure passport
+  auth().init(server);
 };
 
 
