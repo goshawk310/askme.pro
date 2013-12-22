@@ -1,0 +1,5 @@
+{>"layouts/master" /}
+
+{<body}
+	{user|js}
+{/body}

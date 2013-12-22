@@ -1,0 +1,10 @@
+{>"layouts/master" /}
+
+{<body}
+	<form method="post" action="/account/login">
+		<input type="text" name="username" id="username" placeholder="Login:" />
+		<input type="password" name="password" id="password" placeholder="Hasło:" />
+		<input type="hidden" name="_csrf" value="{_csrf}" />
+		<input type="submit" />
+	</form>
+{/body}

@@ -4,8 +4,8 @@
 module.exports = function (server) {
 
     server.get('/', function (req, res) {
-        var model = { name: 'krakentest' };
-        
+        var model = req.user;
+        console.log(model);
         res.render('index', model);
         
     });

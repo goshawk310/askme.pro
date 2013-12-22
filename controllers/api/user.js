@@ -26,12 +26,13 @@ module.exports = function (server) {
     });
   });
 
-  server.put('/api/user/update/:username', function (req, res, next) {
-    User.update({username: req.param('username')}, req.body, function (err, numberAffected, raw) {
-      if (err) {
-        return next(err);
-      }
-      res.send(raw);
-    });
+  server.put('/api/user/update/:username', 
+    function (req, res, next) {
+      User.update({username: req.param('username')}, req.body, function (err, numberAffected, raw) {
+        if (err) {
+          return next(err);
+        }
+        res.send(raw);
+      });
   });
 };
