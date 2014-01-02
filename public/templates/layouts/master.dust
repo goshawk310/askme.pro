@@ -1,14 +1,25 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html lang="pl" xmlns:fb="http://ogp.me/ns/fb#">
 <head>
-    <meta charset="utf-8" />
-    <title>{+title /}</title>
-    <link rel="stylesheet" href="css/app.css" />
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<meta name="description" content="Wysyłaj i odbieraj anonimowe pytania aby dowiedzieć się, co inni myślą o tobie." />
+	<meta property="og:image" content="http://askme.pro/ask.jpg" />
+	<base href="/" />
+	<title>{+title /}</title>
+	<link type="image/x-icon" href="media/images/ico.png" rel="icon" />
+	<link type="image/x-icon" href="media/images/ico.png" rel="shortcut icon" />
+	<meta name="keywords" content="Anonimowe pytania, pytania i odpowiedzi, pytaj mnie, ask, formspring, po polsku" />
+	<link type="text/css" href="/css/themes/cyanmettal.css" rel="stylesheet" />
+	<link type="text/css" href="/css/style.css" rel="stylesheet" />
+	<link type="text/css" href="/css/highslide.css" rel="stylesheet" />
 </head>
 <body>
-<div id="wrapper">
-    {+body /}
-</div>
-
+	<div id="wrapper"{+wrapperAttribs /}>
+		{>"layouts/partials/top"/}
+		<div id="content">
+			{+body /}
+		</div>
+	</div>
+	{>"layouts/partials/footer"/}
 </body>
 </html>

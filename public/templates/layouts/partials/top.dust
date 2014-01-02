@@ -1,0 +1,32 @@
+<div id="header">
+	<div id="headercontent">
+		<div id="logo">
+			<a href="/{?user}site/activity{/user}"><img src="/images/logo.png" alt="askme.pro" width="120" height="40"></a>
+		</div>
+		<ul id="headernav">
+			{?user} 
+				<li><a href="/account/logout">{@__ phrase="Wyloguj"/}</a></li>
+			{:else}
+				<li><a href="/account/login">Zaloguj</a></li>
+				<li><a href="/account/signup">Zarejestruj się</a></li>
+			{/user}
+			<li><a href="/search/profiles">{@__ phrase="Szukaj"/}</a></li>
+			<li><a href="/top20" style="padding:5px; border-radius:5px; background:#1CC4E7;">{@__ phrase="TOP 20"/}</a></li>
+			{?user} 
+				<li><a href="/account/settings">{@__ phrase="Ustawienia"/}</a></li>
+				<li><a href="/account/inbox">{@__ phrase="Pytania"/} (<span id="inboxCount"><font color="#FF0000">16</font></span>)</a></li>
+				<li><a href="{user.username}">{@__ phrase="Profil"/}</a></li>
+				<li><a class="black" href="/administration/index.php">[ {@__ phrase="Administracja"/} ]</a></li>
+			{/user}
+		</ul>
+		{?user}
+			<ul id="headernav" class="notifications">
+				<li class="notifyanswers" onclick="opennotification(3);"></li>
+				<li class="notifyquestions" onclick="opennotification(2);"></li>
+				<li class="notifylikes" onclick="opennotification(1);"></li>
+			</ul>
+			<div id="notifybox"></div>
+		{/user}
+		<div class="clear"></div>
+	</div>
+</div>

@@ -1,5 +1,24 @@
 {>"layouts/master" /}
-
+{<wrapperAttribs} class="homepage"{/wrapperAttribs}
 {<body}
-    <h1>{@pre type="content" key="index.greeting"/}</h1>
+    <div id="intro">
+		<h1 style="font-size:26px; font-weight:normal;">Poznaj mnie na ASKME.pro</h1>
+      	<ul id="slider1">
+			<li><img border="0" src="/images/slides/1.png" width="599" height="337" alt="askme.pro slide" title="askme.pro slide" /></li>
+			<li><img border="0" src="/images/slides/2.png" width="599" height="337" alt="askme.pro slide" title="askme.pro slide" /></li>
+			<li><img border="0" src="/images/slides/3.png" width="599" height="337" alt="askme.pro slide" title="askme.pro slide" /></li>
+		</ul>
+    </div>
+    <div id="signup" class="right">	
+    	<form method="post" action="account/login" id="loginForm">
+        	<input type="text" name="username" id="username" size="20" maxlength="32" placeholder="{@__ phrase="Login" /}:"/><br />
+        	<input type="password" name="password" id="password" size="15" placeholder="{@__ phrase="Hasło" /}:"/>
+			<small class="left"><a href="account/forgotpassword">{@__ phrase="Przypomnij hasło?" /}</a></small>
+			<small class="right"><a href="account/signup">{@__ phrase="Zarejestruj się?" /}</a></small>
+        	<div class="clear"></div>
+        	<center><input type="submit" name="submit" value="{@__ phrase="Zaloguj" /}" id="loginSubmit" /></center>
+        	<input type="hidden" name="_csrf" value="{_csrf}" />
+		</form>
+    </div>
+	<div class="clear"></div>
 {/body}

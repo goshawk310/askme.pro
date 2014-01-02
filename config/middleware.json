@@ -6,6 +6,12 @@
         },
         "appsec": {
         		"csrf": true
+        },
+        "i18n": {
+        	"locales": ["pl", "en"],
+      		"defaultLocale": "pl",
+      		"cookie": "locale",
+      		"directory": "./locales"
         }
     }
 }

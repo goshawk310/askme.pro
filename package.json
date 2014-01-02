@@ -6,7 +6,7 @@
     "main": "index.js",
     "scripts": {
         "test": "grunt test",
-        "dev": "nodemon index.js",
+        "dev": "nodemon -e js,dust index.js",
         "start": "forever start index.js"
     },
     "engines": {
@@ -26,7 +26,10 @@
         "mongoose-validator": "~0.2.2",
         "passport": "~0.1.17",
         "possport-local": "~0.1.6",
-        "connect-flash": "~0.1.1"
+        "connect-flash": "~0.1.1",
+        "i18n": "~0.4.1",
+        "moment": "~2.5.0",
+        "bcrypt": "~0.7.7"
     },
     "devDependencies": {
         "mocha": "~1.10.0",
