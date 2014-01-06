@@ -143,7 +143,7 @@ input[type=text]:focus,input[type=password]:focus,textarea:focus{border:1px soli
 #boxthird{width:717px}
 #box .loginMeta{margin-top:30px;display:inline-block}
 #box .supporting,#boxsecond .supporting,#boxthird .supporting{display:inline-block;height:50px}
-#box input,input.w40{width:214px;border:1px solid #bbb;color:#464646;background:rgba(0,0,0,0.15);border-radius:2px;box-shadow:0 1px 0 rgba(255,255,255,0.2),inset 0 1px 1px rgba(0,0,0,0.1);-webkit-transition:all .3s ease-out;-moz-transition:all .3s ease-out;-ms-transition:all .3s ease-out;-o-transition:all .3s ease-out;transition:all .3s ease-out; height:24px; margin:0;}
+#box input,input.w40{width:214px;border:1px solid #bbb;color:#464646;background:rgba(0,0,0,0.15);border-radius:2px;box-shadow:0 1px 0 rgba(255,255,255,0.2),inset 0 1px 1px rgba(0,0,0,0.1);height:24px; margin:0;}
 #topTabs{border-bottom:solid 1px #235;float:left;width:100%;margin:55px 0 0;padding:0}
 #topTabs li{-moz-border-radius-topleft:4px;-moz-border-radius-topright:4px;-webkit-border-top-left-radius:4px;-webkit-border-top-right-radius:4px;background-color:#f0f0f0;border:solid 1px #ccc;border-bottom:0;border-top-left-radius:4px;border-top-right-radius:4px;float:left;list-style-type:none;width:100px;text-align:center;margin:0 5px;padding:0}
 #topTabs li a{color:#555;display:block;font-size:12px;text-decoration:none;padding:3px 24px}
@@ -366,7 +366,7 @@ background: -o-linear-gradient(top,  #1cc4e7 0%,#18b4d5 100%); /* Opera 11.10+ *
 background: -ms-linear-gradient(top,  #1cc4e7 0%,#18b4d5 100%); /* IE10+ */
 background: linear-gradient(to bottom,  #1cc4e7 0%,#18b4d5 100%); /* W3C */
 filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#1cc4e7', endColorstr='#18b4d5',GradientType=0 ); /* IE6-9 */
-border:1px solid #16accb;border-radius:5px;box-shadow:inset 0 1px rgba(255,255,255,0.4),0 2px 1px rgba(0,0,0,0.1);cursor:pointer;transition:all .3s ease-out;font:bold 12px/1 "helvetica neue",helvetica,arial,sans-serif;text-align:center;text-decoration:none;margin:18px 0;padding:8px 5px}
+border:1px solid #16accb;border-radius:5px;box-shadow:inset 0 1px rgba(255,255,255,0.4),0 2px 1px rgba(0,0,0,0.1);cursor:pointer;font:bold 12px/1 "helvetica neue",helvetica,arial,sans-serif;text-align:center;text-decoration:none;margin:18px 0;padding:8px 5px}
 #username,#password{float:left;margin-bottom:12px;width:150px}
 #signup p{font-size:14px}
 #signup small{font-size:14px;padding:0 10px}
@@ -542,7 +542,7 @@ a:hover.o5582n66{color:orange;cursor:pointer;text-decoration:none}
     width: 300px;
 }
 #loginForm h1{font-size:22px;padding-bottom:20px}
-#loginForm input[type=text],#loginForm input[type=password]{width:94%;margin-bottom:15px;border:1px solid #B8D5E6;background:rgba(0,0,0,0.15);border-radius:2px;box-shadow:0 1px 0 rgba(255,255,255,0.2), inset 0 1px 1px rgba(0,0,0,0.1);-webkit-transition:all .3s ease-out;-moz-transition:all .3s ease-out;-ms-transition:all .3s ease-out;-o-transition:all .3s ease-out;transition:all .3s ease-out;font-family:Raleway,Lato,Arial,sans-serif;color:#fff;font-size:13px;padding:8px 4px 8px 10px; background:#fff; color:#464646;}
+#loginForm input[type=text],#loginForm input[type=password]{width:94%;margin-bottom:15px;border:1px solid #B8D5E6;background:rgba(0,0,0,0.15);border-radius:2px;box-shadow:0 1px 0 rgba(255,255,255,0.2), inset 0 1px 1px rgba(0,0,0,0.1);font-family:Raleway,Lato,Arial,sans-serif;color:#fff;font-size:13px;padding:8px 4px 8px 10px; background:#fff; color:#464646;}
 #loginForm input[type=text]:focus,#loginForm input[type=password]:focus,#loginForm input[type=submit]:focus{box-shadow:0 1px 0 rgba(250,105,0,0.2), inset 0 1px 1px rgba(0,0,0,0.1), 0 0 0 3px rgba(250,105,0,0.15);outline:none}
 .no-boxshadow #loginForm input[type=text]:focus,.no-boxshadow #loginForm input[type=password]:focus{outline:1px solid #FFF}
 #loginForm input[type="submit"] {
@@ -565,7 +565,6 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#88bfe8', end
     font-weight: 700;
     padding: 8px 5px;
     text-shadow: 0 1px 0 rgba(0, 0, 0, 0.3);
-    transition: all 0.3s ease-out 0s;
     width: 100%;
 }
 #loginForm input[type=submit]:hover{box-shadow:inset 0 1px rgba(136,191,232,0.1), inset 0 20px 30px rgba(136,191,232,0.4)}

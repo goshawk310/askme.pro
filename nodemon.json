@@ -1,0 +1,7 @@
+{
+  "ignoring": [
+  	".build/*"
+  ],
+  "verbose": true,
+  "monitor": ["!.git", "!node_modules/**/node_modules", "*.js", "*.dust", "*.css"]
+}

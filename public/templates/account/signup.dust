@@ -1,57 +1,145 @@
 {>"layouts/master" /}
 {<body}
-	<div id="centercontent">
-    	<h2>Zarejestruj</h2>
-		<div class="streamadd"></div>
-		{?errorMsg}
-			<p class="error"><b>{@__ phrase="Bład" /}:</b>{errorMsg}</p>
-		{/errorMsg}
-    	<form method="post" action="account/signup" id="setupForm" onsubmit="return setupComplete()">
-	    	<div id="box">
-        		<label for="username">{@__ phrase="Login" /}</label><br>
-	    		<span class="supporting">Twój profil (tylko litery i cyfry bez polskich znaków): http://askme.pro/twoj_login</span>
-	    		<input type="text" name="username" id="username" size="40" class="w40" maxlength="21" value="{formData.username}" autocomplete="off">
-        		<br>
-      			<span id="usernameStatus"></span>
-	 		</div>
-			<div id="box">
-      			<label for="password">{@__ phrase="Hasło" /}</label><br>
-	  			<span class="supporting">Może zawierać litery i liczby</span><br>
-      			<input type="password" name="password" id="password" size="40" class="w40" />
-      			<span id="passwordStatus"></span>
-     		</div>
-	 	    <div id="box"> 
-      	    	<label for="password2">{@__ phrase="Powtórz hasło" /}</label><br>
-	  			<span class="supporting">Może zawierać litery i liczby</span><br>
-      			<input type="password" name="password2" id="password2" size="40" class="w40">
-     		</div>
-	 		<div id="box">
-      			<label for="name">{@__ phrase="Imię" /}</label><br>
-	  			<span class="supporting">Proszę wprowadź swoje prawdziwe imię aby można było łatwiej Cię wyszukać.</span><br>
-      			<input type="text" name="name" id="name" size="40" class="w40" maxlength="60" value="{formData.name}">
-     		</div>
-	 		<div id="box">
-      			<label for="lastname">{@__ phrase="Nazwisko" /}</label><br>
-	  			<span class="supporting">To pole nie jest wymagane ale również usprawni wyszukiwanie.</span><br>
-      			<input type="text" name="lastname" id="lastname" size="40" class="w40" maxlength="60" value="{formData.lastname}">
-     		</div>
-	 		<div id="box">
-      			<label for="email">{@__ phrase="Email" /}</label><br>
-	  			<span class="supporting">Twój adres email.</span><br>
-      			<input type="text" name="email" id="email" size="40" class="w40" value="{formData.email}">
-      		</div>
-	 		<div class="clear"></div><br>
-	  		<table border="0" style="margin:0 auto">
-			    <tr>
-					<td><img src='/captcha.jpg' /></td>
-				  	<td><input type="text" name="captcha" id="captcha" size="40" class="w40" maxlength="60" value="" placeholder="Captcha"/></td>
-			    </tr>
-			</table>
-	  		<br>
-      		<input type="checkbox" name="terms_accepted" id="terms" value="1"{?formData.terms_accepted} checked="checked"{/formData.terms_accepted}>
-      		<label id="termsLabel" for="terms">Klikając zarejestruj, zatwierdzasz <a href="site/terms" target="_blank">Regulamin</a> .</label><br>
-      		<input type="hidden" name="_csrf" value="{_csrf}" />
-      		<input type="submit" name="submit" value="Zarejestruj" class="submit">
-    </form>
-   </div>
+    <div class="container">
+        {>"layouts/partials/ads/top"/}
+    <div class="row">
+        <div class="col-md-2">
+            {>"layouts/partials/ads/left"/}
+        </div>
+        <div class="col-md-8">
+            <div class="center-block">
+                {?message}
+                    {@message data=message /}
+                {/message}
+                <div class="panel panel-default box-shadow">
+                    <div class="panel-heading">
+                        <h4>{@__ phrase="Zarejestruj się" /}!</h4>
+                    </div>
+                    <div class="panel-body">
+                        <form role="form" method="post" action="/account/forgotpassword" class="form-2-cols">
+                            <div class="row">
+                                <div class="form-group">
+                                    <div class="col-xs-12">
+                                        <label class="sr-only" for="username">{@__ phrase="Login" /}:</label>
+                                    </div>
+                                    <div class="col-xs-7">
+                                        <input type="text" name="username" id="username" value="{formData.username}" class="form-control" placeholder="{@__ phrase="Login" /}:" autocomplete="off">
+                                    </div>
+                                    <div class="col-xs-5">
+                                        <span class="help-block">
+                                            <small>{@__ phrase="Twój profil (tylko litery i cyfry bez polskich znaków): http://askme.pro/twoj_login" /}</small>
+                                        </span>
+                                    </div>
+                                    <div class="clearfix"></div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-xs-12">
+                                        <label class="sr-only" for="username">{@__ phrase="Email" /}:</label>
+                                    </div>
+                                    <div class="col-xs-7">
+                                        <input type="email" name="email" id="email" value="{formData.email}" class="form-control" placeholder="{@__ phrase="Email" /}:">
+                                    </div>
+                                    <div class="col-xs-5">
+                                        <span class="help-block">
+                                            <small>{@__ phrase="Twój adres email." /}</small>
+                                        </span>
+                                    </div>
+                                    <div class="clearfix"></div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-xs-12">
+                                        <label class="sr-only" for="password">{@__ phrase="Hasło" /}:</label>
+                                    </div>
+                                    <div class="col-xs-7">
+                                        <input type="password" name="password" id="password" value="" class="form-control" placeholder="{@__ phrase="Hasło" /}:" autocomplete="off">
+                                    </div>
+                                    <div class="col-xs-5">
+                                        <span class="help-block">
+                                            <small>{@__ phrase="Może zawierać litery i liczby." /}</small>
+                                        </span>
+                                    </div>
+                                    <div class="clearfix"></div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-xs-12">
+                                        <label class="sr-only" for="password2">{@__ phrase="Powtórz hasło" /}:</label>
+                                    </div>
+                                    <div class="col-xs-7">
+                                        <input type="password" name="password2" id="password2" value="" class="form-control" placeholder="{@__ phrase="Powtórz hasło" /}:" autocomplete="off">
+                                    </div>
+                                    <div class="col-xs-5">
+                                    </div>
+                                    <div class="clearfix"></div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-xs-12">
+                                        <label class="sr-only" for="name">{@__ phrase="Imię" /}:</label>
+                                    </div>
+                                    <div class="col-xs-7">
+                                        <input type="text" name="name" id="name" value="{formData.name}" class="form-control" placeholder="{@__ phrase="Imię" /}:" autocomplete="off">
+                                    </div>
+                                    <div class="col-xs-5">
+                                        <span class="help-block">
+                                            <small>{@__ phrase="Proszę wprowadź swoje prawdziwe imię aby można było łatwiej Cię wyszukać." /}</small>
+                                        </span>
+                                    </div>
+                                    <div class="clearfix"></div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-xs-12">
+                                        <label class="sr-only" for="lastname">{@__ phrase="Nazwisko" /}:</label>
+                                    </div>
+                                    <div class="col-xs-7">
+                                        <input type="text" name="lastname" id="lastname" value="{formData.lastname}" class="form-control" placeholder="{@__ phrase="Nazwisko" /}:" autocomplete="off">
+                                    </div>
+                                    <div class="col-xs-5">
+                                        <span class="help-block">
+                                            <small>{@__ phrase="To pole nie jest wymagane ale również usprawni wyszukiwanie." /}</small>
+                                        </span>
+                                    </div>
+                                    <div class="clearfix"></div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-xs-12">
+                                        <label class="sr-only" for="lastname">{@__ phrase="Czy jesteś robotem?" /}</label>
+                                    </div>
+                                    <div class="col-xs-7">
+                                        <div class="captcha-image-container">
+                                            <img src='/captcha.jpg' alt="captcha"/>
+                                        </div>
+                                        <input type="text" name="captcha" id="captcha" class="form-control" placeholder="{@__ phrase="Czy jesteś robotem?" /}" autocomplete="off">
+                                    </div>
+                                    <div class="col-xs-5 hidden-xs">
+                                        <span class="help-block">
+                                            <small>{@__ phrase="Prawidłowe uzupełnenie tego pola pozwoli nam ustalić czy jesteś człowiekiem :)" /}</small>
+                                        </span>
+                                    </div>
+                                    <div class="clearfix"></div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-xs-12">
+                                        <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox" name="terms_accepted" id="terms" value="1"{?formData.terms_accepted} checked="checked"{/formData.terms_accepted}> {@__ phrase="Klikając zarejestruj, zatwierdzasz"/} <a href="/site/terms" target="_blank">{@__ phrase="Regulamin" /}</a>
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="clearfix"></div>
+                                </div>
+                                
+                            </div>
+                            <input type="hidden" name="_csrf" value="{_csrf}">
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-primary">{@__ phrase="Zarejestruj" /}</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-2">
+            {>"layouts/partials/ads/right"/}
+        </div>
+    </div>
+</div>
 {/body}

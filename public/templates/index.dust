@@ -1,24 +1,50 @@
 {>"layouts/master" /}
 {<wrapperAttribs} class="homepage"{/wrapperAttribs}
 {<body}
-    <div id="intro">
-		<h1 style="font-size:26px; font-weight:normal;">Poznaj mnie na ASKME.pro</h1>
-      	<ul id="slider1">
-			<li><img border="0" src="/images/slides/1.png" width="599" height="337" alt="askme.pro slide" title="askme.pro slide" /></li>
-			<li><img border="0" src="/images/slides/2.png" width="599" height="337" alt="askme.pro slide" title="askme.pro slide" /></li>
-			<li><img border="0" src="/images/slides/3.png" width="599" height="337" alt="askme.pro slide" title="askme.pro slide" /></li>
-		</ul>
+<div class="container">
+    <div class="row">
+        <div class="col-md-7">
+            <h1 id="index-h1" class="text-center">{@__ phrase="Poznaj mnie na ASKME.pro" /}</h1>
+            <div id="fade-carousel" class="fade-carousel visible-md visible-lg">
+                <img src="/images/slides/1.png" alt="">
+                <img src="/images/slides/2.png" alt="">
+                <img src="/images/slides/3.png" alt="">
+            </div>
+        </div>
+        <div class="col-md-5">
+            <div id="index-login" class="panel panel-default box-shadow">
+                <div class="panel-body">
+                    <form role="form" method="post" action="/account/login">
+                        <div class="form-group">
+                            <input type="text" class="form-control" id="username" name="username" placeholder="{@__ phrase="Login"/}:">
+                        </div>
+                        <div class="form-group">
+                            <input type="password" class="form-control" id="password" name="password" placeholder="{@__ phrase="Hasło"/}:">
+                        </div>
+                        <div class="form-group">
+                            <small class="pull-left"><a href="account/forgotpassword">{@__ phrase="Przypomnij hasło" /}?</a></small>
+                            <small class="pull-right"><a href="account/signup">{@__ phrase="Zarejestruj się" /}</a></small>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="clearfix"></div>
+                        <input type="hidden" name="_csrf" value="{_csrf}" />
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary">{@__ phrase="Zaloguj się" /}</button>
+                        </div>
+                    </form>
+                </div>
+                <div class="panel-footer">
+
+                </div>
+            </div>
+        </div>
     </div>
-    <div id="signup" class="right">	
-    	<form method="post" action="account/login" id="loginForm">
-        	<input type="text" name="username" id="username" size="20" maxlength="32" placeholder="{@__ phrase="Login" /}:"/><br />
-        	<input type="password" name="password" id="password" size="15" placeholder="{@__ phrase="Hasło" /}:"/>
-			<small class="left"><a href="account/forgotpassword">{@__ phrase="Przypomnij hasło?" /}</a></small>
-			<small class="right"><a href="account/signup">{@__ phrase="Zarejestruj się?" /}</a></small>
-        	<div class="clear"></div>
-        	<center><input type="submit" name="submit" value="{@__ phrase="Zaloguj" /}" id="loginSubmit" /></center>
-        	<input type="hidden" name="_csrf" value="{_csrf}" />
-		</form>
-    </div>
-	<div class="clear"></div>
+</div>
 {/body}
+{@jsScript}
+    <script type="text/javascript">
+        $(function() {
+            askmePro.index();
+        });
+    </script>
+{/jsScript}

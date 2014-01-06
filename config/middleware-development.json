@@ -1,0 +1,17 @@
+{
+    "middleware": {
+        "session": {
+            "module": "memory",
+            "secret": "d280b1874789e060b95fc9890d646a1845e71b55"
+        },
+        "appsec": {
+        		"csrf": true
+        },
+        "i18n": {
+        	"locales": ["pl", "en"],
+      		"defaultLocale": "pl",
+      		"cookie": "locale",
+      		"directory": "./locales"
+        }
+    }
+}

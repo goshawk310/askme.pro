@@ -1,10 +1,61 @@
 {>"layouts/master" /}
-
+{<wrapperAttribs} class="homepage"{/wrapperAttribs}
 {<body}
-	<form method="post" action="/account/login">
-		<input type="text" name="username" id="username" placeholder="Login:" />
-		<input type="password" name="password" id="password" placeholder="Hasło:" />
-		<input type="hidden" name="_csrf" value="{_csrf}" />
-		<input type="submit" />
-	</form>
+<div class="container">
+    {>"layouts/partials/ads/top"/}
+    <div class="row">
+        <div class="col-md-2">
+            {>"layouts/partials/ads/left"/}
+        </div>
+        <div class="col-md-8">
+            <div class="center-block">
+                {?message}
+                    {@message data=message /}
+                {/message}
+                <div class="panel panel-default box-shadow">
+                    <div class="panel-heading">
+                        <h4>{@__ phrase="Zaloguj się" /}</h4>
+                    </div>
+                    <div class="panel-body">
+                        <form role="form" method="post" action="/account/login">
+                            <div class="row">
+                                <div class="col-xs-8 center-form-block">
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" id="username" name="username" placeholder="{@__ phrase="Login"/}:">
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="password" class="form-control" id="password" name="password" placeholder="{@__ phrase="Hasło"/}:">
+                                    </div>
+                                    <div class="form-group">
+                                        <small class="pull-left"><a href="/account/forgotpassword">{@__ phrase="Przypomnij hasło" /}?</a></small>
+                                        <small class="pull-right"><a href="/account/signup">{@__ phrase="Zarejestruj się" /}</a></small>
+                                        <div class="clearfix"></div>
+                                    </div>
+                                    <div class="clearfix"></div>
+                                    <input type="hidden" name="_csrf" value="{_csrf}" />
+                                    <div class="form-group">
+                                        <button type="submit" class="btn btn-primary">{@__ phrase="Zaloguj się" /}</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="panel-footer">
+                        <script src="//ulogin.ru/js/ulogin.js"></script>
+                        <center><h3 style="padding-bottom:15px; color:#464646; font-size:11px;">{@__ phrase="lub" /}</h3>
+                        <div id="uLogin" x-ulogin-params="display=buttons;optional=first_name,last_name,bdate,sex,photo,photo_big,country,city;providers=facebook,vkontakte,twitter,googleplus;redirect_uri=http%3A%2F%2F<?php echo SITE_DOMAIN; ?>%2Fsite%2Fauth;receiver=http%3A%2F%2F<?php echo SITE_DOMAIN; ?>%2Fsite%2Fulogin">
+                            <img src="/images/social/vk.png" x-ulogin-button = "vkontakte"/>
+                            <img src="/images/social/facebook.png" x-ulogin-button = "facebook"/>
+                            <img src="/images/social/twitter.png" x-ulogin-button = "twitter"/>
+                            <img src="/images/social/google.png" x-ulogin-button = "googleplus"/>
+                        </div></center>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-2">
+            {>"layouts/partials/ads/right"/}
+        </div>
+    </div>
+</div>
 {/body}

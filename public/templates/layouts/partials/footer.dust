@@ -1,23 +1,22 @@
 <div id="footer">
-	<div id="footercontent">
-  		<div id="footernav">
-			<ul class="terms">
-				<li><a href="/locale/ru"><img src="/images/flags/ru.png" width="22" height="16" /></a></li>
-				<li><a href="/locale/en"><img src="/images/flags/en.png" width="22" height="16" /></a></li>
-				<li><a href="/locale/pl"><img src="/images/flags/pl.png" width="22" height="16" /></a></li>
-    			<li><a href="site/privacy">{@__ phrase="Polityka prywatności"/}</a></li>
-    			<li><a href="site/terms">{@__ phrase="Regulamin"/}</a></li>
-				<li><a href="mailto:ask@askme.pro">{@__ phrase="Kontakt" /}</a></li>
-			</ul>
-			<ul id="languages"></ul>
-  		</div>
-  		<br />
- 		&copy; {@dateTime format="YYYY" /} <?php echo SITE_NAME; ?>. {@__ phrase="All rights reserved."/}<br />
-		<div class="clear"></div>
- 	</div>
-	<div style="width:100%; height:45px;">
-		<div style="border-top:1px solid #0a0a0a; margin:0 auto; font-size:12px; color:#fff; width:750px; padding-top:15px; text-align:center;">
-			{@__ phrase="Askme.pro, wysyłaj i odbieraj anonimowe pytania aby dowiedzieć się, co inni myślą o Tobie. Załóż darmowe konto i baw się razem z nami"/}
-		.</div>
-	</div>
+    <div class="container">
+        <ul class="nav nav-pills navbar-left">
+            <li>&copy; {@dateTime format="YYYY" /} <?php echo SITE_NAME; ?>. {@__ phrase="All rights reserved."/}</li>
+        </ul>
+        <ul class="nav nav-pills navbar-right">
+            <li><a href="mailto:ask@askme.pro">{@__ phrase="Kontakt" /}</a></li>
+            <li><a href="site/terms">{@__ phrase="Regulamin"/}</a></li>
+            <li><a href="site/privacy">{@__ phrase="Polityka prywatności"/}</a></li>
+            <li><a href="/locale/pl"><img src="/images/flags/pl.png" width="22" height="16" /></a></li>
+            <li><a href="/locale/en"><img src="/images/flags/en.png" width="22" height="16" /></a></li>
+            <li><a href="/locale/ru"><img src="/images/flags/ru.png" width="22" height="16" /></a></li>
+        </ul>
+        <div class="clearfix"></div>
+        <div class="center-block">
+            <hr>
+            <small>
+                {@__ phrase="Askme.pro, wysyłaj i odbieraj anonimowe pytania aby dowiedzieć się, co inni myślą o Tobie. Załóż darmowe konto i baw się razem z nami"/}
+            </small>
+        </div> 
+    </div>
 </div>
