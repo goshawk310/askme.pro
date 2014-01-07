@@ -41,10 +41,10 @@
     </div>
 </div>
 {/body}
-{@jsScript}
-    <script type="text/javascript">
-        $(function() {
-            askmePro.index();
-        });
-    </script>
-{/jsScript}
+{<js}
+<script type="text/javascript">
+    $(function() {
+        askmePro.index();
+    });
+</script>
+{/js}

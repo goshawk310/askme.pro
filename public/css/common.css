@@ -89,6 +89,8 @@ h1#index-h1 {
     margin-left: -11px;
 }
 
+.tab-content .well {margin-top: 10px;}
+
 @media (min-width: 768px) {
 	.navbar-nav > li > a.btn {
 		padding-top: 0;

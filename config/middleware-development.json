@@ -1,7 +1,12 @@
 {
     "middleware": {
         "session": {
-            "module": "memory",
+            "module": "connect-redis",
+            "config": {
+                "host": "localhost",
+                "port": 6379,
+                "db": 1
+            },
             "secret": "d280b1874789e060b95fc9890d646a1845e71b55"
         },
         "appsec": {

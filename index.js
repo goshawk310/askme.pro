@@ -42,11 +42,11 @@ app.requestBeforeRoute = function requestBeforeRoute(server) {
     // Configure passport
     auth().init(server);
     server.use(i18n.init);
+    dustjsHelper(server).init(dust);
 };
 
 app.requestAfterRoute = function requestAfterRoute(server) {
-    // Fired after routing occurs
-    dustjsHelper(server).init(dust);
+    // Fired after routing occurs   
 };
 kraken.create(app).listen(function(err) {
     if (err) {

@@ -28,6 +28,11 @@ var User = function() {
             required: true,
             validate: [validate('isEmail')]
         },
+        old_email: {
+            type: String,
+            required: false,
+            validate: [validate('isEmail')]
+        },
         name: {
             type: String,
             required: true

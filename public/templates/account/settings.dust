@@ -1,5 +1,51 @@
 {>"layouts/master" /}
-
 {<body}
-	{user|js}
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="center-block">
+                {?message}
+                    {@message data=message /}
+                {/message}
+                <div class="panel panel-default box-shadow">
+                    <div class="panel-heading">
+                        <h4>{@__ phrase="Ustawienia" /}</h4>
+                    </div>
+                    <div class="panel-body">
+                        <ul class="nav nav-pills" id="settings-tabs">
+                            <li class="active"><a href="#settings-account" data-toggle="tab">{@__ phrase="Konto" /}</a></li>
+                            <li><a href="#settings-password" data-toggle="tab">{@__ phrase="Hasło" /}</a></li>
+                            <li><a href="#settings-profile" data-toggle="tab">{@__ phrase="Profil" /}</a></li>
+                            <li><a href="#settings-avatar" data-toggle="tab">{@__ phrase="Zdjęcie" /}</a></li>
+                            <li><a href="#settings-bg" data-toggle="tab">{@__ phrase="Tło" /}</a></li>
+                            <li><a href="#settings-points" data-toggle="tab">{@__ phrase="Punkty" /}</a></li>
+                            <li><a href="#settings-deactivate" data-toggle="tab">{@__ phrase="Dezaktywuj" /}</a></li>
+                        </ul>
+                        <!-- Tab panes -->
+                        <div class="tab-content">
+                            <div class="tab-pane active well well-sm" id="settings-account">
+                                {>"account/settings/account"/}
+                            </div>
+                            <div class="tab-pane" id="settings-password">
+                                {>"account/settings/password"/}
+                            </div>
+                            <div class="tab-pane" id="messages">
+                                
+                            </div>
+                            <div class="tab-pane" id="settings">
+                                
+                            </div>
+                        </div>
+                    
+                    </div>
+                </div>
+            </div>       
+        </div>
+    </div>
+</div>
 {/body}
+{<js}
+<script type="text/javascript">
+    $('#settings-tabs').tab();
+</script>
+{/js}

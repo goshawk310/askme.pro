@@ -1,0 +1,64 @@
+<form role="form" method="post" action="/account/forgotpassword" class="form-2-cols">
+    <div class="row">
+        <div class="form-group">
+            <div class="col-md-12">
+                <label for="username">{@__ phrase="Login" /}:</label>
+            </div>
+            <div class="col-md-6">
+                <input type="text" name="username" id="username" value="{user.username}" class="form-control" placeholder="{@__ phrase="Login" /}:" autocomplete="off" disabled="disabled">
+            </div>
+            <div class="col-md-6">
+                <span class="help-block">
+                    
+                </span>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-12">
+                <label for="username">{@__ phrase="Email" /}:</label>
+            </div>
+            <div class="col-md-6">
+                <input type="email" name="email" id="email" value="{user.email}" class="form-control" placeholder="{@__ phrase="Email" /}:">
+            </div>
+            <div class="col-md-6">
+                <span class="help-block">
+                    <small>{@__ phrase="Twój adres email." /}</small>
+                </span>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-12">
+                <label for="name">{@__ phrase="Imię" /}:</label>
+            </div>
+            <div class="col-md-6">
+                <input type="text" name="name" id="name" value="{user.name}" class="form-control" placeholder="{@__ phrase="Imię" /}:" autocomplete="off">
+            </div>
+            <div class="col-md-6">
+                <span class="help-block">
+                    <small>{@__ phrase="Proszę wprowadź swoje prawdziwe imię aby można było łatwiej Cię wyszukać." /}</small>
+                </span>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-12">
+                <label for="lastname">{@__ phrase="Nazwisko" /}:</label>
+            </div>
+            <div class="col-md-6">
+                <input type="text" name="lastname" id="lastname" value="{user.lastname}" class="form-control" placeholder="{@__ phrase="Nazwisko" /}:" autocomplete="off">
+            </div>
+            <div class="col-md-6">
+                <span class="help-block">
+                    <small>{@__ phrase="To pole nie jest wymagane ale również usprawni wyszukiwanie." /}</small>
+                </span>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+        </div>
+    <input type="hidden" name="_csrf" value="{_csrf}">
+    <div class="form-group">
+        <button type="submit" class="btn btn-primary">{@__ phrase="Zapisz" /}</button>
+    </div>
+</form>
