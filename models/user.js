@@ -85,7 +85,7 @@ var User = function() {
 
     schema.post('save', function() {
         var ext = '',
-            oldAvatar = this._original.avatar;
+            oldAvatar = this._original ? this._original.avatar : null;
         if (oldAvatar && this.avatar !== oldAvatar) {
             ext = path.extname(oldAvatar);
             fsExtra.remove(config.avatar.dir + oldAvatar);

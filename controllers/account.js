@@ -130,7 +130,6 @@ module.exports = function (server) {
     });
 
     server.get('/account/signup', function  (req, res) {
-        server.use('/captcha.jpg', captcha.generate());
         var formData = req.flash('formData');
         res.render('account/signup', {
             message: req.flash('message'),

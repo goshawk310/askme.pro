@@ -40,7 +40,8 @@ app.requestStart = function requestStart(server) {
                 }
             };
         }
-    }); 
+    });
+    
 };
 
 app.requestBeforeRoute = function requestBeforeRoute(server) {
@@ -53,7 +54,8 @@ app.requestBeforeRoute = function requestBeforeRoute(server) {
 };
 
 app.requestAfterRoute = function requestAfterRoute(server) {
-    // Fired after routing occurs 
+    // Fired after routing occurs
+    server.use('/captcha.jpg', require('easy-captcha').generate());
 };
 kraken.create(app).listen(function(err) {
     if (err) {
