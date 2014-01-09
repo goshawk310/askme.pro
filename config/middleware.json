@@ -1,7 +1,7 @@
 {
     "middleware": {
         "session": {
-            "module": "memory",
+            "module": "connect-redis",
             "config": {
                 "host": "localhost",
                 "port": 6379,
@@ -17,6 +17,10 @@
       		"defaultLocale": "pl",
       		"cookie": "locale",
       		"directory": "./locales"
+        },
+        "errorHandler": {
+            "dumpExceptions": false,
+            "showStack": false
         }
     }
 }

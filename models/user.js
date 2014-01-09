@@ -3,7 +3,10 @@
 var mongoose = require('mongoose'),
     validate = require('mongoose-validator').validate,
     bcrypt = require('bcrypt'),
-    crypto = require('crypto');
+    crypto = require('crypto'),
+    fsExtra = require('fs-extra'),
+    config = require('../config/app'),
+    path = require('path');
 
 var User = function() {
 
@@ -41,6 +44,9 @@ var User = function() {
             type: String,
             required: true
         },
+        avatar: {
+            type: String
+        },
         old: {
             type: Boolean,
             default: false
@@ -73,6 +79,20 @@ var User = function() {
         }
     });
 
+    schema.post('init', function() {
+        this._original = this.toObject();
+    });
+
+    schema.post('save', function() {
+        var ext = '',
+            oldAvatar = this._original.avatar;
+        if (oldAvatar && this.avatar !== oldAvatar) {
+            ext = path.extname(oldAvatar);
+            fsExtra.remove(config.avatar.dir + oldAvatar);
+            fsExtra.remove(config.avatar.dir + oldAvatar.replace(ext, ''));
+        }
+    });
+
     schema.methods.comparePasswords = function comparePasswords(password, callback) {
         if (this.old === false) {
             return bcrypt.compare(password, this.password, function(err, matched) {
@@ -83,9 +103,9 @@ var User = function() {
             });
         } else {
             var matched = false;
-            password = crypto.createHash('md5').update(password.toLowerCase()).digest("hex");
+            password = crypto.createHash('md5').update(password.toLowerCase()).digest('hex');
             password = (new Buffer(password)).toString('base64');
-            password = crypto.createHash('sha1').update(password).digest("hex");
+            password = crypto.createHash('sha1').update(password).digest('hex');
             if (password === this.password) {
                 matched = true;
             }

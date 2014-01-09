@@ -9,7 +9,10 @@
 //
 // "host": "localhost",
 //
-	"i18n": false
+	"i18n": {
+     "fallback": "en-US",
+     "contentPath": "path:./locales"
+ }
 //
 // "routes": {
 //     "routePath": "path:./controllers"

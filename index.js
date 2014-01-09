@@ -8,6 +8,7 @@ var kraken = require('kraken-js'),
     dust = require('dustjs-helpers'),
     i18n = require('i18n'),
     dustjsHelper = require('./lib/dustjs/helpers'),
+    express = require('express'),
     app = {};
 
 app.configure = function configure(nconf, next) {
@@ -21,6 +22,12 @@ app.configure = function configure(nconf, next) {
 
 app.requestStart = function requestStart(server) {
     // Fired at the beginning of an incoming request
+    server.locals({
+        config: require('./config/app')
+    });
+
+    require('./lib/uploads')(server, __dirname);
+    
     server.param(function(name, fn) {
         if (fn instanceof RegExp) {
             return function(req, res, next, val) {
@@ -33,7 +40,7 @@ app.requestStart = function requestStart(server) {
                 }
             };
         }
-    });
+    }); 
 };
 
 app.requestBeforeRoute = function requestBeforeRoute(server) {
@@ -46,7 +53,7 @@ app.requestBeforeRoute = function requestBeforeRoute(server) {
 };
 
 app.requestAfterRoute = function requestAfterRoute(server) {
-    // Fired after routing occurs   
+    // Fired after routing occurs 
 };
 kraken.create(app).listen(function(err) {
     if (err) {

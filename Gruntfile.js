@@ -86,7 +86,7 @@ module.exports = function (grunt) {
     grunt.loadTasks('./node_modules/makara/tasks/');
 
     grunt.registerTask('i18n', ['clean', 'makara', 'dustjs', 'clean:tmp']);
-    grunt.registerTask('build', ['jshint', 'less', 'requirejs', 'i18n']);
+    grunt.registerTask('build', ['i18n']);
     grunt.registerTask('test', ['jshint', 'mochacli', 'clean:tmp']);
 
 };

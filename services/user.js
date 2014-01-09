@@ -38,5 +38,8 @@ module.exports = {
                     });
             });
         });
+    },
+    changeAvatar: function changeAvatar() {
+        
     }
 };

@@ -3,6 +3,7 @@
 <div class="container">
     <div class="row">
         <div class="col-md-12">
+            {>"layouts/partials/ajaxalert" /}
             <div class="center-block">
                 {?message}
                     {@message data=message /}
@@ -13,13 +14,13 @@
                     </div>
                     <div class="panel-body">
                         <ul class="nav nav-pills" id="settings-tabs">
-                            <li class="active"><a href="#settings-account" data-toggle="tab">{@__ phrase="Konto" /}</a></li>
-                            <li><a href="#settings-password" data-toggle="tab">{@__ phrase="Hasło" /}</a></li>
-                            <li><a href="#settings-profile" data-toggle="tab">{@__ phrase="Profil" /}</a></li>
-                            <li><a href="#settings-avatar" data-toggle="tab">{@__ phrase="Zdjęcie" /}</a></li>
-                            <li><a href="#settings-bg" data-toggle="tab">{@__ phrase="Tło" /}</a></li>
-                            <li><a href="#settings-points" data-toggle="tab">{@__ phrase="Punkty" /}</a></li>
-                            <li><a href="#settings-deactivate" data-toggle="tab">{@__ phrase="Dezaktywuj" /}</a></li>
+                            <li class="active"><a href="#settings-account" data-toggle="pill">{@__ phrase="Konto" /}</a></li>
+                            <li><a href="#settings-password" data-toggle="pill">{@__ phrase="Hasło" /}</a></li>
+                            <li><a href="#settings-profile" data-toggle="pill">{@__ phrase="Profil" /}</a></li>
+                            <li><a href="#settings-avatar" data-toggle="pill">{@__ phrase="Zdjęcie" /}</a></li>
+                            <li><a href="#settings-bg" data-toggle="pill">{@__ phrase="Tło" /}</a></li>
+                            <li><a href="#settings-points" data-toggle="pill">{@__ phrase="Punkty" /}</a></li>
+                            <li><a href="#settings-deactivate" data-toggle="pill">{@__ phrase="Dezaktywuj" /}</a></li>
                         </ul>
                         <!-- Tab panes -->
                         <div class="tab-content">
@@ -32,8 +33,8 @@
                             <div class="tab-pane" id="messages">
                                 
                             </div>
-                            <div class="tab-pane" id="settings">
-                                
+                            <div class="tab-pane well well-sm" id="settings-avatar">
+                                {>"account/settings/avatar"/}
                             </div>
                         </div>
                     
@@ -45,7 +46,35 @@
 </div>
 {/body}
 {<js}
+<script src="/components/fileupload/vendor/jquery.ui.widget.js"></script>
+<script src="/components/fileupload/jquery.iframe-transport.js"></script>
+<script src="/components/fileupload/jquery.fileupload.js"></script>
+<script src="/components/fileupload/jquery.fileupload-process.js"></script>
+<script src="/components/fileupload/jquery.fileupload-validate.js"></script>
+<script src="/js/utils/upload.js"></script>
+
 <script type="text/javascript">
-    $('#settings-tabs').tab();
+    $(function () {
+        $('#settings-tabs').tab();
+        if (location.hash !== '') {
+            $('#settings-tabs li a[href="#' + location.hash.substr(5) + '"]').tab('show');
+        }
+        $('#settings-tabs li a[data-toggle="pill"]').on('shown.bs.tab', function(e) {
+            location.hash = 'tab=' + $(e.target).attr('href').substr(1);
+        });
+        askmePro.upload.settings.messages = {
+            maxNumberOfFiles: '{@__ phrase="Przekroczono limit ilości plików." /}',
+            acceptFileTypes: '{@__ phrase="Niedozwolony rodzaj pliku." /}',
+            maxFileSize: '{@__ phrase="Plik jest za duży." /}',
+            minFileSize: '{@__ phrase="Plik jest za mały." /}'
+        };
+        askmePro.upload.image(
+            $('#avatar-form'),
+            $('#avatar-progress'),
+            $('#user-avatar'),
+            '{config.avatar.url}',
+            '300x'
+        );
+    });
 </script>
 {/js}

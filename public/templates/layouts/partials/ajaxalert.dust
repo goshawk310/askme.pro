@@ -1,0 +1,6 @@
+<div id="ajax-alert-container">
+    <div class="alert alert-warning" id="ajax-alert">
+        <button type="button" class="close" aria-hidden="true">&times;</button>
+        <span></span>
+    </div>
+</div>

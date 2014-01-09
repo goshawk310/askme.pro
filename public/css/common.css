@@ -91,6 +91,42 @@ h1#index-h1 {
 
 .tab-content .well {margin-top: 10px;}
 
+/*file upload*/
+.fileinput-button {
+    position: relative;
+    overflow: hidden;
+}
+
+.fileinput-button input {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 0;
+    opacity: 0;
+    -ms-filter: 'alpha(opacity=0)';
+    font-size: 200px;
+    direction: ltr;
+    cursor: pointer;
+}
+
+#ajax-alert-container {
+    position: relative;
+    width: 100%;
+}
+#ajax-alert {
+    width: 100%;
+    display: none;
+}
+.progress-container {
+    display: none;
+}
+
+#user-avatar {max-width: 300px; width: 100%;}
+
+#footer .dropdown-menu a {
+    color: #000;
+}
+
 @media (min-width: 768px) {
 	.navbar-nav > li > a.btn {
 		padding-top: 0;

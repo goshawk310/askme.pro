@@ -3,7 +3,8 @@ var auth = require('../lib/auth')(),
     captcha = require('easy-captcha'),
     check = require('validator').check,
     userService = require('../services/user'),
-    UserModel = require('../models/user');
+    UserModel = require('../models/user'),
+    FileUpload = require('../lib/file/upload');
 
 module.exports = function (server) {
 
@@ -30,6 +31,74 @@ module.exports = function (server) {
     server.get('/account/settings', auth.isAuthenticated, function (req, res) {
         res.render('account/settings', {
             user: req.user
+        });
+    });
+
+    /**
+     * Settings
+     */
+    server.post('/account/avatar', auth.isAuthenticated, function (req, res) {
+        var upload = new FileUpload(req, res, {
+            allowedTypes: ['image/jpeg', 'image/jpg', 'image/png', 'image/gif'],
+            dir: server.locals.config.avatar.dir,
+            fileKey: 'avatar',
+            preProcess: function preProcess(file, callback) {
+                var thisObj = this,
+                    FileImage = require('../lib/file/image'),
+                    fileImage = new FileImage(file.path);
+                fileImage.checkSize(function (err, value) {
+                    if (err || value.width < 300 || value.height < 300 || value.width > 5000 || value.height > 5000) {
+                        thisObj.clearAll();
+                        return callback(new Error('Invalid image size.'), thisObj.req, thisObj.res);
+                    } else {
+                        thisObj.renameFile(file, callback);
+                    }
+                })
+            },
+            postProcess: function postProcess(filename, callback) {
+                var thisObj = this,
+                    FileImage = require('../lib/file/image'),
+                    fileImage = new FileImage(filename);
+                fileImage.quality(45, function (err) {
+                    if (err) {
+                        thisObj.clearAll();
+                        return callback(new Error('Quality change error.'), thisObj.req, thisObj.res);
+                    } else {
+                        return callback(null, thisObj.req, thisObj.res, filename);
+                    }
+                })
+            }
+        });
+        upload.one(function (err, req, res, filename) {
+            if (err) {
+                return res.send({
+                    status: 'error',
+                    message: res.__('Wystąpił błąd podczas zmiany zdjęcia.')
+                });
+            }
+            UserModel.findById(req.user._id, function(err, user) {
+                if (err) {
+                    return res.send({
+                        status: 'error',
+                        message: res.__('Wystąpił błąd podczas zmiany zdjęcia.')
+                    });
+                }
+                user.avatar = require('path').basename(filename);
+                user.save(function (err) {
+                    if (err) {
+                        upload.clearAll();
+                        return res.send({
+                            status: 'error',
+                            message: res.__('Wystąpił błąd podczas zmiany zdjęcia.')
+                        });
+                    }
+                    return res.send({
+                        status: 'success',
+                        message: res.__('Zdjęcie zostało zmienione.'),
+                        filename: user.avatar
+                    });
+                });
+            });
         });
     });
 
@@ -114,4 +183,6 @@ module.exports = function (server) {
             res.json(message);
         });
     });
+
+    
 };

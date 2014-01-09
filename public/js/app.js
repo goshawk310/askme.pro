@@ -2,23 +2,52 @@
 
 var askmePro = {
     utils: {
+        alertEventsInitialized: false,
         setupDefaultValidator: function setupDefaultValidator() {
             $.validator.setDefaults({
                 debug: true,
-                highlight: function(element, errorClass) {
+                highlight: function (element, errorClass) {
                     $(element).parents('.form-group').addClass('has-error').removeClass('has-success');
                     $(element).parent().next().children('span').hide();
                 },
-                unhighlight: function(element, errorClass) {
+                unhighlight: function (element, errorClass) {
                     $(element).parents('.form-group').removeClass('has-error').addClass('has-success');
                     $(element).parent().next().children('span').show();
                 },
                 errorElement: 'label',
                 errorClass: 'help-block',
-                errorPlacement: function(error, element) {
+                errorPlacement: function (error, element) {
                     $(element).parent().next().append(error);
                 }
             });
+        },
+        showAlert: function showAlert(data) {
+            var cssClass = 'alert alert-dismissable fade in',
+                alertElem = $('#ajax-alert'),
+                interval = null;
+            if (!this.alertEventsInitialized) {
+                alertElem.children('.close').bind('click', function (e) {
+                    $(this).parent().hide();
+                });
+                alertElem.bind('closed.bs.alert', function () {
+                    alertElem.hide();
+                });
+                this.alertEventsInitialized = true;
+            }    
+            if (data.status === 'error') {
+                cssClass += ' alert-danger';
+            } else {
+                cssClass += ' alert-' + data.status;
+            }    
+            alertElem.attr('class', cssClass);
+            alertElem.children('span').html(data.message);
+            alertElem.show();
+            $('html, body').scrollTop(0);
+            interval = setInterval(function () {
+                alertElem.hide();
+                clearInterval(interval);
+                interval = null;
+            }, 7000);
         }
     },
     index: function index() {
@@ -27,7 +56,7 @@ var askmePro = {
             elementLength = elements.length,
             i = 1;
         elements.first().show();
-        setInterval(function() {
+        setInterval(function () {
             $(elements).fadeOut();
             $(elements[i]).fadeIn();
             i += 1;

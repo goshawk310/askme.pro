@@ -49,5 +49,15 @@
 	"Hasło zostało zresetowane.": "Hasło zostało zresetowane.",
 	"Podana nazwa użytkownika jest już zajęta.": "Podana nazwa użytkownika jest już zajęta.",
 	"Wystąpił nieoczekiwany błąd.": "Wystąpił nieoczekiwany błąd.",
-	"Podany adre e-mail jest już zajęty.": "Podany adre e-mail jest już zajęty."
+	"Podany adre e-mail jest już zajęty.": "Podany adre e-mail jest już zajęty.",
+	"Avatar": "Avatar",
+	"Zmień zdjęcie": "Zmień zdjęcie",
+	"Zmień": "Zmień",
+	"Wystąpił błąd podczas zmiany zdjęcia.": "Wystąpił błąd podczas zmiany zdjęcia.",
+	"Zdjęcie zostało zmienione.": "Zdjęcie zostało zmienione.",
+	"Dodaj swoje zdjęcie aby znajomi łatwiej mogli cię odszukać.": "Dodaj swoje zdjęcie aby znajomi łatwiej mogli cię odszukać.",
+	"Przekroczono limit ilości plików.": "Przekroczono limit ilości plików.",
+	"Niedozwolony rodzaj pliku.": "Niedozwolony rodzaj pliku.",
+	"Plik jest za duży.": "Plik jest za duży.",
+	"Plik jest za mały.": "Plik jest za mały."
 }

@@ -5,7 +5,7 @@
   "author": "sjz",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon --ext js,dust --ignore '.build*' index.js",
+    "dev": "nodemon --ext js,dust --ignore '.build*' --ignore 'uploads*' index.js",
     "start": "forever start index.js"
   },
   "engines": {
@@ -32,7 +32,12 @@
     "easy-captcha": "~0.1.5",
     "validator": "2.0.0",
     "nodemailer": "~0.6.0",
-    "connect-redis": "~1.4.6"
+    "connect-redis": "~1.4.6",
+    "formidable": "~1.0.14",
+    "js-yaml": "~3.0.1",
+    "gm": "~1.14.2",
+    "imgr": "~0.9.3",
+    "fs-extra": "~0.8.1"
   },
   "devDependencies": {
     "mocha": "~1.10.0",
