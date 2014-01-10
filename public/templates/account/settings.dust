@@ -14,7 +14,7 @@
                     </div>
                     <div class="panel-body">
                         <ul class="nav nav-pills" id="settings-tabs">
-                            <li class="active"><a href="#settings-account" data-toggle="pill">{@__ phrase="Konto" /}</a></li>
+                            <li class="active"><a href="#settings-index" data-toggle="pill">{@__ phrase="Konto" /}</a></li>
                             <li><a href="#settings-password" data-toggle="pill">{@__ phrase="Hasło" /}</a></li>
                             <li><a href="#settings-profile" data-toggle="pill">{@__ phrase="Profil" /}</a></li>
                             <li><a href="#settings-avatar" data-toggle="pill">{@__ phrase="Zdjęcie" /}</a></li>
@@ -24,10 +24,10 @@
                         </ul>
                         <!-- Tab panes -->
                         <div class="tab-content">
-                            <div class="tab-pane active well well-sm" id="settings-account">
+                            <div class="tab-pane active well well-sm" id="settings-index">
                                 {>"account/settings/account"/}
                             </div>
-                            <div class="tab-pane" id="settings-password">
+                            <div class="tab-pane well well-sm" id="settings-password">
                                 {>"account/settings/password"/}
                             </div>
                             <div class="tab-pane" id="messages">
@@ -51,30 +51,24 @@
 <script src="/components/fileupload/jquery.fileupload.js"></script>
 <script src="/components/fileupload/jquery.fileupload-process.js"></script>
 <script src="/components/fileupload/jquery.fileupload-validate.js"></script>
+<script src="/components/validate/jquery.validate.min.js"></script>
+<script src="/components/validate/additional-methods.js"></script>
+{@ne key="en" value="{locale}"}
+    <script src="/components/validate/localization/messages_{locale}.js"></script>
+{/ne}
 <script src="/js/utils/upload.js"></script>
+<script src="/js/app/routes/settings.router.js"></script>
 
 <script type="text/javascript">
-    $(function () {
-        $('#settings-tabs').tab();
-        if (location.hash !== '') {
-            $('#settings-tabs li a[href="#' + location.hash.substr(5) + '"]').tab('show');
-        }
-        $('#settings-tabs li a[data-toggle="pill"]').on('shown.bs.tab', function(e) {
-            location.hash = 'tab=' + $(e.target).attr('href').substr(1);
-        });
-        askmePro.upload.settings.messages = {
-            maxNumberOfFiles: '{@__ phrase="Przekroczono limit ilości plików." /}',
-            acceptFileTypes: '{@__ phrase="Niedozwolony rodzaj pliku." /}',
-            maxFileSize: '{@__ phrase="Plik jest za duży." /}',
-            minFileSize: '{@__ phrase="Plik jest za mały." /}'
-        };
-        askmePro.upload.image(
-            $('#avatar-form'),
-            $('#avatar-progress'),
-            $('#user-avatar'),
-            '{config.avatar.url}',
-            '300x'
-        );
-    });
+    askmePro.utils.setupDefaultValidator();
+    askmePro.settings.upload.messages = {
+        maxNumberOfFiles: '{@__ phrase="Przekroczono limit ilości plików." /}',
+        acceptFileTypes: '{@__ phrase="Niedozwolony rodzaj pliku." /}',
+        maxFileSize: '{@__ phrase="Plik jest za duży." /}',
+        minFileSize: '{@__ phrase="Plik jest za mały." /}'
+    };
+    askmePro.settings.upload.avatar = {
+        url: '{config.avatar.url}'
+    };
 </script>
 {/js}

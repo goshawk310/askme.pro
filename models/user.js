@@ -31,11 +31,6 @@ var User = function() {
             required: true,
             validate: [validate('isEmail')]
         },
-        old_email: {
-            type: String,
-            required: false,
-            validate: [validate('isEmail')]
-        },
         name: {
             type: String,
             required: true
@@ -46,6 +41,11 @@ var User = function() {
         },
         avatar: {
             type: String
+        },
+        settings: {
+            anonymous_allowed: {
+                type: Boolean, default: true
+            }
         },
         old: {
             type: Boolean,
@@ -60,7 +60,9 @@ var User = function() {
         collection: 'user',
         autoIndex: false
     });
-
+    
+    /** pre
+     */
     schema.pre('save', function(next) {
         var user = this;
         user.terms_accepted = Boolean(user.terms_accepted);
@@ -83,7 +85,7 @@ var User = function() {
         this._original = this.toObject();
     });
 
-    schema.post('save', function() {
+    schema.post('save', function () {
         var ext = '',
             oldAvatar = this._original ? this._original.avatar : null;
         if (oldAvatar && this.avatar !== oldAvatar) {

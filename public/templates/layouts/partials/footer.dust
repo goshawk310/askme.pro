@@ -1,7 +1,7 @@
 <div id="footer">
     <div class="container">
         <ul class="nav nav-pills navbar-left">
-            <li>&copy; {@dateTime format="YYYY" /} <?php echo SITE_NAME; ?>. {@__ phrase="All rights reserved."/}</li>
+            <li>&copy; {@dateTime format="YYYY" /} askme.pro {@__ phrase="All rights reserved."/}</li>
         </ul>
         <div class="btn-group dropup pull-right">
             <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">

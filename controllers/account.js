@@ -4,7 +4,7 @@ var auth = require('../lib/auth')(),
     check = require('validator').check,
     userService = require('../services/user'),
     UserModel = require('../models/user'),
-    FileUpload = require('../lib/file/upload');
+    _ = require('underscore');
 
 module.exports = function (server) {
 
@@ -27,79 +27,50 @@ module.exports = function (server) {
         req.logout();
         res.redirect('/');
     });
-
+    
+    /**
+     * Settings
+     */
     server.get('/account/settings', auth.isAuthenticated, function (req, res) {
         res.render('account/settings', {
             user: req.user
         });
     });
 
-    /**
-     * Settings
-     */
-    server.post('/account/avatar', auth.isAuthenticated, function (req, res) {
-        var upload = new FileUpload(req, res, {
-            allowedTypes: ['image/jpeg', 'image/jpg', 'image/png', 'image/gif'],
-            dir: server.locals.config.avatar.dir,
-            fileKey: 'avatar',
-            preProcess: function preProcess(file, callback) {
-                var thisObj = this,
-                    FileImage = require('../lib/file/image'),
-                    fileImage = new FileImage(file.path);
-                fileImage.checkSize(function (err, value) {
-                    if (err || value.width < 300 || value.height < 300 || value.width > 5000 || value.height > 5000) {
-                        thisObj.clearAll();
-                        return callback(new Error('Invalid image size.'), thisObj.req, thisObj.res);
-                    } else {
-                        thisObj.renameFile(file, callback);
-                    }
-                })
-            },
-            postProcess: function postProcess(filename, callback) {
-                var thisObj = this,
-                    FileImage = require('../lib/file/image'),
-                    fileImage = new FileImage(filename);
-                fileImage.quality(45, function (err) {
-                    if (err) {
-                        thisObj.clearAll();
-                        return callback(new Error('Quality change error.'), thisObj.req, thisObj.res);
-                    } else {
-                        return callback(null, thisObj.req, thisObj.res, filename);
-                    }
-                })
-            }
-        });
-        upload.one(function (err, req, res, filename) {
-            if (err) {
-                return res.send({
-                    status: 'error',
-                    message: res.__('Wystąpił błąd podczas zmiany zdjęcia.')
-                });
-            }
-            UserModel.findById(req.user._id, function(err, user) {
+    server.post('/account/index', auth.isAuthenticated, function (req, res) {
+        userService.setReq(req).setRes(res)
+            .updatePrimaryData(req.user._id, req.body, function (err, req, res) {
                 if (err) {
                     return res.send({
                         status: 'error',
-                        message: res.__('Wystąpił błąd podczas zmiany zdjęcia.')
+                        message: res.__('Wystąpił błąd podczas aktualizacji danych.')
                     });
                 }
-                user.avatar = require('path').basename(filename);
-                user.save(function (err) {
-                    if (err) {
-                        upload.clearAll();
-                        return res.send({
-                            status: 'error',
-                            message: res.__('Wystąpił błąd podczas zmiany zdjęcia.')
-                        });
-                    }
-                    return res.send({
-                        status: 'success',
-                        message: res.__('Zdjęcie zostało zmienione.'),
-                        filename: user.avatar
-                    });
+                res.send({
+                    status: 'success',
+                    message: res.__('Dane zostały zaktualizowane pomyślnie.')
                 });
             });
-        });
+    });
+
+    server.post('/account/avatar', auth.isAuthenticated, function (req, res) {
+        userService.changeAvatar(server, req, res);
+    });
+
+    server.post('/account/password', auth.isAuthenticated, function (req, res) {
+        userService.setReq(req).setRes(res)
+            .changePassword(req.user._id, req.body, function (err, req, res) {
+                if (err) {
+                    return res.send({
+                        status: 'error',
+                        message: res.__('Wystąpił błąd podczas zmiany hasła.')
+                    });
+                }
+                res.send({
+                    status: 'success',
+                    message: res.__('Hasło zostało zaktualizowane pomyślnie.')
+                });
+            });
     });
 
     server.get('/account/forgotpassword', function (req, res) {
@@ -165,8 +136,8 @@ module.exports = function (server) {
             conds = {username: req.query.username};
             alreadyExistsMsg = res.__('Podana nazwa użytkownika jest już zajęta.');
         } else if (req.query.email) {
-            conds = {username: req.query.email};
-            alreadyExistsMsg = res.__('Podany adre e-mail jest już zajęty.');
+            conds = {email: req.query.email};
+            alreadyExistsMsg = res.__('Podany adres e-mail jest już zajęty.');
         } else {
             return res.json(errorMessage);
         }

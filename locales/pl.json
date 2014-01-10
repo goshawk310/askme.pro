@@ -59,5 +59,14 @@
 	"Przekroczono limit ilości plików.": "Przekroczono limit ilości plików.",
 	"Niedozwolony rodzaj pliku.": "Niedozwolony rodzaj pliku.",
 	"Plik jest za duży.": "Plik jest za duży.",
-	"Plik jest za mały.": "Plik jest za mały."
+	"Plik jest za mały.": "Plik jest za mały.",
+	"Podany adres e-mail jest już zajęty.": "Podany adres e-mail jest już zajęty.",
+	"Dane zostały zaktualizowane pomyślnie.": "Dane zostały zaktualizowane pomyślnie.",
+	"Zmień adres email.": "Zmień adres email.",
+	"Stare hasło": "Stare hasło",
+	"Nowe hasło": "Nowe hasło",
+	"Hasło zostało zaktualizowane pomyślnie.": "Hasło zostało zaktualizowane pomyślnie.",
+	"Wystąpił błąd podczas zmiany hasła.": "Wystąpił błąd podczas zmiany hasła.",
+	"Zablokuj anonimowe pytania": "Zablokuj anonimowe pytania",
+	"Dodatkowe ustawienia": "Dodatkowe ustawienia"
 }

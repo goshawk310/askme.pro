@@ -56,19 +56,19 @@
                         thisObj.showProgress(progressElem);
                     } else {
                         askmePro.utils.showAlert({
-                            status: 'error',
+                            status: "error",
                             message: data.files[data.index].error
                         });
                     }
                 },
                 fail: function (e, data) {
                     askmePro.utils.showAlert({
-                        status: 'error',
-                        message: thisObj.settings.upload.messages.serverError
+                        status: "error",
+                        message: thisObj.settings.messages.serverError
                     });
                     thisObj.hideProgress(progressElem);
                 },
-                messages: askmePro.settings.upload.messages
+                messages: thisObj.settings.messages
             }).prop('disabled', !$.support.fileInput)
                 .parent().addClass($.support.fileInput ? undefined : 'disabled');
             

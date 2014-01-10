@@ -1,23 +1,31 @@
 'use strict';
 
 var askmePro = {
+    views: {},
+    models: {},
+    collections: {},
+    routerIndex: null,
+    routers: {},
+    settings: {
+        upload: {}
+    },
     utils: {
         alertEventsInitialized: false,
         setupDefaultValidator: function setupDefaultValidator() {
             $.validator.setDefaults({
-                debug: true,
+                debug: false,
                 highlight: function (element, errorClass) {
                     $(element).parents('.form-group').addClass('has-error').removeClass('has-success');
-                    $(element).parent().next().children('span').hide();
+                    $(element).parents('.form-group').find('.help-block').parent().children('span').hide();
                 },
                 unhighlight: function (element, errorClass) {
                     $(element).parents('.form-group').removeClass('has-error').addClass('has-success');
-                    $(element).parent().next().children('span').show();
+                    $(element).parents('.form-group').find('.help-block').parent().children('span').show();
                 },
                 errorElement: 'label',
                 errorClass: 'help-block',
                 errorPlacement: function (error, element) {
-                    $(element).parent().next().append(error);
+                    $(element).parents('.form-group').find('.help-block').parent().append(error);
                 }
             });
         },
@@ -111,3 +119,9 @@ var askmePro = {
         });
     }
 };
+$(document).ready(function () {
+    if (askmePro.routerIndex !== null) {
+        askmePro.router = new askmePro.routers[askmePro.routerIndex]();
+        Backbone.history.start();
+    }
+});

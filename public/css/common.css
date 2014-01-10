@@ -127,6 +127,19 @@ h1#index-h1 {
     color: #000;
 }
 
+.btn.loading {
+    display: none;
+    cursor: default;
+    background-image: url('../images/wait.gif');
+    background-repeat: no-repeat;
+    background-position: 50% 50%;
+}
+
+.btn.loading.right {
+    margin-left: 10px;
+}
+
+
 @media (min-width: 768px) {
 	.navbar-nav > li > a.btn {
 		padding-top: 0;
