@@ -126,15 +126,19 @@ var User = function() {
 
     schema.post('save', function () {
         var ext = '',
+            oldAvatar = null,
+            oldBackground = null;
+        if (this._original) {
             oldAvatar = this._original.avatar ? this._original.avatar : null,
             oldBackground = this._original.custom_background ? this._original.custom_background: null;
-        if (oldAvatar && this.avatar !== oldAvatar) {
-            ext = path.extname(oldAvatar);
-            fsExtra.remove(config.avatar.dir + oldAvatar);
-            fsExtra.remove(config.avatar.dir + oldAvatar.replace(ext, ''));
-        }
-        if (oldBackground && this.custom_background !== oldBackground) {
-            fsExtra.remove(config.custom_background.dir + oldBackground);
+            if (oldAvatar && this.avatar !== oldAvatar) {
+                ext = path.extname(oldAvatar);
+                fsExtra.remove(config.avatar.dir + oldAvatar);
+                fsExtra.remove(config.avatar.dir + oldAvatar.replace(ext, ''));
+            }
+            if (oldBackground && this.custom_background !== oldBackground) {
+                fsExtra.remove(config.custom_background.dir + oldBackground);
+            }
         }
     });
 
