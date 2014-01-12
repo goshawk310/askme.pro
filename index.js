@@ -43,10 +43,10 @@ app.requestStart = function requestStart(server) {
 app.requestBeforeRoute = function requestBeforeRoute(server) {
     // Fired before routing occurs
     server.use(express.methodOverride());
+    server.use(i18n.init);
     server.use(flash());
     // Configure passport
-    auth().init(server);
-    server.use(i18n.init);
+    auth().init(server, i18n);
     dustjsHelper(server).init(dust);
 };
 

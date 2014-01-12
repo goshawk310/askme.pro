@@ -109,6 +109,26 @@ module.exports = function (server) {
     });
 
     server.put('/account/settings/custom_background', auth.isAuthenticated, function (req, res) {
-        userService.changeCustomBackground(server, req, res);
+        userService.setServer(server).setReq(req).setRes(res).changeCustomBackground();
+    });
+
+    /**
+     * 
+     * @param  {[type]} req
+     * @param  {[type]} res
+     * @return void
+     */
+    server.put('/account/settings/deactivate', auth.isAuthenticated, function (req, res) {
+        userService.setServer(server).setReq(req).setRes(res).deactivate(req.user._id, function (err, req, res) {
+            if (err) {
+                req.flash('message', {
+                    error: res.__('Wystąpił nieoczekiwany błąd.')
+                });
+                return res.redirect('/account/settings');
+            }
+            req.logout();
+            req.flash('error', res.__('Konto zostało zdezaktywowane.'));
+            res.redirect('/account/login');
+        });
     });
 };

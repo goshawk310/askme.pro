@@ -78,6 +78,10 @@ var User = function() {
         custom_background: {
             type: String
         },
+        points: {
+            type: Number,
+            default: 0
+        },
         old: {
             type: Boolean,
             default: false
@@ -86,6 +90,10 @@ var User = function() {
             type: Boolean,
             default: false,
             validate: [validate('equals', true)]
+        },
+        status: {
+            type: Number,
+            default: 1 
         }
     }, {
         collection: 'users',

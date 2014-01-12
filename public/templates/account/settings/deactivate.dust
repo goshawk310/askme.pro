@@ -1,0 +1,20 @@
+<form id="deactivate-form" role="form" method="post" action="/account/settings/deactivate" class="form-2-cols">
+    <div class="row">
+        <div class="form-group">
+            <div class="col-md-12">
+                <label>{@__ phrase="Dezaktywuj" /}:</label>
+            </div>
+            <div class="col-md-12">
+                <p>{@__ phrase="Możesz zdezaktywować konto, kiedy to zrobisz nie będzie dostępne dla innych użytkowników" /}</p>
+                <p>{@__ phrase="Po dezaktywacji możesz przywrócić konto do 2 miesięcy" /}</p>
+            </div>
+           <div class="clearfix"></div>
+        </div>
+    </div>
+    <input type="hidden" name="_method" value="put">
+    <input type="hidden" name="_csrf" value="{_csrf}">
+    <div class="form-group">
+        <button type="submit" class="btn btn-danger">{@__ phrase="Zdezaktywuj" /}</button>
+        <span class="loading btn link right">&nbsp;</span>
+    </div>
+</form>

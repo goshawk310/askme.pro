@@ -1,0 +1,25 @@
+<div class="row">
+    <div class="form-group">
+        <div class="col-md-12">
+            <label>{@__ phrase="Punkty" /}:</label>
+        </div>
+        <div class="col-md-12">
+            <p>
+                {@__ phrase="Masz" /} <span class="label label-primary">{user.points}</span> 
+                {@if cond="{user.points} == 1"}
+                    {@__ phrase="punkt" /}
+                {:else}
+                    {@if cond="{user.points} > 4 || {user.points} == 0"}
+                        {@__ phrase="punktów" /}
+                    {:else}
+                        {@__ phrase="punkty" /}
+                    {/if}    
+                {/if}
+                
+            </p>
+            <p>{@__ phrase="Zdobywaj punkty zadając i odpowiadając na pytania, oraz zbieraj lajki" /}.</p>
+            <p>{@__ phrase="Dzięki punktom możesz dawać gifty oraz być debeściakiem" /} :).</p>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+</div>  

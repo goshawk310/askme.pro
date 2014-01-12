@@ -38,6 +38,12 @@
                             </div>
                             <div class="tab-pane well well-sm" id="settings-bg">
                             </div>
+                            <div class="tab-pane well well-sm" id="settings-points">
+                                {>"account/settings/points"/}
+                            </div>
+                            <div class="tab-pane well well-sm" id="settings-deactivate">
+                                {>"account/settings/deactivate"/}
+                            </div>
                         </div>
                     
                     </div>

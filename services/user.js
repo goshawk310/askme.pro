@@ -186,8 +186,11 @@ module.exports = {
         }
         this.update(id, _.pick(data, 'background'), callback);
     },
-    changeCustomBackground: function changeCustomBackground(server, req, res) {
-        var upload = new FileUpload(req, res, {
+    changeCustomBackground: function changeCustomBackground() {
+        var server = this.getServer(),
+            req = this.getReq(),
+            res = this.getRes(),
+            upload = new FileUpload(req, res, {
             allowedTypes: ['image/jpeg', 'image/jpg', 'image/png', 'image/gif'],
             dir: server.locals.config.custom_background.dir,
             fileKey: 'custom_background',
@@ -249,5 +252,14 @@ module.exports = {
                 });
             });
         });
+    },
+    /**
+     * [deactivate user]
+     * @param  {Number}   id
+     * @param  {Function} callback
+     * @return {void}
+     */
+    deactivate: function deactivate(id, callback) {
+        this.update(id, {status: 0}, callback);
     }
 };
