@@ -25,9 +25,6 @@ app.requestStart = function requestStart(server) {
     server.locals({
         config: require('./config/app')
     });
-
-    require('./lib/uploads')(server, __dirname);
-    
     server.param(function(name, fn) {
         if (fn instanceof RegExp) {
             return function(req, res, next, val) {
@@ -41,11 +38,11 @@ app.requestStart = function requestStart(server) {
             };
         }
     });
-    
 };
 
 app.requestBeforeRoute = function requestBeforeRoute(server) {
     // Fired before routing occurs
+    server.use(express.methodOverride());
     server.use(flash());
     // Configure passport
     auth().init(server);
@@ -55,6 +52,7 @@ app.requestBeforeRoute = function requestBeforeRoute(server) {
 
 app.requestAfterRoute = function requestAfterRoute(server) {
     // Fired after routing occurs
+    require('./lib/uploads')(server, __dirname);
     server.use('/captcha.jpg', require('easy-captcha').generate());
 };
 kraken.create(app).listen(function(err) {

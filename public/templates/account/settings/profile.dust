@@ -1,0 +1,112 @@
+<form id="profile-form" role="form" method="post" action="/account/settings/profile" class="form-2-cols">
+    <div class="row">
+        <div class="form-group">
+            <div class="col-md-12">
+                <label for="profile-website">{@__ phrase="Strona www" /}:</label>
+            </div>
+            <div class="col-md-6">
+                <input type="url" name="profile[website]" id="profile-website" value="{user.profile.website}" class="form-control" placeholder="http://">
+            </div>
+            <div class="col-md-6">
+                <span class="help-block">
+                    {@__ phrase="np. FB" /}
+                </span>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-12">
+                <label for="profile-fanpage">{@__ phrase="Profil do obserwowania na FB" /}:</label>
+            </div>
+            <div class="col-md-6">
+                <input type="url" name="profile[fanpage]" id="profile-fanpage" value="{user.profile.fanpage}" class="form-control" placeholder="http://facebook.com/">
+            </div>
+            <div class="col-md-6">
+                <span class="help-block">
+                    <small>facebook.com/{@__ phrase="twój_profil_na_fb" /}</small>
+                </span>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-12">
+                <label for="profile-location">{@__ phrase="Adres" /}:</label>
+            </div>
+            <div class="col-md-6">
+                <input type="text" name="profile[location]" id="profile-location" value="{user.profile.location}" class="form-control" placeholder="{@__ phrase="Adres" /}:" autocomplete="off">
+            </div>
+            <div class="col-md-6">
+                <span class="help-block">
+                    <small>{@__ phrase="np. Polska, Warszawa" /}</small>
+                </span>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-12">
+                <label for="profile-motto">{@__ phrase="Motto" /}:</label>
+            </div>
+            <div class="col-md-6">
+                <input type="text" name="profile[motto]" id="profile-motto" value="{user.profile.motto}" class="form-control" placeholder="{@__ phrase="Motto" /}:">
+            </div>
+            <div class="col-md-6">
+                <span class="help-block">
+                    <small>{@__ phrase="Twoje motto pojawi się tuż nad formularzem zadawania pytań." /}</small>
+                </span>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-12">
+                <label for="profile-bio">{@__ phrase="Coś o Tobie" /}  (<small id="bio-count">200</small>):</label>
+            </div>
+            <div class="col-md-6">
+                <textarea name="profile[bio]" id="profile-bio"  class="form-control" placeholder="{@__ phrase="Coś o Tobie" /}:" rows="3">{user.profile.bio}</textarea>
+            </div>
+            <div class="col-md-6">
+                <span class="help-block">
+                    <small>{@__ phrase="Opowiedz nam coś o sobie." /}</small>
+                </span>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-12">
+                <label for="sticker">{@__ phrase="Wstążka" /}:</label>
+            </div>
+            <div class="col-md-6">
+                <select class="form-control" id="sticker" name="sticker">
+                    <option value="">{@__ phrase="brak" /}</option>
+                    {#stickers}
+                        <option{@eq key=user.sticker value=file} selected{/eq} value="{file}">{name}</option>
+                    {/stickers}
+                </select>
+            </div>
+            <div class="col-md-6">
+                <span class="help-block">
+                    <small></small>
+                </span>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-12">
+                <label for="words">{@__ phrase="Zablokowane słowa" /} (<small id="words-count">200</small>): </label> 
+            </div>
+            <div class="col-md-6">
+                <textarea name="blocked_words" id="blocked_words"  class="form-control" placeholder="{@__ phrase="Zablokowane słowa" /}:" rows="3">{user.blocked_words}</textarea>
+            </div>
+            <div class="col-md-6">
+                <span class="help-block">
+                    <small>{@__ phrase="Oddzielić spacją wszystkie słowa, co chcesz zablokować." /}</small>
+                </span>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+    <input type="hidden" name="_csrf" value="{_csrf}">
+    <div class="form-group">
+        <button type="submit" class="btn btn-primary">{@__ phrase="Zapisz" /}</button>
+        <span class="loading btn link right">&nbsp;</span>
+    </div>
+</form>

@@ -1,9 +1,10 @@
 'use strict';
-var auth = require('../lib/auth')(),
+var auth = require('../../lib/auth')(),
     captcha = require('easy-captcha'),
     check = require('validator').check,
-    userService = require('../services/user'),
-    UserModel = require('../models/user'),
+    userService = require('../../services/user'),
+    UserModel = require('../../models/user'),
+    StickerModel = require('../../models/sticker'),
     _ = require('underscore');
 
 module.exports = function (server) {
@@ -28,51 +29,7 @@ module.exports = function (server) {
         res.redirect('/');
     });
     
-    /**
-     * Settings
-     */
-    server.get('/account/settings', auth.isAuthenticated, function (req, res) {
-        res.render('account/settings', {
-            user: req.user
-        });
-    });
-
-    server.post('/account/index', auth.isAuthenticated, function (req, res) {
-        userService.setReq(req).setRes(res)
-            .updatePrimaryData(req.user._id, req.body, function (err, req, res) {
-                if (err) {
-                    return res.send({
-                        status: 'error',
-                        message: res.__('Wystąpił błąd podczas aktualizacji danych.')
-                    });
-                }
-                res.send({
-                    status: 'success',
-                    message: res.__('Dane zostały zaktualizowane pomyślnie.')
-                });
-            });
-    });
-
-    server.post('/account/avatar', auth.isAuthenticated, function (req, res) {
-        userService.changeAvatar(server, req, res);
-    });
-
-    server.post('/account/password', auth.isAuthenticated, function (req, res) {
-        userService.setReq(req).setRes(res)
-            .changePassword(req.user._id, req.body, function (err, req, res) {
-                if (err) {
-                    return res.send({
-                        status: 'error',
-                        message: res.__('Wystąpił błąd podczas zmiany hasła.')
-                    });
-                }
-                res.send({
-                    status: 'success',
-                    message: res.__('Hasło zostało zaktualizowane pomyślnie.')
-                });
-            });
-    });
-
+    
     server.get('/account/forgotpassword', function (req, res) {
         res.render('account/reset_password', {
             message: req.flash('message')[0]

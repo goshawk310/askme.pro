@@ -30,22 +30,26 @@
                 width: progress + '%'
             });
         },
-        image: function image(formElem, progressElem, imgElem, path, size) {
+        image: function image(formElem, progressElem, imgElem, path, size, callback) {
             var thisObj = this;
             formElem.fileupload({
                 acceptFileTypes: thisObj.settings.acceptFileTypes.image,
                 maxFileSize: thisObj.settings.maxFileSize,
                 dataType: 'json',
                 done: function (e, data) {
-                    var filename = '',
-                        ext = '';
-                    askmePro.utils.showAlert(data.result);
-                    if (data.result.status === 'success' && data.result.filename) {
-                        ext = '.' + data.result.filename.split('.').pop();
-                        filename = path + data.result.filename.replace(ext, '/' + size + ext);
-                        imgElem.attr('src', filename);
+                    if (typeof callback !== 'function') {
+                        var filename = '',
+                            ext = '';
+                        askmePro.utils.showAlert(data.result);
+                        if (data.result.status === 'success' && data.result.filename) {
+                            ext = '.' + data.result.filename.split('.').pop();
+                            filename = path + data.result.filename.replace(ext, '/' + size + ext);
+                            imgElem.attr('src', filename);
+                        }
+                        thisObj.hideProgress(progressElem);
+                    } else {
+                        callback.call(thisObj, e, data, formElem, progressElem, imgElem, path, size);
                     }
-                    thisObj.hideProgress(progressElem);
                 },
                 progressall: function (e, data) {
                     thisObj.setProgress(progressElem, data);

@@ -1,0 +1,52 @@
+<script type="text/template" id="settings-bg-tpl">
+    <div class="row">
+        <div class="col-md-12">
+            <label>{@__ phrase="Wybierz tło strony" /}:</label>
+        </div>
+        <form id="new-custom-bg-form" role="form" method="post" action="/account/settings/custom_background" enctype="multipart/form-data" class="form-2-cols">
+            <div class="form-group">
+                <div class="col-md-3">
+                    <button type="button" class="btn btn-primary fileinput-button">
+                        <span>{@__ phrase="Wgraj swoje tło" /}</span>
+                        <input type="file" name="custom_background" id="new-custom-background">
+                    </button>
+                </div>
+                <div class="col-md-3">
+                    <div class="progress progress-container" id="new-custom-bg-progress">
+                        <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
+                            <span class="sr-only"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    {^user.avatar}
+                        <span class="help-block">
+                            <small>{@__ phrase="Dodaj swoje zdjęcie aby znajomi łatwiej mogli cię odszukać." /}</small>
+                        </span>
+                    {/user.avatar}
+                </div>
+                <div class="clearfix"></div>
+            </div>
+            <input type="hidden" name="_method" value="put">
+            <input type="hidden" name="_csrf" value="{_csrf}">
+        </form>
+        <form id="bg-form" role="form" method="post" action="/account/settings/background" class="form-2-cols">
+            <div id="bgs-container">
+                <% _.each(bgs, function(bg) { %>
+                    <div class="col-xs-12 col-md-2 <%=bg.type%>-background">
+                        <button type="button" class="btn btn-default bg-button <%=bg.type%>-bg<%= ('{user.background}' === bg.url ? ' active' : '') %>" style="background-image: url(<%= bg.url %>)" data-background="<%= bg.file %>" data-type="<%=bg.type%>"></button>
+                    </div>
+                <% }); %>
+            </div>
+            <input type="hidden" name="_csrf" value="{_csrf}">
+            <input type="hidden" name="_method" value="put">
+            <input type="hidden" name="type" id="type" value="predefined" >
+            <input type="hidden" name="background" id="background" value="">
+        </form>
+    </div>
+</script>
+<script type="text/template" id="settings-custom-bg-tpl">
+    <div class="col-xs-12 col-md-2 custom-background">
+        <button type="button" class="btn btn-default bg-button custom-bg" style="background-image: url(/uploads/backgrounds/<%= bg %>)" data-background="<%= bg %>" data-type="custom"></button>
+    </div>
+</script>

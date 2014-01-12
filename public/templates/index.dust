@@ -1,5 +1,4 @@
 {>"layouts/master" /}
-{<wrapperAttribs} class="homepage"{/wrapperAttribs}
 {<body}
 <div class="container">
     <div class="row">

@@ -1,4 +1,4 @@
-<form id="index-form" role="form" method="post" action="/account/index" class="form-2-cols">
+<form id="index-form" role="form" method="post" action="/account/settings" class="form-2-cols">
     <div class="row">
         <div class="form-group">
             <div class="col-md-12">

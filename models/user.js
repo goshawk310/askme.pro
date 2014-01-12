@@ -40,12 +40,43 @@ var User = function() {
             required: true
         },
         avatar: {
-            type: String
+            type: String,
         },
         settings: {
             anonymous_allowed: {
                 type: Boolean, default: true
             }
+        },
+        profile: {
+            website: {
+                type: String,
+                validate: [validate('isUrl')]
+            },
+            fanpage: {
+                type: String,
+                validate: [validate('isUrl')]
+            },
+            location: {
+                type: String
+            },
+            motto: {
+                type: String
+            },
+            bio: {
+                type: String
+            }
+        },
+        blocked_words: {
+            type: String
+        },
+        sticker: {
+            type: String
+        },
+        background: {
+            type: String
+        },
+        custom_background: {
+            type: String
         },
         old: {
             type: Boolean,
@@ -57,7 +88,7 @@ var User = function() {
             validate: [validate('equals', true)]
         }
     }, {
-        collection: 'user',
+        collection: 'users',
         autoIndex: false
     });
     
@@ -87,11 +118,15 @@ var User = function() {
 
     schema.post('save', function () {
         var ext = '',
-            oldAvatar = this._original ? this._original.avatar : null;
+            oldAvatar = this._original.avatar ? this._original.avatar : null,
+            oldBackground = this._original.custom_background ? this._original.custom_background: null;
         if (oldAvatar && this.avatar !== oldAvatar) {
             ext = path.extname(oldAvatar);
             fsExtra.remove(config.avatar.dir + oldAvatar);
             fsExtra.remove(config.avatar.dir + oldAvatar.replace(ext, ''));
+        }
+        if (oldBackground && this.custom_background !== oldBackground) {
+            fsExtra.remove(config.custom_background.dir + oldBackground);
         }
     });
 

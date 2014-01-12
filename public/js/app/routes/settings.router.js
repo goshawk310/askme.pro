@@ -1,11 +1,14 @@
 askmePro.routerIndex = 'Settings';
 askmePro.routers.Settings = Backbone.Router.extend({
     history: {},
+    views: {},
     routes: {
         '': 'index',
         'index': 'index',
         'avatar': 'avatar',
-        'password': 'password'
+        'password': 'password',
+        'profile': 'profile',
+        'bg': 'bg'
     },
     index: function index() {
         if (typeof this.history.index !== 'undefined') {
@@ -46,7 +49,7 @@ askmePro.routers.Settings = Backbone.Router.extend({
                     loader = submit.next();
                 submit.attr('disabled', true);
                 loader.show();
-                $.post('/account/index', $form.serialize())
+                $.post($form.attr('action'), $form.serialize())
                     .done(function (response) {
                         askmePro.utils.showAlert(response);
                     })
@@ -104,7 +107,7 @@ askmePro.routers.Settings = Backbone.Router.extend({
                     loader = submit.next();
                 submit.attr('disabled', true);
                 loader.show();
-                $.post('/account/password', $form.serialize())
+                $.post($form.attr('action'), $form.serialize())
                     .done(function (response) {
                         askmePro.utils.showAlert(response);
                     })
@@ -118,6 +121,73 @@ askmePro.routers.Settings = Backbone.Router.extend({
                     });
             }
         });
+    },
+    profile: function profile() {
+        if (typeof this.history.profile !== 'undefined') {
+            return;
+        }
+        this.history.profile = true;
+        $('#profile-website, #profile-fanpage').on('focus', function () {
+            var $this = $(this);
+            if (!$this.val().length) {
+                setTimeout(function () {
+                    $this.val($this.attr('placeholder'));
+                }, 0);
+            }
+        }).on('blur', function () {
+            var $this = $(this);
+            if ($this.attr('placeholder') === $this.val()) {
+                $this.val('');
+            }
+        });
+        $('#blocked_words').charsLimiter(200, $('#words-count'));
+        $('#profile-bio').charsLimiter(200, $('#bio-count'));
+        $('#profile-form').validate({
+            rules: {
+                'profile[website]': {
+                    url: true
+                },
+                'profile[fanpage]': {
+                    url: true
+                },
+                'profile[location]': {
+                    maxlength: 200
+                },
+                'profile[motto]': {
+                    maxlength: 200
+                },
+                'profile[bio]': {
+                    maxlength: 200
+                },
+                blocked_words: {
+                    maxlength: 200
+                }     
+            },
+            submitHandler: function(form) {
+                var $form = $(form),
+                    submit = $form.find('button[type="submit"]'),
+                    loader = submit.next();
+                submit.attr('disabled', true);
+                loader.show();
+                $.post($form.attr('action'), $form.serialize())
+                    .done(function (response) {
+                        askmePro.utils.showAlert(response);
+                    })
+                    .fail(function (response) {
+                        askmePro.utils.showAlert(response);
+                    })
+                    .always(function () {
+                        submit.attr('disabled', false);
+                        loader.hide();
+                        $form.find('input[type="password"]').val('');
+                    });
+            }
+        });
+    },
+    bg: function bg() {
+        if (typeof this.views.bg === 'undefined') {
+            this.views.bg = new askmePro.views.SettingsBgView();
+        }
     }
 });
 
