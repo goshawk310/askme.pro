@@ -152,6 +152,35 @@ h1#index-h1 {
     margin-bottom: 15px;
 }
 
+.user-avatar-wrapper {
+    width: 100%;
+}
+.user-avatar-wrapper img {
+    max-width: 100%;
+}
+
+.profile-info-wrapper {
+    position: relative;
+}
+
+.profile-info-wrapper .profile-sticker {
+    position: absolute;
+    top: -6px;
+    right: -8px;
+}
+
+#profile-menu {
+    border-bottom: 0;
+}
+
+ul#profile-menu li a {
+    background-color: #d3d3d3;
+}
+
+ul#profile-menu li.active a {
+    background-color: #fff;
+}
+
 @media (min-width: 768px) {
 	.navbar-nav > li > a.btn {
 		padding-top: 0;

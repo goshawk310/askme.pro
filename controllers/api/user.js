@@ -2,7 +2,7 @@
 var User = require('../../models/user'),
     auth = require('../../lib/auth');
 module.exports = function(server) {
-    server.param('username', /^[a-zA-Z0-9]+$/);
+    
 
     server.get('/api/user/:username', function(req, res, next) {
         console.log(req.isAuthenticated());

@@ -50,20 +50,25 @@ var User = function() {
         profile: {
             website: {
                 type: String,
-                validate: [validate('isUrl')]
+                validate: [validate('isUrl')],
+                default: null
             },
             fanpage: {
                 type: String,
-                validate: [validate('isUrl')]
+                validate: [validate('isUrl')],
+                default: null
             },
             location: {
-                type: String
+                type: String,
+                default: null
             },
             motto: {
-                type: String
+                type: String,
+                default: null
             },
             bio: {
-                type: String
+                type: String,
+                default: null
             }
         },
         blocked_words: {
@@ -92,8 +97,18 @@ var User = function() {
             validate: [validate('equals', true)]
         },
         status: {
-            type: Number,
-            default: 1 
+            value: {
+                type: Number,
+                default: 1    
+            },
+            modified_on: {
+                type: Date,
+                default: null
+            },
+            token: {
+                type: String,
+                default: null
+            }
         }
     }, {
         collection: 'users',
@@ -112,6 +127,16 @@ var User = function() {
                         return next(err);
                     }
                     user.password = hash;
+                    next();
+                })
+            });
+        } else if (user.isModified('status.value') && user.status.value === 0) {
+            bcrypt.genSalt(10, function(err, salt) {
+                bcrypt.hash(user.status.changed_on + user.id, salt, function(err, token) {
+                    if (err) {
+                        return next(err);
+                    }
+                    user.status.token = token;
                     next();
                 })
             });

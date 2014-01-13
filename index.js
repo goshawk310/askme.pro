@@ -10,7 +10,6 @@ var kraken = require('kraken-js'),
     dustjsHelper = require('./lib/dustjs/helpers'),
     express = require('express'),
     app = {};
-
 app.configure = function configure(nconf, next) {
     // Fired when an app configures itself
     //Configure the database
@@ -38,6 +37,8 @@ app.requestStart = function requestStart(server) {
             };
         }
     });
+    server.param('username', /^[a-zA-Z0-9]+$/);
+    server.param('locale', /^[a-zA-Z]{2}$/);
 };
 
 app.requestBeforeRoute = function requestBeforeRoute(server) {

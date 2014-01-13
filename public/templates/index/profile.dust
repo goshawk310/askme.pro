@@ -1,0 +1,60 @@
+{>"layouts/master" /}
+{<wrapperAttribs}
+    {?profile}
+        {?profile.background} class="custom-bg" style="background-image: url('{profile.background}')"{/profile.background}
+    {/profile}
+{/wrapperAttribs}
+{<body}
+<div class="container">
+    <div class="row">
+        <div class="col-md-10">
+            <div class="center-block">
+                {?message}
+                    {@message data=message /}
+                {/message}
+                <div class="row">
+                    <div class="col-md-4">
+                    </div>
+                    <div class="col-md-8">
+                        <ul class="nav nav-tabs" id="profile-menu">
+                            <li class="active"><a href="#settings-index"><span class="glyphicon glyphicon-user"></span> {@__ phrase="Profil" /}</a></li>
+                            <li><a href="#settings-index"><span class="glyphicon glyphicon-picture"></span> {@__ phrase="Zdjęcia" /}</a></li>
+                            <li><a href="#settings-password"><span class="glyphicon glyphicon-film"></span> {@__ phrase="Video" /}</a></li>
+                        </ul>        
+                    </div>
+                </div>
+                <div class="panel panel-default box-shadow">
+                    <div class="panel-body profile-info-wrapper">
+                        <div class="row">
+                            <div class="col-md-4">
+                                {@userAvatar user=profile size="300x" wrapper="true"/}
+                            </div>
+                            <div class="col-md-8">
+                                
+                                <div class="clearfix"></div>
+                                <h1>{profile.name} {profile.lastname}</h1>
+                                {?profile.profile.location}
+                                    <p>{profile.profile.location}</p>
+                                {/profile.profile.location}
+                                {?profile.profile.website}
+                                    <p><a target="_blank" href="{profile.profile.website}">{profile.profile.website}</a></p>
+                                {/profile.profile.website}
+                                {?profile.profile.bio}
+                                    <p>{profile.profile.bio}</p>
+                                {/profile.profile.bio}
+                            </div>
+                        </div>
+                        {profile|js}
+                        {?profile.sticker}
+                            <img src="/images/stickers/{profile.sticker}" alt="" class="profile-sticker" />
+                        {/profile.sticker}             
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-2">
+            {>"layouts/partials/ads/right"/}
+        </div>
+    </div>
+</div>
+{/body}

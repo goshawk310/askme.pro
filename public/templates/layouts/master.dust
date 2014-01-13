@@ -20,7 +20,7 @@
         {+jsTemplates /}
     </head>
     <body>
-        <div id="wrapper"{+wrapperAttribs}{?user.background} class="custom-bg" style="background-image: url('{user.background}'){/user.background}"{/wrapperAttribs}>
+        <div id="wrapper"{+wrapperAttribs}{?user.background} class="custom-bg" style="background-image: url('{user.background}')"{/user.background} {/wrapperAttribs}>
             {>"layouts/partials/top"/}
             <div id="content">
                 {+body /}

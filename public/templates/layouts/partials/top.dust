@@ -17,7 +17,7 @@
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-right">
                 {?user} 
-                    <li><a href="{user.username}">{@__ phrase="Profil"/}</a></li>
+                    <li><a href="/{user.username}">{@__ phrase="Profil"/}</a></li>
                     <li><a href="/account/inbox">{@__ phrase="Pytania"/} (<span id="inboxCount"><font color="#FF0000">16</font></span>)</a></li>
                 {/user}
                 <li><a href="/top20" role="button" class="btn btn-primary">{@__ phrase="TOP 20"/}</a></li>

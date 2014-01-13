@@ -9,6 +9,7 @@ module.exports = {
     req: null,
     res: null,
     server: null,
+    next: null,
     setReq: function setReq(value) {
         this.req = value;
         return this;
@@ -21,6 +22,10 @@ module.exports = {
         this.server = value;
         return this;
     },
+    setNext: function setNext(value) {
+        this.next = value;
+        return this;
+    },
     getReq: function getReq() {
         return this.req;
     },
@@ -29,6 +34,9 @@ module.exports = {
     },
     getServer: function getServer() {
         return this.server;
+    },
+    getNext: function getNext() {
+        return this.next;
     },
     signup: function signup(req, res, callback) {
         UserModel.schema.path('password').validate(function(password) {
@@ -260,6 +268,21 @@ module.exports = {
      * @return {void}
      */
     deactivate: function deactivate(id, callback) {
-        this.update(id, {status: 0}, callback);
+        this.update(id, {status: {value: 0, modified_on: new Date()}}, callback);
+    },
+
+    /**
+     * 
+     * @param  {String}   username
+     * @param  {Function} callback
+     * @return {void}
+     */
+    getByUsername: function getByUsername(username, callback) {
+        var req = this.getReq(),
+            res = this.getRes(),
+            next = this.getNext();
+        UserModel.findOne({username: username}, function (err, user) {
+            callback(err, user, next);
+        });
     }
 };
