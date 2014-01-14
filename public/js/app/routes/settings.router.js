@@ -74,7 +74,7 @@ askmePro.routers.Settings = Backbone.Router.extend({
             $('#avatar-progress'),
             $('#user-avatar'),
             askmePro.settings.upload.avatar.url,
-            '300x'
+            'cropped/300x'
         );
     },
     password: function password() {

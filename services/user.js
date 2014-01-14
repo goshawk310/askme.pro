@@ -96,14 +96,21 @@ module.exports = {
                 var thisObj = this,
                     FileImage = require('../lib/file/image'),
                     fileImage = new FileImage(filename);
-                fileImage.quality(45, function (err) {
+                fileImage.cropCenter(function (err) {
                     if (err) {
                         thisObj.clearAll();
-                        return callback(new Error('Quality change error.'), thisObj.req, thisObj.res);
-                    } else {
-                        return callback(null, thisObj.req, thisObj.res, filename);
+                        return callback(new Error('cropCenter error.'), thisObj.req, thisObj.res);
                     }
-                })
+                    this.quality(45, function (err) {
+                        if (err) {
+                            thisObj.clearAll();
+                            return callback(new Error('Quality change error.'), thisObj.req, thisObj.res);
+                        } else {
+                            return callback(null, thisObj.req, thisObj.res, filename);
+                        }
+                    });
+                });   
+                
             }
         });
         upload.one(function (err, req, res, filename) {

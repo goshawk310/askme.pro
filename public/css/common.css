@@ -65,7 +65,7 @@ a:hover, a:focus {color: #464646;}
 }
 
 #content > .container {
-    padding: 100px 15px 0;
+    padding: 80px 15px 0;
 }
 #footer {
 	padding: 10px 0 20px 0;
@@ -154,6 +154,7 @@ h1#index-h1 {
 
 .user-avatar-wrapper {
     width: 100%;
+    text-align: center;
 }
 .user-avatar-wrapper img {
     max-width: 100%;
@@ -169,6 +170,20 @@ h1#index-h1 {
     right: -8px;
 }
 
+.profile-info-wrapper .user-avatar-wrapper {
+    margin-bottom: 20px;
+}
+
+.profile-info-wrapper hr {
+    margin-top: 8px;
+    margin-bottom: 8px;
+}
+
+.profile-info-wrapper .progress {
+    margin-bottom: 8px;
+}
+
+
 #profile-menu {
     border-bottom: 0;
 }
@@ -181,12 +196,47 @@ ul#profile-menu li.active a {
     background-color: #fff;
 }
 
+#profile-info-container {
+    min-height: 253px;
+    position: relative;
+}
+
+#profile-info-container h1 {
+    margin-top: 0;
+    margin-bottom: 8px;
+}
+
+#profile-info-container p {
+    margin: 0 0 6px 0;
+}
+
+#profile-buttons-container a {
+    margin-right: 5px;
+}
+
+#profile-buttons-container #block-user-btn {
+    margin-right: 100px;
+}
+
+#profile-stats-container a strong {
+    font-size: 1.2em;
+}
+
+.no-left-border {
+    border-left: 0;
+}
+
 @media (min-width: 768px) {
 	.navbar-nav > li > a.btn {
 		padding-top: 0;
 		padding-bottom: 0;
 		margin: 15px 0 15px 0;
 	}
+    #profile-stats-container {
+        position: absolute;
+        left: 15px;
+        bottom: 8px;
+    }
 }
 
 @media (min-width: 992px) { 
@@ -207,4 +257,18 @@ ul#profile-menu li.active a {
     .add-container-left, .add-container-right {
         margin-left: -15px;
     }  
+}
+
+@media (max-width: 767px) { 
+    #profile-stats-container a {
+        font-size: 12px;
+        padding: 6px 4px;
+    } 
+}
+
+@media (max-width: 479px) { 
+    #profile-stats-container a {
+        font-size: 8px;
+        padding: 6px 2px;
+    } 
 }

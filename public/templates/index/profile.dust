@@ -26,25 +26,66 @@
                 <div class="panel panel-default box-shadow">
                     <div class="panel-body profile-info-wrapper">
                         <div class="row">
-                            <div class="col-md-4">
-                                {@userAvatar user=profile size="300x" wrapper="true"/}
+                            <div class="col-md-3">
+                                {@userAvatar user=profile size="cropped/300x" wrapper="true"/}
+                                <div class="progress">
+                                  <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;">
+                                    <span>{profile.points} {@__ phrase="pkt." /}</span>
+                                  </div>
+                                </div>
                             </div>
-                            <div class="col-md-8">
-                                
-                                <div class="clearfix"></div>
-                                <h1>{profile.name} {profile.lastname}</h1>
+                            <div class="col-md-9" id="profile-info-container">
+                                <h1>{profile.name} {profile.lastname} </h1>
                                 {?profile.profile.location}
-                                    <p>{profile.profile.location}</p>
+                                    <p><small>{profile.profile.location}</small></p>
                                 {/profile.profile.location}
+                                {@ne key="{user.id}" value="{profile.id}"}
+                                    <p id="profile-buttons-container">
+                                        <a href="" class="btn btn-success btn-sm">{@__ phrase="Obserwuj" /}</a>
+                                        <a href="" class="btn btn-success btn-sm">{@__ phrase="Wyślij gifta" /}</a>
+                                        <a href="" class="btn btn-default btn-sm pull-right" id="block-user-btn">{@__ phrase="Zablokuj" /}</a>
+                                    </p>
+                                {/ne}
                                 {?profile.profile.website}
                                     <p><a target="_blank" href="{profile.profile.website}">{profile.profile.website}</a></p>
                                 {/profile.profile.website}
                                 {?profile.profile.bio}
                                     <p>{profile.profile.bio}</p>
                                 {/profile.profile.bio}
+                                <div class="clearfix"></div>
+                                <div class="btn-group btn-group-justified" id="profile-stats-container">
+                                    <a class="btn btn-default" role="button">
+                                        <strong>3</strong><br>
+                                        {@__ phrase="obserwuje" /}
+                                    </a>
+                                    <a class="btn btn-default no-left-border" role="button">
+                                        <strong>3</strong><br>
+                                        {@__ phrase="obserwujący" /}
+                                    </a>
+                                    <a class="btn btn-default no-left-border" role="button">
+                                        <strong>3</strong><br>
+                                        {@__ phrase="odpowiedzi" /}
+                                    </a>
+                                    <a class="btn btn-default no-left-border" role="button">
+                                        <strong>3</strong><br>
+                                        {@__ phrase="lubi to" /}
+                                    </a>
+                                    <a class="btn btn-default no-left-border" role="button">
+                                        <strong>3</strong><br>
+                                        {@__ phrase="gifty" /}
+                                    </a>
+                                </div>
                             </div>
+                            <div class="col-md-12">
+                                <hr>
+                            </div>
+                            {?profile.profile.motto}
+                                <div class="col-md-12">
+                                    <p>{profile.profile.motto}</p>
+                                    <hr>
+                                </div>
+                            {/profile.profile.motto}
                         </div>
-                        {profile|js}
                         {?profile.sticker}
                             <img src="/images/stickers/{profile.sticker}" alt="" class="profile-sticker" />
                         {/profile.sticker}             

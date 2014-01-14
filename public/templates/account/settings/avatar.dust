@@ -6,7 +6,7 @@
             </div>
             <div class="col-md-6">
                 <div class="center-block">
-                    {@userAvatar user=user cssId="user-avatar" size="300x" /}
+                    {@userAvatar user=user cssId="user-avatar" size="cropped" /}
                 </div>
             </div>
             <div class="col-md-6">
