@@ -30,7 +30,7 @@
                 width: progress + '%'
             });
         },
-        image: function image(formElem, progressElem, imgElem, path, size, callback) {
+        image: function image(formElem, progressElem, imgContainer, path, size, callback) {
             var thisObj = this;
             formElem.fileupload({
                 acceptFileTypes: thisObj.settings.acceptFileTypes.image,
@@ -39,16 +39,29 @@
                 done: function (e, data) {
                     if (typeof callback !== 'function') {
                         var filename = '',
-                            ext = '';
+                            ext = '',
+                            imgClass = imgContainer.data('imgclass') || '',
+                            imgId = imgContainer.data('imgid') || '';
                         askmePro.utils.showAlert(data.result);
                         if (data.result.status === 'success' && data.result.filename) {
-                            ext = '.' + data.result.filename.split('.').pop();
-                            filename = path + data.result.filename.replace(ext, '/' + size + ext);
-                            imgElem.attr('src', filename);
+                            if (size) {
+                                ext = '.' + data.result.filename.split('.').pop();
+                                filename = path + data.result.filename.replace(ext, '/' + size + ext);
+                            } else {
+                                filename = path + data.result.filename;
+                            }
+                            if (imgClass.length) {
+                                imgClass = ' class="' + imgClass + '"';
+                            }
+                            if (imgId.length) {
+                                imgId = ' id="' + imgId + '"';
+                            }
+                            imgContainer.html('<img src="' + filename + '"' + imgClass + imgId + '>');
+                            imgContainer.prev('.panel-heading').find('button').removeClass('hidden');
                         }
                         thisObj.hideProgress(progressElem);
                     } else {
-                        callback.call(thisObj, e, data, formElem, progressElem, imgElem, path, size);
+                        callback.call(thisObj, e, data, formElem, progressElem, imgContainer, path, size);
                     }
                 },
                 progressall: function (e, data) {

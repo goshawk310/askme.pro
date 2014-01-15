@@ -20,10 +20,6 @@ module.exports = function(server) {
         res.redirect('back');
     });
 
-    server.get('/test', function(req, res) {
-        res.render('test');
-    });
-
     server.get('/:username', function (req, res, next) {
         userService
             .setReq(req)

@@ -1,3 +1,49 @@
+askmePro.views.SettingsAvatarView = Backbone.View.extend({
+    template: _.template($('#settings-avatar-tpl').html()),
+    el: '#settings-avatar',
+    initialize: function () {
+        this.render();
+    },
+    render: function () {
+        var thisObj = this;
+        this.$el.html($(this.template()));
+        this.$('.btn-info-popover').each(function () {
+            var $this = $(this);
+            $this.data('content', $this.next().html());
+        });
+        this.$('.btn-info-popover').popover({
+            'html': true,
+            'trigger': 'click',
+            'container': 'body'
+        });
+        askmePro.upload.image(
+            $('#avatar-form'),
+            $('#avatar-progress'),
+            $('#avatar-container'),
+            askmePro.settings.upload.avatar.url,
+            'cropped/300x'
+        );
+        return this;
+    },
+    events: {
+        'click #avatar-remove': 'remove'
+    },
+    remove: function remove() {
+        var thisObj = this,
+            form = this.$('#avatar-form'),
+            action = form.attr('action'); 
+        $.post(action, form.serialize())
+            .done(function (response) {
+                askmePro.utils.showAlert(response);
+                thisObj.$('#avatar-container').html(response.extra_message);
+            }).fail(function (response) {
+                askmePro.utils.showAlert(response);
+            }).always(function () {
+
+            });
+    }
+});
+
 askmePro.views.SettingsBgView = Backbone.View.extend({
     template: _.template($('#settings-bg-tpl').html()),
     backgroundElement: _.template($('#settings-custom-bg-tpl').html()),
@@ -59,5 +105,58 @@ askmePro.views.SettingsBgView = Backbone.View.extend({
         }).always(function () {
              buttons.attr('disabled', false);
         });
+    }
+});
+
+askmePro.views.SettingsTopBgView = Backbone.View.extend({
+    template: _.template($('#settings-topbg-tpl').html()),
+    el: '#settings-topbg',
+    initialize: function () {
+        this.render();
+    },
+    render: function () {
+        var thisObj = this,
+            upload = _.extend(askmePro.upload, {
+                settings: {
+                    acceptFileTypes: {
+                        image: /(\.|\/)(jpe?g)$/i,
+                    }
+                }
+            });
+        this.$el.html($(this.template()));
+        this.$('.btn-info-popover').each(function () {
+            var $this = $(this);
+            $this.data('content', $this.next().html());
+        });
+        this.$('.btn-info-popover').popover({
+            'html': true,
+            'trigger': 'click',
+            'container': 'body'
+        });
+        upload.image(
+            $('#top-bg-form'),
+            $('#top-bg-progress'),
+            $('#top-bg-container'),
+            askmePro.settings.upload.topbg.url,
+            null
+        );
+        return this;
+    },
+    events: {
+        'click #top-bg-remove': 'remove'
+    },
+    remove: function remove() {
+        var thisObj = this,
+            form = this.$('#top-bg-form'),
+            action = form.attr('action'); 
+        $.post(action, form.serialize())
+            .done(function (response) {
+                askmePro.utils.showAlert(response);
+                thisObj.$('#top-bg-container').html(response.extra_message);
+            }).fail(function (response) {
+                askmePro.utils.showAlert(response);
+            }).always(function () {
+
+            });
     }
 });

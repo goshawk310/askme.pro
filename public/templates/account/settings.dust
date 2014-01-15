@@ -18,6 +18,7 @@
                             <li><a href="#settings-password" data-toggle="pill">{@__ phrase="Hasło" /}</a></li>
                             <li><a href="#settings-profile" data-toggle="pill">{@__ phrase="Profil" /}</a></li>
                             <li><a href="#settings-avatar" data-toggle="pill">{@__ phrase="Zdjęcie" /}</a></li>
+                            <li><a href="#settings-topbg" data-toggle="pill">{@__ phrase="Zdjęcie w tle" /}</a></li>
                             <li><a href="#settings-bg" data-toggle="pill">{@__ phrase="Tło" /}</a></li>
                             <li><a href="#settings-points" data-toggle="pill">{@__ phrase="Punkty" /}</a></li>
                             <li><a href="#settings-deactivate" data-toggle="pill">{@__ phrase="Dezaktywuj" /}</a></li>
@@ -34,7 +35,8 @@
                                 {>"account/settings/profile"/}
                             </div>
                             <div class="tab-pane well well-sm" id="settings-avatar">
-                                {>"account/settings/avatar"/}
+                            </div>
+                            <div class="tab-pane well well-sm" id="settings-topbg">
                             </div>
                             <div class="tab-pane well well-sm" id="settings-bg">
                             </div>
@@ -82,8 +84,13 @@
     askmePro.settings.upload.background = {
         url: '{config.background.url}'
     };
+    askmePro.settings.upload.topbg = {
+        url: '{config.topbg.url}'
+    };
 </script>
 {/js}
 {<jsTemplates}
+    {>"account/settings/avatar"/}
     {>"account/settings/bg"/}
+    {>"account/settings/topbg"/}
 {/jsTemplates}

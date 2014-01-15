@@ -8,7 +8,8 @@ askmePro.routers.Settings = Backbone.Router.extend({
         'avatar': 'avatar',
         'password': 'password',
         'profile': 'profile',
-        'bg': 'bg'
+        'bg': 'bg',
+        'topbg': 'topbg'
     },
     index: function index() {
         if (typeof this.history.index !== 'undefined') {
@@ -65,17 +66,9 @@ askmePro.routers.Settings = Backbone.Router.extend({
 
     },
     avatar: function avatar() {
-        if (typeof this.history.avatar !== 'undefined') {
-            return;
+        if (typeof this.views.avatar === 'undefined') {
+            this.views.avatar = new askmePro.views.SettingsAvatarView();
         }
-        this.history.avatar = true;
-        askmePro.upload.image(
-            $('#avatar-form'),
-            $('#avatar-progress'),
-            $('#user-avatar'),
-            askmePro.settings.upload.avatar.url,
-            'cropped/300x'
-        );
     },
     password: function password() {
         if (typeof this.history.password !== 'undefined') {
@@ -187,6 +180,11 @@ askmePro.routers.Settings = Backbone.Router.extend({
     bg: function bg() {
         if (typeof this.views.bg === 'undefined') {
             this.views.bg = new askmePro.views.SettingsBgView();
+        }
+    },
+    topbg: function topbg() {
+        if (typeof this.views.topbg === 'undefined') {
+            this.views.topbg = new askmePro.views.SettingsTopBgView();
         }
     }
 });

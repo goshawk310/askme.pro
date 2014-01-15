@@ -14,6 +14,10 @@ module.exports = {
         dir: dirname + '/public/images/themes/',
         url: '/images/themes/'
     },
+    topbg: {
+        dir: dirname + '/uploads/tops/',
+        url: '/uploads/tops/'
+    },
     locales: [{
         key: 'pl',
         name: 'Polski'

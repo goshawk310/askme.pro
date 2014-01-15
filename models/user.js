@@ -83,6 +83,9 @@ var User = function() {
         custom_background: {
             type: String
         },
+        top_bg: {
+            type: String
+        },
         points: {
             type: Number,
             default: 0
@@ -152,10 +155,12 @@ var User = function() {
     schema.post('save', function () {
         var ext = '',
             oldAvatar = null,
-            oldBackground = null;
+            oldBackground = null,
+            oldTopbg = null;
         if (this._original) {
             oldAvatar = this._original.avatar ? this._original.avatar : null,
             oldBackground = this._original.custom_background ? this._original.custom_background: null;
+            oldTopbg = this._original.top_bg ? this._original.top_bg: null;
             if (oldAvatar && this.avatar !== oldAvatar) {
                 ext = path.extname(oldAvatar);
                 fsExtra.remove(config.avatar.dir + oldAvatar);
@@ -163,6 +168,9 @@ var User = function() {
             }
             if (oldBackground && this.custom_background !== oldBackground) {
                 fsExtra.remove(config.custom_background.dir + oldBackground);
+            }
+            if (oldTopbg && this.top_bg !== oldTopbg) {
+                fsExtra.remove(config.topbg.dir + oldTopbg);
             }
         }
     });

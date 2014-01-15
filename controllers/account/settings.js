@@ -34,7 +34,7 @@ module.exports = function (server) {
     });
 
     server.post('/account/settings/avatar', auth.isAuthenticated, function (req, res) {
-        userService.changeAvatar(server, req, res);
+        userService.setServer(server).setReq(req).setRes(res).changeAvatar();
     });
 
     server.post('/account/settings/password', auth.isAuthenticated, function (req, res) {
@@ -122,7 +122,6 @@ module.exports = function (server) {
     server.put('/account/settings/deactivate', auth.isAuthenticated, function (req, res) {
         userService.setServer(server).setReq(req).setRes(res).deactivate(req.user._id, function (err, req, res) {
             if (err) {
-                console.log(err);
                 req.flash('message', {
                     error: res.__('Wystąpił nieoczekiwany błąd.')
                 });
@@ -132,5 +131,15 @@ module.exports = function (server) {
             req.flash('error', res.__('Konto zostało zdezaktywowane.'));
             res.redirect('/account/login');
         });
+    });
+
+    /**
+     * 
+     * @param  {[type]} req
+     * @param  {[type]} res
+     * @return {[type]}
+     */
+    server.put('/account/settings/topbg', auth.isAuthenticated, function (req, res) {
+        userService.setServer(server).setReq(req).setRes(res).changeTopbg();
     });
 };
