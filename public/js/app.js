@@ -120,6 +120,10 @@ var askmePro = {
     }
 };
 $(document).ready(function () {
+    var inboxCount = parseInt($('#inbox-count > span').html(), 10);
+    if (inboxCount > 0) {
+        $('#inbox-count').show();
+    }
     if (askmePro.routerIndex !== null) {
         askmePro.router = new askmePro.routers[askmePro.routerIndex]();
         Backbone.history.start();

@@ -1,5 +1,5 @@
 'use strict';
-var auth = require('../../lib/auth')(),
+var auth = require('../../lib/auth'),
     captcha = require('easy-captcha'),
     check = require('validator').check,
     userService = require('../../services/user'),

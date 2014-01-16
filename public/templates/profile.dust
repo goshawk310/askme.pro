@@ -13,13 +13,14 @@
                     {@message data=message /}
                 {/message}
                 <div class="row">
-                    <div class="col-md-4">
+                    <div class="col-md-3">
                     </div>
-                    <div class="col-md-8">
+                    <div class="col-md-9">
                         <ul class="nav nav-tabs" id="profile-menu">
-                            <li class="active"><a href="#settings-index"><span class="glyphicon glyphicon-user"></span> {@__ phrase="Profil" /}</a></li>
-                            <li><a href="#settings-index"><span class="glyphicon glyphicon-picture"></span> {@__ phrase="Zdjęcia" /}</a></li>
-                            <li><a href="#settings-password"><span class="glyphicon glyphicon-film"></span> {@__ phrase="Video" /}</a></li>
+                            <li class="active"><a href="#"><span class="glyphicon glyphicon-user"></span> {@__ phrase="Profil" /}</a></li>
+                            <li><a href="#profile-info"><span class="glyphicon glyphicon-picture"></span> {@__ phrase="Informacje" /}</a></li>
+                            <li><a href="#"><span class="glyphicon glyphicon-picture"></span> {@__ phrase="Zdjęcia" /}</a></li>
+                            <li><a href="#"><span class="glyphicon glyphicon-film"></span> {@__ phrase="Video" /}</a></li>
                         </ul>        
                     </div>
                 </div>
@@ -85,13 +86,15 @@
                             {?profile.profile.motto}
                                 <div class="col-md-12">
                                     <p>{profile.profile.motto}</p>
-                                    <hr>
                                 </div>
                             {/profile.profile.motto}
                         </div>
                         {?profile.sticker}
                             <img src="/images/stickers/{profile.sticker}" alt="" class="profile-sticker" />
-                        {/profile.sticker}             
+                        {/profile.sticker}
+                        <div id="question-form-wrapper">
+                            <hr>
+                        </div>        
                     </div>
                 </div>
             </div>
@@ -102,3 +105,26 @@
     </div>
 </div>
 {/body}
+{<js}
+<script src="/components/validate/jquery.validate.min.js"></script>
+<script src="/components/validate/additional-methods.js"></script>
+{@ne key="en" value="{locale}"}
+    <script src="/components/validate/localization/messages_{locale}.js"></script>
+{/ne}
+<script src="/js/app/views/profile.view.js"></script>
+<script src="/js/app/routes/profile.router.js"></script>
+<script type="text/javascript">
+    askmePro.utils.setupDefaultValidator();
+</script>
+{/js}
+{<jsTemplates}
+    {?user}
+        {@ne key="{user.id}" value="{profile.id}"}
+            {>"profile/index" profile=profile /}
+        {/ne}
+    {:else}
+        {^profile.settings.anonymous_disallowed}
+            {>"profile/index" profile=profile isAnonymous="1" /}
+        {/profile.settings.anonymous_disallowed}
+    {/user}
+{/jsTemplates}

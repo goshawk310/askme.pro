@@ -43,8 +43,8 @@ var User = function() {
             type: String,
         },
         settings: {
-            anonymous_allowed: {
-                type: Boolean, default: true
+            anonymous_disallowed: {
+                type: Boolean, default: false
             }
         },
         profile: {
@@ -111,6 +111,12 @@ var User = function() {
             token: {
                 type: String,
                 default: null
+            }
+        },
+        stats: {
+            questions_unread: {
+                type: Number,
+                default: 0
             }
         }
     }, {

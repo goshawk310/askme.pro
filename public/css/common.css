@@ -55,6 +55,9 @@ a:hover, a:focus {color: #464646;}
     color: #fa6900;
 }
 
+#inbox-count {display: none}
+#inbox-count span {color: #ff0000;}
+
 #wrapper {
   min-height: 100%;
   height: auto;
@@ -72,7 +75,7 @@ a:hover, a:focus {color: #464646;}
 }
 
 #content > .container {
-    padding: 80px 15px 0;
+    padding: 100px 15px 0;
 }
 #footer {
 	padding: 10px 0 20px 0;
@@ -285,6 +288,32 @@ ul#profile-menu li.active a {
     max-width: 100%;
 }
 
+#question-form .pull-right .checkbox-inline{
+    margin-right: 15px;
+}
+
+#question-form-container {
+    position: relative;
+}
+
+#question-form-message-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+    display: none;
+}
+
+#question-form-message-container h3 {
+    margin-top: 0;
+}
+
+#question-form-message-container .message {
+    display: none;
+}
+
 @media (min-width: 768px) {
 	.navbar-nav > li > a.btn {
 		padding-top: 0;
@@ -324,6 +353,10 @@ ul#profile-menu li.active a {
     #profile-stats-container a {
         font-size: 12px;
         padding: 6px 4px;
+    }
+
+    .nav#profile-menu > li > a {
+        padding: 10px 10px;
     }
 }
 

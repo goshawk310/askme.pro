@@ -32,10 +32,13 @@ module.exports = function(server) {
             if (!user) {
                 return next();
             }
-            res.render('index/profile', {
+            if (!req.isAuthenticated() && user.settings.anonymous_disallowed) {
+                req.flash('error', res.__('Aby przeglądać tą stronę trzeba się zalogować'));
+                return res.redirect('/account/login');
+            }
+            res.render('profile', {
                 profile: user
             });
         });
-        
     });
 };

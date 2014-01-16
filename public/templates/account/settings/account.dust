@@ -65,13 +65,18 @@
             <div class="col-md-12">
                 <label>{@__ phrase="Dodatkowe ustawienia" /}:</label>
             </div>
-            <div class="col-md-12">
+            <div class="col-md-6">
                 <div class="checkbox">
                     <label>
-                        <input type="hidden" name="settings[anonymous_allowed]" value="0">
-                        <input type="checkbox" name="settings[anonymous_allowed]" id="settings-anonymous_allowed" value="1"{?user.settings.anonymous_allowed} checked="checked"{/user.settings.anonymous_allowed}> {@__ phrase="Zablokuj anonimowe pytania"/}
+                        <input type="hidden" name="settings[anonymous_disallowed]" value="0">
+                        <input type="checkbox" name="settings[anonymous_disallowed]" id="settings-anonymous_disallowed" value="1"{?user.settings.anonymous_disallowed} checked="checked"{/user.settings.anonymous_disallowed}> {@__ phrase="Zablokuj anonimowe pytania"/}
                     </label>
                 </div>
+            </div>
+            <div class="col-md-6">
+                <span class="help-block">
+                    <small>{@__ phrase="Strona będzie tylko widoczna tylko dla zalogowanych" /}</small>
+                </span>
             </div>
             <div class="clearfix"></div>
         </div>

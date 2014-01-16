@@ -16,6 +16,8 @@ app.configure = function configure(nconf, next) {
     db.config(nconf.get('database'));
     //Configure i18n
     i18n.configure(nconf.get('middleware').i18n);
+    //configure passport
+    auth.configure(i18n);
     next(null);
 };
 
@@ -24,6 +26,7 @@ app.requestStart = function requestStart(server) {
     server.locals({
         config: require('./config/app')
     });
+    require('./lib/uploads')(server, __dirname);
     server.param(function(name, fn) {
         if (fn instanceof RegExp) {
             return function(req, res, next, val) {
@@ -46,15 +49,15 @@ app.requestBeforeRoute = function requestBeforeRoute(server) {
     server.use(express.methodOverride());
     server.use(i18n.init);
     server.use(flash());
-    // Configure passport
-    auth().init(server, i18n);
+    //init passport
+    auth.init(server);
+    //init dustjs custom helpers
     dustjsHelper(server).init(dust);
 };
 
 app.requestAfterRoute = function requestAfterRoute(server) {
     // Fired after routing occurs
-    require('./lib/uploads')(server, __dirname);
-    server.use('/captcha.jpg', require('easy-captcha').generate());
+    //server.use('/captcha.jpg', require('easy-captcha').generate());
 };
 kraken.create(app).listen(function(err) {
     if (err) {

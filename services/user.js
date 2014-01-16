@@ -5,39 +5,7 @@ var UserModel = require('../models/user'),
     FileUpload = require('../lib/file/upload'),
     _ = require('underscore');
 
-module.exports = {
-    req: null,
-    res: null,
-    server: null,
-    next: null,
-    setReq: function setReq(value) {
-        this.req = value;
-        return this;
-    },
-    setRes: function setRes(value) {
-        this.res = value;
-        return this;
-    },
-    setServer: function setServer(value) {
-        this.server = value;
-        return this;
-    },
-    setNext: function setNext(value) {
-        this.next = value;
-        return this;
-    },
-    getReq: function getReq() {
-        return this.req;
-    },
-    getRes: function getRes() {
-        return this.res;
-    },
-    getServer: function getServer() {
-        return this.server;
-    },
-    getNext: function getNext() {
-        return this.next;
-    },
+module.exports = _.extend(require('../lib/service'), {
     signup: function signup(req, res, callback) {
         UserModel.schema.path('password').validate(function(password) {
             return password == req.body.password2;
@@ -158,6 +126,7 @@ module.exports = {
     update: function update(id, data, callback) {
         var req = this.getReq(),
             res = this.getRes();
+        console.log(data);    
         UserModel.findById(id, function (err, user) {
             if (err) {
                 return callback(err, req, res);    
@@ -383,4 +352,4 @@ module.exports = {
             update(null, req, res, null);
         }
     }
-};
+});
