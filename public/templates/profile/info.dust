@@ -1,0 +1,20 @@
+<script type="text/template" id="profile-info-tpl">
+    <div class="row mt15">
+        <div class="col-md-12">
+            <dl class="dl-horizontal">
+                {?profile.profile.website}
+                    <dt>{@__ phrase="Strona www" /}:</dt>
+                    <dd><a href="{profile.profile.website}" target="_blank">{profile.profile.website}</a></dd>
+                {/profile.profile.website}
+                {?profile.profile.location}
+                    <dt>{@__ phrase="Adres" /}:</dt>
+                    <dd>{profile.profile.location}</dd>
+                {/profile.profile.location}
+                {?profile.profile.bio}
+                    <dt>{@__ phrase="O mnie" /}:</dt>
+                    <dd>{profile.profile.bio}</dd>
+                {/profile.profile.bio}
+            </dl>
+        </div>
+    </div>
+</script>

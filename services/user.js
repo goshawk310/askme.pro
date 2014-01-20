@@ -272,7 +272,7 @@ module.exports = _.extend(require('../lib/service'), {
         });
     },
 
-    changeTopbg: function changeTopbg(server, req, res) {
+    changeTopbg: function changeTopbg() {
         var server = this.getServer(),
             req = this.getReq(),
             res = this.getRes(),

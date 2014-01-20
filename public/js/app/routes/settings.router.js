@@ -9,9 +9,12 @@ askmePro.routers.Settings = Backbone.Router.extend({
         'password': 'password',
         'profile': 'profile',
         'bg': 'bg',
-        'topbg': 'topbg'
+        'topbg': 'topbg',
+        'points': 'points',
+        'deactivate': 'deactivate'
     },
     index: function index() {
+        $('#settings-tabs li a[href="#settings-index"]').tab('show');
         if (typeof this.history.index !== 'undefined') {
             return;
         }
@@ -66,11 +69,13 @@ askmePro.routers.Settings = Backbone.Router.extend({
 
     },
     avatar: function avatar() {
+        $('#settings-tabs li a[href="#settings-avatar"]').tab('show');
         if (typeof this.views.avatar === 'undefined') {
             this.views.avatar = new askmePro.views.SettingsAvatarView();
         }
     },
     password: function password() {
+        $('#settings-tabs li a[href="#settings-passport"]').tab('show');
         if (typeof this.history.password !== 'undefined') {
             return;
         }
@@ -116,6 +121,7 @@ askmePro.routers.Settings = Backbone.Router.extend({
         });
     },
     profile: function profile() {
+        $('#settings-tabs li a[href="#settings-profile"]').tab('show');
         if (typeof this.history.profile !== 'undefined') {
             return;
         }
@@ -178,22 +184,26 @@ askmePro.routers.Settings = Backbone.Router.extend({
         });
     },
     bg: function bg() {
+        $('#settings-tabs li a[href="#settings-bg"]').tab('show');
         if (typeof this.views.bg === 'undefined') {
             this.views.bg = new askmePro.views.SettingsBgView();
         }
     },
     topbg: function topbg() {
+        $('#settings-tabs li a[href="#settings-topbg"]').tab('show');
         if (typeof this.views.topbg === 'undefined') {
             this.views.topbg = new askmePro.views.SettingsTopBgView();
         }
+    },
+    points: function points() {
+        $('#settings-tabs li a[href="#settings-points"]').tab('show');
+    },
+    deactivate: function deactivate() {
+        $('#settings-tabs li a[href="#settings-deactivate"]').tab('show');
     }
 });
 
 $(function () {
-    $('#settings-tabs').tab();
-        if (location.hash !== '') {
-        $('#settings-tabs li a[href="#settings-' + location.hash.substr(2) + '"]').tab('show');
-    }
     $('#settings-tabs li a[data-toggle="pill"]').on('shown.bs.tab', function(e) {
         location.hash = '/' + $(e.target).attr('href').substr(10);
     });

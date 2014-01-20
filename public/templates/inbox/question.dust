@@ -1,0 +1,86 @@
+<script type="text/template" id="inbox-question-tpl">
+    <div class="row">
+        <div class="question-container">
+            <div class="col-md-10 question">
+                <div class="media">
+                    <%=askmePro.views.helpers.userAvatar({~lb}user: question.from, size: 'cropped/100x', wrapper: true, cssClass: "box-shadow img-circle user-avatar small", linkClass: "user-avatar-wrapper pull-left"{~rb})%>
+                    <div class="media-body">
+                        <strong><%-question.contents%></strong><br/>
+                        <small class="text-muted">
+                            {@__ phrase="Zapytano" /} <em><%=moment(question.created_at).fromNow()%></em>
+                            <% if(question.from){~lb}%> {@__ phrase="przez" /} <a href="/<%=question.from.username%>"><%=question.from.username%></a><%{~rb}else{~lb}%>, {@__ phrase="anonimowo" /}<%{~rb}%>
+                        </small>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-2 buttons">
+                <button type="button" class="show-answer-form btn btn-success btn-block btn-sm" data-id="<%=question._id%>">{@__ phrase="Odpowiedz" /}</button>
+                <button type="button" class="remove btn btn-default btn-block btn-sm" data-id="<%=question._id%>">{@__ phrase="Usuń" /}</button>
+            </div>
+            <div class="col-md-12 answer-form-wrapper">
+                <div class="well well-sm">
+                    <form action="/inbox/image/<%=question._id%>" method="post" enctype="multipart/form-data" class="answer-form">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <textarea name="question[answer]" class="form-control" placeholder="{@__ phrase="Odpowiedź" /}:"></textarea>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-xs-4">
+                                <div class="form-group">
+                                    <div class="pull-left">
+                                        <button type="button" class="btn btn-link fileinput-button">
+                                            <span class="glyphicon glyphicon-picture"></span><input type="file" name="image">
+                                        </button>
+                                    </div>
+                                    <div class="clearfix"></div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-xs-8">
+                                <div class="form-group">
+                                    <div class="pull-right">
+                                        <button type="button" class="btn btn-link cancel">{@__ phrase="Anuluj" /}</button>
+                                        <button type="submit" class="btn btn-success answer">{@__ phrase="Odpowiedz" /}</button>
+                                    </div>
+                                    <div class="clearfix"></div>
+                                </div>
+                            </div>
+                            <div class="clearfix"></div>
+                            <div class="col-md-12">
+                                <div class="progress progress-container">
+                                    <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
+                                        <span class="sr-only"></span>
+                                    </div>
+                                </div>
+
+                                <div class="image-container text-center">
+                                    <% if (question.image) {~lb} %>
+                                        <img src="<%=askmePro.settings.upload.answer.url + question.image%>" class="img-thumbnail">
+                                    <% {~rb} %>
+                                </div>
+                            </div>
+                        </div>
+                        <input type="hidden" name="_csrf" value="{_csrf}"> 
+                        <input type="hidden" name="_method" value="patch"> 
+                    </form>
+                </div> 
+        </div>
+        </div>
+        <div class="col-md-12">
+            <hr>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+</script>
+<script type="text/template" id="inbox-question-pager-tpl">
+    <ul class="pager">
+        <% if(page > 0){~lb}%>
+            <li class="previous"><a href="#">&larr; {@__ phrase="Nowsze" /}</a></li>
+        <%{~rb}%>
+        <% if((page + 1)* perPage < total){~lb}%>
+            <li class="next"><a href="#<%=(parseInt(page, 10)+1)%>">{@__ phrase="Starsze" /} &rarr;</a></li>
+        <%{~rb}%>
+    </ul>    
+</script>
+
+

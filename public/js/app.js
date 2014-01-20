@@ -1,7 +1,32 @@
 'use strict';
 
 var askmePro = {
-    views: {},
+    views: {
+        helpers: {
+            userAvatar: function userAvatar(params) {
+                var user = params.user || {},
+                    image = user.avatar ? ('/uploads/avatars/' + user.avatar) : '/images/default_avatar.png',
+                    alt = user.username || 'askme.pro', 
+                    href = user.username ? (' href="/' + user.username + '"'): '',
+                    cssClass = params.cssClass || 'box-shadow img-circle user-avatar',
+                    cssId = params.cssId ? ' id="' + params.cssId + '"' : '',
+                    linkClass = params.linkClass || 'user-avatar-wrapper',
+                    size = params.size || '',
+                    ext = '',
+                    link = params.link || true,
+                    output = '';
+                if (user.avatar) {
+                    ext = '.' + image.split('.').pop();
+                    image = image.replace(ext, '/' + size + ext);
+                }
+                output = '<img src="' + image + '" alt="' + alt + '" class="' + cssClass + '"' + cssId + '>';
+                if (link) {
+                    output = '<a'+ href + ' class="' + linkClass + '">' + output + '</a>';
+                }
+                return output;
+            }
+        }
+    },
     models: {},
     collections: {},
     routerIndex: null,
@@ -124,14 +149,23 @@ $(document).ready(function () {
     if (inboxCount > 0) {
         $('#inbox-count').show();
     }
+
     if (askmePro.routerIndex !== null) {
+        Backbone.emulateHTTP = true;
+        Backbone._sync = Backbone.sync;
+        Backbone.sync = function(method, model, options, error){
+           options.beforeSend = function(xhr){
+               xhr.setRequestHeader('X-CSRF-Token', $("meta[name='csrf-param']").attr('content'));
+           };
+           return Backbone._sync(method, model, options, error);
+        };
         askmePro.router = new askmePro.routers[askmePro.routerIndex]();
         Backbone.history.start();
     }
 });
 
 (function($) {
-    $.fn.extend( {
+    $.fn.extend({
         charsLimiter: function(limit, elem) {
             $(this).on("keyup focus", function() {
                 setCount(this, elem);
@@ -145,6 +179,21 @@ $(document).ready(function () {
                 elem.html( limit - chars );
             }
             setCount($(this)[0], elem);
+        },
+        loading: function loading(params) {
+            var $this = this,
+                containerCssClass = 'loading-container',
+                cssClass = 'loading',
+                loaderElem = $this.find('.' + cssClass);
+            $this.data('hasloder', true).addClass(containerCssClass);
+            if (!loaderElem.length) {
+                loaderElem = $('<div class="' + cssClass + '"></div>');
+                $this.append(loaderElem);
+            }
+            if (typeof params === 'string') {
+
+            }
+            return loaderElem;
         }
     });
 })(jQuery);

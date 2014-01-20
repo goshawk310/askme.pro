@@ -1,5 +1,7 @@
 {
-    "name": "krakentest",
-    "version": "0.0.1",
-    "dependencies": {}
+  "name": "krakentest",
+  "version": "0.0.1",
+  "dependencies": {
+    "momentjs": "~2.5.0"
+  }
 }

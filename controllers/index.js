@@ -1,6 +1,7 @@
 'use strict';
 var userService = require('../services/user'),
-    UserModel = require('../models/user');
+    UserModel = require('../models/user'),
+    auth = require('../lib/auth');
 
 module.exports = function(server) {
 

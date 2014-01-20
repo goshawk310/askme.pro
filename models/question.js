@@ -2,7 +2,9 @@
 
 var mongoose = require('mongoose'),
     validate = require('mongoose-validator').validate,
-    UserModel = require('./user');
+    UserModel = require('./user'),
+    fsExtra = require('fs-extra'),
+    config = require('../config/app');
 
 var Question = function Question() {
 
@@ -13,7 +15,8 @@ var Question = function Question() {
         },
         from: {
             type: mongoose.Schema.Types.ObjectId,
-            default: null
+            default: null,
+            ref: 'User'
         },
         contents: {
             type: String,
@@ -21,6 +24,16 @@ var Question = function Question() {
             validate: [validate('len', 1, 200)]
         },
         answer: {
+            type: String,
+            required: false,
+            default: null
+        },
+        answered_at: {
+            type: Date,
+            required: false,
+            default: null
+        },
+        image: {
             type: String,
             required: false,
             default: null
@@ -39,6 +52,7 @@ var Question = function Question() {
         var question = this,
             blockedWords = ['chuj', 'cipa', 'dupa', 'kurwa', 'bladź'],
             pattern = new RegExp(blockedWords.join('|'), 'i');
+        this.wasNew = this.isNew;    
         if (pattern.test(question.contents)) {
             next(new Error('Banned word occurred'));
         } else {
@@ -46,20 +60,54 @@ var Question = function Question() {
         }
     });
 
+    schema.post('init', function() {
+        this._original = this.toObject();
+    });
+
     /**
      * post save
      * @return void
      */
-    schema.post('save', function() {
-        var question = this;
+    schema.post('save', function(question) {
+        if (this.wasNew) {
+            UserModel.update({
+                _id: question.to
+            }, {
+                $inc: {'stats.questions_unanswered': 1}
+            }, function (err, user) {
+            
+            });
+        } else if (this._original.answer === null && this.answer !== null) {
+            UserModel.update({
+                _id: question.to
+            }, {
+                $inc: {
+                    'stats.questions_unanswered': -1,
+                    'stats.questions_answered': 1,
+                    points: (question.to !== question.from) ? 0.2 : 0
+                }
+            }, function (err, user) {
+                
+            });
+        }
+    });
+
+    /**
+     * post remove
+     * @return void
+     */
+    schema.post('remove', function(question) {
         if (question.answer === null) {
             UserModel.update({
                 _id: question.to
             }, {
-                $inc: {'stats.questions_unread': 1}
+                $inc: {'stats.questions_unanswered': -1}
             }, function (err, user) {
             
             });
+        }
+        if (question.image !== null) {
+            fsExtra.remove(config.answer.dir + question.image);
         }
     });
 

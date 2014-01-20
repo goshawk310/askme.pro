@@ -114,7 +114,11 @@ var User = function() {
             }
         },
         stats: {
-            questions_unread: {
+            questions_unanswered: {
+                type: Number,
+                default: 0
+            },
+            questions_answered: {
                 type: Number,
                 default: 0
             }
@@ -124,6 +128,10 @@ var User = function() {
         autoIndex: false
     });
     
+    schema.virtual('pointsInt').get(function () {
+        return Math.floor(this.points);
+    });
+
     /** pre
      */
     schema.pre('save', function(next) {

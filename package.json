@@ -38,7 +38,8 @@
     "gm": "~1.14.2",
     "imgr": "~0.9.3",
     "fs-extra": "~0.8.1",
-    "underscore": "~1.5.2"
+    "underscore": "~1.5.2",
+    "redis": "~0.10.0"
   },
   "devDependencies": {
     "mocha": "~1.10.0",

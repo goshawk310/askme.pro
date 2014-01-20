@@ -9,6 +9,7 @@ var kraken = require('kraken-js'),
     i18n = require('i18n'),
     dustjsHelper = require('./lib/dustjs/helpers'),
     express = require('express'),
+    redisClient = require('./lib/redis'),
     app = {};
 app.configure = function configure(nconf, next) {
     // Fired when an app configures itself
@@ -18,6 +19,9 @@ app.configure = function configure(nconf, next) {
     i18n.configure(nconf.get('middleware').i18n);
     //configure passport
     auth.configure(i18n);
+    //configure redis client
+    redisClient.configure();
+    
     next(null);
 };
 
@@ -42,6 +46,7 @@ app.requestStart = function requestStart(server) {
     });
     server.param('username', /^[a-zA-Z0-9]+$/);
     server.param('locale', /^[a-zA-Z]{2}$/);
+    server.param('id', /^[a-zA-Z0-9]+$/);
 };
 
 app.requestBeforeRoute = function requestBeforeRoute(server) {

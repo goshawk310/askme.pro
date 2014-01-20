@@ -81,7 +81,7 @@
                 fail: function (e, data) {
                     askmePro.utils.showAlert({
                         status: 'error',
-                        message: thisObj.settings.upload.messages.serverError
+                        message: thisObj.settings.messages.serverError
                     });
                     thisObj.hideProgress(progressElem);
                 },

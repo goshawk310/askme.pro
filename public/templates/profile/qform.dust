@@ -1,0 +1,42 @@
+<div class="well" id="question-form-container">
+    <form id="question-form" action="/question/ask" method="post">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <textarea name="question[contents]" id="question-contents" class="form-control" placeholder="{@__ phrase="Pytanie" /}:"></textarea>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="form-group">
+                    <div class="pull-left">
+                        <strong id="question-contents-count">200</strong>
+                    </div>
+                    <div class="pull-right">
+                        {?isAnonymous}
+                            <input type="hidden" name="question[anonymous]" id="question-anonymous" value="1">
+                        {:else}
+                            {^profile.settings.anonymous_disallowed}
+                                <label class="checkbox-inline">
+                                    <input type="checkbox" name="question[anonymous]" id="question-anonymous" value="1"> {@__ phrase="Anonimowo" /}
+                                </label>
+                            {/profile.settings.anonymous_disallowed}
+                        {/isAnonymous}
+                        <button type="submit" class="btn btn-success">{@__ phrase="Zapytaj" /}</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <input type="hidden" name="question[to]" id="question-to" value="{profile.id}">
+        <input type="hidden" name="_csrf" value="{_csrf}">
+    </form>
+    <div id="question-form-message-container" class="well">
+        <div class="message success">
+            <h3>{@__ phrase="Gratulacje" /}!</h3>
+            <p>{@__ phrase="Twoje pytanie zostało wysłane do %s." words="{profile.username}"/} {@__ phrase="Co ty na to" /} <a  class="text-info" href="#">{@__ phrase="aby zadać kolejne" /}</a>? :)</p>
+        </div>
+        <div class="message error">
+            <h3>{@__ phrase="Błąd" /}!</h3>
+            <p>{@__ phrase="Przepraszamy, wiadomość nie może zostać wysłana"/}! <a class="text-info" href="#">{@__ phrase="Spróbuj ponownie" /}</a>.</p>
+        </div>
+    </div>
+</div>

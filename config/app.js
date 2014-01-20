@@ -4,7 +4,7 @@ module.exports = {
     avatar: {
         dir: dirname + '/uploads/avatars/',
         url: '/uploads/avatars/',
-        sizes: ['300x', '100x100']
+        sizes: ['300x', '100x', '50x']
     },
     custom_background: {
         dir: dirname + '/uploads/backgrounds/',
@@ -17,6 +17,10 @@ module.exports = {
     topbg: {
         dir: dirname + '/uploads/tops/',
         url: '/uploads/tops/'
+    },
+    answer: {
+        dir: dirname + '/uploads/answers/',
+        url: '/uploads/answers/'
     },
     locales: [{
         key: 'pl',

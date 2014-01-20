@@ -8,7 +8,7 @@
     "couch": false,
     "wsh": false,
 
-    "jquery": false,
+    "jquery": true,
     "prototypejs": false,
     "mootools": false,
     "dojo": false,
@@ -17,7 +17,7 @@
     "devel": false,
 
     "es5": true,
-    "strict": true,
+    "strict": false,
     "globalstrict": true,
 
     "asi": false,
@@ -68,5 +68,5 @@
     "maxstatements": 25,
     "maxcomplexity": 6,
 
-    "predef": ["define", "requirejs"]
+    "predef": ["define", "requirejs", "_", "askmePro", "Backbone"]
 }

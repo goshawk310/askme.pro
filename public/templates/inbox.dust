@@ -1,0 +1,69 @@
+{>"layouts/master" /}
+{<body}
+<div class="container">
+    {>"layouts/partials/ads/top"/}
+    <div class="row">
+        <div class="col-md-2">
+            {>"layouts/partials/ads/left"/}
+        </div>
+        <div class="col-md-8">
+            <div class="center-block">
+                {>"layouts/partials/ajaxalert" /}
+                {?message}
+                    {@message data=message /}
+                {/message}
+                <div class="panel panel-default box-shadow" id="questions-wrapper">
+                    <div class="panel-heading">
+                        <h4>{@__ phrase="Pytania do mnie" /}:</h4>
+                    </div>
+                    <div class="panel-body">
+                        <div id="questions-container">
+                            
+                        </div>
+                    </div>
+                    <div class="panel-footer">
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-2">
+            {>"layouts/partials/ads/right"/}
+        </div>
+    </div>
+</div>
+{/body}
+{<js}
+<script src="/components/fileupload/vendor/jquery.ui.widget.js"></script>
+<script src="/components/fileupload/jquery.iframe-transport.js"></script>
+<script src="/components/fileupload/jquery.fileupload.js"></script>
+<script src="/components/fileupload/jquery.fileupload-process.js"></script>
+<script src="/components/fileupload/jquery.fileupload-validate.js"></script>
+<script src="/components/momentjs/min/moment.min.js"></script>
+<script src="/components/validate/jquery.validate.min.js"></script>
+<script src="/components/validate/additional-methods.js"></script>
+{@ne key="en" value="{locale}"}
+    <script src="/components/validate/localization/messages_{locale}.js"></script>
+    <script src="/components/momentjs/lang/{locale}.js"></script>
+{/ne}
+<script src="/js/utils/upload.js"></script>
+<script src="/js/app/models/question.model.js"></script>
+<script src="/js/app/collections/question.collection.js"></script>
+<script src="/js/app/views/inbox.view.js"></script>
+<script src="/js/app/routes/inbox.router.js"></script>
+<script type="text/javascript">
+    askmePro.utils.setupDefaultValidator();
+    askmePro.settings.upload.messages = {
+        maxNumberOfFiles: '{@__ phrase="Przekroczono limit ilości plików." /}',
+        acceptFileTypes: '{@__ phrase="Niedozwolony rodzaj pliku." /}',
+        maxFileSize: '{@__ phrase="Plik jest za duży." /}',
+        minFileSize: '{@__ phrase="Plik jest za mały." /}'
+    };
+    askmePro.settings.upload.answer = {
+        url: '{config.answer.url}'
+    };
+</script>
+{/js}
+{<jsTemplates}
+    {>"inbox/question" /}
+{/jsTemplates}

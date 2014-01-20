@@ -18,9 +18,9 @@
                     <div class="col-md-9">
                         <ul class="nav nav-tabs" id="profile-menu">
                             <li class="active"><a href="#"><span class="glyphicon glyphicon-user"></span> {@__ phrase="Profil" /}</a></li>
-                            <li><a href="#profile-info"><span class="glyphicon glyphicon-picture"></span> {@__ phrase="Informacje" /}</a></li>
-                            <li><a href="#"><span class="glyphicon glyphicon-picture"></span> {@__ phrase="Zdjęcia" /}</a></li>
-                            <li><a href="#"><span class="glyphicon glyphicon-film"></span> {@__ phrase="Video" /}</a></li>
+                            <li><a href="#info"><span class="glyphicon glyphicon-info-sign"></span> {@__ phrase="Informacje" /}</a></li>
+                            <li><a href="#photos"><span class="glyphicon glyphicon-picture"></span> {@__ phrase="Zdjęcia" /}</a></li>
+                            <li><a href="#videos"><span class="glyphicon glyphicon-film"></span> {@__ phrase="Video" /}</a></li>
                         </ul>        
                     </div>
                 </div>
@@ -29,24 +29,15 @@
                         <div class="row" id="profile-top"{?profile.top_bg} style="background-image: url('{config.topbg.url}{profile.top_bg}')"{/profile.top_bg}>
                             <div class="col-md-3">
                                 {@userAvatar user=profile size="cropped/300x" wrapper="true"/}
-                                <div class="progress box-shadow">
-                                  <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;">
-                                    <span>{profile.points} {@__ phrase="pkt." /}</span>
-                                  </div>
+                                <div class="progress box-shadow user-points-progress">
+                                    <div class="progress-bar" id="user-points-progress-bar" role="progressbar" aria-valuenow="{profile.pointsInt}" aria-valuemin="0" aria-valuemax="100">
+                                    </div>
+                                    <div class="progress-value">{profile.pointsInt} {@__ phrase="pkt." /}</div>
                                 </div>
                             </div>
                             <div class="col-md-9" id="profile-info-container">
                                 <div class="well well-sm{?profile.top_bg} box-shadow{:else} no-shadow{/profile.top_bg}">
                                     <h1>{profile.name} {profile.lastname} </h1>
-                                    {?profile.profile.location}
-                                        <p><small>{profile.profile.location}</small></p>
-                                    {/profile.profile.location}
-                                    {?profile.profile.website}
-                                        <p><a target="_blank" href="{profile.profile.website}">{profile.profile.website}</a></p>
-                                    {/profile.profile.website}
-                                    {?profile.profile.bio}
-                                        <p>{profile.profile.bio}</p>
-                                    {/profile.profile.bio}
                                 </div>
                                 {@ne key="{user.id}" value="{profile.id}"}
                                     <div id="profile-buttons-container">
@@ -58,41 +49,10 @@
                                 <div class="clearfix"></div>
                             </div>
                         </div>    
-                        <div class="row">    
-                            <div class="col-md-12" id="profile-stats-wrapper">
-                                <div class="btn-group btn-group-justified" id="profile-stats-container">
-                                    <a class="btn btn-default" role="button">
-                                        <strong>3</strong> 
-                                        <span>{@__ phrase="obserwuje" /}</span>
-                                    </a>
-                                    <a class="btn btn-default no-left-border" role="button">
-                                        <img src="/images/icons/followers.png" alt="followers"><strong>3</strong> 
-                                        <span>{@__ phrase="obserwujący" /}</span>
-                                    </a>
-                                    <a class="btn btn-default no-left-border" role="button">
-                                        <img src="/images/icons/qa.png" alt="answers"><strong>3</strong> 
-                                        <span>{@__ phrase="odpowiedzi" /}</span>
-                                    </a>
-                                    <a class="btn btn-default no-left-border" role="button">
-                                        <img src="/images/icons/likes.png" alt="likes"><strong>3</strong> 
-                                        <span>{@__ phrase="lubi to" /}</span>
-                                    </a>
-                                    <a class="btn btn-default no-left-border" role="button">
-                                        <img src="/images/icons/giftbox.png" alt="gifts"><strong>3</strong> 
-                                        <span>{@__ phrase="gifty" /}</span>
-                                    </a>
-                                </div>
-                            </div>
-                            {?profile.profile.motto}
-                                <div class="col-md-12">
-                                    <p>{profile.profile.motto}</p>
-                                </div>
-                            {/profile.profile.motto}
-                        </div>
                         {?profile.sticker}
                             <img src="/images/stickers/{profile.sticker}" alt="" class="profile-sticker" />
                         {/profile.sticker}
-                        <div id="question-form-wrapper">
+                        <div id="profile-tabs-content">
                             <hr>
                         </div>        
                     </div>
@@ -118,13 +78,6 @@
 </script>
 {/js}
 {<jsTemplates}
-    {?user}
-        {@ne key="{user.id}" value="{profile.id}"}
-            {>"profile/index" profile=profile /}
-        {/ne}
-    {:else}
-        {^profile.settings.anonymous_disallowed}
-            {>"profile/index" profile=profile isAnonymous="1" /}
-        {/profile.settings.anonymous_disallowed}
-    {/user}
+    {>"profile/index" profile=profile /}
+    {>"profile/info" profile=profile /}
 {/jsTemplates}

@@ -1,13 +1,16 @@
 askmePro.views.ProfileIndexView = Backbone.View.extend({
     template: $('#profile-index-tpl').length ? _.template($('#profile-index-tpl').html()) : null,
-    el: '#question-form-wrapper',
-    initialize: function () {
+    initialize: function() {
         this.render();
     },
-    render: function () {
-        this.$el.html($(this.template()));
-        this.$('#question-contents').charsLimiter(200, $('#question-contents-count'));
-        this.ask();
+    render: function() {
+        this.setElement($(this.template()));
+        if (this.$('#question-form').length) {
+            this.$('#question-contents').charsLimiter(200, this.$('#question-contents-count'));
+            this.ask();
+        }
+        this.setupPointsProgress();
+        this.loadAnswers();
         return this;
     },
     events: {
@@ -27,9 +30,9 @@ askmePro.views.ProfileIndexView = Backbone.View.extend({
             submitHandler: function(form) {
                 var $form = $(form),
                     submit = $form.find('button[type="submit"]');
-                submit.attr('disabled', true);    
+                submit.attr('disabled', true);
                 $.post($form.attr('action'), $form.serialize())
-                    .done(function (response) {
+                    .done(function(response) {
                         message.show();
                         if (response.status === 'success') {
                             success.show();
@@ -37,15 +40,15 @@ askmePro.views.ProfileIndexView = Backbone.View.extend({
                             error.show();
                         }
                     })
-                    .fail(function () {
+                    .fail(function() {
                         error.show();
                     })
-                    .always(function () {
+                    .always(function() {
                         submit.attr('disabled', false);
-                    });    
+                    });
             }
-        });    
-        
+        });
+
     },
     hideMessage: function hideMessage(e) {
         e.preventDefault();
@@ -54,5 +57,57 @@ askmePro.views.ProfileIndexView = Backbone.View.extend({
         message.hide();
         this.$('#question-contents').val('');
         this.$('#question-contents-count').html(200);
+    },
+    setupPointsProgress: function setupPointsProgress() {
+        var progressElem = $('#user-points-progress-bar'),
+            points = parseInt(progressElem.attr('aria-valuenow'), 10),
+            progress = 0,
+            cssClass = 'levelone';
+        if (points < 101) {
+            progress = points;
+        } else if (points > 100 && points < 501) {
+            progress = (progress - 100) / 400 * 100;
+            cssClass = 'leveltwo';
+        } else if (points > 500 && points < 1001) {
+            progress = (points - 500) / 500 * 100;
+            cssClass = 'levelthree';
+        } else if (points > 1000 && points < 5001) {
+            progress = (points - 1000) / 4000 * 100;
+            cssClass = 'levelfour';
+        } else if (points > 5000) {
+            progress = 100;
+            cssClass = 'levelfive';
+        }
+        progressElem.addClass(cssClass).css('width', progress + '%');
+    },
+    loadAnswers: function loadAnswers() {
+        var thisObj = this,
+            loader = this.$('#answers-wrapper').loading();
+        loader.css({display: 'block', opacity: 1});
+        $.get('/inbox/answers')
+            .done(function (response) {
+                console.log(response);            
+            })
+            .fail(function () {
+
+            })
+            .always(function () {
+                //loader.hide();
+            });
+    }
+});
+
+
+askmePro.views.ProfileInfoView = Backbone.View.extend({
+    template: _.template($('#profile-info-tpl').html()),
+    initialize: function() {
+        this.render();
+    },
+    render: function() {
+        this.setElement($(this.template()));
+        return this;
+    },
+    events: {
+
     }
 });

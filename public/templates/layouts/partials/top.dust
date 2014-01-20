@@ -18,7 +18,7 @@
             <ul class="nav navbar-nav navbar-right">
                 {?user} 
                     
-                    <li><a href="/account/inbox">{@__ phrase="Pytania"/} <span id="inbox-count">(<span>{user.stats.questions_unread}</span>)</span></a></li>
+                    <li><a href="/inbox">{@__ phrase="Pytania"/} <span id="inbox-count">(<span class="inbox-count">{user.stats.questions_unanswered}</span>)</span></a></li>
                 {/user}
                 <li><a href="/top20" role="button" class="btn btn-primary">{@__ phrase="TOP 20"/}</a></li>
                 <li><a href="/search/profiles">{@__ phrase="Szukaj"/}</a></li>
