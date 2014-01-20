@@ -14,7 +14,8 @@ askmePro.views.ProfileIndexView = Backbone.View.extend({
         return this;
     },
     events: {
-        'click #question-form-message-container a': 'hideMessage'
+        'click #question-form-message-container a': 'hideMessage',
+        'click .more': 'more'
     },
     ask: function ask() {
         var form = this.$('#question-form'),
@@ -36,11 +37,15 @@ askmePro.views.ProfileIndexView = Backbone.View.extend({
                         message.show();
                         if (response.status === 'success') {
                             success.show();
+                            error.hide();
                         } else {
                             error.show();
+                            success.hide();
                         }
                     })
                     .fail(function() {
+                        message.show();
+                        success.hide();
                         error.show();
                     })
                     .always(function() {
@@ -80,20 +85,44 @@ askmePro.views.ProfileIndexView = Backbone.View.extend({
         }
         progressElem.addClass(cssClass).css('width', progress + '%');
     },
-    loadAnswers: function loadAnswers() {
+    loadAnswers: function loadAnswers(page) {
         var thisObj = this,
-            loader = this.$('#answers-wrapper').loading();
+            loader = this.$('#answers-wrapper').loading(),
+            container = this.$('#answers-container'),
+            moreContainer = this.$('.more-container'),
+            more = moreContainer.children('.more'),
+            p = page || 0;
         loader.css({display: 'block', opacity: 1});
-        $.get('/inbox/answers')
+        $.get('/inbox/answers?p=' + p)
             .done(function (response) {
-                console.log(response);            
+                thisObj.collection = new askmePro.collections.QuestionCollection(response.questions);
+                thisObj.collection.each(function (question) {
+                    container.append(new askmePro.views.QuestionView({
+                        model: question,
+                        attributes: {
+                            parent: thisObj
+                        }
+                    }).render().$el);
+                });
+                if (response.hasMore === false) {
+                    more.data('page', 0);
+                    moreContainer.hide();
+                } else {
+                    more.data('page', response.hasMore);
+                    moreContainer.show();
+                }
             })
             .fail(function () {
 
             })
             .always(function () {
-                //loader.hide();
+                loader.hide();
             });
+
+    },
+    more: function more(e) {
+        var $this = $(e.target);
+        this.loadAnswers($this.data('page'));
     }
 });
 

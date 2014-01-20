@@ -184,7 +184,7 @@ module.exports = _.extend(require('../lib/service'), {
                     return callback(err);
                 }
                 var output = [],
-                    hasMore = questions.length > limit;
+                    hasMore = questions.length > limit ? page + 1 : false;
                 questions.pop();
                 _.each(questions, function (question) {
                     question = question.toObject();

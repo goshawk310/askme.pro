@@ -53,7 +53,7 @@ var Question = function Question() {
             blockedWords = ['chuj', 'cipa', 'dupa', 'kurwa', 'bladź'],
             pattern = new RegExp(blockedWords.join('|'), 'i');
         this.wasNew = this.isNew;    
-        if (pattern.test(question.contents)) {
+        if (pattern.test(question.contents) || (question.answer !== null && pattern.test(question.answer))) {
             next(new Error('Banned word occurred'));
         } else {
             next();

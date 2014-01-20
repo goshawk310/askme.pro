@@ -54,7 +54,7 @@ module.exports = function(server) {
     server.get('/inbox/answers', auth.isAuthenticated, function (req, res) {
         questionService.getAnsweredByUserId(
             req.user._id,
-            parseInt(req.param('perPage'), 10) || 10,
+            10,
             parseInt(req.param('p'), 10) || 0,
             function (err, results) {
                 res.send(results);

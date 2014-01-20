@@ -9,7 +9,7 @@ module.exports = function(server) {
             .setReq(req).setRes(res)
             .ask(function (err, quesion) {
                 if (err) {
-                    return res.send({
+                    return res.send(500, {
                         status: 'error',
                         message: res.__('Wystąpił nieoczekiwany błąd!')
                     });

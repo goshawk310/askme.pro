@@ -66,18 +66,27 @@
 </div>
 {/body}
 {<js}
+<script src="/components/momentjs/min/moment.min.js"></script>
 <script src="/components/validate/jquery.validate.min.js"></script>
 <script src="/components/validate/additional-methods.js"></script>
 {@ne key="en" value="{locale}"}
     <script src="/components/validate/localization/messages_{locale}.js"></script>
+    <script src="/components/momentjs/lang/{locale}.js"></script>
 {/ne}
+<script src="/js/app/models/question.model.js"></script>
+<script src="/js/app/collections/question.collection.js"></script>
+<script src="/js/app/views/question.view.js"></script>
 <script src="/js/app/views/profile.view.js"></script>
 <script src="/js/app/routes/profile.router.js"></script>
 <script type="text/javascript">
     askmePro.utils.setupDefaultValidator();
+    askmePro.settings.upload.answer = {
+        url: '{config.answer.url}'
+    };
 </script>
 {/js}
 {<jsTemplates}
     {>"profile/index" profile=profile /}
     {>"profile/info" profile=profile /}
+    {>"partials/question" profile=profile /}
 {/jsTemplates}

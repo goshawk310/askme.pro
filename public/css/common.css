@@ -419,6 +419,52 @@ ul#profile-menu li.active a {
     transition: opacity 1s linear;
 }
 
+#answers-container .question .media-body {
+    padding-left: 15px;
+    position: relative;
+}
+
+#answers-container .question .media-body .triangle {
+    display: block;
+    width: 0px;
+    height: 0px;
+    border-style: solid;
+    border-width: 8px 10px 4px 0;
+    border-color: transparent #bed0e9 transparent transparent;
+    position: absolute;
+    left: 6px;
+    top: 20px;
+}
+
+
+#answers-container .question h4 {
+    background: #e7f1fe;
+    background: -moz-linear-gradient(top, #e7f1fe 0%, #c7defe 100%);
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#e7f1fe), color-stop(100%,#c7defe));
+    background: -webkit-linear-gradient(top, #e7f1fe 0%,#c7defe 100%);
+    background: -o-linear-gradient(top, #e7f1fe 0%,#c7defe 100%);
+    background: -ms-linear-gradient(top, #e7f1fe 0%,#c7defe 100%);
+    background: linear-gradient(to bottom, #e7f1fe 0%,#c7defe 100%);
+    border: 1px dashed #CCCCCC;
+    border-radius: 5px;
+    color: #3E454C;
+    text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
+    font-size: 1.1em;
+    line-height: 1.3em;
+    padding: 10px;
+    border: 1px solid #BED0E9;
+    word-wrap: break-word;
+}
+
+#answers-container .question .panel {
+    border: 0;
+    margin-bottom: 0;
+}
+
+.more-container {
+    display: none;
+}
+
 @media (min-width: 768px) {
 	.navbar-nav > li > a.btn {
 		padding-top: 0;

@@ -1,0 +1,32 @@
+<script type="text/template" id="question-tpl">
+    <div class="row">
+        <div class="question-container">
+            <div class="col-md-12 question">
+                <div class="media">
+                    <%=askmePro.views.helpers.userAvatar({~lb}user: question.from, size: 'cropped/100x', wrapper: true, cssClass: "box-shadow img-circle user-avatar small", linkClass: "user-avatar-wrapper pull-left"{~rb})%>
+                    <div class="media-body">
+                        <h4><%-question.contents%></h4>
+                        <span class="triangle"></span>
+                        <span><%-question.answer%></span>
+                        <div class="clearfix"></div>
+                        <% if (question.image) {~lb} %>
+                            <div class="panel panel-link no-shadow">
+                                <div class="panel-body text-center">
+                                    <img src="<%=askmePro.settings.upload.answer.url + question.image%>" class="img-thumbnail">
+                                </div>
+                            </div>
+                        <% {~rb} %>
+                        <small class="text-muted">
+                            {@__ phrase="Zapytano" /} <em><%=moment(question.created_at).fromNow()%></em>
+                            <% if(question.from){~lb}%> {@__ phrase="przez" /} <a href="/<%=question.from.username%>"><%=question.from.username%></a><%{~rb}else{~lb}%>, {@__ phrase="anonimowo" /}<%{~rb}%>
+                        </small>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12">
+            <hr>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+</script>
