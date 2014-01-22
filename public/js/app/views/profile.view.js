@@ -93,7 +93,7 @@ askmePro.views.ProfileIndexView = Backbone.View.extend({
             more = moreContainer.children('.more'),
             p = page || 0;
         loader.css({display: 'block', opacity: 1});
-        $.get('/inbox/answers?p=' + p)
+        $.get(window.location.pathname + '/answers?p=' + p)
             .done(function (response) {
                 thisObj.collection = new askmePro.collections.QuestionCollection(response.questions);
                 thisObj.collection.each(function (question) {

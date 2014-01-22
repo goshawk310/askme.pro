@@ -47,17 +47,18 @@ module.exports = function(server) {
 
     /**
      * 
-     * @param  {Object} req
-     * @param  {Object} res
-     * @return {void}
+     * @param  {[type]} req
+     * @param  {[type]} res
+     * @return {[type]}
      */
-    server.get('/inbox/answers', auth.isAuthenticated, function (req, res) {
-        questionService.getAnsweredByUserId(
-            req.user._id,
-            10,
-            parseInt(req.param('p'), 10) || 0,
-            function (err, results) {
-                res.send(results);
+    server.patch('/inbox/video/:id', auth.isAuthenticated, function (req, res) {
+        questionService
+            .setServer(server)
+            .setReq(req)
+            .setRes(res)
+            .video({
+                'id': req.param('id'),
+                'to': req.user._id
             });
     });
 };

@@ -20,26 +20,11 @@ module.exports = function(server) {
         res.setLocale(req.param('locale'));
         res.redirect('back');
     });
-
-    server.get('/:username', function (req, res, next) {
-        userService
-            .setReq(req)
-            .setRes(res)
-            .setNext(next);
-        userService.getByUsername(req.param('username'), function (err, user, next) {
-            if (err) {
-                return next(err);
-            }
-            if (!user) {
-                return next();
-            }
-            if (!req.isAuthenticated() && user.settings.anonymous_disallowed) {
-                req.flash('error', res.__('Aby przeglądać tą stronę trzeba się zalogować'));
-                return res.redirect('/account/login');
-            }
-            res.render('profile', {
-                profile: user
-            });
-        });
+    
+    server.get('/test', function(req, res) {
+        res.header("Access-Control-Allow-Origin", "*");
+        res.header("Access-Control-Allow-Headers", "X-Requested-With");
+        res.header('Access-Control-Allow-Credentials', true);
+        res.render('test');
     });
 };

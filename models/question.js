@@ -11,12 +11,15 @@ var Question = function Question() {
     var schema = mongoose.Schema({
         to: {
             type: mongoose.Schema.Types.ObjectId,
-            required: true
+            required: true,
+            ref: 'User',
+            index: true
         },
         from: {
             type: mongoose.Schema.Types.ObjectId,
             default: null,
-            ref: 'User'
+            ref: 'User',
+            index: true
         },
         contents: {
             type: String,
@@ -37,6 +40,21 @@ var Question = function Question() {
             type: String,
             required: false,
             default: null
+        },
+        yt_video: {
+            type: String,
+            required: false,
+            default: null
+        },
+        stats: {
+            likes: {
+                type: Number,
+                default: 0
+            },
+            comments: {
+                type: Number,
+                default: 0
+            }
         }
     }, {
         collection: 'questions',

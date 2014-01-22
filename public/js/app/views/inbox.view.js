@@ -1,5 +1,7 @@
 askmePro.views.InboxIndexView = Backbone.View.extend({
     template: _.template($('#inbox-question-pager-tpl').html()),
+    ytWidget: null,
+    ytWidgetWidth: null,
     initialize: function () {
         this.setElement($('#questions-wrapper'));
     },
@@ -21,6 +23,34 @@ askmePro.views.InboxIndexView = Backbone.View.extend({
         return this;
     },
     events: {
+    },
+    initYt: function initYt (params) {
+        var thisObj = this,
+            tag,
+            firstScriptTag,
+            createUploadWidget = function createUploadWidget(params) {
+                thisObj.ytWidget = new YT.UploadWidget('widget', {
+                    width: thisObj.ytWidgetWidth,
+                    events: {
+                        'onUploadSuccess': params.onUploadSuccess,
+                        'onProcessingComplete': params.onProcessingComplete
+                    }
+                });
+            };
+        if (this.ytWidget) {
+            this.ytWidget.destroy();
+            createUploadWidget(params);
+            
+        } else {
+            tag = document.createElement('script'),
+            firstScriptTag = document.getElementsByTagName('script')[0];
+            tag.src = 'https://www.youtube.com/iframe_api';
+            firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+            window.onYouTubeIframeAPIReady = function onYouTubeIframeAPIReady() {
+                thisObj.ytWidgetWidth = thisObj.$('#yt-modal').find('.modal-body').width();
+                createUploadWidget(params)
+            }
+        }
     }
 });
 
@@ -56,7 +86,8 @@ askmePro.views.InboxQuestionView = Backbone.View.extend({
     events: {
         'click button.show-answer-form': 'showAnswerForm',
         'click button.cancel': 'cancel',
-        'click button.remove': 'removeQuestion'
+        'click button.remove': 'removeQuestion',
+        'click button.yt': 'record'
     },
     showAnswerForm: function showAnswerForm() {
         var thisObj = this;
@@ -138,5 +169,38 @@ askmePro.views.InboxQuestionView = Backbone.View.extend({
             clearInterval(interval);
             interval = null;
         }, 2000);
+    },
+    record: function record() {
+        var thisObj = this,
+            modal = $('#yt-modal').modal('show');
+        modal.off('shown.bs.modal').on('shown.bs.modal', function () {
+            thisObj.attributes.parent.initYt({
+                onUploadSuccess: function (event) {
+                    thisObj.model.save({
+                        yt_video: event.data.videoId
+                    }, {
+                        url: '/question/' + thisObj.model.attributes._id + '/video',
+                        patch: true,
+                        success: function (model, xhr) {
+                            modal.modal('hide');
+                            var iframe = $('<iframe />', {
+                                src: '//www.youtube.com/embed/' + event.data.videoId,
+                                frameborder: '0',
+                                allowfullscreen: ''
+                            }).attr({
+                                width: 650,
+                                height: 360
+                            });
+                            thisObj.$('.video-container').addClass('visible').html(iframe);
+                        },
+                        error: function (model, xhr) {
+                        }
+                    });
+                },
+                onProcessingComplete: function (event) {
+                    
+                }
+            });
+        });
     }
 });

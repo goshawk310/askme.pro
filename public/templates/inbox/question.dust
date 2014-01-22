@@ -32,6 +32,9 @@
                                         <button type="button" class="btn btn-link fileinput-button">
                                             <span class="glyphicon glyphicon-picture"></span><input type="file" name="image">
                                         </button>
+                                        <button type="button" class="btn btn-link yt">
+                                            <span class="glyphicon glyphicon-film"></span>
+                                        </button>
                                     </div>
                                     <div class="clearfix"></div>
                                 </div>
@@ -58,6 +61,11 @@
                                         <img src="<%=askmePro.settings.upload.answer.url + question.image%>" class="img-thumbnail">
                                     <% {~rb} %>
                                 </div>
+                                <div class="video-container<% if (question.yt_video) {~lb} %> visible<% {~rb} %> text-center">
+                                    <% if (question.yt_video) {~lb} %>
+                                        <iframe width="640" height="360" src="//www.youtube.com/embed/<%=question.yt_video%>" frameborder="0" allowfullscreen></iframe>
+                                    <% {~rb} %>
+                                </div>
                             </div>
                         </div>
                         <input type="hidden" name="_csrf" value="{_csrf}"> 
@@ -69,6 +77,20 @@
         <div class="col-md-12">
             <hr>
             <div class="clearfix"></div>
+        </div>
+        <div class="modal fade" id="yt-modal" tabindex="-1" role="dialog" aria-labelledby="yt-modal-label" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title" id="myModalLabel">{@__ phrase="Nagraj film" /}</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div id="widget"></div>
+                        <div id="player"></div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </script>
@@ -82,5 +104,3 @@
         <%{~rb}%>
     </ul>    
 </script>
-
-

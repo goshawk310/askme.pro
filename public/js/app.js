@@ -24,6 +24,9 @@ var askmePro = {
                     output = '<a'+ href + ' class="' + linkClass + '">' + output + '</a>';
                 }
                 return output;
+            },
+            nl2br: function nl2br(value) {
+                return (value + '').replace(/([^>\r\n]?)(\r\n|\n\r|\r|\n)/g, '$1<br>$2');
             }
         }
     },

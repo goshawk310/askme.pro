@@ -1,0 +1,7 @@
+<!DOCTYPE html>
+<html>
+  <body>
+    {+body /}
+    <iframe id="widget" type="text/html" width="640" height="390" src="https://www.youtube.com/upload_embed" frameborder="0">
+  </body>
+</html>

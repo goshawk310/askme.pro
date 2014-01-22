@@ -7,19 +7,48 @@
                     <div class="media-body">
                         <h4><%-question.contents%></h4>
                         <span class="triangle"></span>
-                        <span><%-question.answer%></span>
+                        <span><%=_.escape(askmePro.views.helpers.nl2br(question.answer)).replace(/&lt;br&gt;/g, '<br>')%></span>
                         <div class="clearfix"></div>
                         <% if (question.image) {~lb} %>
-                            <div class="panel panel-link no-shadow">
+                            <div class="media-wrapper panel panel-link no-shadow">
                                 <div class="panel-body text-center">
                                     <img src="<%=askmePro.settings.upload.answer.url + question.image%>" class="img-thumbnail">
                                 </div>
                             </div>
                         <% {~rb} %>
-                        <small class="text-muted">
-                            {@__ phrase="Zapytano" /} <em><%=moment(question.created_at).fromNow()%></em>
-                            <% if(question.from){~lb}%> {@__ phrase="przez" /} <a href="/<%=question.from.username%>"><%=question.from.username%></a><%{~rb}else{~lb}%>, {@__ phrase="anonimowo" /}<%{~rb}%>
-                        </small>
+                        <% if (question.yt_video) {~lb} %>
+                            <div class="media-wrapper panel panel-link no-shadow">
+                                <div class="panel-body text-center">
+                                    <div class="video-container visible">
+                                        <iframe width="640" height="360" src="//www.youtube.com/embed/<%=question.yt_video%>" frameborder="0" allowfullscreen></iframe>
+                                    </div>
+                                </div>
+                            </div>
+                        <% {~rb} %>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <small class="text-muted">
+                                    {@__ phrase="Zapytano" /} <em><%=moment(question.created_at).fromNow()%></em>
+                                    <% if(question.from){~lb}%> {@__ phrase="przez" /} <a href="/<%=question.from.username%>"><%=question.from.username%></a><%{~rb}else{~lb}%>, {@__ phrase="anonimowo" /}<%{~rb}%>
+                                </small>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="pull-right">
+                                    <small class="text-muted likes-wrapper<% if(question.stats.likes){~lb}%> visible<%{~rb}%>">
+                                        <span class="likes-container"><a href="#question/<%=question._id%>/likes" class="text-primary"><span class="likes"><%=question.stats.likes%></span> {@__ phrase="os." /}</a> {@__ phrase="lubi to" /}</span>
+                                        {?user}
+                                            <% if('{user._id}' !== question.to){~lb}%>
+                                                <button type="button" class="btn btn-link btn-xs<% if (question.liked){~lb}%> dislike-button <%{~rb} else {~lb}%> like-button<%{~rb}%>"<% if (question.liked){~lb}%> title="{@__ phrase="Ty to lubisz"/}"<%{~rb}%> data-id="<%=question.liked%>">
+                                                    <span class="glyphicon glyphicon-heart"></span>
+                                                    <span class="glyphicon glyphicon-heart-empty"></span>
+                                                </button>
+                                            <%{~rb}%>
+                                        {/user}    
+                                    </small>
+                                </div>
+                            </div>
+                        </div>
+                        
                     </div>
                 </div>
             </div>

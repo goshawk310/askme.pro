@@ -1,5 +1,6 @@
 'use strict';
 var QuestionModel = require('../models/question'),
+    LikeModel = require('../models/like'),
     mongoose = require('mongoose'),
     _ = require('underscore'),
     redisClient = require('../lib/redis').client,
@@ -172,29 +173,73 @@ module.exports = _.extend(require('../lib/service'), {
      * @param  {Function} callback
      * @return {void}
      */
-    getAnsweredByUserId: function getAnsweredByUserId(id, limit, page, callback) {
-        var skip = (limit + 1) * page;
+    getAnswered: function getAnswered(params, callback) {
+        var skip = (params.limit + 1) * params.page;
         QuestionModel
-            .find({to: id, answer: {'$ne': null}})
+            .find({to: params.to, answer: {'$ne': null}})
             .populate('from', 'username avatar')
             .sort({answered_at: -1})
-            .skip(skip).limit(limit + 1)
+            .skip(skip).limit(params.limit + 1)
             .exec(function (err, questions) {
                 if (err) {
                     return callback(err);
                 }
                 var output = [],
-                    hasMore = questions.length > limit ? page + 1 : false;
-                questions.pop();
+                    hasMore = questions.length > params.limit ? params.page + 1 : false,
+                    questionsCount = 0,
+                    index = 0;
+                if (hasMore) {    
+                    questions.pop();
+                }
+                questionsCount = questions.length;
                 _.each(questions, function (question) {
                     question = question.toObject();
                     question.created_at = question._id.getTimestamp();
-                    output.push(question);
-                });
-                callback(null, {
-                    questions: output,
-                    hasMore: hasMore
+                    (function (question) {
+                        LikeModel
+                            .findOne({question_id: question._id, from: params.from})
+                            .exec(function (err, like) {
+                                if (!err && like) {
+                                    question.liked = like._id;
+                                } else {
+                                    question.liked = false;
+                                }
+                                output.push(question);
+                                index += 1;
+                                if (index === questionsCount) {
+                                    return callback(null, {
+                                        questions: output,
+                                        hasMore: hasMore
+                                    });
+                                }
+                        });
+                    }(question));
                 });
         });
     },
+    /**
+     * 
+     * @param  {Object}   params
+     * @param  {Function} callback
+     * @return {void}
+     */
+    updateVideo: function updateVideo(params, callback) {
+        QuestionModel
+            .findOne({_id: params.id, to: params.to, answer: null})
+            .exec(function (err, question) {
+                if (err) {
+                    return callback(err);
+                }
+                if (question === null) {
+                    return callback(new Error('Question not found'));
+                }
+                question.yt_video = params.yt_video;
+                question.save(function (err) {
+                    if (err) {
+                        return callback(err);
+                    }
+                    callback(null);
+                });
+            });
+    }
 });

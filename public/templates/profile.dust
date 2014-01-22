@@ -73,6 +73,7 @@
     <script src="/components/validate/localization/messages_{locale}.js"></script>
     <script src="/components/momentjs/lang/{locale}.js"></script>
 {/ne}
+<script src="/js/app/models/like.model.js"></script>
 <script src="/js/app/models/question.model.js"></script>
 <script src="/js/app/collections/question.collection.js"></script>
 <script src="/js/app/views/question.view.js"></script>

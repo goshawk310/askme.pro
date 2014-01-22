@@ -465,6 +465,65 @@ ul#profile-menu li.active a {
     display: none;
 }
 
+#yt-modal {
+    width: 100%;
+}
+
+.video-container {
+    position: relative;
+    padding-bottom: 56.25%;
+    padding-top: 30px; height: 0; overflow: hidden;
+    margin: 0 auto;
+    display: none;
+}
+
+.video-container.visible {
+    display: block;
+}
+ 
+.video-container iframe,
+.video-container object,
+.video-container embed {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.question-container .media-wrapper {
+    margin: 0 auto;
+    max-width: 640px;
+}
+
+.question-container .like-button {
+    opacity: 0;
+}
+
+.question-container .btn .glyphicon {
+    display: none;
+}
+
+.question-container .btn.like-button .glyphicon-heart {
+    display: inline-block;
+}
+
+.question-container .btn.dislike-button .glyphicon-heart-empty {
+    display: inline-block;
+}
+
+.question-container:hover .like-button {
+    opacity: 1;
+}
+
+.question-container .likes-wrapper .likes-container {
+    display: none;
+}
+
+.question-container .likes-wrapper.visible .likes-container {
+    display: inline;
+}
+
 @media (min-width: 768px) {
 	.navbar-nav > li > a.btn {
 		padding-top: 0;
@@ -521,6 +580,10 @@ ul#profile-menu li.active a {
 
     .nav#profile-menu > li > a {
         padding: 10px 10px;
+    }
+
+    .question-container .like-button {
+        opacity: 1;
     }
 }
 

@@ -1,12 +1,11 @@
-askmePro.models.QuestionModel = Backbone.DeepModel.extend({
+askmePro.models.LikeModel = Backbone.Model.extend({
     idAttribute: '_id',
+    urlRoot : '/like',
     initialize: function () {
     },
     defaults: {
-        stats: {
-            likes: 0,
-            comments: 0
-        }
+        question_id: null,
+        to: null
     },
     validate: function (attrs) {
         
