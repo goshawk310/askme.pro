@@ -185,7 +185,7 @@ h1#index-h1 {
     right: -8px;
 }
 
-.profile-info-wrapper .user-avatar-wrapper {
+.profile-info-wrapper .user-avatar-wrapper, .media .user-avatar-wrapper {
     margin-bottom: 15px;
 }
 
@@ -522,6 +522,35 @@ ul#profile-menu li.active a {
 
 .question-container .likes-wrapper.visible .likes-container {
     display: inline;
+}
+
+#likes-modal .modal-dialog {
+    max-height: 90%;
+}
+
+#likes-modal .modal-content {
+    height: 100%;
+}
+
+.question-likes-wrapper {
+    max-height: 90%;
+    overflow: auto;
+}
+.question-like-container hr {
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.question-like-container .media .user-avatar-wrapper {
+    margin-bottom: 5px;
+}
+
+.question-like-container .media .media-body {
+    padding-top: 10px;
+}
+
+.question-likes-wrapper .row:last-child hr {
+    display: none;
 }
 
 @media (min-width: 768px) {

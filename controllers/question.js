@@ -1,5 +1,6 @@
 'use strict';
 var questionService = require('../services/question'),
+    likeService = require('../services/like'),
     auth = require('../lib/auth');
 
 module.exports = function(server) {
@@ -100,8 +101,73 @@ module.exports = function(server) {
     });
 
     server.get('/question/:id/likes', function (req, res) {
-        res.send({
+        likeService.getByQuestionId({
             id: req.param('id')
+        }, function (err, likes) {
+            if (err) {
+                return res.send(500, {
+                    status: 'error',
+                    message: res.__('Wystąpił nieoczekiwany błąd')
+                });
+            }
+            res.send(likes);
         });
+        
+    });
+
+    /**
+     * 
+     * @param  {Object} req
+     * @param  {Object} res
+     * @return {void}
+     */
+    server.post('/question/like', auth.isAuthenticated, function (req, res) {
+        likeService
+            .setReq(req)
+            .setRes(res)
+            .create({
+                question_id: req.body.question_id,
+                to: req.body.to,
+                from: req.user._id
+            }, function (err, like) {
+                if (err) {
+                    return res.send(500, {
+                        status: 'error',
+                        message: res.__('Wystąpił nieoczekiwany błąd')
+                    });
+                }
+                return res.send({
+                    'status': 'success',
+                    'message': '',
+                    'id': like._id
+                })
+            });
+    });
+
+    /**
+     * 
+     * @param  {Object} req
+     * @param  {Object} res
+     * @return {void}
+     */
+    server.delete('/question/like/:id', auth.isAuthenticated, function (req, res) {
+        likeService
+            .setReq(req)
+            .setRes(res)
+            .remove({
+                question_id: req.param('id'),
+                from: req.user._id
+            }, function (err) {
+                if (err) {
+                    return res.send(500, {
+                        status: 'error',
+                        message: res.__('Wystąpił nieoczekiwany błąd')
+                    });
+                }
+                return res.send({
+                    'status': 'success',
+                    'message': ''
+                })
+            });
     });
 };

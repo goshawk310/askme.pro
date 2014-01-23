@@ -15,15 +15,16 @@ askmePro.views.QuestionView = Backbone.View.extend({
         var thisObj = this,
             $this = $(e.currentTarget),
             question = this.model,
-            like = new askmePro.models.LikeModel();
+            like = new askmePro.models.QuestionLikeModel();
         question.set('stats.likes', this.model.get('stats.likes') + 1);
         $this.blur().attr('disabled', true);
         like.save({
             question_id: question.get('_id'),
             to: question.get('to')
         }, {
+            url: 'question/like',
             success: function (model, xhr) {
-                $this.data('id', xhr.id).attr('disabled', false).removeClass('like-button').addClass('dislike-button');
+                $this.attr('disabled', false).removeClass('like-button').addClass('dislike-button');
                 thisObj.$('.likes-wrapper')
                     .addClass('visible')
                     .find('.likes').html(question.get('stats.likes'));
@@ -37,8 +38,8 @@ askmePro.views.QuestionView = Backbone.View.extend({
         var thisObj = this,
             $this = $(e.currentTarget),
             question = this.model,
-            like = new askmePro.models.LikeModel({_id: $this.data('id')});
-        question.set('stats.likes', this.model.get('stats.likes') - 1);    
+            like = new askmePro.models.QuestionLikeModel({_id: question.get('_id')});
+        question.set('stats.likes', this.model.get('stats.likes') - 1);
         $this.blur().attr('disabled', true);
         like.destroy({
             success: function () {
@@ -51,7 +52,65 @@ askmePro.views.QuestionView = Backbone.View.extend({
                 } else {
                     thisObj.$('.likes-wrapper').removeClass('visible');
                 } 
+            },
+            error: function () {
+                alert('error');
             }
         });    
+    }
+});
+
+askmePro.views.QuestionLikesView = Backbone.View.extend({
+    template: _.template($('#question-likes-modal-tpl').html()),
+    initialized: false,
+    initialize: function () {
+        
+    },
+    render: function () {
+        this.setElement($(this.template()));
+        return this;
+    },
+    events: {
+        
+    },
+    load: function load(id, router) {
+        var body = this.$('.modal-body'),
+            collection;
+        if (!this.initialized) {
+            this.$el.on('hidden.bs.modal', function () {
+                router.navigate('', {trigger: true});
+            });
+            this.initialized = true;
+        }
+        body.html('');
+        loader = body.loading();
+        loader.css({display: 'block', opacity: 1});
+        this.$el.modal('show');
+        collection = new askmePro.collections.QuestionLikeCollection();
+        collection.url = '/question/' + id + '/likes';
+        collection.fetch({
+            success: function (collection, response, options) {
+                loader.hide();
+                collection.each(function (like) {
+                    body.append(new askmePro.views.QuestionLikeView({
+                        model: like,
+                    }).render().$el);
+                });
+            },
+            error: function () {
+                loader.hide();
+            }
+        });
+    }
+});
+
+askmePro.views.QuestionLikeView = Backbone.View.extend({
+    template: _.template($('#question-like-tpl').html()),
+    initialize: function () {
+        
+    },
+    render: function () {
+        this.setElement($(this.template({like: this.model.attributes})));
+        return this;
     }
 });

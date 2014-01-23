@@ -1,5 +1,6 @@
 askmePro.views.ProfileIndexView = Backbone.View.extend({
     template: $('#profile-index-tpl').length ? _.template($('#profile-index-tpl').html()) : null,
+    questions: [],
     initialize: function() {
         this.render();
     },
@@ -9,8 +10,8 @@ askmePro.views.ProfileIndexView = Backbone.View.extend({
             this.$('#question-contents').charsLimiter(200, this.$('#question-contents-count'));
             this.ask();
         }
-        this.setupPointsProgress();
         this.loadAnswers();
+        this.setupPointsProgress();
         return this;
     },
     events: {
@@ -97,12 +98,13 @@ askmePro.views.ProfileIndexView = Backbone.View.extend({
             .done(function (response) {
                 thisObj.collection = new askmePro.collections.QuestionCollection(response.questions);
                 thisObj.collection.each(function (question) {
-                    container.append(new askmePro.views.QuestionView({
+                    thisObj.questions.push(new askmePro.views.QuestionView({
                         model: question,
                         attributes: {
                             parent: thisObj
                         }
-                    }).render().$el);
+                    }));
+                    container.append(thisObj.questions[thisObj.questions.length - 1].render().$el);
                 });
                 if (response.hasMore === false) {
                     more.data('page', 0);

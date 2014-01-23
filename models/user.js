@@ -50,12 +50,12 @@ var User = function() {
         profile: {
             website: {
                 type: String,
-                validate: [validate('isUrl')],
+                validate: [validate({passIfEmpty: true}, 'isUrl')],
                 default: null
             },
             fanpage: {
                 type: String,
-                validate: [validate('isUrl')],
+                validate: [validate({passIfEmpty: true} ,'isUrl')],
                 default: null
             },
             location: {

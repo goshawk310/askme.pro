@@ -32,5 +32,11 @@ module.exports = _.extend(require('../lib/service'), {
                     callback(null, like);
                 });
             });
+    },
+    getByQuestionId: function getByQuestionId(params, callback) {
+        LikeModel
+            .find({question_id: params.id})
+            .populate('from', 'username avatar stats')
+            .exec(callback);
     }
 });

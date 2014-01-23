@@ -62,8 +62,9 @@ app.requestBeforeRoute = function requestBeforeRoute(server) {
 
 app.requestAfterRoute = function requestAfterRoute(server) {
     // Fired after routing occurs
-    //server.use('/captcha.jpg', require('easy-captcha').generate());
+    server.use('/captcha.jpg', require('easy-captcha').generate());
 };
+
 kraken.create(app).listen(function(err) {
     if (err) {
         console.error(err);
