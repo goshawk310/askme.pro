@@ -116,13 +116,13 @@ askmePro.views.SettingsTopBgView = Backbone.View.extend({
     },
     render: function () {
         var thisObj = this,
-            upload = _.extend(askmePro.upload, {
+            upload = _.extend({
                 settings: {
                     acceptFileTypes: {
                         image: /(\.|\/)(jpe?g)$/i,
                     }
                 }
-            });
+            }, askmePro.upload);
         this.$el.html($(this.template()));
         this.$('.btn-info-popover').each(function () {
             var $this = $(this);
