@@ -5,3 +5,7 @@ askmePro.collections.QuestionCollection = Backbone.Collection.extend({
 askmePro.collections.QuestionLikeCollection = Backbone.Collection.extend({
     model: askmePro.models.QuestionLikeModel
 });
+
+askmePro.collections.QuestionCommentCollection = Backbone.Collection.extend({
+    model: askmePro.models.QuestionCommentModel
+});

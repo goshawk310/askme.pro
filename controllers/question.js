@@ -132,7 +132,6 @@ module.exports = function(server) {
                 to: req.body.to._id,
                 from: req.user._id
             }, function (err, like) {
-                console.log(err);
                 if (err) {
                     return res.send(500, {
                         status: 'error',
@@ -182,11 +181,12 @@ module.exports = function(server) {
      */
     server.post('/question/:id/comment', auth.isAuthenticated, function (req, res) {
         commentService
+            .setReq(req)
             .create({
                 question_id: req.param('id'),
-                contents: req.body.comment.content,
-                from: req.user._id
-            }, function (err, like) {
+                contents: req.body.contents,
+                from: req.body.anonymous ? null : req.user._id
+            }, function (err, comment) {
                 if (err) {
                     return res.send(500, {
                         status: 'error',
@@ -194,8 +194,30 @@ module.exports = function(server) {
                     });
                 }
                 return res.send({
-                    'status': 'success',
-                    'message': '',
+                    status: 'success',
+                    comment: comment
+                });
+            });
+    });
+
+    /**
+     * 
+     * @param  {Object} req
+     * @param  {Object} res
+     * @return {void}
+     */
+    server.get('/question/:id/comments', auth.isAuthenticated, function (req, res) {
+        commentService
+            .setReq(req)
+            .getForQuestion(function (err, comments) {
+                if (err) {
+                    return res.send(500, {
+                        status: 'error',
+                        message: res.__('Wystąpił nieoczekiwany błąd')
+                    });
+                }
+                return res.send({
+                    comments: comments
                 });
             });
     });

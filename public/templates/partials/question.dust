@@ -52,8 +52,10 @@
                         </div>
                         <div class="row comments-wrapper">
                             <div class="col-md-12">
-                                <hr>
                                 <div class="well well-sm">
+                                    <button role="button" class="btn btn-link btn-xs btn-block btn-prev">{@__ phrase="Pokaż wcześniejsze" /}</button>
+                                    <div class="comments-container">
+                                    </div>
                                     <form method="post" action="/question/<%=question._id%>/comment" class="comment-form">
                                         <div class="form-group">
                                             <textarea class="form-control" placeholder="{@__ phrase="Dodaj komentarz" /}" rows="1" name="comment[contents]"></textarea>
@@ -118,8 +120,24 @@
        <div class="clearfix"></div>
     </div>
 </script>
-<script type="text/template" id="question-comments-tpl">
-   <div class="well fade">
-        
+<script type="text/template" id="question-comment-tpl">
+   <div class="row question-comment-container">
+       <div class="col-md-12">
+            <div class="media">
+                <%=askmePro.views.helpers.userAvatar({~lb}user: comment.from, size: 'cropped/100x', wrapper: true, cssClass: "box-shadow img-circle user-avatar xsmall", linkClass: "user-avatar-wrapper pull-left"{~rb})%>
+                <div class="media-body">
+                    <p>
+                        <% if (comment.from) {~lb} %>
+                            <a href="/<%=comment.from.username%>" class="text-primary"><%=comment.from.username%></a> 
+                        <% {~rb}%>
+                        <%-comment.contents%>
+                    </p>
+                    <p class="text-muted small"><em><%=moment(comment.created_at).fromNow()%></em></p>
+                </div>
+            </div>
+       </div>
+       <div class="clearfix"></div>
+       <hr>
+       <div class="clearfix"></div>
     </div>
 </script>

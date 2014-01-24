@@ -1,8 +1,9 @@
 askmePro.views.QuestionView = Backbone.View.extend({
     template: _.template($('#question-tpl').html()),
     commentsFormInitialized: false,
+    commentsView: null,
     initialize: function () {
-        
+        this.collection = new askmePro.collections.QuestionCommentCollection();
     },
     render: function () {
         this.setElement($(this.template({question: this.model.attributes})));
@@ -12,7 +13,8 @@ askmePro.views.QuestionView = Backbone.View.extend({
     events: {
         'click .like-button': 'like',
         'click .dislike-button': 'dislike',
-        'click .btn-comments': 'comments'
+        'click .btn-comments': 'lastComments',
+        'click .btn-prev': 'prevComments'
     },
     like: function like(e) {
         var thisObj = this,
@@ -57,43 +59,82 @@ askmePro.views.QuestionView = Backbone.View.extend({
                 } 
             },
             error: function () {
-                alert('error');
             }
         });    
     },
-    comments: function comments(e) {
-        var comments = new askmePro.views.QuestionCommentsView(),
+    lastComments: function lastComments(e) {
+        var thisObj = this,
             $this = $(e.target),
             commentsWrapeprElement = this.$('.comments-wrapper'),
-            textarea = this.$('.comments-wrapper').find('textarea[name="comment[contents]"]');
+            submitButton = this.$('.btn-comment');
         $this.blur();
         if (!commentsWrapeprElement.is(':visible')) {
             commentsWrapeprElement.show();
-            textarea.focus();
             if (!this.commentsFormInitialized) {
-                textarea.autosize();
-                this.comment(this.$('.comment-form'));
-                this.commentsFormInitialized = true;
+                this.commentsView = new askmePro.views.QuestionCommentsView();
+                this.commentsView.setElement(this.$('.comments-container'));
+                if (this.model.get('stats.comments')) {
+                    submitButton.attr('disabled', true);
+                    this.commentsView.loadParams.overall = this.model.get('stats.comments');
+                    this.commentsView.load(this.model.get('_id'), function () {
+                        thisObj.comment();
+                        thisObj.commentsFormInitialized = true;
+                        submitButton.attr('disabled', false);
+                        if (thisObj.commentsView.loadParams.overall > thisObj.commentsView.collection.length) {
+                            thisObj.$('.btn-prev').show();
+                        }
+                    });
+                } else {
+                    this.comment();
+                    this.commentsFormInitialized = true;
+                }
             }
         } else {
             commentsWrapeprElement.hide();
         }
     },
-    comment: function comment($form) {
-        var thisObj = this;
-        $form.validate({
+    prevComments: function prevComments(e) {
+        var thisObj = this,
+            $this = $(e.target);
+        $this.blur();
+        $this.attr('disabled', true);
+        this.commentsView.loadParams.page += 1;
+        this.commentsView.loadPrev(this.model.get('_id'), function (data) {
+            var loadParams = thisObj.commentsView.loadParams;
+            $this.attr('disabled', false);
+            if (loadParams.overall <= (loadParams.page * loadParams.limit)) {
+                $this.remove();
+            }
+        });
+    },
+    comment: function comment() {
+        var thisObj = this,
+            form = this.$('.comment-form'),
+            textarea = this.$('.comments-wrapper').find('textarea[name="comment[contents]"]');
+        textarea.focus();
+        textarea.autosize();   
+        form.validate({
             rules: {
                 'comment[contents]': {
                     required: true
                 }
             },
-            submitHandler: function(form) {
-                var comment = new askmePro.models.QuestionCommentModel({
-                    contents: thisObj.$('textarea[name="comment[contents]"]').val(),
-                    anonymous: Boolean(hisObj.$('input[name="comment[anonymous]"]:checked').val()) || false
+            submitHandler: function () {
+                var comment = new askmePro.models.QuestionCommentModel();
+                comment.save({
+                    contents: textarea.val(),
+                    anonymous: Boolean(thisObj.$('input[name="comment[anonymous]"]:checked').val()) || false
+                }, {
+                    url: 'question/' + thisObj.model.get('_id') + '/comment',
+                    success: function (model, xhr) {
+                        thisObj.commentsView.collection.push(xhr.comment);
+                        thisObj.commentsView.add();
+                        textarea.val('');
+                    },
+                    error: function () {
+
+                    }
                 });
-                return false;
-                console.log(comment.attributes);
             }
         });
     }
@@ -114,7 +155,8 @@ askmePro.views.QuestionLikesView = Backbone.View.extend({
     },
     load: function load(id, router) {
         var body = this.$('.modal-body'),
-            collection;
+            collection,
+            loader = null;
         if (!this.initialized) {
             this.$el.on('hidden.bs.modal', function () {
                 router.navigate('', {trigger: true});
@@ -155,19 +197,81 @@ askmePro.views.QuestionLikeView = Backbone.View.extend({
 });
 
 askmePro.views.QuestionCommentsView = Backbone.View.extend({
-    template: _.template($('#question-comments-tpl').html()),
-    initialized: false,
+    loadParams: {
+        page: 1,
+        limit: 10,
+        overall: 0,
+        fvid: null,
+    },
     initialize: function () {
-        
+        var thisObj = this;
+        this.collection = new askmePro.collections.QuestionCommentCollection();
     },
     render: function () {
-        this.setElement($(this.template()));
+        var thisObj = this;
+        this.collection.each(function (comment) {
+            thisObj.$el.append((new askmePro.views.QuestionCommentView({model: comment})).render().$el);
+        });
         return this;
     },
     events: {
         
     },
-    load: function load() {
-        
+    load: function load(id, callback) {
+        var thisObj = this,
+            loader = this.$el.loading();
+        loader.css({display: 'block', opacity: 1});
+        this.collection.url = '/question/' + id + '/comments';
+        this.collection.fetch({
+            reset: true,
+            data: thisObj.loadParams,
+            success: function (collection, response) {
+                loader.hide();
+                thisObj.loadParams.fvid = response.comments[0]._id;
+                thisObj.collection.set(response.comments, {silent: true});
+                thisObj.render();
+                callback();
+            },
+            error: function () {
+                loader.hide();
+            }
+        });
+    },
+    loadPrev: function loadPrev(id, callback) {
+        var thisObj = this,
+            loader = this.$el.loading();
+        loader.css({display: 'block', opacity: 1});
+        this.collection.url = '/question/' + id + '/comments';
+        this.collection.fetch({
+            reset: true,
+            data: thisObj.loadParams,
+            success: function (collection, response) {
+                loader.hide();
+                thisObj.loadParams.fvid = response.comments[0]._id;
+                for (var i = response.comments.length - 1; i > -1; i -= 1) {
+                    thisObj.collection.unshift(response.comments[i]);
+                    thisObj.$el.prepend((new askmePro.views.QuestionCommentView({model: thisObj.collection.at(0)})).render().$el);
+                }
+                callback();
+            },
+            error: function () {
+                loader.hide();
+            }
+        });
+    },
+    add: function add() {
+        this.$el.append((new askmePro.views.QuestionCommentView({model: this.collection.last()})).render().$el);
+    }
+});
+
+askmePro.views.QuestionCommentView = Backbone.View.extend({
+    template: _.template($('#question-comment-tpl').html()),
+    initialize: function () {
+        this.setElement($(this.template({comment: this.model.attributes})));
+    },
+    render: function () {
+        return this;
+    },
+    events: {
     }
 });

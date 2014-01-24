@@ -1,23 +1,63 @@
 'use strict';
 var CommentModel = require('../models/comment'),
     mongoose = require('mongoose'),
-    _ = require('underscore');
+    _ = require('underscore'),
+    helpers = {
+        getPreparedParams: function (req) {
+            var limit = parseInt(req.param('limit'), 10) || 10,
+                page = parseInt(req.param('page'), 10) || 1,
+                overall = parseInt(req.param('overall'), 10) || limit,
+                skip = overall - (limit * page),
+                where = {question_id: req.param('id')};
+            if (skip < 0) {
+                skip = 0;
+            }
+            if (req.param('fvid')) {
+                where._id = {'$lt': mongoose.Types.ObjectId(req.param('fvid'))};
+            }
+            return {
+                limit: limit,
+                skip: skip,
+                where: where
+            };
+        }
+    };
 
 module.exports = _.extend({
     create: function create(params, callback) {
-        console.log('comment');
-        console.log(params);
-        var comment = new CommentModel();
+        var comment = new CommentModel(),
+            req = this.getReq();
         comment.set({
             question_id: params.question_id,
             contents: params.contents,
             from: params.from
         });
-        comment.save(callback);
+        comment.save(function (err, comment) {
+            if (err) {
+                return callback(err);
+            }
+            var commentObj = comment.toObject();
+            if (commentObj.from !== null) {
+                commentObj.from = {
+                    _id: commentObj.from,
+                    username: req.user.username,
+                    avatar: req.user.avatar       
+                };
+            }
+            callback(null, commentObj);
+        });
     },
     getByQuestionId: function getByQuestionId(params, callback) {
-        CommentModel
-            .find({question_id: params.id})
+        CommentModel.find({question_id: params.id})
+            .populate('from', 'username avatar stats')
+            .exec(callback);
+    },
+    getForQuestion: function getForQuestion(callback) {
+        var params = helpers.getPreparedParams(this.getReq());
+        console.log(params);
+        CommentModel.find(params.where)
+            .skip(params.skip).limit(params.limit)
+            .sort({_id: 1})
             .populate('from', 'username avatar stats')
             .exec(callback);
     }
