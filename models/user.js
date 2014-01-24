@@ -121,6 +121,22 @@ var User = function() {
             questions_answered: {
                 type: Number,
                 default: 0
+            },
+            likes: {
+                type: Number,
+                default: 0
+            },
+            gifts: {
+                type: Number,
+                default: 0
+            },
+            follows: {
+                type: Number,
+                default: 0
+            },
+            followers: {
+                type: Number,
+                default: 0
             }
         }
     }, {

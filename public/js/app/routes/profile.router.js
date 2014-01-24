@@ -13,6 +13,7 @@ askmePro.routers.Profile = Backbone.Router.extend({
             $('#profile-tabs-content').html(this.views.index.$el);
         } else {
             $('#profile-tabs-content').html(this.views.index.$el);
+            this.views.index.delegateEvents();
             _.each(this.views.index.questions, function (question) {
                 question.delegateEvents();
             });

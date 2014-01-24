@@ -15,12 +15,20 @@ askmePro.models.QuestionModel = Backbone.DeepModel.extend({
 
 askmePro.models.QuestionLikeModel = Backbone.Model.extend({
     idAttribute: '_id',
-    urlRoot : '/question/like',
     initialize: function () {
     },
     defaults: {
         question_id: null,
         to: null
+    },
+    validate: function (attrs) {
+        
+    }
+});
+
+askmePro.models.QuestionCommentModel = Backbone.Model.extend({
+    idAttribute: '_id',
+    initialize: function () {
     },
     validate: function (attrs) {
         

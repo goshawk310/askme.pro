@@ -15,7 +15,7 @@
                     <span>{@__ phrase="odpowiedzi" /}</span>
                 </a>
                 <a class="btn btn-default no-left-border" role="button">
-                    <img src="/images/icons/likes.png" alt="likes"><strong>3</strong> 
+                    <img src="/images/icons/likes.png" alt="likes"><strong>{profile.stats.likes}</strong> 
                     <span>{@__ phrase="lubi to" /}</span>
                 </a>
                 <a class="btn btn-default no-left-border" role="button">

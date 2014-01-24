@@ -5,7 +5,7 @@ var UserModel = require('../models/user'),
     FileUpload = require('../lib/file/upload'),
     _ = require('underscore');
 
-module.exports = _.extend(require('../lib/service'), {
+module.exports = _.extend({
     signup: function signup(req, res, callback) {
         UserModel.schema.path('password').validate(function(password) {
             return password == req.body.password2;
@@ -352,4 +352,4 @@ module.exports = _.extend(require('../lib/service'), {
             update(null, req, res, null);
         }
     }
-});
+}, require('../lib/service'));

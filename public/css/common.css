@@ -496,11 +496,7 @@ ul#profile-menu li.active a {
     max-width: 640px;
 }
 
-.question-container .like-button {
-    opacity: 0;
-}
-
-.question-container .btn .glyphicon {
+.question-container .likes-wrapper .btn .glyphicon {
     display: none;
 }
 
@@ -512,16 +508,17 @@ ul#profile-menu li.active a {
     display: inline-block;
 }
 
-.question-container:hover .like-button {
-    opacity: 1;
-}
-
 .question-container .likes-wrapper .likes-container {
     display: none;
 }
 
 .question-container .likes-wrapper.visible .likes-container {
     display: inline;
+}
+
+.question-container .likes-wrapper .likes-container .separator{
+    padding-right: 10px;
+    padding-left: 5px;
 }
 
 #likes-modal .modal-dialog {
@@ -551,6 +548,22 @@ ul#profile-menu li.active a {
 
 .question-likes-wrapper .row:last-child hr {
     display: none;
+}
+
+.question-container .comments-wrapper {
+    display: none;
+}
+
+.question-container .comments-wrapper .well {
+    margin-bottom: 0;
+}
+
+.question-container .comments-wrapper .checkbox-inline {
+    padding-right: 15px;
+}
+
+.question-container .comments-wrapper .well .form-group:last-child {
+    margin-bottom: 0;
 }
 
 @media (min-width: 768px) {

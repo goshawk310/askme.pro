@@ -1,6 +1,7 @@
 'use strict';
 var questionService = require('../services/question'),
     likeService = require('../services/like'),
+    commentService = require('../services/comment'),
     auth = require('../lib/auth');
 
 module.exports = function(server) {
@@ -121,15 +122,17 @@ module.exports = function(server) {
      * @param  {Object} res
      * @return {void}
      */
-    server.post('/question/like', auth.isAuthenticated, function (req, res) {
+    server.post('/question/:id/like', auth.isAuthenticated, function (req, res) {
+        console.log(likeService);
         likeService
             .setReq(req)
             .setRes(res)
             .create({
-                question_id: req.body.question_id,
-                to: req.body.to,
+                question_id: req.param('id'),
+                to: req.body.to._id,
                 from: req.user._id
             }, function (err, like) {
+                console.log(err);
                 if (err) {
                     return res.send(500, {
                         status: 'error',
@@ -140,7 +143,7 @@ module.exports = function(server) {
                     'status': 'success',
                     'message': '',
                     'id': like._id
-                })
+                });
             });
     });
 
@@ -150,7 +153,7 @@ module.exports = function(server) {
      * @param  {Object} res
      * @return {void}
      */
-    server.delete('/question/like/:id', auth.isAuthenticated, function (req, res) {
+    server.delete('/question/:id/like', auth.isAuthenticated, function (req, res) {
         likeService
             .setReq(req)
             .setRes(res)
@@ -167,7 +170,33 @@ module.exports = function(server) {
                 return res.send({
                     'status': 'success',
                     'message': ''
-                })
+                });
+            });
+    });
+
+    /**
+     * 
+     * @param  {Object} req
+     * @param  {Object} res
+     * @return {void}
+     */
+    server.post('/question/:id/comment', auth.isAuthenticated, function (req, res) {
+        commentService
+            .create({
+                question_id: req.param('id'),
+                contents: req.body.comment.content,
+                from: req.user._id
+            }, function (err, like) {
+                if (err) {
+                    return res.send(500, {
+                        status: 'error',
+                        message: res.__('Wystąpił nieoczekiwany błąd')
+                    });
+                }
+                return res.send({
+                    'status': 'success',
+                    'message': '',
+                });
             });
     });
 };

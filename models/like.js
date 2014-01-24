@@ -2,7 +2,8 @@
 
 var mongoose = require('mongoose'),
     validate = require('mongoose-validator').validate,
-    QuestionModel = require('./question');
+    QuestionModel = require('./question'),
+    UserModel = require('./user');
 
 var Like = function() {
 
@@ -65,6 +66,13 @@ var Like = function() {
             }, function (err, user) {
             
             });
+            UserModel.update({
+                _id: like.to
+            }, {
+                $inc: {'stats.likes': 1}
+            }, function (err, user) {
+            
+            });
         }
     });
 
@@ -75,6 +83,13 @@ var Like = function() {
     schema.post('remove', function(like) {
         QuestionModel.update({
             _id: like.question_id
+        }, {
+            $inc: {'stats.likes': -1}
+        }, function (err, user) {
+        
+        });
+        UserModel.update({
+            _id: like.to
         }, {
             $inc: {'stats.likes': -1}
         }, function (err, user) {

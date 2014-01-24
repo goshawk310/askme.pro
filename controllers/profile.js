@@ -43,7 +43,7 @@ module.exports = function(server) {
             }
             if (!req.isAuthenticated() && user.settings.anonymous_disallowed) {
                 req.flash('error', res.__('Aby przeglądać tą stronę trzeba się zalogować'));
-                return res.redirect('/account/login');
+                return res.send(500, {});
             }
             questionService.getAnswered({
                 to: user._id,

@@ -3,7 +3,7 @@ var LikeModel = require('../models/like'),
     mongoose = require('mongoose'),
     _ = require('underscore');
 
-module.exports = _.extend(require('../lib/service'), {
+module.exports = _.extend({
     create: function create(params, callback) {
         var req = this.getReq(),
             res = this.getRes(),
@@ -39,4 +39,4 @@ module.exports = _.extend(require('../lib/service'), {
             .populate('from', 'username avatar stats')
             .exec(callback);
     }
-});
+}, require('../lib/service'));

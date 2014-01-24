@@ -6,7 +6,7 @@ var QuestionModel = require('../models/question'),
     redisClient = require('../lib/redis').client,
     FileUpload = require('../lib/file/upload');
 
-module.exports = _.extend(require('../lib/service'), {
+module.exports = _.extend({
     ask: function ask(callback) {
         var req = this.getReq(),
             res = this.getRes(),
@@ -178,6 +178,7 @@ module.exports = _.extend(require('../lib/service'), {
         QuestionModel
             .find({to: params.to, answer: {'$ne': null}})
             .populate('from', 'username avatar')
+            .populate('to', 'settings.anonymous_disallowed')
             .sort({answered_at: -1})
             .skip(skip).limit(params.limit + 1)
             .exec(function (err, questions) {
@@ -192,6 +193,12 @@ module.exports = _.extend(require('../lib/service'), {
                     questions.pop();
                 }
                 questionsCount = questions.length;
+                if (!questionsCount) {
+                    return callback(null, {
+                        questions: [],
+                        hasMore: false
+                    });
+                }
                 _.each(questions, function (question) {
                     question = question.toObject();
                     question.created_at = question._id.getTimestamp();
@@ -242,4 +249,4 @@ module.exports = _.extend(require('../lib/service'), {
                 });
             });
     }
-});
+}, require('../lib/service'));

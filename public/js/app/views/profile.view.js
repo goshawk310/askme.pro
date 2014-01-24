@@ -1,6 +1,7 @@
 askmePro.views.ProfileIndexView = Backbone.View.extend({
     template: $('#profile-index-tpl').length ? _.template($('#profile-index-tpl').html()) : null,
     questions: [],
+    page: 0,
     initialize: function() {
         this.render();
     },
@@ -107,10 +108,10 @@ askmePro.views.ProfileIndexView = Backbone.View.extend({
                     container.append(thisObj.questions[thisObj.questions.length - 1].render().$el);
                 });
                 if (response.hasMore === false) {
-                    more.data('page', 0);
+                    thisObj.page =  0;
                     moreContainer.hide();
                 } else {
-                    more.data('page', response.hasMore);
+                    thisObj.page = response.hasMore;
                     moreContainer.show();
                 }
             })
@@ -122,9 +123,8 @@ askmePro.views.ProfileIndexView = Backbone.View.extend({
             });
 
     },
-    more: function more(e) {
-        var $this = $(e.target);
-        this.loadAnswers($this.data('page'));
+    more: function more() {
+        this.loadAnswers(this.page);
     }
 });
 
