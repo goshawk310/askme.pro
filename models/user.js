@@ -138,6 +138,11 @@ var User = function() {
                 type: Number,
                 default: 0
             }
+        },
+        role: {
+            type: String,
+            enum: ['user', 'editor', 'admin'],
+            default: 'user'
         }
     }, {
         collection: 'users',

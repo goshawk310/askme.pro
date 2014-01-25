@@ -54,11 +54,34 @@ module.exports = _.extend({
     },
     getForQuestion: function getForQuestion(callback) {
         var params = helpers.getPreparedParams(this.getReq());
-        console.log(params);
         CommentModel.find(params.where)
             .skip(params.skip).limit(params.limit)
             .sort({_id: 1})
             .populate('from', 'username avatar stats')
             .exec(callback);
+    },
+    /**
+     * [remove description]
+     * @param  {Object}   params
+     * @param  {Function} callback
+     * @return {void}
+     */
+    remove: function remove(params, callback) {
+        CommentModel
+            .findOne(params)
+            .exec(function (err, comment) {
+                if (err) {
+                    return callback(err);
+                }
+                if (comment === null) {
+                    return callback(new Error('Comment not found'));
+                }
+                comment.remove(function (err) {
+                    if (err) {
+                        return callback(err);
+                    }
+                    callback(null, comment);
+                });
+            });
     }
 }, require('../lib/service'));

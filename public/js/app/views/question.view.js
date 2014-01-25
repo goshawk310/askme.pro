@@ -2,8 +2,13 @@ askmePro.views.QuestionView = Backbone.View.extend({
     template: _.template($('#question-tpl').html()),
     commentsFormInitialized: false,
     commentsView: null,
+    likesView: null,
     initialize: function () {
+        var thisObj = this;
         this.collection = new askmePro.collections.QuestionCommentCollection();
+        this.model.on('change:stats.comments', function (model, val) {
+            thisObj.$('.btn-comments > span.count').html(val);
+        });
     },
     render: function () {
         this.setElement($(this.template({question: this.model.attributes})));
@@ -14,7 +19,9 @@ askmePro.views.QuestionView = Backbone.View.extend({
         'click .like-button': 'like',
         'click .dislike-button': 'dislike',
         'click .btn-comments': 'lastComments',
-        'click .btn-prev': 'prevComments'
+        'click .btn-prev': 'prevComments',
+        'click .btn-likes': 'showLikes',
+        'click .btn-remove': 'remove'
     },
     like: function like(e) {
         var thisObj = this,
@@ -72,6 +79,7 @@ askmePro.views.QuestionView = Backbone.View.extend({
             commentsWrapeprElement.show();
             if (!this.commentsFormInitialized) {
                 this.commentsView = new askmePro.views.QuestionCommentsView();
+                this.commentsView.questionView = this;
                 this.commentsView.setElement(this.$('.comments-container'));
                 if (this.model.get('stats.comments')) {
                     submitButton.attr('disabled', true);
@@ -111,8 +119,8 @@ askmePro.views.QuestionView = Backbone.View.extend({
         var thisObj = this,
             form = this.$('.comment-form'),
             textarea = this.$('.comments-wrapper').find('textarea[name="comment[contents]"]');
+        textarea.autosize();
         textarea.focus();
-        textarea.autosize();   
         form.validate({
             rules: {
                 'comment[contents]': {
@@ -130,14 +138,70 @@ askmePro.views.QuestionView = Backbone.View.extend({
                         thisObj.commentsView.collection.push(xhr.comment);
                         thisObj.commentsView.add();
                         textarea.val('');
+                        thisObj.model.set('stats.comments', thisObj.model.get('stats.comments') + 1);
+                        
                     },
                     error: function () {
-
+                        thisObj.$('textarea[name="comment[contents]"]')
+                            .parent().removeClass('has-success').addClass('has-error');
                     }
                 });
             }
         });
-    }
+    },
+    delegateAllEvents: function delegateAllEvents() {
+        this.delegateEvents();
+        this.comment();
+        if (this.commentsView !== null) {
+            _.each(this.commentsView.comments, function (commentView) {
+                commentView.delegateEvents();
+            });
+        }
+    },
+    showLikes: function showLikes(e) {
+        $(e.target).blur();
+        if (this.likesView === null) {
+            this.likesView = new askmePro.views.QuestionLikesView();
+            $('body').append(this.likesView.render().$el);
+        }
+        this.likesView.load(this.model.get('_id'));
+    },
+    remove: function remove() {
+        var thisObj = this,
+            counter = $('.inbox-count');
+        this.model.urlRoot = '/question';
+        this.model.destroy({
+            success: function (model, xhr) {
+                thisObj.showMessage(xhr.message, 'alert-info');
+            },
+            error: function (model, xhr) {
+                thisObj.showErrorMessage(xhr.responseJSON.message);
+            }
+        });
+    },
+    showMessage: function showMessage(message, cls) {
+        var interval = null,
+            thisObj = this;
+        this.$('.question-container')
+            .html('<div class="col-md-12"><div class="alert ' + (cls || 'alert-success') + '">' + message + '</div></div>');
+        interval = setTimeout(function () {
+            thisObj.$el.slideUp(400, function () {
+                thisObj.$el.remove();
+                clearInterval(interval);
+                interval = null;
+            });
+        }, 2000);    
+    },
+    showErrorMessage: function showErrorMessage(message) {
+        var interval = null,
+            thisObj = this;
+        this.$el.prepend('<div class="col-md-12"><div class="alert alert-danger">' + message + '</div></div>');
+        interval = setTimeout(function () {
+            thisObj.$('.alert').remove();
+            clearInterval(interval);
+            interval = null;
+        }, 2000);
+    },
 });
 
 askmePro.views.QuestionLikesView = Backbone.View.extend({
@@ -157,11 +221,13 @@ askmePro.views.QuestionLikesView = Backbone.View.extend({
         var body = this.$('.modal-body'),
             collection,
             loader = null;
-        if (!this.initialized) {
-            this.$el.on('hidden.bs.modal', function () {
-                router.navigate('', {trigger: true});
-            });
-            this.initialized = true;
+        if (typeof router !== 'undefined') {    
+            if (!this.initialized) {
+                this.$el.on('hidden.bs.modal', function () {
+                    router.navigate('', {trigger: true});
+                });
+                this.initialized = true;
+            }
         }
         body.html('');
         loader = body.loading();
@@ -197,22 +263,33 @@ askmePro.views.QuestionLikeView = Backbone.View.extend({
 });
 
 askmePro.views.QuestionCommentsView = Backbone.View.extend({
-    loadParams: {
-        page: 1,
-        limit: 10,
-        overall: 0,
-        fvid: null,
-    },
+    questionView: null,
+    comments: {},
     initialize: function () {
         var thisObj = this;
         this.collection = new askmePro.collections.QuestionCommentCollection();
+        this.collection.on('remove', function (model) {
+            delete thisObj.comments[model.cid];
+            thisObj.questionView.model.set('stats.comments', thisObj.questionView.model.get('stats.comments') - 1);
+            thisObj.loadParams.overall = thisObj.questionView.model.get('stats.comments');
+        });
+        this.loadParams = {
+            page: 1,
+            limit: 10,
+            overall: 0,
+            fvid: null,
+        };
     },
     render: function () {
         var thisObj = this;
         this.collection.each(function (comment) {
-            thisObj.$el.append((new askmePro.views.QuestionCommentView({model: comment})).render().$el);
+            thisObj.$el.append(thisObj.createCommentView(comment).render().$el);
         });
         return this;
+    },
+    createCommentView: function (model) {
+        this.comments[model.cid] = new askmePro.views.QuestionCommentView({model: model});
+        return this.comments[model.cid];
     },
     events: {
         
@@ -250,7 +327,7 @@ askmePro.views.QuestionCommentsView = Backbone.View.extend({
                 thisObj.loadParams.fvid = response.comments[0]._id;
                 for (var i = response.comments.length - 1; i > -1; i -= 1) {
                     thisObj.collection.unshift(response.comments[i]);
-                    thisObj.$el.prepend((new askmePro.views.QuestionCommentView({model: thisObj.collection.at(0)})).render().$el);
+                    thisObj.$el.prepend(thisObj.createCommentView(thisObj.collection.at(0)).render().$el);
                 }
                 callback();
             },
@@ -260,7 +337,7 @@ askmePro.views.QuestionCommentsView = Backbone.View.extend({
         });
     },
     add: function add() {
-        this.$el.append((new askmePro.views.QuestionCommentView({model: this.collection.last()})).render().$el);
+        this.$el.append(this.createCommentView(this.collection.last()).render().$el);
     }
 });
 
@@ -273,5 +350,24 @@ askmePro.views.QuestionCommentView = Backbone.View.extend({
         return this;
     },
     events: {
+        'click .comment-remove': 'remove'
+    },
+    remove: function remove(e) {
+        var thisObj = this,
+            $this = $(e.target);
+        $this.attr('disabled', true);    
+        this.model.urlRoot = '/comment';
+        this.model.destroy({
+            success: function (model, response) {
+                if (response.status === 'success') {
+                    thisObj.$el.slideUp(400, function () {
+                        thisObj.$el.remove();
+                    });
+                }
+            },
+            error: function () {
+                
+            }
+        });
     }
 });

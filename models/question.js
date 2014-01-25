@@ -4,7 +4,8 @@ var mongoose = require('mongoose'),
     validate = require('mongoose-validator').validate,
     UserModel = require('./user'),
     fsExtra = require('fs-extra'),
-    config = require('../config/app');
+    config = require('../config/app'),
+    blockedWords = require('../lib/blockedWords');
 
 var Question = function Question() {
 
@@ -67,15 +68,9 @@ var Question = function Question() {
      * @return void
      */
     schema.pre('save', function(next) {
-        var question = this,
-            blockedWords = ['chuj', 'cipa', 'dupa', 'kurwa', 'bladź'],
-            pattern = new RegExp(blockedWords.join('|'), 'i');
-        this.wasNew = this.isNew;    
-        if (pattern.test(question.contents) || (question.answer !== null && pattern.test(question.answer))) {
-            next(new Error('Banned word occurred'));
-        } else {
-            next();
-        }
+        var question = this;
+        this.wasNew = this.isNew;
+        blockedWords.test(question.contents, question.to, next);
     });
 
     schema.post('init', function() {
@@ -120,6 +115,17 @@ var Question = function Question() {
                 _id: question.to
             }, {
                 $inc: {'stats.questions_unanswered': -1}
+            }, function (err, user) {
+            
+            });
+        } else {
+            UserModel.update({
+                _id: question.to
+            }, {
+                $inc: {
+                    'stats.questions_answered': -1,
+                    'stats.likes': -question.stats.likes
+                }
             }, function (err, user) {
             
             });

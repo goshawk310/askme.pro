@@ -83,7 +83,7 @@ module.exports = _.extend({
      */
     remove: function remove(params, callback) {
         QuestionModel
-            .findOne({_id: params.id, to: params.to})
+            .findOne(params)
             .exec(function (err, question) {
                 if (err) {
                     return callback(err);

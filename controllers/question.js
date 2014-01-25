@@ -83,11 +83,14 @@ module.exports = function(server) {
      * @return {void}
      */
     server.delete('/question/:id', auth.isAuthenticated, function (req, res) {
+        var where = {
+            _id: req.param('id')
+        };
+        if (req.user.role !== 'admin') {
+            where.to = req.user._id;
+        }
         questionService.setReq(req).setRes(res)
-            .remove({
-                to: req.user._id,
-                id: req.param('id')
-            }, function (err) {
+            .remove(where, function (err) {
                 if (err) {
                     return res.send(500, {
                         status: 'error',

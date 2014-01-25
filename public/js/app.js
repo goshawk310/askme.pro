@@ -148,6 +148,9 @@ var askmePro = {
     }
 };
 $(document).ready(function () {
+    if (!('ontouchstart' in document.documentElement)) {
+        $('body').addClass('no-touch');
+    }
     var inboxCount = parseInt($('#inbox-count > span').html(), 10);
     if (inboxCount > 0) {
         $('#inbox-count').show();
@@ -183,7 +186,7 @@ $(document).ready(function () {
             }
             setCount($(this)[0], elem);
         },
-        loading: function loading(params) {
+        loading: function loading() {
             var $this = this,
                 containerCssClass = 'loading-container',
                 cssClass = 'loading',
@@ -192,9 +195,6 @@ $(document).ready(function () {
             if (!loaderElem.length) {
                 loaderElem = $('<div class="' + cssClass + '"></div>');
                 $this.append(loaderElem);
-            }
-            if (typeof params === 'string') {
-
             }
             return loaderElem;
         }

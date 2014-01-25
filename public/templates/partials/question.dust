@@ -34,10 +34,13 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="pull-right">
-                                    <button type="button" class="btn btn-link btn-xs btn-comments"><%=question.stats.comments%> {@__ phrase="kom" /}. <span class="glyphicon glyphicon-comment"></span></button>
+                                    <button type="button" class="btn btn-link btn-xs btn-comments"><span class="count"><%=question.stats.comments%></span> {@__ phrase="kom" /}. <span class="glyphicon glyphicon-comment"></span></button>
                                     <small class="text-muted likes-wrapper<% if(question.stats.likes){~lb}%> visible<%{~rb}%>">
                                         <span class="likes-container"><span class="separator">|</span>
-                                        <a href="#question/<%=question._id%>/likes" class="text-primary"><span class="likes"><%=question.stats.likes%></span> {@__ phrase="os." /}</a> {@__ phrase="lubi to" /}</span>
+                                            <button type="button" class="btn btn-link btn-xs btn-likes">
+                                                <span class="likes"><%=question.stats.likes%></span> {@__ phrase="os." /}
+                                            </button><span>{@__ phrase="lubi to" /}</span>
+                                        </span>
                                         {?user}
                                             <% if('{user._id}' !== question.to._id){~lb}%>
                                                 <button type="button" class="btn btn-link btn-xs<% if (question.liked){~lb}%> dislike-button <%{~rb} else {~lb}%> like-button<%{~rb}%>"<% if (question.liked){~lb}%> title="{@__ phrase="Ty to lubisz"/}"<%{~rb}%> data-id="<%=question.liked%>">
@@ -78,6 +81,18 @@
                         </div>
                     </div>
                 </div>
+                {?user}
+                    <% if((question.to && question.to._id === '{user._id}') || '{user.role}' === 'admin'){~lb}%>
+                        <div class="btn-group question-settings">
+                            <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">
+                                <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li><button type="button" class="btn btn-link btn-xs btn-remove">{@__ phrase="Usuń" /}</button></li>
+                            </ul>
+                        </div>
+                    <%{~rb}%>
+                {/user}
             </div>
         </div>
         <div class="col-md-12">
@@ -87,7 +102,7 @@
     </div>
 </script>
 <script type="text/template" id="question-likes-modal-tpl">
-   <div class="modal fade" id="likes-modal" tabindex="-1" role="dialog" aria-labelledby="likes-modal-label" aria-hidden="true">
+   <div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="likes-modal-label" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -135,6 +150,11 @@
                     <p class="text-muted small"><em><%=moment(comment.created_at).fromNow()%></em></p>
                 </div>
             </div>
+            {?user}
+                <% if((comment.from && comment.from._id === '{user._id}') || '{user.role}' === 'admin'){~lb}%>
+                    <button type="button" class="comment-remove close" aria-hidden="true">&times;</button>
+                <%{~rb}%>
+            {/user}
        </div>
        <div class="clearfix"></div>
        <hr>
