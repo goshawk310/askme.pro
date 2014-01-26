@@ -1,6 +1,6 @@
 'use strict';
-var commentService = require('../services/comment'),
-    auth = require('../lib/auth');
+var commentService = require('../../services/comment'),
+    auth = require('../../lib/auth');
 
 module.exports = function(server) {
 
@@ -10,7 +10,7 @@ module.exports = function(server) {
      * @param  {Object} res
      * @return {void}
      */
-    server.delete('/comment/:id', auth.isAuthenticated, function (req, res) {
+    server.delete('/api/comments/:id', auth.isAuthenticated, function (req, res) {
         var where = {
             _id: req.param('id')
         };

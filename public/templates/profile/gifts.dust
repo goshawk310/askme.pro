@@ -1,0 +1,35 @@
+<script type="text/template" id="profile-gifts-modal-tpl">
+   <div class="modal fade profile-gifts-modal" tabindex="-1" role="dialog" aria-labelledby="profile-gifts-modal-label" aria-hidden="true" data-to="{profile._id}" data-points="{user.points}">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title">{@__ phrase="Wyślij gifta" /}</h4>
+                </div>
+                <div class="modal-body profile-gifts-wrapper">
+                    <p>{@__ phrase="Możesz wysłać gifta za" /} 20 {@p__ words="punkt,punkty,punktów" value="20" /}. {@__ phrase="Obecnie masz" /} <strong class="text-primary">{user.points}</strong> {@p__ words="punkt,punkty,punktów" value="{user.points}" /}. {@if cond="{user.points} >= 20"}{@__ phrase="Wybierz gifta" /}:{/if}</p>
+                    <div class="row<% if ({user.points} < 20) {~lb} %> disabled<% {~rb} %>"></div>        
+                </div>
+            </div>
+        </div>
+    </div>
+</script>
+<script type="text/template" id="profile-gift-tpl">
+    <div class="col-md-2 col-sm-3 col-xs-4 gift-container">
+        <div class="gift">
+            <img src="/uploads/gifts/<%=gift.file%>" />
+        </div>
+        <% if (points >= 20) {~lb} %>
+            <div class="btn-group">
+            <button class="btn btn-default btn-xs dropdown-toggle" type="button" data-toggle="dropdown">
+                {@__ phrase="Wyślij jako" /} <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu">
+                <li><button type="button" class="btn btn-link btn-xs send-gift-button" data-type="anonymous">{@__ phrase="Anonimowy" /}</button></li>
+                <li><button type="button" class="btn btn-link btn-xs send-gift-button" data-type="private">{@__ phrase="Prywatny" /}</button></li>
+                <li><button type="button" class="btn btn-link btn-xs send-gift-button" data-type="public">{@__ phrase="Publiczny" /}</button></li>
+            </ul>
+        <% {~rb} %>
+    </div>
+    </div>
+</script>

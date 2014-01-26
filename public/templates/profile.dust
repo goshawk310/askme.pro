@@ -42,7 +42,7 @@
                                 {@ne key="{user.id}" value="{profile.id}"}
                                     <div id="profile-buttons-container">
                                         <a href="" class="btn btn-success btn-sm">{@__ phrase="Obserwuj" /}</a>
-                                        <a href="" class="btn btn-success btn-sm">{@__ phrase="Wyślij gifta" /}</a>
+                                        <a href="/{profile.username}#gifts" class="btn btn-success btn-sm">{@__ phrase="Wyślij gifta" /}</a>
                                         <a href="" class="btn btn-default btn-sm pull-right" id="block-user-btn">{@__ phrase="Zablokuj" /}</a>
                                     </div>
                                 {/ne}
@@ -76,6 +76,8 @@
 <script src="/components/jquery.autosize.min.js"></script>
 <script src="/js/app/models/question.model.js"></script>
 <script src="/js/app/collections/question.collection.js"></script>
+<script src="/js/app/models/gift.model.js"></script>
+<script src="/js/app/collections/gift.collection.js"></script>
 <script src="/js/app/views/question.view.js"></script>
 <script src="/js/app/views/profile.view.js"></script>
 <script src="/js/app/routes/profile.router.js"></script>
@@ -90,4 +92,5 @@
     {>"profile/index" profile=profile /}
     {>"profile/info" profile=profile /}
     {>"partials/question" profile=profile /}
+    {>"profile/gifts" profile=profile/}
 {/jsTemplates}

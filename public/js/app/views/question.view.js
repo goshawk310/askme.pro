@@ -356,7 +356,7 @@ askmePro.views.QuestionCommentView = Backbone.View.extend({
         var thisObj = this,
             $this = $(e.target);
         $this.attr('disabled', true);    
-        this.model.urlRoot = '/comment';
+        this.model.urlRoot = '/api/comments';
         this.model.destroy({
             success: function (model, response) {
                 if (response.status === 'success') {

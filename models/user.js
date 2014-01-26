@@ -126,7 +126,11 @@ var User = function() {
                 type: Number,
                 default: 0
             },
-            gifts: {
+            gifts_sent: {
+                type: Number,
+                default: 0
+            },
+            gifts_received: {
                 type: Number,
                 default: 0
             },
@@ -135,6 +139,24 @@ var User = function() {
                 default: 0
             },
             followers: {
+                type: Number,
+                default: 0
+            }
+        },
+        notifications: {
+            questions: {
+                type: Number,
+                default: 0
+            },
+            answers: {
+                type: Number,
+                default: 0
+            },
+            gifts: {
+                type: Number,
+                default: 0
+            },
+            likes: {
                 type: Number,
                 default: 0
             }

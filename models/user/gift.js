@@ -2,40 +2,51 @@
 
 var mongoose = require('mongoose'),
     validate = require('mongoose-validator').validate,
-    QuestionModel = require('./question');
+    UserModel = require('../user');
 
-var Comment = function() {
+var UserGift = function() {
 
     var schema = mongoose.Schema({
         created_at: {
             type: Date,
             required: true
         },
-        question_id: {
+        gift_id: {
             type: mongoose.Schema.Types.ObjectId,
             required: true,
-            ref: 'Question',
+            ref: 'Gift'
+        },
+        to: {
+            type: mongoose.Schema.Types.ObjectId,
+            required: true,
+            ref: 'User',
             index: true
         },
         from: {
             type: mongoose.Schema.Types.ObjectId,
-            required: false,
+            default: null,
             ref: 'User'
         },
-        contents: {
+        type: {
             type: String,
-            required: true,
-            validate: [validate('len', 1, 200)]
+            enum: ['anonymous', 'private', 'public'],
+            default: 'public'
         },
-        viewed: {
-            type: Boolean,
-            default: false
+        pos: {
+            x: {
+                type: Number,
+                default: 0
+            },
+            y: {
+                type: Number,
+                default: 0
+            }
         }
     }, {
-        collection: 'comments',
+        collection: 'user_gifts',
         autoIndex: false
     });
-
+    
     /**
      * pre save
      * @param  {Function} next
@@ -70,12 +81,25 @@ var Comment = function() {
      * post save middleware
      * @return {void}
      */
-    schema.post('save', function(comment) {
+    schema.post('save', function(userGift) {
         if (this.wasNew) {
-            QuestionModel.update({
-                _id: comment.question_id
+            UserModel.update({
+                _id: userGift.from
             }, {
-                $inc: {'stats.comments': 1}
+                $inc: {
+                    'stats.gifts_sent': 1,
+                    points: -20
+                }
+            }, function (err, user) {
+            
+            });
+            UserModel.update({
+                _id: userGift.to
+            }, {
+                $inc: {
+                    'stats.gifts_recived': 1,
+                    'notifications.gifts': 1
+                }
             }, function (err, user) {
             
             });
@@ -86,17 +110,17 @@ var Comment = function() {
      * post remove middleware
      * @return {void}
      */
-    schema.post('remove', function(comment) {
+    schema.post('remove', function(userGift) {
         QuestionModel.update({
-            _id: comment.question_id
+            _id: userGift.to
         }, {
-            $inc: {'stats.comments': -1}
+            $inc: {'stats.gifts': -1}
         }, function (err, user) {
         
         });
     });
 
-    return mongoose.model('Comment', schema);
+    return mongoose.model('UserGift', schema);
 };
 
-module.exports = new Comment();
+module.exports = new UserGift();

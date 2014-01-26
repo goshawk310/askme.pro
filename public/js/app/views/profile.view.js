@@ -128,7 +128,6 @@ askmePro.views.ProfileIndexView = Backbone.View.extend({
     }
 });
 
-
 askmePro.views.ProfileInfoView = Backbone.View.extend({
     template: _.template($('#profile-info-tpl').html()),
     initialize: function() {
@@ -140,5 +139,82 @@ askmePro.views.ProfileInfoView = Backbone.View.extend({
     },
     events: {
 
+    }
+});
+
+askmePro.views.ProfileGiftsView = Backbone.View.extend({
+    template: _.template($('#profile-gifts-modal-tpl').html()),
+    initialized: false,
+    loader: null,
+    initialize: function() {
+        
+    },
+    render: function() {
+        this.setElement($(this.template()));
+        this.to = this.$el.data('to');
+        this.points = this.$el.data('points');
+        return this;
+    },
+    events: {
+
+    },
+    load: function load(router) {
+        var thisObj = this,
+            body = this.$('.modal-body > .row');
+        if (typeof router !== 'undefined') {    
+            if (!this.initialized) {
+                this.$el.on('hidden.bs.modal', function () {
+                    router.navigate('', {trigger: true});
+                });
+                this.initialized = true;
+            }
+        }
+        body.html('');
+        this.loader = body.loading();
+        this.loader.css({display: 'block', opacity: 1});
+        this.$el.modal('show');
+        this.collection.fetch({
+            success: function (collection, response, options) {
+                thisObj.loader.hide();
+                collection.each(function (gift) {
+                    body.append(new askmePro.views.ProfileGiftView({
+                        model: gift,
+                        parent: thisObj
+                    }).render().$el);
+                });
+            },
+            error: function () {
+                thisObj.loader.hide();
+            }
+        });
+    }
+});
+
+askmePro.views.ProfileGiftView = Backbone.View.extend({
+    template: _.template($('#profile-gift-tpl').html()),
+    initialize: function(options) {
+        this.parent = options.parent || null;
+    },
+    render: function() {
+        this.setElement($(this.template({gift: this.model.attributes, points: this.parent.points})));
+        return this;
+    },
+    events: {
+        'click .send-gift-button': 'sendGift'
+    },
+    sendGift: function sendGift(e) {
+        var thisObj = this;
+        this.parent.loader.css({display: 'block', opacity: 1});
+        this.model.set('to', this.parent.to);
+        this.model.set('type', $(e.currentTarget).data('type'));
+        Backbone.sync('create', this.model, {
+            url: '/api/gifts/' + thisObj.model.get('_id') + '/send',
+            success: function () {
+                thisObj.parent.loader.show();
+            },
+            error: function () {
+                thisObj.parent.loader.show();
+            }
+        });
     }
 });
