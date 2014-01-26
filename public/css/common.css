@@ -422,6 +422,7 @@ ul#profile-menu li.active a {
     -webkit-transition: opacity 1s linear;
     -o-transition: opacity 1s linear;
     transition: opacity 1s linear;
+    z-index: 2;
 }
 
 #answers-container .question .media-body {
@@ -660,6 +661,13 @@ ul#profile-menu li.active a {
 .no-touch .profile-gifts-wrapper .gift-container .btn-group{
     opacity: 0;
     visibility: hidden;
+}
+
+.no-touch .profile-gifts-wrapper .gift-container .message {
+    position: absolute;
+    width: 100%;
+    left: 0;
+    bottom: 5px;
 }
 
 .no-touch .profile-gifts-wrapper .gift-container:hover .btn-group {

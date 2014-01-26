@@ -209,11 +209,33 @@ askmePro.views.ProfileGiftView = Backbone.View.extend({
         this.model.set('type', $(e.currentTarget).data('type'));
         Backbone.sync('create', this.model, {
             url: '/api/gifts/' + thisObj.model.get('_id') + '/send',
-            success: function () {
-                thisObj.parent.loader.show();
+            success: function (response) {
+                var btnGroupElement = thisObj.$('.btn-group'),
+                    messageElement = $('<div class="message"></div>'),
+                    pointsElement = thisObj.parent.$('.profile-gifts-wrapper').find('.points');
+                thisObj.parent.points = parseInt(pointsElement.html(), 10) - 20;
+                if (response.status === 'success') {
+                    pointsElement.html(thisObj.parent.points);
+                    if (thisObj.parent.points === 0) {
+                        thisObj.parent.$('.profile-gifts-wrapper > .row').addClass('disabled').data('points', 0);
+                        thisObj.parent.load(askmePro.router);
+                    }
+                    messageElement.addClass('text-success');
+                } else {
+                    messageElement.addClass('text-danger');
+                }
+                messageElement.html(response.message);
+                btnGroupElement.before(messageElement);
+                btnGroupElement.css({opacity: 0, visibility: 'hidden'});
+                thisObj.parent.loader.hide();
             },
-            error: function () {
-                thisObj.parent.loader.show();
+            error: function (response) {
+                var btnGroupElement = thisObj.$('.btn-group'),
+                    messageElement = $('<div class="message"></div>');
+                messageElement.addClass('text-danger').html(response.message);
+                btnGroupElement.before(messageElement);
+                btnGroupElement.css({opacity: 0, visibility: 'hidden'});
+                thisObj.parent.loader.hide();
             }
         });
     }

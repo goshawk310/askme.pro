@@ -11,7 +11,7 @@ var UserGift = function() {
             type: Date,
             required: true
         },
-        gift_id: {
+        gift: {
             type: mongoose.Schema.Types.ObjectId,
             required: true,
             ref: 'Gift'
@@ -97,7 +97,7 @@ var UserGift = function() {
                 _id: userGift.to
             }, {
                 $inc: {
-                    'stats.gifts_recived': 1,
+                    'stats.gifts_received': 1,
                     'notifications.gifts': 1
                 }
             }, function (err, user) {

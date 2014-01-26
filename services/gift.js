@@ -13,7 +13,7 @@ module.exports = _.extend({
     send: function send(callback) {
         var req = this.getReq(),
             userGift = new UserGiftModel({
-                gift_id: req.param('id'),
+                gift: req.param('id'),
                 to: req.body.to,
                 from: req.user._id,
                 type: req.body.type

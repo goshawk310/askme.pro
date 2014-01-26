@@ -356,6 +356,6 @@ module.exports = _.extend({
     getUserGiftsById: function getUserGiftsById(id, callback) {
         UserGiftModel.find({
             to: id
-        }).populate('gift_id', 'file').exec(callback);
+        }).populate('gift', 'file').exec(callback);
     }
 }, require('../lib/service'));

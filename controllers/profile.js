@@ -21,7 +21,7 @@ module.exports = function(server) {
                 req.flash('error', res.__('Aby przeglądać tą stronę trzeba się zalogować'));
                 return res.redirect('/account/login');
             }
-            if (user.stats.gifts_recived) {
+            if (user.stats.gifts_received) {
                 userService.getUserGiftsById(user._id, function (err, gifts) {
                     if (err) {
                         return res.render('profile', {
