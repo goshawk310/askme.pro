@@ -1,5 +1,6 @@
 'use strict';
 var UserModel = require('../models/user'),
+    UserGiftModel = require('../models/user/gift'),
     userSchema = require('mongoose').model('User').schema,
     Email = require('../lib/email'),
     FileUpload = require('../lib/file/upload'),
@@ -351,5 +352,10 @@ module.exports = _.extend({
         } else {
             update(null, req, res, null);
         }
+    },
+    getUserGiftsById: function getUserGiftsById(id, callback) {
+        UserGiftModel.find({
+            to: id
+        }).populate('gift_id', 'file').exec(callback);
     }
 }, require('../lib/service'));

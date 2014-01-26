@@ -19,7 +19,7 @@
                     <span>{@__ phrase="lubi to" /}</span>
                 </a>
                 <a class="btn btn-default no-left-border" role="button">
-                    <img src="/images/icons/giftbox.png" alt="gifts"><strong>3</strong> 
+                    <img src="/images/icons/giftbox.png" alt="gifts"><strong>{profile.stats.gifts_sent}</strong> 
                     <span>{@__ phrase="gifty" /}</span>
                 </a>
             </div>

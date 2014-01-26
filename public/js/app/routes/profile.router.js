@@ -4,7 +4,7 @@ askmePro.routers.Profile = Backbone.Router.extend({
     routes: {
         '': 'index',
         'info': 'info',
-        'question/(:id)/likes': 'likes',
+        'questions/(:id)/likes': 'likes',
         'gifts': 'gifts'
     },
     index: function index() {

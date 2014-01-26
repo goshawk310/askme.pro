@@ -1,12 +1,12 @@
 'use strict';
-var questionService = require('../services/question'),
-    likeService = require('../services/like'),
-    commentService = require('../services/comment'),
-    auth = require('../lib/auth');
+var questionService = require('../../services/question'),
+    likeService = require('../../services/like'),
+    commentService = require('../../services/comment'),
+    auth = require('../../lib/auth');
 
 module.exports = function(server) {
 
-    server.post('/question/ask', function(req, res) {
+    server.post('/api/questions', function(req, res) {
         questionService.setServer(server)
             .setReq(req).setRes(res)
             .ask(function (err, question) {
@@ -30,13 +30,14 @@ module.exports = function(server) {
      * @param  {Object} res
      * @return {void}
      */
-    server.patch('/question/:id', auth.isAuthenticated, function (req, res) {
+    server.patch('/api/questions/:id', auth.isAuthenticated, function (req, res) {
         questionService.setReq(req).setRes(res)
             .answer({
                 to: req.user._id,
                 id: req.param('id'),
                 answer: req.body.answer
             }, function (err) {
+                console.log(err);
                 if (err) {
                     return res.send(500, {
                         status: 'error',
@@ -56,7 +57,7 @@ module.exports = function(server) {
      * @param  {Object} res
      * @return {void}
      */
-    server.patch('/question/:id/video', auth.isAuthenticated, function (req, res) {
+    server.patch('/api/questions/:id/videos', auth.isAuthenticated, function (req, res) {
         questionService.setReq(req).setRes(res)
             .updateVideo({
                 to: req.user._id,
@@ -82,7 +83,7 @@ module.exports = function(server) {
      * @param  {Object} res
      * @return {void}
      */
-    server.delete('/question/:id', auth.isAuthenticated, function (req, res) {
+    server.delete('/api/questions/:id', auth.isAuthenticated, function (req, res) {
         var where = {
             _id: req.param('id')
         };
@@ -104,7 +105,7 @@ module.exports = function(server) {
             });
     });
 
-    server.get('/question/:id/likes', function (req, res) {
+    server.get('/api/questions/:id/likes', function (req, res) {
         likeService.getByQuestionId({
             id: req.param('id')
         }, function (err, likes) {
@@ -125,8 +126,7 @@ module.exports = function(server) {
      * @param  {Object} res
      * @return {void}
      */
-    server.post('/question/:id/like', auth.isAuthenticated, function (req, res) {
-        console.log(likeService);
+    server.post('/api/questions/:id/likes', auth.isAuthenticated, function (req, res) {
         likeService
             .setReq(req)
             .setRes(res)
@@ -155,7 +155,7 @@ module.exports = function(server) {
      * @param  {Object} res
      * @return {void}
      */
-    server.delete('/question/:id/like', auth.isAuthenticated, function (req, res) {
+    server.delete('/api/questions/:id/likes', auth.isAuthenticated, function (req, res) {
         likeService
             .setReq(req)
             .setRes(res)
@@ -182,7 +182,7 @@ module.exports = function(server) {
      * @param  {Object} res
      * @return {void}
      */
-    server.post('/question/:id/comment', auth.isAuthenticated, function (req, res) {
+    server.post('/api/questions/:id/comments', auth.isAuthenticated, function (req, res) {
         commentService
             .setReq(req)
             .create({
@@ -209,7 +209,7 @@ module.exports = function(server) {
      * @param  {Object} res
      * @return {void}
      */
-    server.get('/question/:id/comments', auth.isAuthenticated, function (req, res) {
+    server.get('/api/questions/:id/comments', auth.isAuthenticated, function (req, res) {
         commentService
             .setReq(req)
             .getForQuestion(function (err, comments) {

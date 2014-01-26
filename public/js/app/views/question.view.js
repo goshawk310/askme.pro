@@ -33,7 +33,7 @@ askmePro.views.QuestionView = Backbone.View.extend({
         like.save({
             to: question.get('to')
         }, {
-            url: 'question/' + question.get('_id') + '/like',
+            url: '/api/questions/' + question.get('_id') + '/likes',
             success: function (model, xhr) {
                 $this.attr('disabled', false).removeClass('like-button').addClass('dislike-button');
                 thisObj.$('.likes-wrapper')
@@ -53,7 +53,7 @@ askmePro.views.QuestionView = Backbone.View.extend({
         question.set('stats.likes', this.model.get('stats.likes') - 1);
         $this.blur().attr('disabled', true);
         like.destroy({
-            url: 'question/' + question.get('_id') + '/like',
+            url: '/api/questions/' + question.get('_id') + '/likes',
             success: function () {
                 var likes = question.get('stats.likes');
                 $this.attr('disabled', false).removeClass('dislike-button').addClass('like-button');
@@ -133,7 +133,7 @@ askmePro.views.QuestionView = Backbone.View.extend({
                     contents: textarea.val(),
                     anonymous: Boolean(thisObj.$('input[name="comment[anonymous]"]:checked').val()) || false
                 }, {
-                    url: 'question/' + thisObj.model.get('_id') + '/comment',
+                    url: '/api/questions/' + thisObj.model.get('_id') + '/comments',
                     success: function (model, xhr) {
                         thisObj.commentsView.collection.push(xhr.comment);
                         thisObj.commentsView.add();
@@ -169,7 +169,7 @@ askmePro.views.QuestionView = Backbone.View.extend({
     remove: function remove() {
         var thisObj = this,
             counter = $('.inbox-count');
-        this.model.urlRoot = '/question';
+        this.model.urlRoot = '/api/questions';
         this.model.destroy({
             success: function (model, xhr) {
                 thisObj.showMessage(xhr.message, 'alert-info');
@@ -234,7 +234,7 @@ askmePro.views.QuestionLikesView = Backbone.View.extend({
         loader.css({display: 'block', opacity: 1});
         this.$el.modal('show');
         collection = new askmePro.collections.QuestionLikeCollection();
-        collection.url = '/question/' + id + '/likes';
+        collection.url = '/api/questions/' + id + '/likes';
         collection.fetch({
             success: function (collection, response, options) {
                 loader.hide();
@@ -298,7 +298,7 @@ askmePro.views.QuestionCommentsView = Backbone.View.extend({
         var thisObj = this,
             loader = this.$el.loading();
         loader.css({display: 'block', opacity: 1});
-        this.collection.url = '/question/' + id + '/comments';
+        this.collection.url = '/api/questions/' + id + '/comments';
         this.collection.fetch({
             reset: true,
             data: thisObj.loadParams,
@@ -318,7 +318,7 @@ askmePro.views.QuestionCommentsView = Backbone.View.extend({
         var thisObj = this,
             loader = this.$el.loading();
         loader.css({display: 'block', opacity: 1});
-        this.collection.url = '/question/' + id + '/comments';
+        this.collection.url = '/api/questions/' + id + '/comments';
         this.collection.fetch({
             reset: true,
             data: thisObj.loadParams,

@@ -1,5 +1,5 @@
 <div class="well" id="question-form-container">
-    <form id="question-form" action="/question/ask" method="post">
+    <form id="question-form" action="/api/questions" method="post">
         <div class="row">
             <div class="col-md-12">
                 <div class="form-group">

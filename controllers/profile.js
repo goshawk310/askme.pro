@@ -21,9 +21,25 @@ module.exports = function(server) {
                 req.flash('error', res.__('Aby przeglądać tą stronę trzeba się zalogować'));
                 return res.redirect('/account/login');
             }
-            res.render('profile', {
-                profile: user
-            });
+            if (user.stats.gifts_recived) {
+                userService.getUserGiftsById(user._id, function (err, gifts) {
+                    if (err) {
+                        return res.render('profile', {
+                            profile: user,
+                            gifts: []
+                        });
+                    }
+                    return res.render('profile', {
+                        profile: user,
+                        gifts: gifts
+                    });
+                });
+            } else {
+                res.render('profile', {
+                    profile: user,
+                    gifts: []
+                });
+            }
         });
     });
 

@@ -70,7 +70,11 @@ var Question = function Question() {
     schema.pre('save', function(next) {
         var question = this;
         this.wasNew = this.isNew;
-        blockedWords.test(question.contents, question.to, next);
+        if (this.isNew) {
+            blockedWords.test(question.contents, question.to, next);
+        } else {
+            next();
+        }
     });
 
     schema.post('init', function() {

@@ -179,7 +179,7 @@ askmePro.views.InboxQuestionView = Backbone.View.extend({
                     thisObj.model.save({
                         yt_video: event.data.videoId
                     }, {
-                        url: '/question/' + thisObj.model.attributes._id + '/video',
+                        url: '/api/questions/' + thisObj.model.attributes._id + '/videos',
                         patch: true,
                         success: function (model, xhr) {
                             modal.modal('hide');

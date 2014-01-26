@@ -13,7 +13,7 @@ askmePro.routers.Inbox = Backbone.Router.extend({
         $.get('/inbox/questions?perPage=' + perPage + '&p=' + page)
             .done(function (response) {
                 var collection = new askmePro.collections.QuestionCollection(response.questions);
-                collection.url = '/question'
+                collection.url = '/api/questions'
                 thisObj.views.index = new askmePro.views.InboxIndexView({
                     collection: collection,
                     attributes: {

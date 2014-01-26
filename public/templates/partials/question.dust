@@ -59,7 +59,7 @@
                                     <button role="button" class="btn btn-link btn-xs btn-block btn-prev">{@__ phrase="Pokaż wcześniejsze" /}</button>
                                     <div class="comments-container">
                                     </div>
-                                    <form method="post" action="/question/<%=question._id%>/comment" class="comment-form">
+                                    <form method="post" action="/api/questions/<%=question._id%>/comments" class="comment-form">
                                         <div class="form-group">
                                             <textarea class="form-control" placeholder="{@__ phrase="Dodaj komentarz" /}" rows="1" name="comment[contents]"></textarea>
                                             <div class="clearfix"></div>
