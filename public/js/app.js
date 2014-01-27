@@ -155,7 +155,6 @@ $(document).ready(function () {
     if (inboxCount > 0) {
         $('#inbox-count').show();
     }
-
     if (askmePro.routerIndex !== null) {
         Backbone.emulateHTTP = true;
         Backbone._sync = Backbone.sync;

@@ -1,30 +1,4 @@
 <script type="text/template" id="profile-index-tpl">
-    <div class="row">    
-        <div class="col-md-12" id="profile-stats-wrapper">
-            <div class="btn-group btn-group-justified" id="profile-stats-container">
-                <a class="btn btn-default" role="button">
-                    <strong>3</strong> 
-                    <span>{@__ phrase="obserwuje" /}</span>
-                </a>
-                <a class="btn btn-default no-left-border" role="button">
-                    <img src="/images/icons/followers.png" alt="followers"><strong>3</strong> 
-                    <span>{@__ phrase="obserwujący" /}</span>
-                </a>
-                <a class="btn btn-default no-left-border" role="button">
-                    <img src="/images/icons/qa.png" alt="answers"><strong>{profile.stats.questions_answered}</strong> 
-                    <span>{@__ phrase="odpowiedzi" /}</span>
-                </a>
-                <a class="btn btn-default no-left-border" role="button">
-                    <img src="/images/icons/likes.png" alt="likes"><strong>{profile.stats.likes}</strong> 
-                    <span>{@__ phrase="lubi to" /}</span>
-                </a>
-                <a class="btn btn-default no-left-border" role="button">
-                    <img src="/images/icons/giftbox.png" alt="gifts"><strong>{profile.stats.gifts_sent}</strong> 
-                    <span>{@__ phrase="gifty" /}</span>
-                </a>
-            </div>
-        </div>
-    </div>
     <div class="row">
         <div class="col-md-12">
             {?profile.profile.motto}

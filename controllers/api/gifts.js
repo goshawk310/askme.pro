@@ -45,4 +45,27 @@ module.exports = function(server) {
                 });
             });
     });
+
+    /**
+     * 
+     * @param  {Object} req
+     * @param  {Object} res
+     * @return {void}
+     */
+    server.patch('/api/gifts/:id/position', auth.isAuthenticated, function (req, res) {
+        giftService
+            .setReq(req)
+            .updatePosition(req.param('id'), req.user._id, req.body.position, req.body.bounds, function (err, gift) {
+                if (err) {
+                    return res.send(500, {
+                        status: 'error',
+                        message: res.__('Wystąpił nieoczekiwany błąd')
+                    });
+                }
+                return res.send({
+                    status: 'success',
+                    gift: gift
+                });
+            });
+    });
 };

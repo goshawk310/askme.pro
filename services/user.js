@@ -357,5 +357,12 @@ module.exports = _.extend({
         UserGiftModel.find({
             to: id
         }).populate('gift', 'file').exec(callback);
+    },
+    getUserProfileGifts: function getUserProfileGifts(id, callback) {
+        var weekAgo = new Date((new Date()).getTime() - 1000 * 60 * 60 * 24 * 7); 
+        UserGiftModel.find({
+            to: id,
+            created_at: {$gte: weekAgo}
+        }).populate('gift', 'file').exec(callback);
     }
 }, require('../lib/service'));

@@ -41,6 +41,16 @@ var UserGift = function() {
                 type: Number,
                 default: 0
             }
+        },
+        bounds: {
+            w: {
+                type: Number,
+                default: 0
+            },
+            h: {
+                type: Number,
+                default: 0
+            }
         }
     }, {
         collection: 'user_gifts',

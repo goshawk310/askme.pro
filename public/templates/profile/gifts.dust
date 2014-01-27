@@ -1,5 +1,5 @@
 <script type="text/template" id="profile-gifts-modal-tpl">
-   <div class="modal fade profile-gifts-modal" tabindex="-1" role="dialog" aria-labelledby="profile-gifts-modal-label" aria-hidden="true" data-to="{profile._id}" data-points="{user.points}">
+   <div class="modal fade profile-gifts-modal" tabindex="-1" role="dialog" aria-labelledby="profile-gifts-modal-label" aria-hidden="true" data-to="{profile._id}" data-points="{?user}{user.points}{/user}">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -7,8 +7,12 @@
                     <h4 class="modal-title">{@__ phrase="Wyślij gifta" /}</h4>
                 </div>
                 <div class="modal-body profile-gifts-wrapper">
-                    <p>{@__ phrase="Możesz wysłać gifta za" /} 20 {@p__ words="punkt,punkty,punktów" value="20" /}. {@__ phrase="Obecnie masz" /} <strong class="text-primary points">{user.pointsInt}</strong> {@p__ words="punkt,punkty,punktów" value="{user.pointsInt}" /}. {@if cond="{user.points} >= 20"}{@__ phrase="Wybierz gifta" /}:{/if}</p>
-                    <div class="row<% if ({user.points} < 20) {~lb} %> disabled<% {~rb} %>"></div>        
+                    {?user}
+                        <p>{@__ phrase="Możesz wysłać gifta za" /} 20 {@p__ words="punkt,punkty,punktów" value="20" /}. {@__ phrase="Obecnie masz" /} <strong class="text-primary points">{user.pointsInt}</strong> {@p__ words="punkt,punkty,punktów" value="{user.pointsInt}" /}. {@if cond="{user.points} >= 20"}{@__ phrase="Wybierz gifta" /}:{/if}</p>
+                        <div class="row<% if ({user.points} < 20) {~lb} %> disabled<% {~rb} %>"></div>
+                    {:else}
+                        <div class="row disabled"></div>
+                    {/user}  
                 </div>
             </div>
         </div>

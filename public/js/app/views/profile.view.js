@@ -1,8 +1,12 @@
 askmePro.views.ProfileIndexView = Backbone.View.extend({
     template: $('#profile-index-tpl').length ? _.template($('#profile-index-tpl').html()) : null,
     questions: [],
+    gifts: [],
+    giftBounds: [],
     page: 0,
-    initialize: function() {
+    path: null,
+    initialize: function(options) {
+        this.path = options.path || null;
         this.render();
     },
     render: function() {
@@ -13,6 +17,7 @@ askmePro.views.ProfileIndexView = Backbone.View.extend({
         }
         this.loadAnswers();
         this.setupPointsProgress();
+        $('#btn-stats-answered').on('click', this.showAnswered);
         return this;
     },
     events: {
@@ -114,6 +119,9 @@ askmePro.views.ProfileIndexView = Backbone.View.extend({
                     thisObj.page = response.hasMore;
                     moreContainer.show();
                 }
+                if (p === 0 && thisObj.path === 'answers') {
+                    thisObj.showAnswered();
+                }
             })
             .fail(function () {
 
@@ -125,6 +133,95 @@ askmePro.views.ProfileIndexView = Backbone.View.extend({
     },
     more: function more() {
         this.loadAnswers(this.page);
+    },
+    loadGifts: function loadGifts(data, editable) {
+        var thisObj = this,
+            container = $('#profile-top'),
+            view = null,
+            position = container.offset(),
+            giftElems = null;
+        this.bounds = [
+            position.left - 50,
+            position.top - 50,
+            container.width() + position.left - 70,
+            container.height() + position.top + 200
+        ];
+        container.addClass('gifts-visible');    
+        _.each(data, function (gift) {
+            var x = gift.pos.x / gift.bounds.w * 100,
+                y = gift.pos.y / gift.bounds.h * 100;;
+            view = new askmePro.views.ProfileGiftView({
+                model: new askmePro.models.GiftModel(gift),
+                attributes: {
+                    src: '/uploads/gifts/' + gift.gift.file,
+                    style: 'left: ' + x + '%; top: ' + gift.pos.y + 'px'
+                },
+                editable: editable,
+                bounds: thisObj.bounds
+            });
+            thisObj.gifts.push(view.render());
+            container.append(view.$el);
+        });
+        giftElems = container.children('.gift');
+        giftElems.draggable({containment: this.bounds});
+        $(window).on('resize', function () {
+            giftElems.draggable('destroy');
+            container = $('#profile-top');
+            position = container.offset(),
+            thisObj.bounds = [
+                position.left - 50,
+                position.top - 50,
+                container.width() + position.left - 70,
+                container.height() + position.top + 200
+            ];
+            giftElems.draggable({containment: thisObj.bounds});
+        });
+    },
+    showAnswered: function showAnswered() {
+        $('html, body').animate({scrollTop: $('#answers-wrapper').offset().top - 90});
+    }
+});
+
+askmePro.views.ProfileGiftView = Backbone.View.extend({
+    tagName: 'img',
+    className: 'gift',
+    editable: false,
+    bounds: [],
+    initialize: function(options) {
+        this.editable = options.editable || false;
+        this.bounds = options.bounds;
+    },
+    render: function() {
+        return this;
+    },
+    events: {
+        'dragstop': 'updatePosition'
+    },
+    updatePosition: function updatePosition(e, ui) {
+        if (!this.editable) {
+            return;
+        }
+        var thisObj = this,
+            model = this.model;
+        model.url  = '/api/gifts/' + model.get('_id') + '/position';
+        model.save({
+            position : {
+                x: ui.position.left,
+                y: ui.position.top
+            },
+            bounds: {
+                w: thisObj.bounds[2] - thisObj.bounds[0],
+                h: thisObj.bounds[3] - thisObj.bounds[1]
+            }
+        }, {
+            patch: true,
+            success: function () {
+
+            },
+            error: function () {
+
+            }
+        });
     }
 });
 
@@ -142,7 +239,7 @@ askmePro.views.ProfileInfoView = Backbone.View.extend({
     }
 });
 
-askmePro.views.ProfileGiftsView = Backbone.View.extend({
+askmePro.views.ProfileSendGiftsView = Backbone.View.extend({
     template: _.template($('#profile-gifts-modal-tpl').html()),
     initialized: false,
     loader: null,
@@ -177,7 +274,7 @@ askmePro.views.ProfileGiftsView = Backbone.View.extend({
             success: function (collection, response, options) {
                 thisObj.loader.hide();
                 collection.each(function (gift) {
-                    body.append(new askmePro.views.ProfileGiftView({
+                    body.append(new askmePro.views.ProfileSendGiftView({
                         model: gift,
                         parent: thisObj
                     }).render().$el);
@@ -190,7 +287,7 @@ askmePro.views.ProfileGiftsView = Backbone.View.extend({
     }
 });
 
-askmePro.views.ProfileGiftView = Backbone.View.extend({
+askmePro.views.ProfileSendGiftView = Backbone.View.extend({
     template: _.template($('#profile-gift-tpl').html()),
     initialize: function(options) {
         this.parent = options.parent || null;

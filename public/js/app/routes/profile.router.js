@@ -2,28 +2,33 @@ askmePro.routerIndex = 'Profile';
 askmePro.routers.Profile = Backbone.Router.extend({
     views: {},
     routes: {
-        '': 'index',
         'info': 'info',
         'questions/(:id)/likes': 'likes',
-        'gifts': 'gifts'
+        'gifts/send': 'sendGifts',
+        'gifts': 'gifts',
+        '*path': 'index'
     },
-    index: function index() {
+    index: function index(path) {
         $('#profile-menu li a[href="#"]').tab('show');
+        $('#profile-top').removeClass('small');
+        $('#profile-stats-wrapper').show();
         if (typeof this.views.index === 'undefined') {
-            this.views.index = new askmePro.views.ProfileIndexView();
+            this.views.index = new askmePro.views.ProfileIndexView({
+                path: path
+            });
+            if ($('#gifts-data').length && $('#gifts-data').html().length) {
+                this.views.index.loadGifts(JSON.parse($('#gifts-data').html()), $('#gifts-data').data('editable'));
+            }
             $('#profile-tabs-content').html(this.views.index.$el);
         } else {
             window.location.reload();
             return;
-            $('#profile-tabs-content').html(this.views.index.$el);
-            this.views.index.delegateEvents();
-            _.each(this.views.index.questions, function (question) {
-                question.delegateAllEvents();
-            });
         }
     },
     info: function info() {
         $('#profile-menu li a[href="#info"]').tab('show');
+        $('#profile-top').removeClass('gifts-visible').addClass('small');
+        $('#profile-stats-wrapper').hide();
         if (typeof this.views.info === 'undefined') {
             this.views.info = new askmePro.views.ProfileInfoView();
         }
@@ -39,16 +44,22 @@ askmePro.routers.Profile = Backbone.Router.extend({
         }
         this.views.questionLikes.load(id, this);
     },
-    gifts: function gifts() {
+    sendGifts: function sendGifts() {
         if (typeof this.views.index === 'undefined') {
             this.index();
         }
         if (typeof this.views.profileGifts === 'undefined') {
-            this.views.profileGifts = new askmePro.views.ProfileGiftsView({
+            this.views.profileGifts = new askmePro.views.ProfileSendGiftsView({
                 collection: new askmePro.collections.GiftCollection()
             });
             $('body').append(this.views.profileGifts.render().$el);
         }
         this.views.profileGifts.load(this);
-    }
+    },
+    gifts: function gifts() {
+        $('html, body').animate({scrollTop: 0});
+        $('#profile-top').removeClass('gifts-visible').addClass('small');
+        $('#profile-stats-wrapper').show();
+        $('#profile-tabs-content').html('gifty');
+    },
 });

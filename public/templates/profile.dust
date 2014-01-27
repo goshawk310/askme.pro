@@ -17,7 +17,7 @@
                     </div>
                     <div class="col-md-9">
                         <ul class="nav nav-tabs" id="profile-menu">
-                            <li class="active"><a href="#"><span class="glyphicon glyphicon-user"></span> {@__ phrase="Profil" /}</a></li>
+                            <li class="active"><a href="/{profile.username}"><span class="glyphicon glyphicon-user"></span> {@__ phrase="Profil" /}</a></li>
                             <li><a href="#info"><span class="glyphicon glyphicon-info-sign"></span> {@__ phrase="Informacje" /}</a></li>
                             <li><a href="#photos"><span class="glyphicon glyphicon-picture"></span> {@__ phrase="Zdjęcia" /}</a></li>
                             <li><a href="#videos"><span class="glyphicon glyphicon-film"></span> {@__ phrase="Video" /}</a></li>
@@ -39,19 +39,66 @@
                                 <div class="well well-sm{?profile.top_bg} box-shadow{:else} no-shadow{/profile.top_bg}">
                                     <h1>{profile.name} {profile.lastname} </h1>
                                 </div>
-                                {@ne key="{user.id}" value="{profile.id}"}
+                                {?user}
                                     <div id="profile-buttons-container">
-                                        <a href="" class="btn btn-success btn-sm">{@__ phrase="Obserwuj" /}</a>
-                                        <a href="/{profile.username}#gifts" class="btn btn-success btn-sm">{@__ phrase="Wyślij gifta" /}</a>
-                                        <a href="" class="btn btn-default btn-sm pull-right" id="block-user-btn">{@__ phrase="Zablokuj" /}</a>
+                                        {@ne key="{user.id}" value="{profile.id}"}
+                                            <a href="" class="btn btn-success btn-sm">{@__ phrase="Obserwuj" /}</a>
+                                        {/ne}
+                                        <a href="/{profile.username}#gifts/send" class="btn btn-success btn-sm">{@__ phrase="Wyślij gifta" /}</a>
+                                        {@ne key="{user.id}" value="{profile.id}"}
+                                            <a href="" class="btn btn-default btn-sm pull-right block-user-btn">{@__ phrase="Zablokuj" /}</a>
+                                        {/ne}
                                     </div>
-                                {/ne}
+                                {/user}
                                 <div class="clearfix"></div>
                             </div>
-                        </div>    
+                            {?user}
+                                <div id="profile-buttons-container-small" class="btn-group">
+                                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                                        <span class="glyphicon glyphicon-tasks"></span>
+                                    </button>
+                                    <ul class="dropdown-menu" role="menu">
+                                        {@ne key="{user.id}" value="{profile.id}"}
+                                            <li><a href="" class="text-success">{@__ phrase="Obserwuj" /}</a></li>
+                                        {/ne}
+                                        <li><a href="/{profile.username}#gifts/send" class="text-success">{@__ phrase="Wyślij gifta" /}</a></li>
+                                        {@ne key="{user.id}" value="{profile.id}"}
+                                            <li class="divider"></li>
+                                            <li><a href="" class="">{@__ phrase="Zablokuj" /}</a></li>
+                                        {/ne}
+                                    </ul>
+                                </div>
+                            {/user}
+                            <div class="clearfix"></div>
+                        </div>
                         {?profile.sticker}
                             <img src="/images/stickers/{profile.sticker}" alt="" class="profile-sticker" />
                         {/profile.sticker}
+                        <div class="row">    
+                            <div class="col-md-12" id="profile-stats-wrapper">
+                                <div class="btn-group btn-group-justified" id="profile-stats-container">
+                                    <a class="btn btn-default" role="button">
+                                        <strong>3</strong> 
+                                        <span>{@__ phrase="obserwuje" /}</span>
+                                    </a>
+                                    <a class="btn btn-default no-left-border" role="button">
+                                        <img src="/images/icons/followers.png" alt="followers"><strong>3</strong> 
+                                        <span>{@__ phrase="obserwujący" /}</span>
+                                    </a>
+                                    <a href="#answers" class="btn btn-default no-left-border" role="button" id="btn-stats-answered">
+                                        <img src="/images/icons/qa.png" alt="answers"><strong>{profile.stats.questions_answered}</strong><span>{@__ phrase="odpowiedzi" /}</span>
+                                    </a>
+                                    <a class="btn btn-default no-left-border" role="button">
+                                        <img src="/images/icons/likes.png" alt="likes"><strong>{profile.stats.likes}</strong> 
+                                        <span>{@__ phrase="lubi to" /}</span>
+                                    </a>
+                                    <a href="#gifts" class="btn btn-default no-left-border" role="button">
+                                        <img src="/images/icons/giftbox.png" alt="gifts"><strong>{profile.stats.gifts_received}</strong> 
+                                        <span>{@p__ words="gift,gifty,giftów" value="{profile.stats.gifts_received}" /}</span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
                         <div id="profile-tabs-content">
                             <hr>
                         </div>        
@@ -66,6 +113,7 @@
 </div>
 {/body}
 {<js}
+<script src="/components/jquery/ui/jquery-ui-1.10.4.custom.min.js"></script>
 <script src="/components/momentjs/min/moment.min.js"></script>
 <script src="/components/validate/jquery.validate.min.js"></script>
 <script src="/components/validate/additional-methods.js"></script>
@@ -87,6 +135,7 @@
         url: '{config.answer.url}'
     };
 </script>
+<script id="gifts-data" type="application/json" data-editable="{@eq key="{user.id}" value="{profile.id}"}true{:else}false{/eq}">{gifts|js|s}</script>
 {/js}
 {<jsTemplates}
     {>"profile/index" profile=profile /}

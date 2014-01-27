@@ -1,4 +1,4 @@
-askmePro.models.GiftModel = Backbone.Model.extend({
+askmePro.models.GiftModel = Backbone.DeepModel.extend({
     idAttribute: '_id',
     initialize: function () {
     },

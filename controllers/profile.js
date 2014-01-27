@@ -22,7 +22,7 @@ module.exports = function(server) {
                 return res.redirect('/account/login');
             }
             if (user.stats.gifts_received) {
-                userService.getUserGiftsById(user._id, function (err, gifts) {
+                userService.getUserProfileGifts(user._id, function (err, gifts) {
                     if (err) {
                         return res.render('profile', {
                             profile: user,

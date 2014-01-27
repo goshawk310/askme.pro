@@ -22,5 +22,17 @@ module.exports = _.extend({
             return callback(new Error('Insufficient number of points'));
         }
         userGift.save(callback);
+    },
+    updatePosition: function updatePosition(id, to, position, bounds, callback) {
+        UserGiftModel.
+            update({
+                _id: id,
+                to: to
+            }, {
+                $set: {
+                    pos: position,
+                    bounds: bounds
+                }
+            }, callback);
     }
 }, require('../lib/service'));
