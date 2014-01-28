@@ -468,6 +468,10 @@ ul#profile-menu li.active a {
     margin-bottom: 0;
 }
 
+#answers-container .row:last-child .col-md-12 hr {
+    display: none;
+}
+
 .more-container {
     display: none;
 }
@@ -758,6 +762,32 @@ ul#profile-menu li.active a {
 
 #profile-buttons-container-small {
     display: none;
+}
+
+#profile-tabs-content .panel-footer-main {
+    margin-left: -15px;
+    margin-right: -15px;
+    margin-bottom: -15px;
+}
+
+#profile-tabs-content .panel-footer-main .pagination {
+    margin: 0;
+    margin-bottom: 0;
+}
+
+#profile-gifts-container .gift-container {
+    text-align: center;
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+#profile-gifts-container .gift-container .gift {
+    height: 100px;
+    margin-bottom: 10px;
+}
+
+#profile-gifts-container .gift-container .gift img {
+    max-width: 100%;
 }
 
 @media (min-width: 768px) {

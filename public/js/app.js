@@ -37,6 +37,7 @@ var askmePro = {
     settings: {
         upload: {}
     },
+    data: {},
     utils: {
         alertEventsInitialized: false,
         setupDefaultValidator: function setupDefaultValidator() {

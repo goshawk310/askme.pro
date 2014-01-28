@@ -101,7 +101,7 @@
                         </div>
                         <div id="profile-tabs-content">
                             <hr>
-                        </div>        
+                        </div>
                     </div>
                 </div>
             </div>
@@ -130,6 +130,13 @@
 <script src="/js/app/views/profile.view.js"></script>
 <script src="/js/app/routes/profile.router.js"></script>
 <script type="text/javascript">
+    askmePro.data.profile = {
+        id: '{profile._id}',
+        username: '{profile.username}',
+        stats: {profile.stats|js|s}
+    };
+    askmePro.data.userId = {?user._id}'{user._id}'{:else}null{/user._id};
+
     askmePro.utils.setupDefaultValidator();
     askmePro.settings.upload.answer = {
         url: '{config.answer.url}'

@@ -353,10 +353,47 @@ module.exports = _.extend({
             update(null, req, res, null);
         }
     },
-    getUserGiftsById: function getUserGiftsById(id, callback) {
-        UserGiftModel.find({
-            to: id
-        }).populate('gift', 'file').exec(callback);
+    getGiftsById: function getGiftsById(id, params, callback) {
+        var req = this.getReq(),
+            page = params.page || 0,
+            limit = params.limit || 12,
+            skip = limit * page,
+            showPrivate = (req.user && req.user._id.toString() === id.toString()) ? true : false,
+            where = {
+                to: id
+            };
+            if (!showPrivate) {
+                where.type = {$ne: 'private'};
+            }
+        UserGiftModel
+            .count(where, function (err, total) {
+                UserGiftModel
+                .find(where)
+                .select('created_at gift from type')
+                .populate('gift', 'file')
+                .populate('from', 'username')
+                .skip(skip)
+                .limit(limit)
+                .sort({_id: -1})
+                .exec(function (err, gifts) {
+                    if (err) {
+                        return callback(err);
+                    }
+                    var output = [],
+                        giftObj = null;
+                    gifts.forEach(function (gift) {
+                        giftObj = gift.toObject();
+                        if (giftObj.type === 'anonymous') {
+                            giftObj.from = null;
+                        }
+                        output.push(giftObj);
+                    });
+                    return callback(null, {
+                        total: total,
+                        gifts: output
+                    });
+                });
+            });   
     },
     getUserProfileGifts: function getUserProfileGifts(id, callback) {
         var weekAgo = new Date((new Date()).getTime() - 1000 * 60 * 60 * 24 * 7); 

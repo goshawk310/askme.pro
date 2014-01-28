@@ -150,7 +150,7 @@ askmePro.views.ProfileIndexView = Backbone.View.extend({
         _.each(data, function (gift) {
             var x = gift.pos.x / gift.bounds.w * 100,
                 y = gift.pos.y / gift.bounds.h * 100;;
-            view = new askmePro.views.ProfileGiftView({
+            view = new askmePro.views.ProfileCurrentGiftView({
                 model: new askmePro.models.GiftModel(gift),
                 attributes: {
                     src: '/uploads/gifts/' + gift.gift.file,
@@ -182,7 +182,7 @@ askmePro.views.ProfileIndexView = Backbone.View.extend({
     }
 });
 
-askmePro.views.ProfileGiftView = Backbone.View.extend({
+askmePro.views.ProfileCurrentGiftView = Backbone.View.extend({
     tagName: 'img',
     className: 'gift',
     editable: false,
@@ -240,7 +240,7 @@ askmePro.views.ProfileInfoView = Backbone.View.extend({
 });
 
 askmePro.views.ProfileSendGiftsView = Backbone.View.extend({
-    template: _.template($('#profile-gifts-modal-tpl').html()),
+    template: _.template($('#profile-send-gifts-modal-tpl').html()),
     initialized: false,
     loader: null,
     initialize: function() {
@@ -288,7 +288,7 @@ askmePro.views.ProfileSendGiftsView = Backbone.View.extend({
 });
 
 askmePro.views.ProfileSendGiftView = Backbone.View.extend({
-    template: _.template($('#profile-gift-tpl').html()),
+    template: _.template($('#profile-send-gift-tpl').html()),
     initialize: function(options) {
         this.parent = options.parent || null;
     },
@@ -335,5 +335,129 @@ askmePro.views.ProfileSendGiftView = Backbone.View.extend({
                 thisObj.parent.loader.hide();
             }
         });
+    }
+});
+
+askmePro.views.ProfileGiftsView = Backbone.View.extend({
+    template: _.template($('#profile-gifts-tpl').html()),
+    loader: null,
+    paginationTemplate: null,
+    pagination: null,
+    initialize: function(options) {
+        this.limit = options.limit || 18;
+    },
+    render: function() {
+        this.setElement($(this.template()));
+        return this;
+    },
+    events: {
+
+    },
+    load: function load(page) {
+        var thisObj = this,
+            body = this.$('#profile-gifts-container');
+        this.loader = body.loading();
+        this.loader.css({display: 'block', opacity: 1});
+        this.collection.fetch({
+            add: false,
+            url: '/api/users/' + askmePro.data.profile.username + '/gifts',
+            data: {limit: thisObj.limit, page: page || 0},
+            success: function (collection, response, options) {
+                thisObj.loader.hide();
+                if (!response.total) {
+                    return;
+                }
+                var html = '';
+                collection.add(response.gifts);
+                collection.each(function (gift) {
+                    html += new askmePro.views.ProfileGiftView({
+                        model: gift,
+                        parent: thisObj
+                    }).render().$el.get(0).outerHTML;
+                });
+                body.html(html);
+                thisObj.renderPagination(response.total, thisObj.limit, page);
+            },
+            error: function () {
+                thisObj.loader.hide();
+            }
+        });
+    },
+    renderPagination: function renderPagination(total, limit, page) {
+        var pages = Math.ceil(total / limit),
+            url = '#gifts/',
+            elements = null,
+            elementsCount,
+            element,
+            diff = 0,
+            visibleElems = 8,
+            veHalf  = visibleElems / 2;
+        if (pages < 2) {
+            return;
+        }
+        if (!this.pagination) {
+            this.paginationTemplate = _.template($('#profile-gift-pagination-tpl').html());
+            this.pagination = $(this.paginationTemplate({
+                pages: pages,
+                url: url
+            }));
+            this.$('#profile-gifts-pagination-container').html(this.pagination);
+        }
+        elements = this.pagination.find('li');
+        elementsCount = elements.length;
+        elements.removeClass('active');
+        elements.each(function (i) {
+            if (i > 0 && i < elementsCount - 1) {
+                element = $(this);
+                if (page <= veHalf) {
+                    if (i <= visibleElems) {
+                        element.css({display: 'inline'});
+                    } else {
+                        element.hide();
+                    }
+                } else if (page >= elementsCount - 1 - veHalf) {
+                    if (i >= elementsCount - 1 - visibleElems) {
+                        element.css({display: 'inline'});
+                    } else {
+                        element.hide();
+                    }
+                } else {
+                    diff = i - page;
+                    if (diff > -veHalf && diff <= veHalf) {
+                        element.css({display: 'inline'});
+                    } else {
+                        element.hide();
+                    }
+                }
+                
+            }
+        });
+        this.pagination.find('li[data-page="' + page + '"]').addClass('active');
+        if (pages > 1) {
+            if (page === 0) {
+                this.pagination.find('li.prev').addClass('disabled').children('a').removeAttr('href');
+            } else {
+                this.pagination.find('li.prev').removeClass('disabled').children('a').attr('href', url + (page - 1));
+            }
+            if (page < pages - 1) {
+                this.pagination.find('li.next').removeClass('disabled').children('a').attr('href', url + (page + 1));
+            } else {
+                this.pagination.find('li.next').addClass('disabled').children('a').removeAttr('href');
+            }
+        }
+    }
+});
+
+askmePro.views.ProfileGiftView = Backbone.View.extend({
+    template: _.template($('#profile-gift-tpl').html()),
+    initialize: function(options) {
+        this.parent = options.parent || null;
+    },
+    render: function() {
+        this.setElement($(this.template({gift: this.model.attributes})));
+        return this;
+    },
+    events: {
+        
     }
 });

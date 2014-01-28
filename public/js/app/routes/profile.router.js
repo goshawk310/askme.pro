@@ -5,7 +5,7 @@ askmePro.routers.Profile = Backbone.Router.extend({
         'info': 'info',
         'questions/(:id)/likes': 'likes',
         'gifts/send': 'sendGifts',
-        'gifts': 'gifts',
+        'gifts(/:page)': 'gifts',
         '*path': 'index'
     },
     index: function index(path) {
@@ -48,18 +48,26 @@ askmePro.routers.Profile = Backbone.Router.extend({
         if (typeof this.views.index === 'undefined') {
             this.index();
         }
-        if (typeof this.views.profileGifts === 'undefined') {
-            this.views.profileGifts = new askmePro.views.ProfileSendGiftsView({
+        if (typeof this.views.profileSendGifts === 'undefined') {
+            this.views.profileSendGifts = new askmePro.views.ProfileSendGiftsView({
                 collection: new askmePro.collections.GiftCollection()
             });
-            $('body').append(this.views.profileGifts.render().$el);
+            $('body').append(this.views.profileSendGifts.render().$el);
         }
-        this.views.profileGifts.load(this);
+        this.views.profileSendGifts.load(this);
     },
-    gifts: function gifts() {
-        $('html, body').animate({scrollTop: 0});
+    gifts: function gifts(page) {
         $('#profile-top').removeClass('gifts-visible').addClass('small');
         $('#profile-stats-wrapper').show();
-        $('#profile-tabs-content').html('gifty');
-    },
+
+        if (typeof this.views.profileGifts === 'undefined') {
+            this.views.profileGifts = new askmePro.views.ProfileGiftsView({
+                collection: new askmePro.collections.GiftCollection()
+            });
+            $('#profile-tabs-content').html(this.views.profileGifts.render().$el);
+        } else {
+            $('#profile-tabs-content').html(this.views.profileGifts.$el);
+        }
+        this.views.profileGifts.load(parseInt(page, 10) || 0);
+    }
 });

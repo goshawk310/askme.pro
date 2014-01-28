@@ -22,8 +22,12 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-12 more-container">
-            <button class="btn btn-default btn-block more">{@__ phrase="Załaduj więcej" /}</button>
+    </div>
+    <div class="panel-footer panel-footer-main">
+        <div class="row">
+            <div class="col-md-12 more-container">
+                <button class="btn btn-default btn-block more">{@__ phrase="Załaduj więcej" /}</button>
+            </div>
         </div>
     </div>
 </script>
