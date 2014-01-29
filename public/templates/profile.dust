@@ -42,11 +42,19 @@
                                 {?user}
                                     <div id="profile-buttons-container">
                                         {@ne key="{user.id}" value="{profile.id}"}
-                                            <a href="" class="btn btn-success btn-sm">{@__ phrase="Obserwuj" /}</a>
+                                            {?isFollowed}
+                                                <a class="btn btn-sm btn-unfollow" data-alttext="{@__ phrase="Obserwuj" /}">{@__ phrase="Zrezygnuj" /}</a>
+                                            {:else}
+                                                <a class="btn btn-sm btn-follow" data-alttext="{@__ phrase="Zrezygnuj" /}">{@__ phrase="Obserwuj" /}</a>
+                                            {/isFollowed}
                                         {/ne}
                                         <a href="/{profile.username}#gifts/send" class="btn btn-success btn-sm">{@__ phrase="Wyślij gifta" /}</a>
                                         {@ne key="{user.id}" value="{profile.id}"}
-                                            <a href="" class="btn btn-default btn-sm pull-right block-user-btn">{@__ phrase="Zablokuj" /}</a>
+                                            {^isBlocked}
+                                                <a class="btn btn-sm pull-right btn-block-user" data-alttext="{@__ phrase="Odblokuj" /}">{@__ phrase="Zablokuj" /}</a>
+                                            {:else}
+                                                <a class="btn btn-sm pull-right btn-unblock-user" data-alttext="{@__ phrase="Zablokuj" /}">{@__ phrase="Odblokuj" /}</a>
+                                            {/isBlocked}
                                         {/ne}
                                     </div>
                                 {/user}
@@ -59,12 +67,24 @@
                                     </button>
                                     <ul class="dropdown-menu" role="menu">
                                         {@ne key="{user.id}" value="{profile.id}"}
-                                            <li><a href="" class="text-success">{@__ phrase="Obserwuj" /}</a></li>
+                                            <li>
+                                                {?isFollowed}
+                                                    <a href="" class="text-default btn-unfollow" data-alttext="{@__ phrase="Obserwuj" /}">{@__ phrase="Zrezygnuj" /}</a>
+                                                {:else}
+                                                    <a href="" class="text-succes btn-follow" data-alttext="{@__ phrase="Zrezygnuj" /}">{@__ phrase="Obserwuj" /}</a>
+                                                {/isFollowed}
+                                            </li>
                                         {/ne}
                                         <li><a href="/{profile.username}#gifts/send" class="text-success">{@__ phrase="Wyślij gifta" /}</a></li>
                                         {@ne key="{user.id}" value="{profile.id}"}
                                             <li class="divider"></li>
-                                            <li><a href="" class="">{@__ phrase="Zablokuj" /}</a></li>
+                                            <li>
+                                                {^isBlocked}
+                                                    <a href="" class="btn-block-user" data-alttext="{@__ phrase="Odblokuj" /}">{@__ phrase="Zablokuj" /}</a>
+                                                {:else}
+                                                    <a href="" class="btn-unblock-user" data-alttext="{@__ phrase="Zablokuj" /}">{@__ phrase="Odblokuj" /}</a>
+                                                {/isBlocked}
+                                            </li>
                                         {/ne}
                                     </ul>
                                 </div>
@@ -77,24 +97,25 @@
                         <div class="row">    
                             <div class="col-md-12" id="profile-stats-wrapper">
                                 <div class="btn-group btn-group-justified" id="profile-stats-container">
-                                    <a class="btn btn-default" role="button">
-                                        <strong>3</strong> 
+                                    <a href="#follows" id="profile-stats-link-follows" class="btn btn-default" role="button">
+                                        <strong>{profile.stats.follows}</strong> 
                                         <span>{@__ phrase="obserwuje" /}</span>
                                     </a>
-                                    <a class="btn btn-default no-left-border" role="button">
-                                        <img src="/images/icons/followers.png" alt="followers"><strong>3</strong> 
-                                        <span>{@__ phrase="obserwujący" /}</span>
+                                    <a href="#followers" id="profile-stats-link-followers" class="btn btn-default no-left-border" role="button">
+                                        <img src="/images/icons/followers.png" alt="followers">
+                                        <strong>{profile.stats.followers}</strong> <span>{@p__ words="obserwujący,obserwujących,obserwujących" /}</span>
                                     </a>
-                                    <a href="#answers" class="btn btn-default no-left-border" role="button" id="btn-stats-answered">
-                                        <img src="/images/icons/qa.png" alt="answers"><strong>{profile.stats.questions_answered}</strong><span>{@__ phrase="odpowiedzi" /}</span>
+                                    <a href="#answers" id="profile-stats-link-answers" class="btn btn-default no-left-border active" role="button" id="btn-stats-answered">
+                                        <img src="/images/icons/qa.png" alt="answers">
+                                        <strong>{profile.stats.questions_answered}</strong> <span>{@__ phrase="odpowiedzi" /}</span>
                                     </a>
-                                    <a class="btn btn-default no-left-border" role="button">
-                                        <img src="/images/icons/likes.png" alt="likes"><strong>{profile.stats.likes}</strong> 
-                                        <span>{@__ phrase="lubi to" /}</span>
+                                    <a id="profile-stats-link-likes" class="btn btn-default no-left-border" role="button">
+                                        <img src="/images/icons/likes.png" alt="likes">
+                                        <strong>{profile.stats.likes}</strong> <span>{@__ phrase="lubi to" /}</span>
                                     </a>
-                                    <a href="#gifts" class="btn btn-default no-left-border" role="button">
-                                        <img src="/images/icons/giftbox.png" alt="gifts"><strong>{profile.stats.gifts_received}</strong> 
-                                        <span>{@p__ words="gift,gifty,giftów" value="{profile.stats.gifts_received}" /}</span>
+                                    <a id="profile-stats-link-gifts" href="#gifts" class="btn btn-default no-left-border" role="button">
+                                        <img src="/images/icons/giftbox.png" alt="gifts">
+                                        <strong>{profile.stats.gifts_received}</strong> <span>{@p__ words="gift,gifty,giftów" value="{profile.stats.gifts_received}" /}</span>
                                     </a>
                                 </div>
                             </div>
@@ -126,6 +147,8 @@
 <script src="/js/app/collections/question.collection.js"></script>
 <script src="/js/app/models/gift.model.js"></script>
 <script src="/js/app/collections/gift.collection.js"></script>
+<script src="/js/app/models/user.model.js"></script>
+<script src="/js/app/collections/users.collection.js"></script>
 <script src="/js/app/views/question.view.js"></script>
 <script src="/js/app/views/profile.view.js"></script>
 <script src="/js/app/routes/profile.router.js"></script>
@@ -149,4 +172,5 @@
     {>"profile/info" profile=profile /}
     {>"partials/question" profile=profile /}
     {>"profile/gifts" profile=profile/}
+    {>"profile/users" profile=profile/}
 {/jsTemplates}

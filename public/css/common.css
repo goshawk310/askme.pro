@@ -256,8 +256,24 @@ ul#profile-menu li.active a {
     box-shadow: 1px 2px 1px 0 rgba(0,0,0,0.3);
 }
 
-#profile-buttons-container .block-user-btn {
+#profile-buttons-container .btn-block-user,
+#profile-buttons-container .btn-unblock-user {
     margin-right: 0;
+}
+
+#profile-buttons-container .btn-follow,
+#profile-buttons-container .btn-unblock-user {
+    background-color: #7FBF4D;
+    border-color: #4CAE4C;
+    color: #FFFFFF;
+    text-shadow: 0 -1px 0 #4C9021;
+}
+
+#profile-buttons-container .btn-unfollow,
+#profile-buttons-container .btn-block-user {
+    color: #333333;
+    background-color: #ffffff;
+    border-color: #cccccc;    
 }
 
 #profile-stats-wrapper {
@@ -775,12 +791,6 @@ ul#profile-menu li.active a {
     margin-bottom: 0;
 }
 
-#profile-gifts-container .gift-container {
-    text-align: center;
-    margin-top: 15px;
-    margin-bottom: 15px;
-}
-
 #profile-gifts-container .gift-container .gift {
     height: 100px;
     margin-bottom: 10px;
@@ -788,6 +798,36 @@ ul#profile-menu li.active a {
 
 #profile-gifts-container .gift-container .gift img {
     max-width: 100%;
+}
+
+.list-elem-container {
+    text-align: center;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    position: relative;
+}
+
+.list-elem-container .list-elem{
+    margin-bottom: 10px;
+}
+
+.list-elem-container .close {
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+
+.no-touch .list-elem-container .close {
+    display: none;
+}
+
+.no-touch .list-elem-container:hover .close {
+    display: inline-block;
+}
+
+#profile-stats-container .btn.active {
+    border-bottom: 0;
+    background-color: #fff;
 }
 
 @media (min-width: 768px) {

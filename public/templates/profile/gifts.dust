@@ -53,7 +53,7 @@
     </div>
 </script>
 <script type="text/template" id="profile-gift-tpl">
-    <div class="col-md-2 col-sm-3 col-xs-4 gift-container">
+    <div class="col-md-2 col-sm-3 col-xs-4 list-elem-container gift-container">
         <div class="gift">
             <img src="/uploads/gifts/<%=gift.gift.file%>" />
         </div>

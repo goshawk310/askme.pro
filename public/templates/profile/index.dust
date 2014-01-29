@@ -31,3 +31,12 @@
         </div>
     </div>
 </script>
+<script type="text/template" id="pagination-tpl">
+    <ul class="pagination">
+        <li class="prev"><a>&laquo;</a></li>
+        <% for (var i = 0; i < pages; i += 1) {~lb} %>
+            <li data-page="<%=i%>"><a href="<%=url%><%=(i)%>"><%=(i+1)%></a></li>
+        <% {~rb} %>
+        <li class="next"><a>&raquo;</a></li>
+    </ul>
+</script>

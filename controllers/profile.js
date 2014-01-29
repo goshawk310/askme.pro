@@ -21,22 +21,34 @@ module.exports = function(server) {
                 req.flash('error', res.__('Aby przeglądać tą stronę trzeba się zalogować'));
                 return res.redirect('/account/login');
             }
+            var isFollowed = false,
+                isBlocked = false;
+            if (req.isAuthenticated() && req.user.users) {
+                isFollowed = req.user.users.followed ? user.isFollowed(req.user.users.followed) : false;
+                isBlocked = req.user.users.blocked ? user.isBlocked(req.user.users.blocked) : false;
+            }
             if (user.stats.gifts_received) {
                 userService.getUserProfileGifts(user._id, function (err, gifts) {
                     if (err) {
                         return res.render('profile', {
                             profile: user,
+                            isFollowed: isFollowed,
+                            isBlocked: isBlocked,
                             gifts: []
                         });
                     }
                     return res.render('profile', {
                         profile: user,
+                        isFollowed: isFollowed,
+                        isBlocked: isBlocked,
                         gifts: gifts
                     });
                 });
             } else {
                 res.render('profile', {
                     profile: user,
+                    isFollowed: isFollowed,
+                    isBlocked: isBlocked,
                     gifts: []
                 });
             }

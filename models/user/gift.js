@@ -53,7 +53,7 @@ var UserGift = function() {
             }
         }
     }, {
-        collection: 'user_gifts',
+        collection: 'users_gifts',
         autoIndex: false
     });
     

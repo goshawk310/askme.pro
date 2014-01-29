@@ -161,6 +161,18 @@ var User = function() {
                 default: 0
             }
         },
+        users: {
+            followed: [{
+                type: mongoose.Schema.Types.ObjectId,
+                require: false,
+                ref: 'User'
+            }],
+            blocked: [{
+                type: mongoose.Schema.Types.ObjectId,
+                require: false,
+                ref: 'User'
+            }] 
+        },
         role: {
             type: String,
             enum: ['user', 'editor', 'admin'],
@@ -175,7 +187,34 @@ var User = function() {
         return Math.floor(this.points);
     });
 
-    /** pre
+    /**
+     * [isFollowed description]
+     * @param  {Array}  followed
+     * @return {Boolean}
+     */
+    schema.methods.isFollowed = function (followed) {
+        var isFollowed = false;
+        if (followed && followed.indexOf(this._id) !== -1) {
+            isFollowed = true;
+        }
+        return isFollowed;
+    };
+
+    /**
+     * [isBlocked description]
+     * @param  {Array}  blocked
+     * @return {Boolean}
+     */
+    schema.methods.isBlocked = function (blocked) {
+        var isBlocked = false;
+        if (blocked && blocked.indexOf(this._id) !== -1) {
+            isBlocked = true;
+        }
+        return isBlocked;
+    };
+
+    /** 
+     * pre
      */
     schema.pre('save', function(next) {
         var user = this;

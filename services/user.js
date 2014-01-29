@@ -1,6 +1,8 @@
 'use strict';
 var UserModel = require('../models/user'),
     UserGiftModel = require('../models/user/gift'),
+    UserFollowedModel = require('../models/user/followed'),
+    UserBlockedModel = require('../models/user/blocked'),
     userSchema = require('mongoose').model('User').schema,
     Email = require('../lib/email'),
     FileUpload = require('../lib/file/upload'),
@@ -127,7 +129,6 @@ module.exports = _.extend({
     update: function update(id, data, callback) {
         var req = this.getReq(),
             res = this.getRes();
-        console.log(data);    
         UserModel.findById(id, function (err, user) {
             if (err) {
                 return callback(err, req, res);    
@@ -401,5 +402,107 @@ module.exports = _.extend({
             to: id,
             created_at: {$gte: weekAgo}
         }).populate('gift', 'file').exec(callback);
+    },
+    follow: function follow(by, user, callback) {
+        var userFollowed = new UserFollowedModel({
+            by: by,
+            user: user
+        });
+        userFollowed.save(callback);
+    },
+    unfollow: function unfollow(by, user, callback) {
+        UserFollowedModel
+            .findOne({
+                by: by,
+                user: user
+            })
+            .exec(function (err, followed) {
+                if (err) {
+                    return callback(err);
+                }
+                if (followed === null) {
+                    return callback(new Error('Followed not found'));
+                }
+                followed.remove(function (err) {
+                    if (err) {
+                        return callback(err);
+                    }
+                    callback(null, followed);
+                });
+            });
+    },
+    block: function block(by, user, callback) {
+        var userBlocked = new UserBlockedModel({
+            by: by,
+            user: user
+        });
+        userBlocked.save(callback);
+    },
+    unblock: function unblock(by, user, callback) {
+        UserBlockedModel
+            .findOne({
+                by: by,
+                user: user
+            })
+            .exec(function (err, blocked) {
+                if (err) {
+                    return callback(err);
+                }
+                if (blocked === null) {
+                    return blocked(new Error('Blocked not found'));
+                }
+                blocked.remove(function (err) {
+                    if (err) {
+                        return callback(err);
+                    }
+                    callback(null, blocked);
+                });
+            });
+    },
+    getFollowedById: function getFollowedById(id, params, callback) {
+        var req = this.getReq(),
+            page = params.page || 0,
+            limit = params.limit || 18,
+            skip = limit * page;
+        UserFollowedModel
+            .find({
+                by: id
+            })
+            .populate('user', 'username avatar')
+            .skip(skip)
+            .limit(limit)
+            .sort({_id: -1})
+            .exec(function (err, users) {
+                if (err) {
+                    return callback(err);
+                }
+                return callback(null, {
+                    total: params.total,
+                    users: users
+                });
+            });  
+    },
+    getFollowingById: function getFollowingById(id, params, callback) {
+        var req = this.getReq(),
+            page = params.page || 0,
+            limit = params.limit || 18,
+            skip = limit * page;
+        UserFollowedModel
+            .find({
+                user: id
+            })
+            .populate('by', 'username avatar')
+            .skip(skip)
+            .limit(limit)
+            .sort({_id: -1})
+            .exec(function (err, users) {
+                if (err) {
+                    return callback(err);
+                }
+                return callback(null, {
+                    total: params.total,
+                    users: users
+                });
+            });  
     }
 }, require('../lib/service'));
