@@ -23,7 +23,6 @@ module.exports = function(server) {
             });
     });
 
-
     /**
      * 
      * @param  {Object} req
@@ -37,7 +36,6 @@ module.exports = function(server) {
                 id: req.param('id'),
                 answer: req.body.answer
             }, function (err) {
-                console.log(err);
                 if (err) {
                     return res.send(500, {
                         status: 'error',
@@ -221,6 +219,56 @@ module.exports = function(server) {
                 }
                 return res.send({
                     comments: comments
+                });
+            });
+    });
+
+    /**
+     * 
+     * @param  {Object} req
+     * @param  {Object} res
+     * @return {void}
+     */
+    server.delete('/api/questions/:id/photos', auth.isAuthenticated, function (req, res) {
+        questionService
+            .removeImage({
+                _id: req.param('id'),
+                from: req.user._id
+            }, function (err) {
+                if (err) {
+                    return res.send(500, {
+                        status: 'error',
+                        message: res.__('Wystąpił nieoczekiwany błąd')
+                    });
+                }
+                return res.send({
+                    'status': 'success',
+                    'message': ''
+                });
+            });
+    });
+
+    /**
+     * 
+     * @param  {Object} req
+     * @param  {Object} res
+     * @return {void}
+     */
+    server.delete('/api/questions/:id/videos', auth.isAuthenticated, function (req, res) {
+        questionService
+            .removeVideo({
+                _id: req.param('id'),
+                from: req.user._id
+            }, function (err) {
+                if (err) {
+                    return res.send(500, {
+                        status: 'error',
+                        message: res.__('Wystąpił nieoczekiwany błąd')
+                    });
+                }
+                return res.send({
+                    'status': 'success',
+                    'message': ''
                 });
             });
     });

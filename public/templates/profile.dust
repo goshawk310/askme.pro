@@ -133,6 +133,9 @@
     </div>
 </div>
 {/body}
+{<css}
+<link href="/components/magnific-popup/magnific-popup.css" rel="stylesheet" />
+{/css}
 {<js}
 <script src="/components/jquery/ui/jquery-ui-1.10.4.custom.min.js"></script>
 <script src="/components/momentjs/min/moment.min.js"></script>
@@ -143,12 +146,9 @@
     <script src="/components/momentjs/lang/{locale}.js"></script>
 {/ne}
 <script src="/components/jquery.autosize.min.js"></script>
-<script src="/js/app/models/question.model.js"></script>
-<script src="/js/app/collections/question.collection.js"></script>
-<script src="/js/app/models/gift.model.js"></script>
-<script src="/js/app/collections/gift.collection.js"></script>
-<script src="/js/app/models/user.model.js"></script>
-<script src="/js/app/collections/users.collection.js"></script>
+<script src="/components/magnific-popup/jquery.magnific-popup.min.js"></script>
+<script src="/js/app/models.js"></script>
+<script src="/js/app/collections.js"></script>
 <script src="/js/app/views/question.view.js"></script>
 <script src="/js/app/views/profile.view.js"></script>
 <script src="/js/app/routes/profile.router.js"></script>
@@ -173,4 +173,6 @@
     {>"partials/question" profile=profile /}
     {>"profile/gifts" profile=profile/}
     {>"profile/users" profile=profile/}
+    {>"profile/photos" profile=profile/}
+    {>"profile/videos" profile=profile/}
 {/jsTemplates}

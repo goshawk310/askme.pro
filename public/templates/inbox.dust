@@ -47,8 +47,8 @@
     <script src="/components/momentjs/lang/{locale}.js"></script>
 {/ne}
 <script src="/js/utils/upload.js"></script>
-<script src="/js/app/models/question.model.js"></script>
-<script src="/js/app/collections/question.collection.js"></script>
+<script src="/js/app/models.js"></script>
+<script src="/js/app/collections.js"></script>
 <script src="/js/app/views/inbox.view.js"></script>
 <script src="/js/app/routes/inbox.router.js"></script>
 <script type="text/javascript">

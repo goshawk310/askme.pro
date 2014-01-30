@@ -817,6 +817,11 @@ ul#profile-menu li.active a {
     top: 0;
 }
 
+.list-elem-container .caption {
+    background: rgba(255, 255, 255, 0.6);
+    position: relative;
+}
+
 .no-touch .list-elem-container .close {
     display: none;
 }
@@ -828,6 +833,11 @@ ul#profile-menu li.active a {
 #profile-stats-container .btn.active {
     border-bottom: 0;
     background-color: #fff;
+}
+
+.photo-container .list-elem {
+    min-height: 120px;
+    max-height: 120px;
 }
 
 @media (min-width: 768px) {

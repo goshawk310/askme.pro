@@ -106,6 +106,8 @@ var Question = function Question() {
             }, function (err, user) {
                 
             });
+        } else if (this._original.image !== null && this.image === null) {
+            fsExtra.remove(config.answer.dir + this._original.image);
         }
     });
 

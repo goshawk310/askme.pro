@@ -3,6 +3,7 @@ var UserModel = require('../models/user'),
     UserGiftModel = require('../models/user/gift'),
     UserFollowedModel = require('../models/user/followed'),
     UserBlockedModel = require('../models/user/blocked'),
+    QuestionModel = require('../models/question'),
     userSchema = require('mongoose').model('User').schema,
     Email = require('../lib/email'),
     FileUpload = require('../lib/file/upload'),
@@ -504,5 +505,75 @@ module.exports = _.extend({
                     users: users
                 });
             });  
+    },
+    getPhotosById: function getPhotosById(id, params, callback) {
+        var page = params.page || 0,
+            limit = params.limit || 18,
+            skip = limit * page,
+            where = {
+                to: id,
+                image: {$ne: null}
+            };
+        QuestionModel.count(where, function (err, total) {
+            if (err) {
+                return callback(err);
+            }
+            if (!total) {
+                return callback(null, {
+                    total: 0,
+                    photos: []
+                });
+            }
+            QuestionModel
+                .find(where)
+                .select('to answered_at image')
+                .skip(skip)
+                .limit(limit)
+                .sort({answered_at: -1})
+                .exec(function (err, photos) {
+                    if (err) {
+                        return callback(err);
+                    }
+                    return callback(null, {
+                        total: total,
+                        photos: photos
+                    });
+                });
+        });  
+    },
+    getVideosById: function getVideosById(id, params, callback) {
+        var page = params.page || 0,
+            limit = params.limit || 18,
+            skip = limit * page,
+            where = {
+                to: id,
+                yt_video: {$ne: null}
+            };
+        QuestionModel.count(where, function (err, total) {
+            if (err) {
+                return callback(err);
+            }
+            if (!total) {
+                return callback(null, {
+                    total: 0,
+                    videos: []
+                });
+            }
+            QuestionModel
+                .find(where)
+                .select('to answered_at yt_video')
+                .skip(skip)
+                .limit(limit)
+                .sort({answered_at: -1})
+                .exec(function (err, videos) {
+                    if (err) {
+                        return callback(err);
+                    }
+                    return callback(null, {
+                        total: total,
+                        videos: videos
+                    });
+                });
+        });  
     }
 }, require('../lib/service'));

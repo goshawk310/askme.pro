@@ -655,6 +655,180 @@ askmePro.views.ProfileUserView = Backbone.View.extend({
     }
 });
 
+askmePro.views.ProfilePhotosView = Backbone.View.extend({
+    template: _.template($('#profile-photos-tpl').html()),
+    loader: null,
+    pagination: null,
+    initialize: function(options) {
+        this.limit = options.limit || 18;
+    },
+    render: function() {
+        this.setElement($(this.template()));
+        return this;
+    },
+    load: function load(page) {
+        var thisObj = this,
+            body = this.$('#profile-photos-container');
+        this.loader = body.loading();
+        this.loader.css({display: 'block', opacity: 1});
+        this.collection.url = '/api/users/' + askmePro.data.profile.username + '/photos';
+        this.collection.fetch({
+            add: false,
+            data: {limit: thisObj.limit, page: page || 0},
+            success: function (collection, response, options) {
+                thisObj.loader.hide();
+                if (!response.total) {
+                    return;
+                }
+                body.html('');
+                collection.add(response.photos);
+                collection.each(function (photo) {
+                    body.append(new askmePro.views.ProfilePhotoView({
+                        model: photo,
+                        parent: thisObj,
+                    }).render().$el);
+                });
+                body.find('.magnific').magnificPopup({
+                    type:'image',
+                    mainClass: 'mfp-fade'
+                });
+                if (response.total > thisObj.limit) {
+                    if (thisObj.pagination === null) {
+                        thisObj.pagination = new askmePro.views.PaginationView({
+                            total: response.total,
+                            limit: thisObj.limit,
+                            url: '#photos/'
+                        });
+                        thisObj.$('#profile-photos-pagination-container').html(thisObj.pagination.render().$el);
+                    }
+                    thisObj.pagination.setPage(page);
+                }
+            },
+            error: function () {
+                thisObj.loader.hide();
+            }
+        });
+    }
+});
+
+askmePro.views.ProfilePhotoView = Backbone.View.extend({
+    template: _.template($('#profile-photo-tpl').html()),
+    initialize: function(options) {
+        this.parent = options.parent || null;
+    },
+    render: function render() {
+        this.setElement($(this.template({photo: this.model.attributes})));
+        return this;
+    },
+    events: {
+        'click .photo-remove': 'destroy'
+    },
+    destroy: function destroy(e) {
+        var thisObj = this,
+            $this = $(e.target);
+        $this.attr('disabled', true);
+        this.model.url = '/api/questions/' + this.model.get('_id') + '/photos';
+        this.model.destroy({
+            success: function () {
+                thisObj.remove();
+                if (thisObj.parent.pagination) {
+                    thisObj.parent.pagination.total -= 1;
+                    thisObj.parent.$('#profile-photos-pagination-container').html(thisObj.parent.pagination.render().$el);
+                    thisObj.parent.pagination.setPage(thisObj.parent.pagination.page);
+                }
+            },
+            error: function () {
+
+            }
+        });
+    }
+});
+
+askmePro.views.ProfileVideosView = Backbone.View.extend({
+    template: _.template($('#profile-videos-tpl').html()),
+    loader: null,
+    pagination: null,
+    initialize: function(options) {
+        this.limit = options.limit || 18;
+    },
+    render: function() {
+        this.setElement($(this.template()));
+        return this;
+    },
+    load: function load(page) {
+        var thisObj = this,
+            body = this.$('#profile-videos-container');
+        this.loader = body.loading();
+        this.loader.css({display: 'block', opacity: 1});
+        this.collection.url = '/api/users/' + askmePro.data.profile.username + '/videos';
+        this.collection.fetch({
+            add: false,
+            data: {limit: thisObj.limit, page: page || 0},
+            success: function (collection, response, options) {
+                thisObj.loader.hide();
+                if (!response.total) {
+                    return;
+                }
+                body.html('');
+                collection.add(response.videos);
+                collection.each(function (video) {
+                    body.append(new askmePro.views.ProfileVideoView({
+                        model: video,
+                        parent: thisObj,
+                    }).render().$el);
+                });
+                if (response.total > thisObj.limit) {
+                    if (thisObj.pagination === null) {
+                        thisObj.pagination = new askmePro.views.PaginationView({
+                            total: response.total,
+                            limit: thisObj.limit,
+                            url: '#videos/'
+                        });
+                        thisObj.$('#profile-videos-pagination-container').html(thisObj.pagination.render().$el);
+                    }
+                    thisObj.pagination.setPage(page);
+                }
+            },
+            error: function () {
+                thisObj.loader.hide();
+            }
+        });
+    }
+});
+
+askmePro.views.ProfileVideoView = Backbone.View.extend({
+    template: _.template($('#profile-video-tpl').html()),
+    initialize: function(options) {
+        this.parent = options.parent || null;
+    },
+    render: function render() {
+        this.setElement($(this.template({video: this.model.attributes})));
+        return this;
+    },
+    events: {
+        'click .video-remove': 'destroy'
+    },
+    destroy: function destroy(e) {
+        var thisObj = this,
+            $this = $(e.target);
+        $this.attr('disabled', true);
+        this.model.url = '/api/questions/' + this.model.get('_id') + '/videos';
+        this.model.destroy({
+            success: function () {
+                thisObj.remove();
+                if (thisObj.parent.pagination) {
+                    thisObj.parent.pagination.total -= 1;
+                    thisObj.parent.$('#profile-videos-pagination-container').html(thisObj.parent.pagination.render().$el);
+                    thisObj.parent.pagination.setPage(thisObj.parent.pagination.page);
+                }
+            },
+            error: function () {
+
+            }
+        });
+    }
+});
+
 askmePro.views.PaginationView = Backbone.View.extend({
     initialized: false,
     page: 0,

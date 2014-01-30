@@ -8,6 +8,8 @@ askmePro.routers.Profile = Backbone.Router.extend({
         'gifts(/:page)': 'gifts',
         'follows(/:page)': 'follows',
         'followers(/:page)': 'followers',
+        'photos(/:page)': 'photos',
+        'videos(/:page)': 'videos',
         '*path': 'index'
     },
     index: function index(path) {
@@ -105,5 +107,33 @@ askmePro.routers.Profile = Backbone.Router.extend({
             $('#profile-tabs-content').html(this.views.profileFollowers.$el);
         }
         this.views.profileFollowers.load(parseInt(page, 10) || 0);
+    },
+    photos: function photos(page) {
+        $('#profile-menu li a[href="#photos"]').tab('show');
+        $('#profile-top').removeClass('gifts-visible').addClass('small');
+        $('#profile-stats-wrapper').hide();
+        if (typeof this.views.profilePhotos === 'undefined') {
+            this.views.profilePhotos = new askmePro.views.ProfilePhotosView({
+                collection: new askmePro.collections.PhotosCollection()
+            });
+            $('#profile-tabs-content').html(this.views.profilePhotos.render().$el);
+        } else {
+            $('#profile-tabs-content').html(this.views.profilePhotos.$el);
+        }
+        this.views.profilePhotos.load(parseInt(page, 10) || 0);;
+    },
+    videos: function videos(page) {
+        $('#profile-menu li a[href="#videos"]').tab('show');
+        $('#profile-top').removeClass('gifts-visible').addClass('small');
+        $('#profile-stats-wrapper').hide();
+        if (typeof this.views.profileVideos === 'undefined') {
+            this.views.profileVideos = new askmePro.views.ProfileVideosView({
+                collection: new askmePro.collections.VideosCollection()
+            });
+            $('#profile-tabs-content').html(this.views.profileVideos.render().$el);
+        } else {
+            $('#profile-tabs-content').html(this.views.profileVideos.$el);
+        }
+        this.views.profileVideos.load(parseInt(page, 10) || 0);;
     }
 });

@@ -1,0 +1,33 @@
+<script type="text/template" id="profile-photos-tpl">
+    <div id="profile-photos-wrapper">
+        <div id="profile-photos-container" class="row">
+            
+        </div>
+        <div class="panel-footer panel-footer-main">
+            <div class="row">
+                <div class="col-md-12 text-center" id="profile-photos-pagination-container">
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</script>
+<script type="text/template" id="profile-photo-tpl">
+    <div class="col-md-2 col-sm-3 col-xs-4 list-elem-container photo-container">
+        <div class="list-elem">
+            <a href="/uploads/answers/<%=photo.image%>" class="magnific">
+                <img src="/uploads/answers/<%=photo.image%>" class="img-thumbnail">
+            </a>
+        </div>
+        <div class="caption">
+            <p>
+                <em class="small"><%=moment(photo.answered_at).fromNow()%></em>
+            </p>
+        </div>
+        {?user}
+            <% if('{user._id}' === photo.to){~lb}%>
+                <button type="button" class="photo-remove close" aria-hidden="true">&times;</button>
+            <%{~rb}%>
+        {/user}
+    </div>
+</script>

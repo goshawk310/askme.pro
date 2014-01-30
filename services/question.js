@@ -248,5 +248,55 @@ module.exports = _.extend({
                     callback(null);
                 });
             });
+    },
+    /**
+     * 
+     * @param  {Object}   params
+     * @param  {Function} callback
+     * @return {void}
+     */
+    removeImage: function removeImage(params, callback) {
+        QuestionModel
+            .findOne(params)
+            .exec(function (err, question) {
+                if (err) {
+                    return callback(err);
+                }
+                if (question === null) {
+                    return callback(new Error('Question not found'));
+                }
+                question.image = null;
+                question.save(function (err) {
+                    if (err) {
+                        return callback(err);
+                    }
+                    callback(null);
+                });
+            });
+    },
+    /**
+     * 
+     * @param  {Object}   params
+     * @param  {Function} callback
+     * @return {void}
+     */
+    removeVideo: function removeVideo(params, callback) {
+        QuestionModel
+            .findOne(params)
+            .exec(function (err, question) {
+                if (err) {
+                    return callback(err);
+                }
+                if (question === null) {
+                    return callback(new Error('Question not found'));
+                }
+                question.yt_video = null;
+                question.save(function (err) {
+                    if (err) {
+                        return callback(err);
+                    }
+                    callback(null);
+                });
+            });
     }
 }, require('../lib/service'));
