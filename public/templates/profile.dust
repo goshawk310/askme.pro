@@ -158,8 +158,9 @@
         username: '{profile.username}',
         stats: {profile.stats|js|s}
     };
-    askmePro.data.userId = {?user._id}'{user._id}'{:else}null{/user._id};
-
+    askmePro.data.user = {
+        id: {?user._id}'{user._id}'{:else}null{/user._id}
+    };
     askmePro.utils.setupDefaultValidator();
     askmePro.settings.upload.answer = {
         url: '{config.answer.url}'
@@ -170,7 +171,8 @@
 {<jsTemplates}
     {>"profile/index" profile=profile /}
     {>"profile/info" profile=profile /}
-    {>"partials/question" profile=profile /}
+    {>"partials/question/profile" profile=profile /}
+    {>"partials/question/elements" profile=profile /}
     {>"profile/gifts" profile=profile/}
     {>"profile/users" profile=profile/}
     {>"profile/photos" profile=profile/}

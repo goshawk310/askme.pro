@@ -18,7 +18,7 @@ module.exports = function (server) {
     });
 
     server.post('/account/login', auth.getPassport().authenticate('local', {
-        successRedirect: '/site/activity',
+        successRedirect: '/',
         failureRedirect: '/account/login',
         failureFlash: true
     }));

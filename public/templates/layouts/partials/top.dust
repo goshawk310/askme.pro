@@ -8,16 +8,18 @@
                 <span class="icon-bar"></span>
             </button>
             <ul class="nav navbar-nav notifications">
-                <li id="navbar-logo"><a class="" href="/{?user}site/activity{/user}"><img src="/images/logo.png" alt="askme.pro" /></a></li>
+                <li id="navbar-logo"><a class="" href="/"><img src="/images/logo.png" alt="askme.pro" /></a></li>
+                {?user}
                 <li class="notify notifylikes"></li>
                 <li class="notify notifyquestions"></li>
                 <li class="notify notifyanswers"></li>
+                {/user}
             </ul>
+            
         </div>
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-right">
                 {?user} 
-                    
                     <li><a href="/inbox">{@__ phrase="Pytania"/} <span id="inbox-count">(<span class="inbox-count">{user.stats.questions_unanswered}</span>)</span></a></li>
                 {/user}
                 <li><a href="/top20" role="button" class="btn btn-primary">{@__ phrase="TOP 20"/}</a></li>

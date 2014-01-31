@@ -6,8 +6,8 @@ var userService = require('../services/user'),
 module.exports = function(server) {
 
     server.get('/', function(req, res) {
-        if (req.isAuthenticated()) {
-            return res.redirect('/site/activity');
+        if (!req.isAuthenticated()) {
+            return res.render('index/welcome');
         }
         res.render('index');
     });
@@ -19,12 +19,5 @@ module.exports = function(server) {
         });
         res.setLocale(req.param('locale'));
         res.redirect('back');
-    });
-    
-    server.get('/test', function(req, res) {
-        res.header("Access-Control-Allow-Origin", "*");
-        res.header("Access-Control-Allow-Headers", "X-Requested-With");
-        res.header('Access-Control-Allow-Credentials', true);
-        res.render('test');
     });
 };

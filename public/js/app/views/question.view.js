@@ -12,7 +12,6 @@ askmePro.views.QuestionView = Backbone.View.extend({
     },
     render: function () {
         this.setElement($(this.template({question: this.model.attributes})));
-        
         return this;
     },
     events: {

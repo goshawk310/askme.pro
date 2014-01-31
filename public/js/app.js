@@ -27,6 +27,54 @@ var askmePro = {
             },
             nl2br: function nl2br(value) {
                 return (value + '').replace(/([^>\r\n]?)(\r\n|\n\r|\r|\n)/g, '$1<br>$2');
+            },
+            parseUrls: function parseUrls(value, params) {
+                var urlRegexp = /((https?:\/\/)?[\w-]+(\.[\w-]+)+\.?(:\d+)?(\/\S*)?)/gi,
+                    ytRegExp = /.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/,
+                    allowedLinksRegExp = /^((https?:\/\/)(www[.])?(askme.pro|facebook.com)(.*))$/,
+                    urlMatches = value.match(urlRegexp),
+                    matches = null,
+                    ytVideoHtmlTpl = '<div class="video-wrapper"><div class="video-container visible">' +
+                        '<iframe width="400" height="255" src="" frameborder="0" allowfullscreen></iframe>' +
+                        '</div></div>',
+                    replacedHtml = '',
+                    defaults = {
+                        links: true,
+                        yt: 'video'
+                    },
+                    options = _.defaults(params || {}, defaults);
+                if (urlMatches) {
+                    _.each(urlMatches, function (url) {
+                        if (options.yt) {
+                            matches = url.match(ytRegExp);
+                            if (matches && matches[2].length) {
+                                if (options.yt === 'video') {
+                                    replacedHtml = ytVideoHtmlTpl.replace('src=""', 'src="http://www.youtube.com/embed/' + matches[2] + '?wmode=transparent"');
+                                    value = value.replace(url, replacedHtml);
+                                } else if (options.yt === 'link') {
+                                    replacedHtml = '<a href="http://www.youtube.com/watch?v=' + matches[2] + ' " target="_blank">http://www.youtube.com/watch?v=' + matches[2] + ' </a>';
+                                    value = value.replace(url, replacedHtml);
+                                }
+                            }
+                        }
+                        if (options.links) {
+                            matches = url.match(allowedLinksRegExp);
+                            if (matches) {
+                                if (matches[4] === 'askme.pro') {
+                                    value = value.replace(url, '<a href="' + url + '">' + url + '</a>');
+                                } else {
+                                    value = value.replace(url, '<a href="' + url + '" target="_blank">' + url + '</a>');
+                                }
+                            }
+                        }
+                    });
+                }
+                return value;
+            },
+            parseUsersText: function parseUsersText(value, params) {
+                var helpers = askmePro.views.helpers
+                    params = params || {};
+                return helpers.nl2br(helpers.parseUrls(_.escape(value), params.url || null)).replace(/&lt;br&gt;/g, '<br>');
             }
         }
     },
@@ -35,7 +83,11 @@ var askmePro = {
     routerIndex: null,
     routers: {},
     settings: {
-        upload: {}
+        upload: {},
+        stream: {
+            interval: 60000,
+            topInterval: 10000
+        }
     },
     data: {},
     utils: {

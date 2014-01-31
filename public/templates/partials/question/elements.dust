@@ -1,0 +1,60 @@
+<script type="text/template" id="question-likes-modal-tpl">
+   <div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="likes-modal-label" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title">{@__ phrase="Lajki" /}</h4>
+                </div>
+                <div class="modal-body question-likes-wrapper">
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</script>
+<script type="text/template" id="question-like-tpl">
+   <div class="row question-like-container">
+       <div class="col-md-10">
+            <div class="media">
+                <%=askmePro.views.helpers.userAvatar({~lb}user: like.from, size: 'cropped/100x', wrapper: true, cssClass: "box-shadow img-circle user-avatar small", linkClass: "user-avatar-wrapper pull-left"{~rb})%>
+                <div class="media-body">
+                    <p><a href="/<%=like.from.username%>" target="_blank" class="username text-primary">@<%=like.from.username%></a></p>
+                    <p><%=like.from.stats.questions_answered%> {@__ phrase="odpowiedzi" /}</p>
+                </div>
+            </div>
+       </div>
+       <div class="col-md-2">
+            
+       </div>
+       <div class="clearfix"></div>
+       <hr>
+       <div class="clearfix"></div>
+    </div>
+</script>
+<script type="text/template" id="question-comment-tpl">
+    <div class="row question-comment-container">
+        <div class="col-md-12">
+            <div class="media">
+                <%=askmePro.views.helpers.userAvatar({~lb}user: comment.from, size: 'cropped/100x', wrapper: true, cssClass: "box-shadow img-circle user-avatar xsmall", linkClass: "user-avatar-wrapper pull-left"{~rb})%>
+                <div class="media-body">
+                    <p>
+                        <% if (comment.from) {~lb} %>
+                            <a href="/<%=comment.from.username%>" class="text-primary"><%=comment.from.username%></a> 
+                        <% {~rb}%>
+                        <%=askmePro.views.helpers.parseUsersText(comment.contents)%>
+                    </p>
+                    <p class="text-muted small"><em><%=moment(comment.created_at).fromNow()%></em></p>
+                </div>
+            </div>
+            {?user}
+                <% if((comment.from && comment.from._id === '{user._id}') || '{user.role}' === 'admin'){~lb}%>
+                    <button type="button" class="comment-remove close" aria-hidden="true">&times;</button>
+                <%{~rb}%>
+            {/user}
+        </div>
+        <div class="col-md-12">
+            <hr>
+        </div>
+    </div>
+</script>

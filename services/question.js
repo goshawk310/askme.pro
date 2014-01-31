@@ -4,7 +4,8 @@ var QuestionModel = require('../models/question'),
     mongoose = require('mongoose'),
     _ = require('underscore'),
     redisClient = require('../lib/redis').client,
-    FileUpload = require('../lib/file/upload');
+    FileUpload = require('../lib/file/upload'),
+    validator = require('validator');
 
 module.exports = _.extend({
     ask: function ask(callback) {
@@ -168,19 +169,33 @@ module.exports = _.extend({
         });
     },
     /**
-     * getAnsweredByUserId
+     * getAnswered
      * @param  {String}   id
      * @param  {Function} callback
      * @return {void}
      */
     getAnswered: function getAnswered(params, callback) {
-        var skip = (params.limit + 1) * params.page;
+        var skip = (params.limit + 1) * params.page,
+            limit = params.limit + 1,
+            where = {answer: {'$ne': null}};
+        if (_.isArray(params.to)) {
+            where.to = {$in: params.to};
+        } else if (_.isString(params.to) || _.isObject(params.to)) {
+            where.to = params.to;
+        }
+        if (params.lastAnsweredAt && validator.validators.isDate(params.lastAnsweredAt)) {
+            where.answered_at = {$lt: new Date(params.lastAnsweredAt)};
+        } else if (params.firstAnsweredAt && validator.validators.isDate(params.firstAnsweredAt)) {
+            where.answered_at = {$gt: new Date(params.firstAnsweredAt)};
+            skip = null;
+            limit = null;
+        }
         QuestionModel
-            .find({to: params.to, answer: {'$ne': null}})
+            .find(where)
             .populate('from', 'username avatar')
-            .populate('to', 'settings.anonymous_disallowed')
+            .populate('to', 'username avatar settings.anonymous_disallowed')
             .sort({answered_at: -1})
-            .skip(skip).limit(params.limit + 1)
+            .skip(skip).limit(limit)
             .exec(function (err, questions) {
                 if (err) {
                     return callback(err);
@@ -188,21 +203,10 @@ module.exports = _.extend({
                 var output = [],
                     hasMore = questions.length > params.limit ? params.page + 1 : false,
                     questionsCount = 0,
-                    index = 0;
-                if (hasMore) {    
-                    questions.pop();
-                }
-                questionsCount = questions.length;
-                if (!questionsCount) {
-                    return callback(null, {
-                        questions: [],
-                        hasMore: false
-                    });
-                }
-                _.each(questions, function (question) {
-                    question = question.toObject();
-                    question.created_at = question._id.getTimestamp();
-                    (function (question) {
+                    index = 0,
+                    isLikedByUser = function isLikedByUser(question) {
+                        question = question.toObject();
+                        question.created_at = question._id.getTimestamp();
                         LikeModel
                             .findOne({question_id: question._id, from: params.from})
                             .exec(function (err, like) {
@@ -218,10 +222,22 @@ module.exports = _.extend({
                                         questions: output,
                                         hasMore: hasMore
                                     });
+                                } else {
+                                    isLikedByUser(questions[index]);
                                 }
                         });
-                    }(question));
-                });
+                    };
+                if (hasMore) {    
+                    questions.pop();
+                }
+                questionsCount = questions.length;
+                if (!questionsCount) {
+                    return callback(null, {
+                        questions: [],
+                        hasMore: false
+                    });
+                }
+                isLikedByUser(questions[0]);
         });
     },
     /**
