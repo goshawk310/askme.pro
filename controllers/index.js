@@ -9,7 +9,15 @@ module.exports = function(server) {
         if (!req.isAuthenticated()) {
             return res.render('index/welcome');
         }
-        res.render('index');
+        res.render('index', {
+            mode: 'friends'
+        });
+    });
+
+    server.get('/stream', auth.isAuthenticated,  function(req, res) {
+        res.render('index', {
+            mode: 'all'
+        });
     });
 
     server.get('/locale/:locale', function(req, res) {

@@ -1,4 +1,4 @@
-askmePro.views.IndexActivityView = Backbone.View.extend({
+askmePro.views.StreamView = Backbone.View.extend({
     template: _.template($('#activity-tpl').html()),
     firstAnsweredAt: null,
     lastAnsweredAt: null,
@@ -6,30 +6,31 @@ askmePro.views.IndexActivityView = Backbone.View.extend({
     newestQuestions: [],
     newestLoadedAt: null,
     page: 0,
+    loader: null,
     initialize: function () {
         
     },
     render: function () {
         this.setElement($(this.template()));
+        this.loader = this.$('#answers-wrapper').loading();
         return this;
     },
     events: {
         'click .more': 'more',
         'click .btn-newest': 'newest'
     },
-    load: function load(page) {
+    load: function load() {
         var thisObj = this,
             body = this.$('#answers-container'),
-            moreContainer = this.$('.more-container'),
-            p = page || 0;
-        this.collection.url = '/api/activities';
-        this.collection.fetch({
-            add: false,
-            data: {lastAnsweredAt: thisObj.lastAnsweredAt, p: p},
-            success: function (collection, response, options) {
-                collection.add(response.questions);
-                thisObj.lastAnsweredAt = collection.last().get('answered_at');
-                collection.each(function (question) {
+            moreContainer = this.$('.more-container');
+        this.loader('show');
+        this.collection.url = '/api/stream';
+        this.collection.sync('read', this.collection, {
+            data: {lastAnsweredAt: thisObj.lastAnsweredAt, mode: askmePro.settings.stream.mode},
+            success: function (response) {
+                thisObj.collection.add(response.questions);
+                thisObj.lastAnsweredAt = thisObj.collection.last().get('answered_at');
+                thisObj.collection.each(function (question) {
                     body.append(new askmePro.views.QuestionView({
                         model: question,
                         parent: thisObj
@@ -43,9 +44,10 @@ askmePro.views.IndexActivityView = Backbone.View.extend({
                     moreContainer.show();
                 }
                 if (!thisObj.interval) {
-                    thisObj.firstAnsweredAt = collection.first().get('answered_at');
+                    thisObj.firstAnsweredAt = thisObj.collection.first().get('answered_at');
                     thisObj.setupInterval();
                 }
+                thisObj.loader('hide');
             }
         });
     },
@@ -69,16 +71,17 @@ askmePro.views.IndexActivityView = Backbone.View.extend({
         var thisObj = this,
             $document = $(document),
             loadNewest = function loadNewest() {
-                thisObj.collection.fetch({
-                    add: false,
-                    data: {firstAnsweredAt: thisObj.firstAnsweredAt},
-                    success: function (collection, response, options) {
+                thisObj.loader('show');
+                thisObj.collection.sync('read', thisObj.collection, {
+                    data: {firstAnsweredAt: thisObj.firstAnsweredAt, mode: askmePro.settings.stream.mode},
+                    success: function (response) {
                         if (response.questions.length) {
                             thisObj.firstAnsweredAt = response.questions[0].answered_at;
                             thisObj.newestQuestions = response.questions.reverse().concat(thisObj.newestQuestions);
                             thisObj.$('.btn-newest').show().children('strong').html(thisObj.newestQuestions.length);
                         }
                         thisObj.newestLoadedAt = (new Date()).getTime();  
+                        thisObj.loader('hide');
                     }
                 });
             },

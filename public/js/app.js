@@ -86,7 +86,8 @@ var askmePro = {
         upload: {},
         stream: {
             interval: 60000,
-            topInterval: 10000
+            topInterval: 10000,
+            mode: 'friends'
         }
     },
     data: {},
@@ -248,7 +249,16 @@ $(document).ready(function () {
                 loaderElem = $('<div class="' + cssClass + '"></div>');
                 $this.append(loaderElem);
             }
-            return loaderElem;
+            return function (action) {
+                if (typeof action !== 'undefined') {
+                    if (action === 'show') {
+                        loaderElem.css({display: 'block', opacity: 1});
+                    } else if (action === 'hide') {
+                        loaderElem.css({display: '', opacity: 0});
+                    }
+                }
+                return loaderElem;
+            };
         }
     });
 })(jQuery);

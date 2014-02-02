@@ -230,13 +230,13 @@ askmePro.views.QuestionLikesView = Backbone.View.extend({
         }
         body.html('');
         loader = body.loading();
-        loader.css({display: 'block', opacity: 1});
+        loader('show');
         this.$el.modal('show');
         collection = new askmePro.collections.QuestionLikeCollection();
         collection.url = '/api/questions/' + id + '/likes';
         collection.fetch({
             success: function (collection, response, options) {
-                loader.hide();
+                loader('hide');
                 collection.each(function (like) {
                     body.append(new askmePro.views.QuestionLikeView({
                         model: like,
@@ -244,7 +244,7 @@ askmePro.views.QuestionLikesView = Backbone.View.extend({
                 });
             },
             error: function () {
-                loader.hide();
+                loader('hide');
             }
         });
     }
@@ -296,33 +296,33 @@ askmePro.views.QuestionCommentsView = Backbone.View.extend({
     load: function load(id, callback) {
         var thisObj = this,
             loader = this.$el.loading();
-        loader.css({display: 'block', opacity: 1});
+        loader('show');
         this.collection.url = '/api/questions/' + id + '/comments';
         this.collection.fetch({
             reset: true,
             data: thisObj.loadParams,
             success: function (collection, response) {
-                loader.hide();
+                loader('hide');
                 thisObj.loadParams.fvid = response.comments[0]._id;
                 thisObj.collection.set(response.comments, {silent: true});
                 thisObj.render();
                 callback();
             },
             error: function () {
-                loader.hide();
+                loader('hide');
             }
         });
     },
     loadPrev: function loadPrev(id, callback) {
         var thisObj = this,
             loader = this.$el.loading();
-        loader.css({display: 'block', opacity: 1});
+        loader('show');
         this.collection.url = '/api/questions/' + id + '/comments';
         this.collection.fetch({
             reset: true,
             data: thisObj.loadParams,
             success: function (collection, response) {
-                loader.hide();
+                loader('hide');
                 thisObj.loadParams.fvid = response.comments[0]._id;
                 for (var i = response.comments.length - 1; i > -1; i -= 1) {
                     thisObj.collection.unshift(response.comments[i]);
@@ -331,7 +331,7 @@ askmePro.views.QuestionCommentsView = Backbone.View.extend({
                 callback();
             },
             error: function () {
-                loader.hide();
+                loader('hide');
             }
         });
     },

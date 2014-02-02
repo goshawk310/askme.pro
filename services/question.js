@@ -175,27 +175,55 @@ module.exports = _.extend({
      * @return {void}
      */
     getAnswered: function getAnswered(params, callback) {
-        var skip = (params.limit + 1) * params.page,
-            limit = params.limit + 1,
-            where = {answer: {'$ne': null}};
-        if (_.isArray(params.to)) {
+        var skip = (params.limit) * params.page,
+            limit = params.limit,
+            where = {answer: {'$ne': null}},
+            blocked = null,
+            $and = [];
+        if (_.isArray(params.to) && params.to.length) {
             where.to = {$in: params.to};
         } else if (_.isString(params.to) || _.isObject(params.to)) {
             where.to = params.to;
         }
         if (params.lastAnsweredAt && validator.validators.isDate(params.lastAnsweredAt)) {
             where.answered_at = {$lt: new Date(params.lastAnsweredAt)};
+            skip = null;
+            limit = null;
         } else if (params.firstAnsweredAt && validator.validators.isDate(params.firstAnsweredAt)) {
             where.answered_at = {$gt: new Date(params.firstAnsweredAt)};
             skip = null;
             limit = null;
         }
+        if (params.blocked && _.isArray(params.blocked) && params.blocked.length) {
+            if (params.from) {
+                blocked = [params.from].concat(params.blocked);
+            } else {
+                blocked = params.blocked;
+            }
+        } else if (params.from) {
+            blocked = [params.from];
+        }
+        if (blocked && blocked.length) {
+            if (where.to) {
+                where.to.$nin = blocked;
+            } else {
+                where.to = {
+                    $nin: blocked
+                };
+            }
+        }
+        var obj = {};
+        for (var i in where) {
+            obj = {};
+            obj[i] = where[i];
+            $and.push(obj);
+        }
         QuestionModel
-            .find(where)
+            .find({'$and': $and})
             .populate('from', 'username avatar')
             .populate('to', 'username avatar settings.anonymous_disallowed')
             .sort({answered_at: -1})
-            .skip(skip).limit(limit)
+            .skip(skip).limit(limit ? limit + 1 : null)
             .exec(function (err, questions) {
                 if (err) {
                     return callback(err);

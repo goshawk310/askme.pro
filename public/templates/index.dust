@@ -27,8 +27,8 @@
                     <div class="row">
                         <div class="col-md-12" id="activity-menu-wrapper">
                             <ul class="nav nav-pills nav-justified">
-                                <li class="active"><a href="/"></span> {@__ phrase="Znajomi" /}</a></li>
-                                <li><a href="/stream">{@__ phrase="Strumień" /}</a></li>
+                                <li{@eq key="{mode}" value="friends"} class="active"{/eq}><a href="/"></span> {@__ phrase="Znajomi" /}</a></li>
+                                <li{@eq key="{mode}" value="all"} class="active"{/eq}><a href="/stream">{@__ phrase="Strumień" /}</a></li>
                                 <li><a href="/online">{@__ phrase="Online" /}</a></li>
                             </ul> 
                         </div>
@@ -55,8 +55,8 @@
 <script src="/js/app/models.js"></script>
 <script src="/js/app/collections.js"></script>
 <script src="/js/app/views/question.view.js"></script>
-<script src="/js/app/views/index.view.js"></script>
-<script src="/js/app/routes/activity.router.js"></script>
+<script src="/js/app/views/stream.view.js"></script>
+<script src="/js/app/routes/stream.router.js"></script>
 <script type="text/javascript">
     askmePro.data.user = {
         id: {?user._id}'{user._id}'{:else}null{/user._id}
@@ -64,6 +64,7 @@
     askmePro.settings.upload.answer = {
         url: '{config.answer.url}'
     };
+    askmePro.settings.stream.mode = '{mode}';
 </script>
 {/js}
 {<jsTemplates}

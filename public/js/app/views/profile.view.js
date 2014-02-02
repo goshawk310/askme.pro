@@ -104,7 +104,7 @@ askmePro.views.ProfileIndexView = Backbone.View.extend({
             moreContainer = this.$('.more-container'),
             more = moreContainer.children('.more'),
             p = page || 0;
-        loader.css({display: 'block', opacity: 1});
+        loader('show');
         $.get(window.location.pathname + '/answers?p=' + p)
             .done(function (response) {
                 thisObj.collection = new askmePro.collections.QuestionCollection(response.questions);
@@ -132,7 +132,7 @@ askmePro.views.ProfileIndexView = Backbone.View.extend({
 
             })
             .always(function () {
-                loader.hide();
+                loader('hide');
             });
 
     },
@@ -375,11 +375,11 @@ askmePro.views.ProfileSendGiftsView = Backbone.View.extend({
         }
         body.html('');
         this.loader = body.loading();
-        this.loader.css({display: 'block', opacity: 1});
+        this.loader('show');
         this.$el.modal('show');
         this.collection.fetch({
             success: function (collection, response, options) {
-                thisObj.loader.hide();
+                thisObj.loader('hide');
                 collection.each(function (gift) {
                     body.append(new askmePro.views.ProfileSendGiftView({
                         model: gift,
@@ -388,7 +388,7 @@ askmePro.views.ProfileSendGiftsView = Backbone.View.extend({
                 });
             },
             error: function () {
-                thisObj.loader.hide();
+                thisObj.loader('hide');
             }
         });
     }
@@ -408,7 +408,7 @@ askmePro.views.ProfileSendGiftView = Backbone.View.extend({
     },
     sendGift: function sendGift(e) {
         var thisObj = this;
-        this.parent.loader.css({display: 'block', opacity: 1});
+        this.parent.loader('show');
         this.model.set('to', this.parent.to);
         this.model.set('type', $(e.currentTarget).data('type'));
         Backbone.sync('create', this.model, {
@@ -431,7 +431,7 @@ askmePro.views.ProfileSendGiftView = Backbone.View.extend({
                 messageElement.html(response.message);
                 btnGroupElement.before(messageElement);
                 btnGroupElement.css({opacity: 0, visibility: 'hidden'});
-                thisObj.parent.loader.hide();
+                thisObj.parent.loader('hide');
             },
             error: function (response) {
                 var btnGroupElement = thisObj.$('.btn-group'),
@@ -439,7 +439,7 @@ askmePro.views.ProfileSendGiftView = Backbone.View.extend({
                 messageElement.addClass('text-danger').html(response.message);
                 btnGroupElement.before(messageElement);
                 btnGroupElement.css({opacity: 0, visibility: 'hidden'});
-                thisObj.parent.loader.hide();
+                thisObj.parent.loader('hide');
             }
         });
     }
@@ -464,13 +464,13 @@ askmePro.views.ProfileGiftsView = Backbone.View.extend({
         var thisObj = this,
             body = this.$('#profile-gifts-container');
         this.loader = body.loading();
-        this.loader.css({display: 'block', opacity: 1});
+        this.loader('show');
         this.collection.fetch({
             add: false,
             url: '/api/users/' + askmePro.data.profile.username + '/gifts',
             data: {limit: thisObj.limit, page: page || 0},
             success: function (collection, response, options) {
-                thisObj.loader.hide();
+                thisObj.loader('hide');
                 if (!response.total) {
                     return;
                 }
@@ -494,7 +494,7 @@ askmePro.views.ProfileGiftsView = Backbone.View.extend({
                 thisObj.pagination.setPage(page);
             },
             error: function () {
-                thisObj.loader.hide();
+                thisObj.loader('hide');
             }
         });
     }
@@ -529,13 +529,13 @@ askmePro.views.ProfileFollowsView = Backbone.View.extend({
         var thisObj = this,
             body = this.$('#profile-users-container');
         this.loader = body.loading();
-        this.loader.css({display: 'block', opacity: 1});
+        this.loader('show');
         this.collection.url = '/api/users/' + askmePro.data.profile.username + '/follows';
         this.collection.fetch({
             add: false,
             data: {limit: thisObj.limit, page: page || 0},
             success: function (collection, response, options) {
-                thisObj.loader.hide();
+                thisObj.loader('hide');
                 if (!response.total) {
                     return;
                 }
@@ -562,7 +562,7 @@ askmePro.views.ProfileFollowsView = Backbone.View.extend({
                 }
             },
             error: function () {
-                thisObj.loader.hide();
+                thisObj.loader('hide');
             }
         });
     }
@@ -583,13 +583,13 @@ askmePro.views.ProfileFollowersView = Backbone.View.extend({
         var thisObj = this,
             body = this.$('#profile-users-container');
         this.loader = body.loading();
-        this.loader.css({display: 'block', opacity: 1});
+        this.loader('show');
         this.collection.url = '/api/users/' + askmePro.data.profile.username + '/followers';
         this.collection.fetch({
             add: false,
             data: {limit: thisObj.limit, page: page || 0},
             success: function (collection, response, options) {
-                thisObj.loader.hide();
+                thisObj.loader('hide');
                 if (!response.total) {
                     return;
                 }
@@ -615,7 +615,7 @@ askmePro.views.ProfileFollowersView = Backbone.View.extend({
                 }
             },
             error: function () {
-                thisObj.loader.hide();
+                thisObj.loader('hide');
             }
         });
     }
@@ -670,13 +670,13 @@ askmePro.views.ProfilePhotosView = Backbone.View.extend({
         var thisObj = this,
             body = this.$('#profile-photos-container');
         this.loader = body.loading();
-        this.loader.css({display: 'block', opacity: 1});
+        this.loader('show');
         this.collection.url = '/api/users/' + askmePro.data.profile.username + '/photos';
         this.collection.fetch({
             add: false,
             data: {limit: thisObj.limit, page: page || 0},
             success: function (collection, response, options) {
-                thisObj.loader.hide();
+                thisObj.loader('hide');
                 if (!response.total) {
                     return;
                 }
@@ -705,7 +705,7 @@ askmePro.views.ProfilePhotosView = Backbone.View.extend({
                 }
             },
             error: function () {
-                thisObj.loader.hide();
+                thisObj.loader('hide');
             }
         });
     }
@@ -759,13 +759,13 @@ askmePro.views.ProfileVideosView = Backbone.View.extend({
         var thisObj = this,
             body = this.$('#profile-videos-container');
         this.loader = body.loading();
-        this.loader.css({display: 'block', opacity: 1});
+        this.loader('show');
         this.collection.url = '/api/users/' + askmePro.data.profile.username + '/videos';
         this.collection.fetch({
             add: false,
             data: {limit: thisObj.limit, page: page || 0},
             success: function (collection, response, options) {
-                thisObj.loader.hide();
+                thisObj.loader('hide');
                 if (!response.total) {
                     return;
                 }
@@ -790,7 +790,7 @@ askmePro.views.ProfileVideosView = Backbone.View.extend({
                 }
             },
             error: function () {
-                thisObj.loader.hide();
+                thisObj.loader('hide');
             }
         });
     }

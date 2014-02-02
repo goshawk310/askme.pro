@@ -177,6 +177,10 @@ var User = function() {
             type: String,
             enum: ['user', 'editor', 'admin'],
             default: 'user'
+        },
+        last_visit_at: {
+            type: Date,
+            default: null
         }
     }, {
         collection: 'users',
@@ -185,6 +189,13 @@ var User = function() {
     
     schema.virtual('pointsInt').get(function () {
         return Math.floor(this.points);
+    });
+
+    schema.virtual('online').get(function () {
+        if (this.last_visit_at) {
+            return Date.now() - this.last_visit_at.getTime() < 1800000;
+        }
+        return false;
     });
 
     /**

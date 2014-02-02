@@ -9,7 +9,7 @@ askmePro.routers.Inbox = Backbone.Router.extend({
             perPage = 10,
             page = page || 0,
             loader = $('#questions-wrapper > .panel-body').loading();
-        loader.css({display: 'block', opacity: 1});
+        loader('show');
         $.get('/inbox/questions?perPage=' + perPage + '&p=' + page)
             .done(function (response) {
                 var collection = new askmePro.collections.QuestionCollection(response.questions);
@@ -28,7 +28,7 @@ askmePro.routers.Inbox = Backbone.Router.extend({
 
             })
             .always(function () {
-                loader.hide();
+                loader('hide');
             });
     }
 });
