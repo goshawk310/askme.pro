@@ -1,0 +1,12 @@
+<div class="users-online-wrapper">
+    {?onlineUsers}
+        {@eq key=type value="friends"}
+            <h5>{@__ phrase="Znajomi online" /}</h5>
+        {/eq}
+        <div class="users-online-container">
+            {#onlineUsers}
+                <a href="/{.username}">{@userAvatar user=. size="cropped/100x" cssClass="box-shadow"/}</a>
+            {/onlineUsers}
+        </div>
+    {/onlineUsers}
+</div>

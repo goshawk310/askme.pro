@@ -1,0 +1,56 @@
+{>"layouts/master" /}
+{<body}
+<div class="container">
+    <div class="row">
+        <div class="col-md-3 hidden-sm hidden-xs" id="user-info-wrapper">
+            {>"index/partials/user_panel" /}
+        </div>
+        <div class="col-md-9 col-sm-12 col-xs-12" id="main-content-wrapper">
+            <div class="panel panel-default box-shadow">
+                <div class="panel-body">
+                    <div class="row">
+                        {>"index/partials/menu" mode="online"/}
+                        <div id="main-content-container" class="col-md-12">
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{/body}
+{<js}
+<script src="/js/app/models.js"></script>
+<script src="/js/app/collections.js"></script>
+<script src="/js/app/views.js"></script>
+<script src="/js/app/views/online.view.js"></script>
+<script src="/js/app/routes/online.router.js"></script>
+{/js}
+{<jsTemplates}
+{>"partials/pagination" /}
+<script type="text/template" id="online-tpl">
+    <div class="row">
+        <div class="col-md-12">
+            <div id="online-wrapper">
+                <div id="online-container">
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="panel-footer panel-footer-main">
+        <div class="row">
+            <div class="col-md-12 text-center" id="online-pagination-container">
+            </div>
+        </div>
+    </div>
+</script>
+<script type="text/template" id="online-user-tpl">
+    <div class="col-md-2 col-sm-3 col-xs-4 list-elem-container user-container">
+        <div class="list-elem">
+            <%=askmePro.views.helpers.userAvatar({user: user, size: 'cropped/300x'})%>
+        </div>
+    </div>
+</script>
+{/jsTemplates}

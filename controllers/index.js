@@ -9,14 +9,28 @@ module.exports = function(server) {
         if (!req.isAuthenticated()) {
             return res.render('index/welcome');
         }
-        res.render('index', {
-            mode: 'friends'
+        userService.getOnline({id: req.user._id}, function (err, users) {
+            res.render('index', {
+                mode: 'friends',
+                onlineUsers: users
+            });
         });
     });
 
     server.get('/stream', auth.isAuthenticated,  function(req, res) {
-        res.render('index', {
-            mode: 'all'
+        userService.getOnline({id: req.user._id}, function (err, users) {
+            res.render('index', {
+                mode: 'all',
+                onlineUsers: users
+            });
+        });
+    });
+
+    server.get('/online', auth.isAuthenticated,  function(req, res) {
+        userService.getOnline({id: req.user._id}, function (err, users) {
+            res.render('index/online', {
+                onlineUsers: users
+            });
         });
     });
 

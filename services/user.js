@@ -19,6 +19,13 @@ module.exports = _.extend({
             callback(req, res, user, err);
         });
     },
+    logout: function logout(id) {
+        UserModel.update({_id: id}, {last_visit_at: null}, function (err) {
+            if (!err) {
+                console.log('logged out');
+            }
+        });
+    },
     resetPassword: function resetPassword(req, res, callback) {
         UserModel.findOne({
             email: req.body.email
@@ -398,7 +405,7 @@ module.exports = _.extend({
             });   
     },
     getUserProfileGifts: function getUserProfileGifts(id, callback) {
-        var weekAgo = new Date((new Date()).getTime() - 1000 * 60 * 60 * 24 * 7); 
+        var weekAgo = new Date(Date.now() - 1000 * 60 * 60 * 24 * 7); 
         UserGiftModel.find({
             to: id,
             created_at: {$gte: weekAgo}
@@ -575,5 +582,27 @@ module.exports = _.extend({
                     });
                 });
         });  
+    },
+    /**
+     * 
+     * @param  {Object}   params
+     * @param  {Function} callback
+     * @return {void}
+     */
+    getOnline: function getOnline(params, callback) {
+        var whereAnd = [];
+        params = params || {};
+        whereAnd.push({'status.value': 1});
+        whereAnd.push({last_visit_at: {$gt: Date.now() - 180000}});
+        if (params.followed && _.isArray(params.followed)) {
+            whereAnd.push({_id: {$in: params.followed}});
+        } else if (params.id) {
+            whereAnd.push({_id: {$ne: params.id}});
+        }
+        UserModel
+            .find({$and: whereAnd})
+            .select('username avatar')
+            .sort({last_visit_at: -1})
+            .exec(callback);
     }
 }, require('../lib/service'));

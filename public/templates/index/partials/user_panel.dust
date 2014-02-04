@@ -1,0 +1,17 @@
+<div class="panel panel-default box-shadow">
+    <div class="panel-body">
+        <a href="/{user.username}" class="user-avatar-link">{@userAvatar user=user size="cropped/300x" /}</a>
+        <div class="user-info">
+            <h4>{user.name} {user.lastname}</h4>
+            <h5>@{user.username}</h5>
+            <ul class="nav nav-pills nav-stacked">
+                <li class="active"><a href="/inbox">Pytania <span class="badge pull-right">{user.stats.questions_unanswered}</span></a></li>
+                <li><a href="/{user.username}#photos">Zdjęcia</a></li>
+                <li><a href="/{user.username}#videos">Video</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="panel-footer hidden-sm hidden-xs">
+
+    </div>
+</div>

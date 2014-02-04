@@ -150,6 +150,7 @@
 <script src="/components/magnific-popup/jquery.magnific-popup.min.js"></script>
 <script src="/js/app/models.js"></script>
 <script src="/js/app/collections.js"></script>
+<script src="/js/app/views.js"></script>
 <script src="/js/app/views/question.view.js"></script>
 <script src="/js/app/views/profile.view.js"></script>
 <script src="/js/app/routes/profile.router.js"></script>
@@ -170,6 +171,7 @@
 <script id="gifts-data" type="application/json" data-editable="{@eq key="{user.id}" value="{profile.id}"}true{:else}false{/eq}">{gifts|js|s}</script>
 {/js}
 {<jsTemplates}
+    {>"partials/pagination" /}
     {>"profile/index" profile=profile /}
     {>"profile/info" profile=profile /}
     {>"partials/question/profile" profile=profile /}

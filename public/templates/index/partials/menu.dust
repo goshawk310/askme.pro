@@ -1,0 +1,7 @@
+<div class="col-md-12" id="activity-menu-wrapper">
+    <ul class="nav nav-pills nav-justified">
+        <li{@eq key="{mode}" value="friends"} class="active"{/eq}><a href="/"></span> {@__ phrase="Znajomi" /}</a></li>
+        <li{@eq key="{mode}" value="all"} class="active"{/eq}><a href="/stream">{@__ phrase="Strumień" /}</a></li>
+        <li{@eq key="{mode}" value="online"} class="active"{/eq}><a href="/online">{@__ phrase="Online" /}</a></li>
+    </ul> 
+</div>

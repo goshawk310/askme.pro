@@ -188,7 +188,6 @@ module.exports = _.extend({
         if (params.lastAnsweredAt && validator.validators.isDate(params.lastAnsweredAt)) {
             where.answered_at = {$lt: new Date(params.lastAnsweredAt)};
             skip = null;
-            limit = null;
         } else if (params.firstAnsweredAt && validator.validators.isDate(params.firstAnsweredAt)) {
             where.answered_at = {$gt: new Date(params.firstAnsweredAt)};
             skip = null;

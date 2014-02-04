@@ -24,6 +24,9 @@ module.exports = function (server) {
     }));
 
     server.get('/account/logout', function (req, res) {
+        if (req.user) {
+            userService.logout(req.user._id);
+        }
         server.locals.user = null;
         req.logout();
         res.redirect('/');

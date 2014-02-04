@@ -255,4 +255,23 @@ module.exports = function(server) {
                 });
         });
     });
+
+    /**
+     * [description]
+     * @param  {Object} req
+     * @param  {Object} res
+     * @return {void}
+     */
+    server.get('/api/users/online', auth.isAuthenticated, function (req, res) {
+        userService
+            .getOnline({id: req.user._id}, function (err, users) {
+                if (err) {
+                    return res.send(500, {
+                        status: 'error',
+                        message: err
+                    });
+                }
+                return res.send(users);
+            });
+    });
 };

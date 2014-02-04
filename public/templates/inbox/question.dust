@@ -97,9 +97,9 @@
 <script type="text/template" id="inbox-question-pager-tpl">
     <ul class="pager">
         <% if(page > 0){~lb}%>
-            <li class="previous"><a href="#">&larr; {@__ phrase="Nowsze" /}</a></li>
+            <li class="previous"><a href="#<%=(parseInt(page, 10)-1)%>">&larr; {@__ phrase="Nowsze" /}</a></li>
         <%{~rb}%>
-        <% if((page + 1)* perPage < total){~lb}%>
+        <% if(page < Math.ceil(total / perPage) - 1){~lb}%>
             <li class="next"><a href="#<%=(parseInt(page, 10)+1)%>">{@__ phrase="Starsze" /} &rarr;</a></li>
         <%{~rb}%>
     </ul>    

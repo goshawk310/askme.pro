@@ -900,6 +900,21 @@ ul#profile-menu li.active a {
     display: none;
 }
 
+.users-online-container {
+    padding: 0 8px 0 8px;
+}
+
+.users-online-wrapper .users-online-container a img {
+    width: 30px; 
+    margin: 5px;
+    border: 2px solid #fff;
+}
+
+.users-online-wrapper h5 {
+    color: #fff;
+    text-shadow: 1px 1px 2px #000000;
+}
+
 @media (min-width: 768px) {
 	#profile-info-container {
         min-height: 150px;
