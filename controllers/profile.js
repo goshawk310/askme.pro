@@ -1,22 +1,14 @@
 'use strict';
 var userService = require('../services/user'),
     questionService = require('../services/question'),
-    auth = require('../lib/auth');
+    auth = require('../lib/auth'),
+    Q = require('q');
 
 module.exports = function(server) {
 
     server.get('/:username', function(req, res, next) {
-        userService
-            .setReq(req)
-            .setRes(res)
-            .setNext(next);
-        userService.getByUsername(req.param('username'), function(err, user, next) {
-            if (err) {
-                return next(err);
-            }
-            if (!user) {
-                return next();
-            }
+        return Q.npost(userService, 'getByUsername', [req.param('username')])
+        .then(function (user) {
             if (!req.isAuthenticated() && user.settings.anonymous_disallowed) {
                 req.flash('error', res.__('Aby przeglądać tą stronę trzeba się zalogować'));
                 return res.redirect('/account/login');
@@ -27,32 +19,46 @@ module.exports = function(server) {
                 isFollowed = req.user.users.followed ? user.isFollowed(req.user.users.followed) : false;
                 isBlocked = req.user.users.blocked ? user.isBlocked(req.user.users.blocked) : false;
             }
+            return [user, {
+                profile: user,
+                isFollowed: isFollowed,
+                isBlocked: isBlocked
+            }];
+        })
+        .spread(function (user, data) {
+            data.gifts = [];
             if (user.stats.gifts_received) {
-                userService.getUserProfileGifts(user._id, function (err, gifts) {
-                    if (err) {
-                        return res.render('profile', {
-                            profile: user,
-                            isFollowed: isFollowed,
-                            isBlocked: isBlocked,
-                            gifts: []
-                        });
-                    }
-                    return res.render('profile', {
-                        profile: user,
-                        isFollowed: isFollowed,
-                        isBlocked: isBlocked,
-                        gifts: gifts
-                    });
+                return Q.ninvoke(userService, 'getUserProfileGifts', user._id)
+                .then(function (gifts) {
+                    data.gifts = gifts;
+                    return [user, data];
+                }, function () {
+                    return [user, data];
                 });
             } else {
-                res.render('profile', {
-                    profile: user,
-                    isFollowed: isFollowed,
-                    isBlocked: isBlocked,
-                    gifts: []
-                });
+                return [user, data];
             }
-        });
+        })
+        .spread(function (user, data) {
+            data.onlineUsers = [];
+            return Q.ninvoke(userService, 'getOnline', {
+                blocked: req.user.users.blocked
+            }).then(function (users) {
+                data.onlineUsers = users;
+                return data;
+            }, function () {
+                return data;
+            });
+        })
+        .then(function (data) {
+            return res.render('profile', data);
+        })
+        .fail(function (err) {
+            if (err) {
+                return next(err);
+            }
+        })
+        .done(); 
     });
 
     /**

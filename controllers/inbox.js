@@ -17,7 +17,6 @@ module.exports = function(server) {
     server.get('/inbox/questions', auth.isAuthenticated, function (req, res) {
         questionService.getUnansweredByUserId(
             req.user._id,
-            req.user.stats.questions_unanswered,
             parseInt(req.param('perPage'), 10) || 10,
             parseInt(req.param('p'), 10) || 0,
             function (err, questions) {

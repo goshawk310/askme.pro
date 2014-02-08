@@ -13,7 +13,7 @@ module.exports = function(server) {
             from: req.user._id,
             lastAnsweredAt: req.param('lastAnsweredAt') || null,
             firstAnsweredAt: req.param('firstAnsweredAt') || null,
-            blocked: req.user.users.blocked
+            blocked: [req.user._id].concat(req.user.users.blocked)
         }, function(err, results) {
             if (err) {
                 return res.send(500, {});

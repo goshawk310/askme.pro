@@ -69,7 +69,10 @@ var Like = function() {
             UserModel.update({
                 _id: like.to
             }, {
-                $inc: {'stats.likes': 1}
+                $inc: {
+                    'stats.likes': 1,
+                    'notifications.likes': 1
+                }
             }, function (err, user) {
             
             });

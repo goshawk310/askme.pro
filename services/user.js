@@ -274,12 +274,7 @@ module.exports = _.extend({
      * @return {void}
      */
     getByUsername: function getByUsername(username, callback) {
-        var req = this.getReq(),
-            res = this.getRes(),
-            next = this.getNext();
-        UserModel.findOne({username: username}, function (err, user) {
-            callback(err, user, next);
-        });
+        UserModel.findOne({username: username}, callback);
     },
 
     changeTopbg: function changeTopbg() {
@@ -596,7 +591,11 @@ module.exports = _.extend({
         whereAnd.push({last_visit_at: {$gt: Date.now() - 180000}});
         if (params.followed && _.isArray(params.followed)) {
             whereAnd.push({_id: {$in: params.followed}});
-        } else if (params.id) {
+        }
+        if (params.blocked && _.isArray(params.blocked)) {
+            whereAnd.push({_id: {$nin: params.blocked}});
+        }
+        if (params.id) {
             whereAnd.push({_id: {$ne: params.id}});
         }
         UserModel
@@ -604,5 +603,17 @@ module.exports = _.extend({
             .select('username avatar')
             .sort({last_visit_at: -1})
             .exec(callback);
+    },
+    resetNotifications: function resetNotifications(params, callback) {
+        var set = {};
+        if (_.isString(params.key)) {
+            set['notifications.' + params.key] = 0;
+        } else if (_.isArray(params.key)) {
+            _.each(params.key, function (key) {
+                set['notifications.' + key] = 0;
+            });
+        }
+        UserModel
+            .update({_id:params.id}, {$set: set}, callback);
     }
 }, require('../lib/service'));

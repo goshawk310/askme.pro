@@ -144,10 +144,6 @@ var User = function() {
             }
         },
         notifications: {
-            questions: {
-                type: Number,
-                default: 0
-            },
             answers: {
                 type: Number,
                 default: 0
@@ -157,6 +153,10 @@ var User = function() {
                 default: 0
             },
             likes: {
+                type: Number,
+                default: 0
+            },
+            comments: {
                 type: Number,
                 default: 0
             }
@@ -196,6 +196,10 @@ var User = function() {
             return Date.now() - this.last_visit_at.getTime() < 180000;
         }
         return false;
+    });
+
+    schema.virtual('notifications.feed').get(function () {
+        return this.notifications.comments + this.notifications.answers;
     });
 
     /**

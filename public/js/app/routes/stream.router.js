@@ -2,7 +2,7 @@ askmePro.routerIndex = 'Stream';
 askmePro.routers.Stream = Backbone.Router.extend({
     views: {},
     routes: {
-        '': 'index'
+        '*path': 'index'
     },
     index: function index() {
         if (typeof this.views.stream === 'undefined') {

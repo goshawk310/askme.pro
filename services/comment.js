@@ -83,5 +83,16 @@ module.exports = _.extend({
                     callback(null, comment);
                 });
             });
-    }
+    },
+    getByUserTo: function getByUserTo(params, callback) {
+        var where = {
+                to: params.to
+            },
+            limit = params.limit;
+        CommentModel.find(where)
+            .limit(limit)
+            .sort({_id: -1})
+            .populate('from', 'username avatar')
+            .exec(callback);
+    },
 }, require('../lib/service'));

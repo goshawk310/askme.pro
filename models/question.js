@@ -106,6 +106,17 @@ var Question = function Question() {
             }, function (err, user) {
                 
             });
+            if (question.from && question.from.toString() !== question.to.toString()) {
+                UserModel.update({
+                    _id: question.from
+                }, {
+                    $inc: {
+                        'notifications.answers': 1
+                    }
+                }, function (err, user) {
+                    
+                });
+            }
         } else if (this._original.image !== null && this.image === null) {
             fsExtra.remove(config.answer.dir + this._original.image);
         }

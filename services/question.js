@@ -30,7 +30,7 @@ module.exports = _.extend({
      * @param  {Function} callback
      * @return {void}
      */
-    getUnansweredByUserId: function getUnansweredByUserId(id, countOverall, limit, page, callback) {
+    getUnansweredByUserId: function getUnansweredByUserId(id, limit, page, callback) {
         var skip = limit * page;
         QuestionModel
             .find({to: id, answer: null})
@@ -175,8 +175,8 @@ module.exports = _.extend({
      * @return {void}
      */
     getAnswered: function getAnswered(params, callback) {
-        var skip = (params.limit) * params.page,
-            limit = params.limit,
+        var skip = params.limit && params.page ? (params.limit) * params.page : null,
+            limit = params.limit || null,
             where = {answer: {'$ne': null}},
             blocked = null,
             $and = [];
@@ -193,14 +193,11 @@ module.exports = _.extend({
             skip = null;
             limit = null;
         }
+        if (params.id) {
+            where._id = params.id;
+        }
         if (params.blocked && _.isArray(params.blocked) && params.blocked.length) {
-            if (params.from) {
-                blocked = [params.from].concat(params.blocked);
-            } else {
-                blocked = params.blocked;
-            }
-        } else if (params.from) {
-            blocked = [params.from];
+            blocked = params.blocked;
         }
         if (blocked && blocked.length) {
             if (where.to) {
@@ -341,5 +338,16 @@ module.exports = _.extend({
                     callback(null);
                 });
             });
+    },
+    getAnsweredByUserFrom: function getAnsweredByUserFrom(params, callback) {
+        var $and = [],
+            limit = params.limit;
+        $and.push({from: params.from});
+        QuestionModel
+            .find({'$and': $and})
+            .populate('to', 'username avatar')
+            .sort({answered_at: -1})
+            .skip(0).limit(limit)
+            .exec(callback);
     }
 }, require('../lib/service'));

@@ -13,7 +13,7 @@ var askmePro = {
                     linkClass = params.linkClass || 'user-avatar-wrapper',
                     size = params.size || '',
                     ext = '',
-                    link = params.link || true,
+                    link = typeof params.link !== 'undefined' ? params.link : true,
                     output = '';
                 if (user.avatar) {
                     ext = '.' + image.split('.').pop();

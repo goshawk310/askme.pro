@@ -129,6 +129,7 @@
             </div>
         </div>
         <div class="col-md-2">
+            {>"partials/users/online" type="all" onlineUsers="{onlineUsers}" /}
             {>"layouts/partials/ads/right"/}
         </div>
     </div>

@@ -38,5 +38,13 @@ module.exports = _.extend({
             .find({question_id: params.id})
             .populate('from', 'username avatar stats')
             .exec(callback);
+    },
+    getTop: function getTop(params, callback) {
+        LikeModel
+            .find(params)
+            .limit(3)
+            .sort({_id: -1})
+            .populate('from', 'username avatar')
+            .exec(callback);
     }
 }, require('../lib/service'));
