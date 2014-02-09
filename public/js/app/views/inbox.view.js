@@ -113,15 +113,21 @@ askmePro.views.InboxQuestionView = Backbone.View.extend({
             $form = $(form),
             answerText = $form.find('textarea[name="question[answer]"]').val(),
             submitButton = $form.find('button[type="submit"]'),
-            counter = $('.inbox-count');
+            counter = $('.inbox-count'),
+            notifyCounter = $('#notify-questions > span');
         submitButton.attr('disabled', true);
         this.model.save({
             answer: answerText
         }, {
             patch: true,
             success: function (model, xhr) {
+                var count = parseInt(counter.html(), 10) - 1;
                 thisObj.attributes.parent.$('.buttons').show(); 
-                counter.html(parseInt(counter.html(), 10) - 1);
+                counter.html(count);
+                notifyCounter.html(count);
+                if (count < 1) {
+                    notifyCounter.remove();
+                }
                 thisObj.showMessage(xhr.message);
             },
             error: function (model, xhr) {

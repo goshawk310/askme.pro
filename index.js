@@ -53,6 +53,11 @@ app.requestBeforeRoute = function requestBeforeRoute(server) {
     // Fired before routing occurs
     server.use(express.methodOverride());
     server.use(i18n.init);
+    server.use(function (req, res, next) {
+        i18n.setLocale(res.getLocale());
+        server.set('i18n', i18n);
+        next();
+    });
     server.use(flash());
     //init passport
     auth.init(server);

@@ -2,16 +2,45 @@
 var userService = require('../services/user'),
     questionService = require('../services/question'),
     likeService = require('../services/like'),
+    commentService = require('../services/comment'),
     auth = require('../lib/auth'),
     Q = require('q');
 
 module.exports = function(server) {
-    server.get('/notifications/likes', auth.isAuthenticated,  function(req, res) {
-        likeService.getAll({to: req.user._id}, function (err, results) {
+    server.get('/notifications', auth.isAuthenticated,  function(req, res) {
+        return Q.ninvoke(likeService, 'getTop', {to: req.user._id, limit: 20})
+        .then(function (likes) {
+            return {
+                likes: likes
+            };
+        })
+        .then(function (data) {
+            return Q.ninvoke(questionService, 'getAnsweredByUserFrom', {from: req.user._id, limit: 20})
+            .then(function (questions) {
+                data.questions = questions;
+                return data;
+            }, function () {
+                return data;
+            });
+        })
+        .then(function (data) {
+            return Q.ninvoke(commentService, 'getByUserTo', {to: req.user._id, limit: 20})
+            .then(function (comments) {
+                data.comments = comments;
+                return data;
+            }, function () {
+                return data;
+            });
+        })
+        .then(function (data) {
+            res.render('notifications', data);
+        })
+        .fail(function (err) {
             if (err) {
-                return res.send(500, {});
+                return next(err);
             }
-            res.send(results);
-        });
+        })
+        .done();
+        
     });
 }

@@ -8,7 +8,7 @@ var userService = require('../../services/user'),
 
 module.exports = function(server) {
     server.get('/api/notifications/likes/top', auth.isAuthenticated,  function(req, res) {
-        likeService.getTop({to: req.user._id}, function (err, results) {
+        likeService.getTop({to: req.user._id, limit: 3}, function (err, results) {
             if (err) {
                 return res.send(500, {});
             }

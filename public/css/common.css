@@ -29,6 +29,12 @@ body .popover {max-width: 100%;}
 	background: #252525 url('../images/menu_bg.png') repeat-x;
 	box-shadow: 0 6px 4px rgba(0, 0, 0, 0.1);
 }
+
+.nav-pills > li.active > a, .nav-pills > li.active > a:hover, .nav-pills > li.active > a:focus {
+  background-color:#9cd106;
+  color:#FFFFFF;
+}
+
 .notifications li.notify {
 	background-repeat: no-repeat;
 	background-size: 32px 32px;
@@ -468,30 +474,29 @@ ul#profile-menu li.active a {
     height: 0px;
     border-style: solid;
     border-width: 8px 10px 4px 0;
-    border-color: transparent #bed0e9 transparent transparent;
+    border-color: transparent #eee transparent transparent;
     position: absolute;
     left: 6px;
     top: 20px;
 }
 
 #answers-container .question h4 {
-    background: #e7f1fe;
-    background: -moz-linear-gradient(top, #e7f1fe 0%, #c7defe 100%);
-    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#e7f1fe), color-stop(100%,#c7defe));
-    background: -webkit-linear-gradient(top, #e7f1fe 0%,#c7defe 100%);
-    background: -o-linear-gradient(top, #e7f1fe 0%,#c7defe 100%);
-    background: -ms-linear-gradient(top, #e7f1fe 0%,#c7defe 100%);
-    background: linear-gradient(to bottom, #e7f1fe 0%,#c7defe 100%);
-    border: 1px dashed #CCCCCC;
+    background: #eee;
+    background: -moz-linear-gradient(top, #fff 0%, #eee 100%);
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#fff), color-stop(100%,#eee));
+    background: -webkit-linear-gradient(top, #fff 0%,#eee 100%);
+    background: -o-linear-gradient(top, #fff 0%,#eee 100%);
+    background: -ms-linear-gradient(top, #fff 0%,#eee 100%);
+    background: linear-gradient(to bottom, #fff 0%,#eee 100%);
+    border: 1px solid #eee;
     border-radius: 5px;
-    color: #3E454C;
-    text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
-    font-size: 1.1em;
+    color: #464646;
+    font-size: 12px;
     line-height: 1.3em;
     padding: 10px;
-    border: 1px solid #BED0E9;
     word-wrap: break-word;
     margin-top: 0;
+    font-weight: bold;
 }
 
 #answers-container .question .panel {
@@ -896,10 +901,10 @@ ul#profile-menu li.active a {
     height: 0px;
     border-style: solid;
     border-width: 4px 0 8px 10px;
-    border-color: transparent transparent transparent #bed0e9 ;
+    border-color: transparent transparent transparent #eee;
     position: absolute;
     right: 6px;
-    top: 24px;
+    top: 22px;
 }
 
 .btn-newest-container {
@@ -1033,6 +1038,23 @@ ul#profile-menu li.active a {
 
 [data-container="feed"]#main-navbar .popover .popover-content .list-group {
     margin-top: 0;
+}
+
+#notifications-container .tab-content {
+    padding-top: 15px;
+}
+
+#notifications-container .tab-content .user-avatar-wrapper {
+    max-width: 60px;
+    margin-bottom: 4px;
+}
+
+#notifications-container .tab-content .user-avatar-wrapper img {
+    border: 0;
+}
+
+#notifications-container .tab-content .media-body {
+    padding-top: 8px;
 }
 
 @media (min-width: 768px) {

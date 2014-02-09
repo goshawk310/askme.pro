@@ -40,9 +40,13 @@ module.exports = _.extend({
             .exec(callback);
     },
     getTop: function getTop(params, callback) {
+        var where = {
+                to: params.to
+            },
+            limit = params.limit;
         LikeModel
-            .find(params)
-            .limit(3)
+            .find(where)
+            .limit(limit)
             .sort({_id: -1})
             .populate('from', 'username avatar')
             .exec(callback);

@@ -10,17 +10,17 @@
             <ul class="nav navbar-nav notifications">
                 <li id="navbar-logo"><a class="" href="/"><img src="/images/logo.png" alt="askme.pro" /></a></li>
                 {?user}
-                <li class="notify notifylikes{@if cond="{user.notifications.likes} > 0"} active{/if}" id="notify-likes" data-title="{@__ phrase="Polubienia" /}">
+                <li class="notify notifylikes" id="notify-likes" data-title="{@__ phrase="Polubienia" /}">
                     {@if cond="{user.notifications.likes} > 0"}
                         <span>{user.notifications.likes}</span>
                     {/if}
                 </li>
-                <li class="notify notifyquestions{@if cond="{user.stats.questions_unanswered} > 0"} active{/if}" id="notify-questions" data-title="{@__ phrase="Pytania" /}">
+                <li class="notify notifyquestions" id="notify-questions" data-title="{@__ phrase="Pytania" /}">
                     {@if cond="{user.stats.questions_unanswered} > 0"}
                         <span>{user.stats.questions_unanswered}</span>
                     {/if}
                 </li>
-                <li class="notify notifyanswers{@if cond="{user.notifications.feed} > 0"} active{/if}" id="notify-feed" data-title="{@__ phrase="Feed" /}">
+                <li class="notify notifyanswers" id="notify-feed" data-title="{@__ phrase="Feed" /}">
                     {@if cond="{user.notifications.feed} > 0"}
                         <span>{user.notifications.feed}</span>
                     {/if}

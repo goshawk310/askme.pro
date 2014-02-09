@@ -1,0 +1,125 @@
+{>"layouts/master" /}
+{<body}
+<div class="container">
+    {>"layouts/partials/ads/top"/}
+    <div class="row">
+        <div class="col-md-2">
+            {>"layouts/partials/ads/left"/}
+        </div>
+        <div class="col-md-8">
+            <div class="center-block">
+                {>"layouts/partials/ajaxalert" /}
+                {?message}
+                    {@message data=message /}
+                {/message}
+                <div class="panel panel-default box-shadow" id="notifications-wrapper">
+                    <div class="panel-heading">
+                        <h4>{@__ phrase="Powiadomienia" /}:</h4>
+                    </div>
+                    <div class="panel-body">
+                        <div id="notifications-container">
+                            <ul class="nav nav-pills nav-justified" id="notifications-tabs">
+                                <li class="active"><a href="#notifications-likes" data-toggle="tab">{@__ phrase="Polubienia" /}</a></li>
+                                <li><a href="#notifications-answers" data-toggle="tab">{@__ phrase="Odpowiedzi" /}</a></li>
+                                <li><a href="#notifications-comments" data-toggle="tab">{@__ phrase="Komentarze" /}</a></li>
+                            </ul>
+                            <div class="tab-content">
+                                <div class="tab-pane active" id="notifications-likes">
+                                    {#likes}
+                                        <div class="list-group-item">
+                                        <div class="media">
+                                            <a class="pull-left user-avatar-wrapper" href="/{.from.username}">
+                                                {@userAvatar user=.from size="cropped/100x" /}
+                                            </a>
+                                            <div class="media-body">
+                                                <a href="/questions/{.question_id}" class="question-link">
+                                                    {@__ phrase="Użytkownik" /} 
+                                                </a>
+                                                <a href="/{.from.username}" class="question-link">
+                                                    <strong>{.from.username}</strong>
+                                                </a> 
+                                                <a href="/questions/{.question_id}" class="question-link">
+                                                    {@__ phrase="lubi Twoją odpowiedź" /}.
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {:else}
+                                        <div class="list-group-item">
+                                            {@__ phrase="Brak polubień" /}
+                                        </div>
+                                    {/likes}
+                                </div>
+                                <div class="tab-pane" id="notifications-answers">
+                                    {#questions}
+                                        <div class="list-group-item">
+                                        <div class="media">
+                                            <a class="pull-left user-avatar-wrapper" href="/{.to.username}">
+                                                {@userAvatar user=.to size="cropped/100x" /}
+                                            </a>
+                                            <div class="media-body">
+                                                <a href="/questions/{._id}" class="question-link">
+                                                    {@__ phrase="Użytkownik" /} 
+                                                </a>
+                                                <a href="/{.to.username}" class="question-link">
+                                                    <strong>{.to.username}</strong>
+                                                </a> 
+                                                <a href="/questions/{._id}" class="question-link">
+                                                    {@__ phrase="odpowiedział na pytanie" /}: <span class="text-primary">{.contents}</span>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {:else}
+                                        <div class="list-group-item">
+                                            {@__ phrase="Brak odpowiedzi" /}
+                                        </div>
+                                    {/questions}
+                                </div>
+                                <div class="tab-pane" id="notifications-comments">
+                                    {#comments}
+                                        <div class="list-group-item">
+                                        <div class="media">
+                                            <a class="pull-left user-avatar-wrapper" href="/{.from.username}">
+                                                {@userAvatar user=.from size="cropped/100x" /}
+                                            </a>
+                                            <div class="media-body">
+                                                <a href="/questions/{.question_id}" class="question-link">
+                                                    {@__ phrase="Użytkownik" /} 
+                                                </a>
+                                                <a href="/{.from.username}" class="question-link">
+                                                    <strong>{.from.username}</strong>
+                                                </a> 
+                                                <a href="/questions/{.question_id}" class="question-link">
+                                                    {@__ phrase="dodał komentarz" /}: <span class="text-primary">{.contents}</span>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {:else}
+                                        <div class="list-group-item">
+                                            {@__ phrase="Brak odpowiedzi" /}
+                                        </div>
+                                    {/comments}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel-footer">
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-2">
+            {>"layouts/partials/ads/right"/}
+        </div>
+    </div>
+</div>
+{/body}
+{<js}
+<script src="/js/app/models.js"></script>
+<script src="/js/app/collections.js"></script>
+<script src="/js/app/views/notifications.view.js"></script>
+<script src="/js/app/routes/notifications.router.js"></script>
+{/js}
