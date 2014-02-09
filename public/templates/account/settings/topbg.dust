@@ -34,10 +34,10 @@
                     
                 </div>
                 <div class="col-md-3">
-                    <button type="button" class="btn btn-primary fileinput-button">
+                    <span class="btn btn-primary fileinput-button">
                         <span>{@__ phrase="Zmień" /}</span>
                         <input type="file" name="top_bg" id="top-bg">
-                    </button>
+                    </span>
                 </div>
                 <div class="col-md-3">
                     <div class="progress progress-container" id="top-bg-progress">

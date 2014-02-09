@@ -29,12 +29,12 @@
                             <div class="col-md-6 col-xs-4">
                                 <div class="form-group">
                                     <div class="pull-left">
-                                        <button type="button" class="btn btn-link fileinput-button">
+                                        <span class="btn btn-link fileinput-button">
                                             <span class="glyphicon glyphicon-picture"></span><input type="file" name="image">
-                                        </button>
-                                        <button type="button" class="btn btn-link yt">
+                                        </span>
+                                        <span type="button" class="btn btn-link yt">
                                             <span class="glyphicon glyphicon-film"></span>
-                                        </button>
+                                        </span>
                                     </div>
                                     <div class="clearfix"></div>
                                 </div>

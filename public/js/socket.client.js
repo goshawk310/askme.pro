@@ -1,6 +1,6 @@
 $(function () {
     if (askmePro.data.user.id !== null) {
-        var socket = io.connect('http://localhost'),
+        var socket = io.connect('http://' + location.hostname),
             updateCounter = function updateCounter(id, key, callback) {
                 var feedButton = $('#' + id),
                     counter = feedButton.children('span'),

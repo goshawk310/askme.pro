@@ -6,10 +6,10 @@
         <form id="new-custom-bg-form" role="form" method="post" action="/account/settings/custom_background" enctype="multipart/form-data" class="form-2-cols">
             <div class="form-group">
                 <div class="col-md-3">
-                    <button type="button" class="btn btn-primary fileinput-button">
+                    <span class="btn btn-primary fileinput-button">
                         <span>{@__ phrase="Wgraj swoje tło" /}</span>
                         <input type="file" name="custom_background" id="new-custom-background">
-                    </button>
+                    </span>
                 </div>
                 <div class="col-md-3">
                     <div class="progress progress-container" id="new-custom-bg-progress">

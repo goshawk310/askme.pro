@@ -27,9 +27,9 @@
                 </div>
                 <div class="form-group">
                     <div class="col-md-3">
-                        <button type="button" class="btn btn-primary fileinput-button">
+                        <span class="btn btn-primary fileinput-button">
                             <span>{@__ phrase="Zmień zdjęcie" /}</span><input type="file" name="avatar" id="avatar">
-                        </button>
+                        </span>
                     </div>
                     <div class="col-md-3">
                         <div class="progress progress-container" id="avatar-progress">
