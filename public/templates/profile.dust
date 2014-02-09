@@ -161,9 +161,6 @@
         username: '{profile.username}',
         stats: {profile.stats|js|s}
     };
-    askmePro.data.user = {
-        id: {?user._id}'{user._id}'{:else}null{/user._id}
-    };
     askmePro.utils.setupDefaultValidator();
     askmePro.settings.upload.answer = {
         url: '{config.answer.url}'

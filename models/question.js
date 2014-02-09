@@ -5,7 +5,8 @@ var mongoose = require('mongoose'),
     UserModel = require('./user'),
     fsExtra = require('fs-extra'),
     config = require('../config/app'),
-    blockedWords = require('../lib/blockedWords');
+    blockedWords = require('../lib/blockedWords'),
+    ioHelper = require('../lib/socket.io');
 
 var Question = function Question() {
 
@@ -94,6 +95,9 @@ var Question = function Question() {
             }, function (err, user) {
             
             });
+            ioHelper.io().sockets.socket(ioHelper.getSocketId(question.to)).emit('questions', {
+                id: question._id
+            });
         } else if (this._original.answer === null && this.answer !== null) {
             UserModel.update({
                 _id: question.to
@@ -115,6 +119,9 @@ var Question = function Question() {
                     }
                 }, function (err, user) {
                     
+                });
+                ioHelper.io().sockets.socket(ioHelper.getSocketId(question.from)).emit('feed', {
+                    type: 'answer'
                 });
             }
         } else if (this._original.image !== null && this.image === null) {

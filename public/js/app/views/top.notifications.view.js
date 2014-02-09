@@ -4,7 +4,6 @@ $(function () {
         likesInitialized = false,
         questionsInitialized = false,
         feedInitialized = false,
-        views = {},
         initPoover = function (elem, id, onShown) {
             return elem.popover({
                 container: '#main-navbar > .container',
@@ -30,7 +29,11 @@ $(function () {
         };
     askmePro.notifications = {
         top: {
-            views: {}
+            views: {
+                likes: null,
+                questions: null,
+                feed: null
+            }
         }  
     };
     $('#notify-likes').on('click', function () {
@@ -38,7 +41,7 @@ $(function () {
         hideActive('likes');
         if (!likesInitialized) {
             initPoover($this, 'likes', function () {
-                if (typeof askmePro.notifications.top.views.likes === 'undefined') {
+                if (askmePro.notifications.top.views.likes === null) {
                     askmePro.notifications.top.views.likes = new askmePro.views.TopNotificationsLikesView();
                     askmePro.notifications.top.views.likes.load();
                 } else {
@@ -55,7 +58,7 @@ $(function () {
         hideActive('questions');
         if (!questionsInitialized) {
             initPoover($this, 'questions', function () {
-                if (typeof askmePro.notifications.top.views.questions === 'undefined') {
+                if (askmePro.notifications.top.views.questions === null) {
                     askmePro.notifications.top.views.questions = new askmePro.views.TopNotificationsQuestionsView();
                     askmePro.notifications.top.views.questions.load();
                 } else {
@@ -71,7 +74,7 @@ $(function () {
         hideActive('feed');
         if (!feedInitialized) {
             initPoover($this, 'feed', function () {
-                if (typeof askmePro.notifications.top.views.feed === 'undefined') {
+                if (askmePro.notifications.top.views.feed === null) {
                     askmePro.notifications.top.views.feed = new askmePro.views.TopNotificationsFeedView();
                     askmePro.notifications.top.views.feed.load();
                 } else {

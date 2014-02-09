@@ -10,6 +10,7 @@ var kraken = require('kraken-js'),
     dustjsHelper = require('./lib/dustjs/helpers'),
     express = require('express'),
     redisClient = require('./lib/redis'),
+    socketHelper = require('./lib/socket.io.js'),
     app = {};
 app.configure = function configure(nconf, next) {
     // Fired when an app configures itself
@@ -70,8 +71,11 @@ app.requestAfterRoute = function requestAfterRoute(server) {
     server.use('/captcha.jpg', require('easy-captcha').generate());
 };
 
-kraken.create(app).listen(function(err) {
-    if (err) {
-        console.error(err);
-    }
-});
+if (require.main === module) {
+    kraken.create(app).listen(function (err, server) {
+        if (err) {
+            console.error(err.stack);
+        }
+        socketHelper.init(server);
+    });
+}
