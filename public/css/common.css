@@ -27,7 +27,6 @@ body .popover {max-width: 100%;}
 
 #main-navbar {
 	background: #252525 url('../images/menu_bg.png') repeat-x;
-	border-bottom: 2px solid #1cc4e7;
 	box-shadow: 0 6px 4px rgba(0, 0, 0, 0.1);
 }
 .notifications li.notify {
@@ -41,9 +40,9 @@ body .popover {max-width: 100%;}
 	list-style: none;
     position: relative;
 }
-.notifylikes{background-image:url(../images/heart.png); opacity:0.7;}
-.notifyquestions{background-image:url(../images/question.png); opacity:0.7;}
-.notifyanswers{background-image:url(../images/answer.png); opacity:0.7;}
+.notifylikes{background-image:url(../images/heart.png);}
+.notifyquestions{background-image:url(../images/question.png);}
+.notifyanswers{background-image:url(../images/answer.png);}
 
 .notifications .notify span {
     font-size: 10px;
@@ -57,8 +56,8 @@ body .popover {max-width: 100%;}
 }
 
 .navbar-nav {margin: 0;}
-.navbar-nav > li#navbar-logo {width: 140px; float: left;}
-.navbar-nav > li#navbar-logo a {padding-top: 5px; padding-bottom: 5px;}
+.navbar-nav > li#navbar-logo {width: 135px; float: left; padding-left: 5px;}
+.navbar-nav > li#navbar-logo a {padding-top: 5px; padding-bottom: 5px; padding: 5px 0 5px 0;}
 
 a {color: #464646;}
 a:hover, a:focus {color: #464646;}
@@ -927,6 +926,14 @@ ul#profile-menu li.active a {
     text-shadow: 1px 1px 2px #000000;
 }
 
+#main-navbar > .container {
+    position: relative;
+}
+
+#main-navbar > .container .popover {
+    left: 0  !important;
+}
+
 #main-navbar .popover .popover-title {
     font-weight: bold;
     padding: 6px 8px;
@@ -954,6 +961,10 @@ ul#profile-menu li.active a {
 
 [data-container="questions"]#main-navbar .popover .popover-content {
     width: 370px;
+}
+
+[data-container="feed"]#main-navbar .popover .popover-content {
+    width: 340px;
 }
 
 #main-navbar .popover .popover-content .list-group {
@@ -1009,6 +1020,19 @@ ul#profile-menu li.active a {
     color: #1CC4E7;
     display: block;
     padding: 6px 8px;
+}
+
+#top-notifications-feed-container .nav > li > a {
+    padding: 5px;
+}
+
+.no-notifications {
+    padding: 5px;
+    color: #999;
+}
+
+[data-container="feed"]#main-navbar .popover .popover-content .list-group {
+    margin-top: 0;
 }
 
 @media (min-width: 768px) {

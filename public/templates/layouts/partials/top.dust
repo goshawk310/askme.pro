@@ -20,7 +20,7 @@
                         <span>{user.stats.questions_unanswered}</span>
                     {/if}
                 </li>
-                <li class="notify notifyanswers{@if cond="{user.notifications.feed} > 0"} active{/if}">
+                <li class="notify notifyanswers{@if cond="{user.notifications.feed} > 0"} active{/if}" id="notify-feed" data-title="{@__ phrase="Feed" /}">
                     {@if cond="{user.notifications.feed} > 0"}
                         <span>{user.notifications.feed}</span>
                     {/if}

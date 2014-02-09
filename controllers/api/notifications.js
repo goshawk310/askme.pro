@@ -14,7 +14,7 @@ module.exports = function(server) {
             }
             if (results.length) {
                 userService.resetNotifications({
-                    id: req.user.id,
+                    id: req.user._id,
                     key: 'likes'
                 }, function () {
 
@@ -40,13 +40,16 @@ module.exports = function(server) {
             }
             commentService.getByUserTo({to: req.user._id, limit: 3}, function (err, comments) {
                 if (err) {
-                    return res.send({
-                        questions: questions,
-                        comments: []
-                    });
+                    return res.send(500, {});
                 }
+                userService.resetNotifications({
+                    id: req.user._id,
+                    key: ['answers', 'comments']
+                }, function () {
+
+                });
                 res.send({
-                    questions: questions,
+                    answers: questions,
                     comments: comments
                 });
             })

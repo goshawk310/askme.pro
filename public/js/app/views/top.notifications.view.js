@@ -3,13 +3,14 @@ $(function () {
         activePopoverElem = null,
         likesInitialized = false,
         questionsInitialized = false,
+        feedInitialized = false,
         views = {},
         initPoover = function (elem, id, onShown) {
             return elem.popover({
-                container: '#main-navbar',
+                container: '#main-navbar > .container',
                 html: true,
                 placement: 'bottom',
-                title: elem.data('title'),
+                title: elem.data('title') ? elem.data('title') : null,
                 content: '<div id="top-notivications-' + id + '-wrapper"></div>',
                 trigger: 'manual'
             }).on('show.bs.popover', function () {
@@ -18,6 +19,7 @@ $(function () {
             }).on('shown.bs.popover', function () {
                 activePopover = elem;
                 activePopoverElem = $('#main-navbar .popover');
+                $(window).trigger('resize');
                 onShown();
             });
         },
@@ -64,10 +66,29 @@ $(function () {
         }
         $this.popover('toggle');
     });
+    $('#notify-feed').on('click', function () {
+        var $this = $(this);
+        hideActive('feed');
+        if (!feedInitialized) {
+            initPoover($this, 'feed', function () {
+                if (typeof askmePro.notifications.top.views.feed === 'undefined') {
+                    askmePro.notifications.top.views.feed = new askmePro.views.TopNotificationsFeedView();
+                    askmePro.notifications.top.views.feed.load();
+                } else {
+                    askmePro.notifications.top.views.feed.setHtml();
+                }
+                $this.children('span').remove();
+            });
+            feedInitialized = true;
+        }
+        $this.popover('toggle');
+    });
     $(window).on('resize', function () {
-        var popover = $('#main-navbar').children('.popover');
+        var popover = $('#main-navbar > .container').children('.popover'),
+            arrow = null;
         if (popover.length && activePopover !== null) {
-            popover.css({left: (activePopover.offset().left - popover.width() / 2 + activePopover.width() / 2)+ 'px'});
+            arrow = popover.find('.arrow');
+            arrow.css({left: (activePopover.position().left + activePopover.width() / 2  - arrow.width() / 2) + 'px'});
         }
     });
     $('body').on('click', function (e) {
@@ -138,6 +159,38 @@ askmePro.views.TopNotificationsQuestionsView = Backbone.View.extend({
             return this.setHtml();
         }
         $.ajax('/api/notifications/questions/top')
+        .done(function(response) {
+            thisObj.response = response;
+        })
+        .always(function () {
+            thisObj.setHtml();
+        });
+    }
+});
+
+askmePro.views.TopNotificationsFeedView = Backbone.View.extend({
+    template: _.template($('#top-notifications-feed-tpl').html()),
+    response: null,
+    rendered: false,
+    initialize: function(options) {
+    },
+    render: function () {
+        this.setElement($(this.template(this.response)));
+        this.rendered = true;
+        return this;
+    },
+    setHtml: function () {
+        if (!this.rendered) {
+            this.render();
+        }
+        $('#top-notivications-feed-wrapper').html(this.$el);
+    },
+    load: function load(callback) {
+        var thisObj = this;
+        if (this.response !== null) {
+            return this.setHtml();
+        }
+        $.ajax('/api/notifications/feed/top')
         .done(function(response) {
             thisObj.response = response;
         })
