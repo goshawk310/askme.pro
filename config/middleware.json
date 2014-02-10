@@ -21,6 +21,11 @@
         "errorHandler": {
             "dumpExceptions": false,
             "showStack": false
+        },
+        "multipart": {
+            "params": {
+                "keepExtensions": true
+            }
         }
     }
 }

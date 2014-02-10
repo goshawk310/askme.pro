@@ -34,6 +34,7 @@ module.exports = function(server) {
      * @return {[type]}
      */
     server.patch('/inbox/image/:id', auth.isAuthenticated, function (req, res) {
+        console.log(req);
         questionService
             .setServer(server)
             .setReq(req)

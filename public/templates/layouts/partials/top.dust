@@ -34,7 +34,6 @@
                     <li><a href="/inbox">{@__ phrase="Pytania"/} <span id="inbox-count">(<span class="inbox-count">{user.stats.questions_unanswered}</span>)</span></a></li>
                 {/user}
                 <li><a href="/top20" role="button" class="btn btn-primary">{@__ phrase="TOP 20"/}</a></li>
-                <li><a href="/search/profiles">{@__ phrase="Szukaj"/}</a></li>
                 {^user} 
                     <li><a href="/account/signup">Zarejestruj się</a></li>
                     <li><a href="/account/login">Zaloguj</a></li>
@@ -50,6 +49,12 @@
                     </li>
                 {/user}
             </ul>
+            <form class="navbar-form navbar-right" id="main-search-form">
+                <div id="main-search-form-wrapper">
+                    <input name="main-search-query" id="main-search-query" type="text" class="form-control input-sm" placeholder="{@__ phrase="Szukaj" /}...">
+                    <span class="glyphicon glyphicon-search"></span>
+                </div>
+            </form>
         </div>
     </div>
 </div>
