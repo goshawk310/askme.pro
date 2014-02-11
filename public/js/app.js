@@ -221,6 +221,77 @@ $(document).ready(function () {
         askmePro.router = new askmePro.routers[askmePro.routerIndex]();
         Backbone.history.start();
     }
+    $('#q-submit').on('click', function () {
+        $('#main-search-form').submit();
+    });
+    $('#main-search-form').on('submit', function (e) {
+        if ($('#q').val().length < 3) {
+            e.preventDefault();
+        }
+    });
+    
+    (function() {
+        var $q = $('#q'),
+            container = $('#main-search-form-elems'),
+            options = {
+                html: true,
+                trigger: 'manual',
+                placement: 'bottom',
+                content: '&nbsp;'
+            },
+            template = null,
+            popoverInitialized = false,
+            searching = false,
+            timeout = null,
+            lastQuery = null,
+            activePopoverElem = null,
+            init = function init() {
+                $q.popover(options);
+                template = _.template($('#live-search-results-tpl').html());
+                $('body').on('click', function (e) {
+                    if (activePopoverElem && activePopoverElem.is(':visible') && !container.is(e.target) && container.has(e.target).length === 0) {
+                        if (!activePopoverElem.is(e.target) && activePopoverElem.has(e.target).length === 0) {
+                            $q.popover('hide');
+                        }
+                    }
+                });
+            };
+           
+        $('#q').on('keyup', function () {
+            var $this = $(this),
+                val = $this.val();
+            if (searching || val === lastQuery) {
+                return;
+            }
+            if ($this.val().length > 2) {
+                timeout = setTimeout(function () {
+                    searching = true;
+                    lastQuery = val;
+                    $.get('/api/users/search', {
+                        q: lastQuery, limit: 10
+                    }).done(function(response) {
+                        if (!popoverInitialized) {
+                            init();
+                            popoverInitialized = true;
+                        }
+                        $q.popover('show');
+                        activePopoverElem = container.find('.popover');
+                        container.find('.popover-content').html(template({
+                            elements: response.users,
+                            total: response.total,
+                            q: val
+                        }));
+                        searching = false;
+                    }).fail(function () {
+                        searching = false;
+                        $q.popover('hide');
+                    });
+                    clearTimeout(timeout);
+                }, 300);
+            }
+        });
+    }());
+    
 });
 
 (function($) {

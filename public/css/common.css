@@ -817,7 +817,8 @@ ul#profile-menu li.active a {
 }
 
 #profile-tabs-content .panel-footer-main .pagination,
-#main-content-container .panel-footer-main .pagination {
+#main-content-container .panel-footer-main .pagination,
+#main-content-footer .pagination {
     margin: 0;
     margin-bottom: 0;
 }
@@ -1031,7 +1032,7 @@ ul#profile-menu li.active a {
     padding: 5px;
 }
 
-.no-notifications {
+.no-notifications, .no-live-search-results {
     padding: 5px;
     color: #999;
 }
@@ -1061,11 +1062,11 @@ ul#profile-menu li.active a {
  * MAIN SEARCH FORM
  */
 
-#main-search-form-wrapper {
+#main-search-form-elems {
     position: relative;
 }
 
-#main-search-form-wrapper .glyphicon {
+#main-search-form-elems #q-submit {
     position: absolute;
     right: 12px;
     top: 8px;
@@ -1074,7 +1075,7 @@ ul#profile-menu li.active a {
     cursor: pointer;
 }
 
-#main-search-query {
+#q {
     background-color: #007BAB;
     border: 0;
     border-radius: 15px;
@@ -1086,20 +1087,55 @@ ul#profile-menu li.active a {
     box-shadow: inset 1px 1px 1px 0px #00364b;
 }
 
-#main-search-form-wrapper ::-webkit-input-placeholder {
+#main-search-form-elems ::-webkit-input-placeholder {
    color: #028fc5;
 }
 
-#main-search-form-wrapper :-moz-placeholder {
+#main-search-form-elems :-moz-placeholder {
    color: #028fc5;  
 }
 
-#main-search-form-wrapper ::-moz-placeholder {
+#main-search-form-elems ::-moz-placeholder {
    color: #028fc5;  
 }
 
-#main-search-form-wrapper :-ms-input-placeholder {
+#main-search-form-elems :-ms-input-placeholder {
    color: #028fc5;  
+}
+
+#main-search-form-elems .popover {
+    width: 304px;
+    max-width: none;
+}
+
+#main-search-form-elems .popover .arrow{
+    left: 10%;
+}
+
+#live-search-results-container .live-search-results-item {
+    padding: 0;
+}
+
+#live-search-results-container .live-search-results-item a {
+    display: block;
+    width: 100%;
+    height: 100%;
+    padding: 10px 0 10px 65px;
+    position: relative;
+    min-height: 70px;
+}
+
+#live-search-results-container .live-search-results-item img {
+    width: 50px;
+    position: absolute;
+    left: 15px;
+    top: 10px;
+}
+
+#live-search-results-container .live-search-results-item span {
+    margin-left: 10px;
+    display: block;
+    text-align: left;
 }
 
 @media (min-width: 768px) {

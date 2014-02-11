@@ -274,4 +274,26 @@ module.exports = function(server) {
                 return res.send(users);
             });
     });
+
+    /**
+     * 
+     * @param  {Object} req
+     * @param  {Object} res
+     * @return {void}
+     */
+    server.get('/api/users/search', auth.isAuthenticated, function (req, res) {
+        userService
+            .search({
+                query: req.param('q'),
+                page: parseInt(req.param('page'), 10) || 0,
+                limit: parseInt(req.param('limit'), 10) || 18
+            }, function (err, results) {
+                if (err) {
+                    return res.send(500, {
+                        status: 'error'
+                    });
+                }
+                return res.send(results);
+            });
+    });
 };

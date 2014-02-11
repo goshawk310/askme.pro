@@ -1,0 +1,48 @@
+{>"layouts/master" /}
+{<body}
+<div class="container">
+    {>"layouts/partials/ads/top"/}
+    <div class="row">
+        <div class="col-md-2">
+            {>"layouts/partials/ads/left"/}
+        </div>
+        <div class="col-md-8">
+            <div class="center-block">
+                {>"layouts/partials/ajaxalert" /}
+                {?message}
+                    {@message data=message /}
+                {/message}
+                <div class="panel panel-default box-shadow" id="main-content-wrapper">
+                    <div class="panel-heading">
+                        <h4>{@__ phrase="Wyniki wyszukiwania" /}:</h4>
+                    </div>
+                    <div class="panel-body">
+                        <div id="main-content-container" data-noresults="{@__ phrase="Brak wyników" /}">
+                            
+                        </div>
+                    </div>
+                    <div class="panel-footer panel-footer-main" id="main-content-footer">
+                        <div class="row">
+                            <div class="col-md-12 text-center" id="main-content-pagination-container"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-2">
+            {>"layouts/partials/ads/right"/}
+        </div>
+    </div>
+</div>
+{/body}
+{<js}
+<script src="/js/app/models.js"></script>
+<script src="/js/app/collections.js"></script>
+<script src="/js/app/views.js"></script>
+<script src="/js/app/views/search.view.js"></script>
+<script src="/js/app/routes/search.router.js"></script>
+{/js}
+{<jsTemplates}
+    {>"partials/pagination" /}
+    {>"search/user" /}
+{/jsTemplates}

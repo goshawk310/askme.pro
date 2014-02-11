@@ -28,8 +28,9 @@ app.configure = function configure(nconf, next) {
 
 app.requestStart = function requestStart(server) {
     // Fired at the beginning of an incoming request
+    var config = require('./config/app');
     server.locals({
-        config: require('./config/app')
+        config: config
     });
     require('./lib/uploads')(server, __dirname);
     server.param(function(name, fn) {
@@ -45,7 +46,8 @@ app.requestStart = function requestStart(server) {
             };
         }
     });
-    server.param('username', /^[a-zA-Z0-9]+$/);
+    
+    server.param('username', new RegExp('^((?!' + config.reservedWords.join('|') + ')[a-zA-Z0-9])+$'));
     server.param('locale', /^[a-zA-Z]{2}$/);
     server.param('id', /^[a-zA-Z0-9]+$/);
 };

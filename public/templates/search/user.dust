@@ -1,0 +1,13 @@
+<script type="text/template" id="search-user-tpl">
+    <div class="col-md-2 col-sm-3 col-xs-4 list-elem-container user-container">
+        <div class="list-elem">
+            <%=askmePro.views.helpers.userAvatar({user: user, size: 'cropped/300x'})%>
+        </div>
+        <div class="caption">
+            <p>
+                <strong><a href="/<%=user.username%>"><%=user.name%> <%=user.lastname%></a></strong><br>
+                <em><%=user.profile.location%></em>
+            </p>
+        </div>
+    </div>
+</script>

@@ -21,6 +21,7 @@
         < ![endif]-->
         {+jsTemplates /}
         {>"partials/top_notifications"/}
+        {>"partials/search_results"/}
     </head>
     <body>
         <div id="wrapper"{+wrapperAttribs}{?user.background} class="custom-bg" style="background-image: url('{user.background}')"{/user.background} {/wrapperAttribs}>

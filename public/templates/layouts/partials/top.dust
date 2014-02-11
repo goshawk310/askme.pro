@@ -49,12 +49,14 @@
                     </li>
                 {/user}
             </ul>
-            <form class="navbar-form navbar-right" id="main-search-form">
-                <div id="main-search-form-wrapper">
-                    <input name="main-search-query" id="main-search-query" type="text" class="form-control input-sm" placeholder="{@__ phrase="Szukaj" /}...">
-                    <span class="glyphicon glyphicon-search"></span>
+            {?user} 
+            <form class="navbar-form navbar-right" id="main-search-form" action="/search">
+                <div id="main-search-form-elems">
+                    <input name="q" id="q" type="text" class="form-control input-sm" placeholder="{@__ phrase="Szukaj" /}..."{?query} value="{query}"{/query} autocomplete="off">
+                    <span id="q-submit" class="glyphicon glyphicon-search"></span>
                 </div>
             </form>
+            {/user}
         </div>
     </div>
 </div>

@@ -1,0 +1,28 @@
+<script type="text/template" id="live-search-results-tpl">
+    <div id="live-search-results-container">
+        <% if (typeof elements !== 'undefined' && elements && elements.length) {~lb} %>
+            <div class="list-group">
+                <% _.each(elements, function (element) {~lb} %>
+                    <div class="list-group-item live-search-results-item">
+                        <a href="/<%=element.username%>">
+                            <%=askmePro.views.helpers.userAvatar({user: element, size: 'cropped/100x', link: false, cssClass: 'box-shadow img-circle'})%>
+                            <span>
+                                <%=element.name%> <%=element.lastname%><br/>
+                                <em><%=element.profile.location%></em>
+                            </span>
+                        </a>
+                    </div>
+                <% {~rb}) %>
+                <% if (total > elements.length) {~lb}%>
+                    <div class="list-group-item see-all-container">
+                        <a href="/search?q<%=q%>">{@__ phrase="Zobacz wszystkie" /}</a>
+                    </div>
+                <% {~rb} %>
+            </div>
+        <% {~rb} else {~lb} %>
+            <div class="no-live-search-results">
+                {@__ phrase="Brak" /}
+            </div>
+        <% {~rb} %>
+    </div>
+</script>

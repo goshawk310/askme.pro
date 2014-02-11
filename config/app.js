@@ -28,5 +28,19 @@ module.exports = {
     }, {
         key: 'en',
         name: 'English'
-    }]
+    }],
+    reservedWords: [
+        'uploads',
+        'components',
+        'css',
+        'fonts',
+        'images',
+        'js',
+        'templates',
+        'inbox',
+        'notifications',
+        'search',
+        'stream',
+        'online'
+    ]
 };

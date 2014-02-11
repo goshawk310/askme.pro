@@ -615,5 +615,38 @@ module.exports = _.extend({
         }
         UserModel
             .update({_id:params.id}, {$set: set}, callback);
+    },
+    search: function search(params, callback) {
+        var page = params.page || 0,
+            limit = params.limit || 18,
+            skip = limit * page,
+            regex = new RegExp(params.query, 'i'),
+            whereOr = [{username: {$regex: regex}}, {name: {$regex: regex}}, {lastname: {$regex: regex}}];
+        UserModel.count({$or: whereOr}, function (err, total) {
+            if (err) {
+                return callback(err);
+            }
+            if (!total) {
+                return callback(null, {
+                    total: 0,
+                    users: []
+                });
+            }
+            UserModel
+                .find({$or: whereOr})
+                .select('username name lastname avatar profile.location')
+                .skip(skip)
+                .limit(limit)
+                .sort({'stats.likes': -1})
+                .exec(function (err, users) {
+                    if (err) {
+                        return callback(err);
+                    }
+                    return callback(null, {
+                        total: total,
+                        users: users
+                    });
+                });
+        });  
     }
 }, require('../lib/service'));

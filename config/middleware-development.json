@@ -22,10 +22,7 @@
             "dumpExceptions": true,
             "showStack": true
         },
-        "errorPages": {
-            "404": "errors/404",
-            "500": "errors/500"
-        },
+        
         "multipart": {
             "params": {
                 "keepExtensions": true
