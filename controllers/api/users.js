@@ -296,4 +296,23 @@ module.exports = function(server) {
                 return res.send(results);
             });
     });
+
+    /**
+     * 
+     * @param  {Object} req
+     * @param  {Object} res
+     * @return {void}
+     */
+    server.get('/api/users/top20', function (req, res) {
+        userService
+            .setReq(req)
+            .getTop20({mode: req.param('mode')}, function (err, results) {
+                if (err) {
+                    return res.send(500, {
+                        status: 'error'
+                    });
+                }
+                return res.send(results);
+            });
+    });
 };

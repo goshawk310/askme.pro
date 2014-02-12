@@ -228,6 +228,18 @@ var User = function() {
         return isBlocked;
     };
 
+    /**
+     * [isFollowing description]
+     * @param  {String}  followed
+     * @return {Boolean}
+     */
+    schema.methods.isFollowing = function isFollowing(id) {
+        if (this.users && this.users.followed && this.users.followed.indexOf(id) !== -1) {
+            return true
+        }
+        return false;
+    };
+
     /** 
      * pre
      */

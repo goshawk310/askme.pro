@@ -107,7 +107,7 @@ module.exports = _.extend({
                         } else {
                             thisObj.renameFile(file, callback);
                         }
-                    })
+                    });
                 },
                 postProcess: function postProcess(filename, callback) {
                     var thisObj = this,
@@ -141,7 +141,7 @@ module.exports = _.extend({
             if (err) {
                 return callback(err, req, res);    
             }
-            user.set(data)
+            user.set(data);
             user.save(function (err) {
                 if (err) {
                     return callback(err, req, res);    
@@ -209,7 +209,7 @@ module.exports = _.extend({
                     } else {
                         thisObj.renameFile(file, callback);
                     }
-                })
+                });
             },
             postProcess: function postProcess(filename, callback) {
                 var thisObj = this,
@@ -222,7 +222,7 @@ module.exports = _.extend({
                     } else {
                         return callback(null, thisObj.req, thisObj.res, filename);
                     }
-                })
+                });
             }
         });
         upload.one(function (err, req, res, filename) {
@@ -330,7 +330,7 @@ module.exports = _.extend({
                         } else {
                             thisObj.renameFile(file, callback);
                         }
-                    })
+                    });
                 },
                 postProcess: function postProcess(filename, callback) {
                     var thisObj = this,
@@ -366,9 +366,9 @@ module.exports = _.extend({
             where = {
                 to: id
             };
-            if (!showPrivate) {
-                where.type = {$ne: 'private'};
-            }
+        if (!showPrivate) {
+            where.type = {$ne: 'private'};
+        }
         UserGiftModel
             .count(where, function (err, total) {
                 UserGiftModel
@@ -622,7 +622,7 @@ module.exports = _.extend({
             skip = limit * page,
             regex = new RegExp(params.query, 'i'),
             whereOr = [{username: {$regex: regex}}, {name: {$regex: regex}}, {lastname: {$regex: regex}}];
-        UserModel.count({$or: whereOr}, function (err, total) {
+        UserModel.count({$or: whereOr, 'status.value': 1}, function (err, total) {
             if (err) {
                 return callback(err);
             }
@@ -648,5 +648,56 @@ module.exports = _.extend({
                     });
                 });
         });  
-    }
+    },
+    /**
+     * 
+     * @param  {Object}   params
+     * @param  {Function} callback
+     * @return {void}
+     */
+    getTop20: function getTop20(params, callback) {
+        var req = this.getReq(),
+            sort = {},
+            mode = params.mode || 'points',
+            followed = [],
+            whereAnd = [{'status.value': 1}];
+        switch(mode) {
+            case 'likes':
+                sort = {'stats.likes': -1};
+                break;
+            case 'followers':
+                sort = {'stats.followers': -1};
+                break;    
+            default:
+                sort = {points: -1};
+                break;
+        }
+        if (req.isAuthenticated() && req.user.users) {
+            whereAnd.push({
+                _id: {$nin: req.user.users.blocked}
+            });
+            followed = req.user.users.followed;
+        }
+        UserModel
+            .find(whereAnd)
+            .select('username avatar stats.likes stats.followers points profile.motto')
+            .limit(20)
+            .sort(sort)
+            .exec(function (err, users) {
+                if (err) {
+                    return callback(err);
+                }
+                if (followed.length) {
+                    var output = [];
+                    _.each(users, function (user) {
+                        var obj = user.toObject();
+                        obj.isFollowed = user.isFollowed(followed);
+                        output.push(obj)
+                    });
+                    callback(null, output);
+                } else {
+                    callback(null, users);
+                }
+            });
+    },
 }, require('../lib/service'));

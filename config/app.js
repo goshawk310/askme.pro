@@ -41,6 +41,7 @@ module.exports = {
         'notifications',
         'search',
         'stream',
-        'online'
+        'online',
+        'top20'
     ]
 };

@@ -76,3 +76,67 @@ askmePro.views.PaginationView = Backbone.View.extend({
         
     }
 });
+
+askmePro.mixins.userFollow = {
+    events: {
+        'click .btn-follow':  'follow',
+        'click .btn-unfollow':  'unfollow'
+    },
+    follow: function follow (e) {
+        e.preventDefault();
+        var thisObj = this,
+            $this = this.$('.btn-follow'),
+            altText = $this.data('alttext'),
+            text = $this.html();
+        if ($this.hasClass('disabled')) {
+            return;
+        }
+        $this.addClass('disabled');
+        $.ajax('/api/users/' + this.model.get('_id') + '/follow', {
+            type: 'post',
+            beforeSend: function(xhr){
+               xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-param"]').attr('content'));
+            }
+        }).done(function () {
+            $this.removeClass('btn-follow').removeClass('btn-success')
+                .addClass('btn-unfollow').addClass('btn-default')
+                .html(altText).data('alttext', text);
+            if (typeof thisObj.postFollow === 'function') {
+                thisObj.postFollow($this);
+            }    
+        }).fail(function () {
+
+        }).always(function () {
+            $this.removeClass('disabled');
+        });
+    },
+    unfollow: function unfollow (e) {
+        e.preventDefault();
+        var thisObj = this,
+            $this = this.$('.btn-unfollow'),
+            altText = $this.data('alttext'),
+            text = $this.html();
+        if ($this.hasClass('disabled')) {
+            return;
+        }
+        $this.addClass('disabled');
+        $.ajax('/api/users/' + this.model.get('_id') + '/follow', {
+            type: 'post',
+            beforeSend: function(xhr){
+               xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-param"]').attr('content'));
+               xhr.setRequestHeader('X-HTTP-Method-Override', 'delete');
+            }
+        }).done(function () {
+            $this.removeClass('btn-unfollow').removeClass('btn-default')
+                .addClass('btn-follow').addClass('btn-success')
+                .html(altText).data('alttext', text);
+            if (typeof thisObj.postUnfollow === 'function') {
+                thisObj.postUnfollow($this);
+            }     
+        }).fail(function () {
+
+        }).always(function () {
+            $this.removeClass('disabled');
+        });
+    }
+};

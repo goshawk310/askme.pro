@@ -10,8 +10,7 @@ module.exports = function(server) {
         return Q.npost(userService, 'getByUsername', [req.param('username')])
         .then(function (user) {
             if (!req.isAuthenticated() && user.settings.anonymous_disallowed) {
-                req.flash('error', res.__('Aby przeglądać tą stronę trzeba się zalogować'));
-                return res.redirect('/account/login');
+                throw new Error('unauthorized');
             }
             var isFollowed = false,
                 isBlocked = false;
@@ -41,19 +40,27 @@ module.exports = function(server) {
         })
         .spread(function (user, data) {
             data.onlineUsers = [];
-            return Q.ninvoke(userService, 'getOnline', {
-                blocked: req.user.users.blocked
-            }).then(function (users) {
-                data.onlineUsers = users;
+            if (req.isAuthenticated() && req.user.users) {
+                return Q.ninvoke(userService, 'getOnline', {
+                    blocked: req.user.users.blocked
+                }).then(function (users) {
+                    data.onlineUsers = users;
+                    return data;
+                }, function () {
+                    return data;
+                });
+            } else {
                 return data;
-            }, function () {
-                return data;
-            });
+            }
         })
         .then(function (data) {
             return res.render('profile', data);
         })
         .fail(function (err) {
+            if (err.message && err.message) {
+                req.flash('error', res.__('Aby przeglądać tą stronę trzeba się zalogować'));
+                return res.redirect('/account/login');
+            }
             if (err) {
                 return next(err);
             }

@@ -82,6 +82,7 @@ var askmePro = {
     collections: {},
     routerIndex: null,
     routers: {},
+    mixins: {},
     settings: {
         upload: {},
         stream: {
@@ -202,7 +203,7 @@ var askmePro = {
     }
 };
 $(document).ready(function () {
-    if (!('ontouchstart' in document.documentElement)) {
+    if (!('ontouchstart' in window) && (!window.DocumentTouch || !(document instanceof DocumentTouch))) {
         $('body').addClass('no-touch');
     }
     var inboxCount = parseInt($('#inbox-count > span').html(), 10);
@@ -231,6 +232,9 @@ $(document).ready(function () {
     });
     
     (function() {
+        if (!$('body').hasClass('no-touch')) {
+            return;
+        }
         var $q = $('#q'),
             container = $('#main-search-form-elems'),
             options = {
@@ -264,8 +268,8 @@ $(document).ready(function () {
                 return;
             }
             if ($this.val().length > 2) {
+                searching = true;
                 timeout = setTimeout(function () {
-                    searching = true;
                     lastQuery = val;
                     $.get('/api/users/search', {
                         q: lastQuery, limit: 10
@@ -287,7 +291,7 @@ $(document).ready(function () {
                         $q.popover('hide');
                     });
                     clearTimeout(timeout);
-                }, 300);
+                }, 800);
             }
         });
     }());

@@ -1,0 +1,29 @@
+<script type="text/template" id="top20-user-tpl">
+    <div class="row user-container" id="<%=user._id%>">
+        <div class="col-md-10">
+            <div class="media">
+                <span class="pull-left top-20-index">#<%=user.index%></span><%=askmePro.views.helpers.userAvatar({~lb}user: user, size: 'cropped/100x', wrapper: true, cssClass: "box-shadow img-circle user-avatar small", linkClass: "user-avatar-wrapper pull-left"{~rb})%>
+                <div class="media-body">
+                    <a href="/<%=user.username%>"><%=user.username%></a>
+                    <p><%=modeLabel%>: <strong><%=modeValue%></strong></p>
+                    <p><em><%=user.profile.motto%></em></p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-2 <%=_.indexOf(askmePro.data.user.followed, user._id, true)%>">
+            {?user}
+                <% if ('{user.id}' !== user._id) {~lb}%>
+                    <% if (user.isFollowed) {~lb} %>
+                        <a class="btn btn-sm btn-default btn-unfollow" data-alttext="{@__ phrase="Obserwuj" /}">{@__ phrase="Zrezygnuj" /}</a>
+                    <% {~rb} else {~lb} %>
+                        <a class="btn btn-sm btn-success btn-follow" data-alttext="{@__ phrase="Zrezygnuj" /}">{@__ phrase="Obserwuj" /}</a>
+                    <% {~rb} %>
+                <% {~rb} %>
+            {/user}
+        </div>
+        <div class="col-md-12">
+            <hr />
+            <div class="clearfix"></div>
+        </div>
+    </div>
+</script>
