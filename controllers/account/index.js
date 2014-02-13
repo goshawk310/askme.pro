@@ -80,10 +80,7 @@ module.exports = function (server) {
                 return res.redirect('/account/signup');
             }
             req.login(user, function(err) {
-                if (err) {
-                    throw err;
-                }
-                return res.redirect('/site/activity');
+                return res.redirect('/');
             });
         });
     });
@@ -113,7 +110,25 @@ module.exports = function (server) {
             res.json(message);
         });
     });
+    
+    server.get('/account/complete-registration', function (req, res) {
+        var formData = req.flash('formData');
+        res.render('account/complete_registration', {
+            message: req.flash('message'),
+            formData: formData ? formData[0] : {}
+        });
+    });
 
-    
-    
+    server.post('/account/complete-registration', function  (req, res) {
+        userService.setReq(req).completeRegistration(req.user.id, function(err, user) {
+            if (err) {
+                req.flash('formData', req.body);
+                req.flash('message', {error: res.__('Wystąpił błąd')});
+                return res.redirect('/account/complete-registration');
+            }
+            req.login(user, function(err) {
+                return res.redirect('/');
+            });
+        });
+    });
 };

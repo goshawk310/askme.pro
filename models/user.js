@@ -17,7 +17,7 @@ var User = function() {
                 unique: true
             },
             required: true,
-            validate: [validate('len', 4, 20), validate('isAlphanumeric')]
+            validate: [validate('len', 4, 20), validate('regex', /[A-Za-z0-0\.\_\-]+/)]
         },
         password: {
             type: String,
@@ -181,6 +181,15 @@ var User = function() {
         last_visit_at: {
             type: Date,
             default: null
+        },
+        facebook: {
+            id: {
+                type: Number
+            }
+        },
+        incomplete: {
+            type: Boolean,
+            default: false
         }
     }, {
         collection: 'users',

@@ -19,6 +19,24 @@ module.exports = _.extend({
             callback(req, res, user, err);
         });
     },
+    completeRegistration: function completeRegistration(id, callback) {
+        var req = this.getReq();
+        UserModel.schema.path('password').validate(function(password) {
+            return password == req.body.password2;
+        }, 'Passwords do not match.');
+        UserModel.findOne({_id: id}, function (err, user) {
+            if (err) {
+                return callback(err);
+            }
+            var data = _.pick(req.body, 'password', 'terms_accepted');
+            data.incomplete = false;
+            data.status = {
+                value: 1
+            };
+            user.set(data);
+            user.save(callback);
+        });
+    },
     logout: function logout(id) {
         UserModel.update({_id: id}, {last_visit_at: null}, function (err) {
             if (!err) {

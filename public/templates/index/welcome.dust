@@ -32,8 +32,9 @@
                         </div>
                     </form>
                 </div>
-                <div class="panel-footer">
-
+                <div class="panel-footer text-center">
+                    <p><small>lub</small></p>
+                    <a href="/auth/facebook"><img src="/images/facebook.png" alt="facebook" /></a>
                 </div>
             </div>
         </div>
