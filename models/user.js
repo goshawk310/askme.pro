@@ -184,7 +184,7 @@ var User = function() {
         },
         facebook: {
             id: {
-                type: Number
+                type: String
             }
         },
         incomplete: {

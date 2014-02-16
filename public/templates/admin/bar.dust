@@ -1,0 +1,13 @@
+
+<div id="admin-bar-container">
+    <nav class="navbar navbar-default navbar-fixed-bottom" role="navigation">
+      <div class="container">
+        <div id="admin-bar" class="col-md-12">
+            <ul class="nav navbar-nav">
+                <li><a href="/admin/question-of-the-day">Administracja</a></li>
+            </ul>
+        </div>
+      </div>
+      <button class="btn btn-default" id="btn-admin-bar"><span class="glyphicon glyphicon-chevron-left"></span><span class="glyphicon glyphicon-chevron-right"></span></button>
+    </nav>
+</div>

@@ -1,0 +1,9 @@
+<form role="form">
+    <div class="form-group">
+        <label for="contents">{@__ phrase="Treść" /}:</label>
+        <textarea name="contents" id="contents" class="form-control" rows="3">
+            
+        </textarea>
+    </div>
+    <button type="submit" class="btn btn-primary">{@__ phrase="Zapisz" /}</button>
+</form>

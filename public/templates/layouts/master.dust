@@ -14,6 +14,9 @@
         <link href="/css/common.css" rel="stylesheet" />
         <link href="/css/pogo.css" rel="stylesheet" />
         {+css /}
+        {@hasPrivilegesOf user=user role="editor"}
+            <link href="/css/admin.css" rel="stylesheet" />
+        {/hasPrivilegesOf}
         <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!--[if lt IE 9]>
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
@@ -26,8 +29,10 @@
     <body>
         <div id="wrapper"{+wrapperAttribs}{?user.background} class="custom-bg" style="background-image: url('{user.background}')"{/user.background} {/wrapperAttribs}>
             {>"layouts/partials/top"/}
-            <div id="content">
-                {+body /}
+            <div id="wrapper-inner">
+                <div id="content">
+                    {+body /}
+                </div>
             </div>
         </div>
         {>"layouts/partials/footer"/}
@@ -46,5 +51,10 @@
         </script>
         <script src="/js/app/views/top.notifications.view.js"></script>
         {+js /}
+        {@hasPrivilegesOf user=user role="editor"}
+            <script src="/components/jquery.cookie.js"></script>
+            <script src="/js/admin.js"></script>
+            {>"admin/bar"/}
+        {/hasPrivilegesOf}
     </body>
 </html>

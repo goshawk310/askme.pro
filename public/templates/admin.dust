@@ -1,0 +1,35 @@
+{>"layouts/master" /}
+{<body}
+<div class="container" id="admin-content-wrapper">
+    <div class="row">
+        <div class="col-md-2">
+            <div class="list-group">
+                <a href="/admin/question-of-the-day" class="list-group-item active">{@__ phrase="Pytanie dnia" /}</a>
+            </div>
+        </div>
+        <div class="col-md-10">
+            <div class="center-block">
+                {>"layouts/partials/ajaxalert" /}
+                {?message}
+                    {@message data=message /}
+                {/message}
+                <div class="panel panel-default" id="content-wrapper">
+                    <div class="panel-heading">
+                        <h4>{title}</h4>
+                    </div>
+                    <div class="panel-body">
+                        <div id="content-container">
+                            {?content}
+                                {>"admin/{content}" /}
+                            {/content}
+                        </div>
+                    </div>
+                    <div class="panel-footer">
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{/body}

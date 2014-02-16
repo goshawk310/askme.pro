@@ -100,7 +100,6 @@ var Comment = function() {
                     }, function () {
                     
                     });
-                    console.log(ioHelper.getSocketId(question.to));
                     ioHelper.io().sockets.socket(ioHelper.getSocketId(question.to)).emit('feed', {
                         type: 'comment'
                     });

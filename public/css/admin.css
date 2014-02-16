@@ -1,0 +1,58 @@
+#admin-bar-container {
+    display: none;
+}
+
+.no-touch  #admin-bar-container {
+    display: block;
+}
+
+.no-touch #admin-bar-container .navbar-default {
+    background-color: rgba(248, 248, 248, 0.7);
+}
+.no-touch #admin-bar-container #admin-bar .navbar-nav > li > a {
+    padding-top: 5px;
+    padding-bottom: 5px;
+    color: #000;
+    background-color: blue;
+    margin: 10px 0 10px 0;
+    color: #ffffff;
+    background-color: #5bc0de;
+    border-color: #46b8da;
+}
+
+.no-touch #admin-bar-container #btn-admin-bar {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+}
+
+.no-touch .closed#admin-bar-container .container {
+    display: none;
+}
+
+.no-touch .closed#admin-bar-container .navbar-fixed-bottom {
+    left: auto;
+    width: 60px;
+    border-left: 1px solid #e7e7e7;
+    height: 51px;
+}
+
+.no-touch #admin-bar-container #btn-admin-bar span.glyphicon-chevron-right {
+    display: inline-block;
+}
+
+.no-touch #admin-bar-container #btn-admin-bar span.glyphicon-chevron-left {
+    display: none;
+}
+
+.no-touch .closed#admin-bar-container #btn-admin-bar span.glyphicon-chevron-right {
+    display: none;
+}
+
+.no-touch .closed#admin-bar-container #btn-admin-bar span.glyphicon-chevron-left {
+    display: inline-block;
+}
+
+#admin-content-wrapper {
+    background-color: #fff;
+}
