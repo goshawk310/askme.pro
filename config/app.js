@@ -42,6 +42,9 @@ module.exports = {
         'search',
         'stream',
         'online',
-        'top20'
+        'top20',
+        'admin',
+        'api',
+        'account'
     ]
 };

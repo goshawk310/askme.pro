@@ -121,7 +121,7 @@ var UserGift = function() {
      * @return {void}
      */
     schema.post('remove', function(userGift) {
-        QuestionModel.update({
+        UserModel.update({
             _id: userGift.to
         }, {
             $inc: {'stats.gifts': -1}

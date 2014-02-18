@@ -66,11 +66,11 @@ app.requestBeforeRoute = function requestBeforeRoute(server) {
     auth.init(server);
     //init dustjs custom helpers
     dustjsHelper(server).init(dust);
+    server.use('/captcha.jpg', require('easy-captcha').generate());
 };
 
 app.requestAfterRoute = function requestAfterRoute(server) {
     // Fired after routing occurs
-    server.use('/captcha.jpg', require('easy-captcha').generate());
 };
 
 if (require.main === module) {

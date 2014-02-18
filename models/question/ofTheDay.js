@@ -10,6 +10,16 @@ var QuestionOfTheDay = function Question() {
             type: String,
             required: true,
             validate: [validate('len', 1, 200)]
+        },
+        created_at: {
+            type: Date,
+            default: Date.now,
+            required: true    
+        },
+        created_by: {
+            type: mongoose.Schema.Types.ObjectId,
+            required: false,
+            ref: 'User'
         }
     }, {
         collection: 'questions_of_the_day',

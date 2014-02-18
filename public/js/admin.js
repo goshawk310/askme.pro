@@ -4,7 +4,8 @@ $(function () {
         contentWrapper = $('#admin-content-wrapper'),
         setHeight = function setHeight() {
             contentWrapper.height($('body').height() - $('#footer').outerHeight() - parseInt(contentWrapper.css('paddingTop'), 10)); 
-        };
+        },
+        form = $('.admin-form.default');
     if (contentWrapper.length) {    
         setHeight();
         $(window).on('resize', setHeight);
@@ -20,5 +21,24 @@ $(function () {
             barContainer.addClass('closed');
             $.cookie('admin-bar-container', 'closed', {path: '/'});
         }
-    });  
+    });
+    if (form.length) {
+        form.validate({
+            submitHandler: function(form) {
+                $.ajax({
+                    method: 'post',
+                    data: form.serialize()
+                })
+                .done(function () {
+                    
+                })
+                .fail(function () {
+                    
+                })
+                .always(function () {
+                    
+                });
+            }
+       });
+    }
 });
