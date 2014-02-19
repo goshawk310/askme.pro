@@ -20,7 +20,7 @@
                     <div class="panel-body">
                         <div id="content-container">
                             {?content}
-                                {>"admin/{content}" /}
+                                {>"admin/{content}" data="{data}"/}
                             {/content}
                         </div>
                     </div>

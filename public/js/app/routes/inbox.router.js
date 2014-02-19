@@ -30,5 +30,9 @@ askmePro.routers.Inbox = Backbone.Router.extend({
             .always(function () {
                 loader('hide');
             });
+        $.get('/api/questions/of-the-day')
+        .done(function (response) {
+            console.log(response);
+        });
     }
 });

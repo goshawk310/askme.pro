@@ -29,11 +29,11 @@
     <body>
         <div id="wrapper"{+wrapperAttribs}{?user.background} class="custom-bg" style="background-image: url('{user.background}')"{/user.background} {/wrapperAttribs}>
             {>"layouts/partials/top"/}
-            <div id="wrapper-inner">
-                <div id="content">
-                    {+body /}
-                </div>
+            <div id="content">
+                {+body /}
+                <div class="clearfix"></div>
             </div>
+            <div class="clearfix"></div>
         </div>
         {>"layouts/partials/footer"/}
         <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>

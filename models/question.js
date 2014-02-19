@@ -57,7 +57,13 @@ var Question = function Question() {
                 type: Number,
                 default: 0
             }
-        }
+        },
+        qday_id: {
+            type: mongoose.Schema.Types.ObjectId,
+            default: null,
+            ref: 'QuestionOfTheDay',
+            index: true
+        },
     }, {
         collection: 'questions',
         autoIndex: false

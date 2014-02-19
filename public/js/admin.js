@@ -25,18 +25,18 @@ $(function () {
     if (form.length) {
         form.validate({
             submitHandler: function(form) {
-                $.ajax({
-                    method: 'post',
-                    data: form.serialize()
-                })
-                .done(function () {
-                    
+                var $form = $(form),
+                    submit = $form.find('button[type="submit"]');
+                submit.attr('disabled', true);
+                $.post($form.attr('action'), $form.serialize())
+                .done(function (response) {
+                    askmePro.utils.showAlert(response);
                 })
                 .fail(function () {
-                    
+                    askmePro.utils.showAlert(response);
                 })
                 .always(function () {
-                    
+                    submit.attr('disabled', false);
                 });
             }
        });

@@ -1,8 +1,10 @@
-<form role="form" method="post" action="/api/admin/question/question-of-the-day" class="admin-form default">
+<form role="form" method="post" action="/api/admin/questions/of-the-day" class="admin-form default">
     <div class="form-group">
         <label for="contents">{@__ phrase="Treść" /}:</label>
         <textarea name="contents" id="contents" class="form-control" rows="3" required>
-            
+            {?data}
+                {data.contents}
+            {/data}
         </textarea>
     </div>
     <input type="hidden" name="_csrf" value="{_csrf}">

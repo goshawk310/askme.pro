@@ -1,5 +1,6 @@
 'use strict';
 var questionService = require('../../services/question'),
+    questionOfTheDayService = require('../../services/question/ofTheDay'),
     likeService = require('../../services/like'),
     commentService = require('../../services/comment'),
     auth = require('../../lib/auth');
@@ -271,5 +272,21 @@ module.exports = function(server) {
                     'message': ''
                 });
             });
+    });
+
+    /**
+     * 
+     * @param  {Object} req
+     * @param  {Object} res
+     * @return {void}
+     */
+    server.get('/api/questions/of-the-day', auth.isAuthenticated, function (req, res) {
+        questionOfTheDayService
+        .getUnasweredByUserId(req.user._id, function(err, question) {
+            if (err) {
+                return res.send(500);
+            }
+            res.send(question);
+        })
     });
 };

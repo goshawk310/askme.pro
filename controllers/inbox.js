@@ -1,5 +1,6 @@
 'use strict';
 var questionService = require('../services/question'),
+    questionOfTheDayService = require('../services/question/ofTheDay'),
     auth = require('../lib/auth');
 
 module.exports = function(server) {
@@ -34,7 +35,6 @@ module.exports = function(server) {
      * @return {[type]}
      */
     server.patch('/inbox/image/:id', auth.isAuthenticated, function (req, res) {
-        console.log(req);
         questionService
             .setServer(server)
             .setReq(req)

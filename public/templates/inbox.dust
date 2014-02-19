@@ -17,6 +17,9 @@
                         <h4>{@__ phrase="Pytania do mnie" /}:</h4>
                     </div>
                     <div class="panel-body">
+                        <div id="question-of-the-day-container">
+                            
+                        </div>
                         <div id="questions-container">
                             
                         </div>
