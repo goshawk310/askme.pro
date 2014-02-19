@@ -1148,6 +1148,16 @@ ul#profile-menu li.active a {
     margin-right: 20px;
 }
 
+.question-of-the-day .row {
+    background-color: #e9e9e9;
+    padding-top: 10px;
+    margin-bottom: 10px;
+}
+
+.question-of-the-day button.remove {
+    display: none;
+}
+
 @media (min-width: 768px) {
 	#profile-info-container {
         min-height: 150px;

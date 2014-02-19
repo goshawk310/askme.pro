@@ -289,4 +289,20 @@ module.exports = function(server) {
             res.send(question);
         })
     });
+    
+    /**
+     * 
+     * @param  {Object} req
+     * @param  {Object} res
+     * @return {void}
+     */
+    server.post('/api/questions/of-the-day', auth.isAuthenticated, function (req, res) {
+        questionOfTheDayService
+        .add(req.user._id, function(err, question) {
+            if (err) {
+                return res.send(500);
+            }
+            res.send(question);
+        })
+    });
 };

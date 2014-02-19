@@ -2,12 +2,13 @@ askmePro.views.InboxIndexView = Backbone.View.extend({
     template: _.template($('#inbox-question-pager-tpl').html()),
     ytWidget: null,
     ytWidgetWidth: null,
+    questionOfTheDay: null,
     initialize: function () {
         this.setElement($('#questions-wrapper'));
     },
     render: function () {
         var thisObj = this,
-            container = this.$('#questions-container');
+            container = this.$('#questions-container > .questions');
         container.html('');    
         this.collection.each(function (question) {
             container.append(new askmePro.views.InboxQuestionView({
@@ -19,6 +20,18 @@ askmePro.views.InboxIndexView = Backbone.View.extend({
         });
         if (this.attributes.total > this.attributes.perPage) {
             this.$('.panel-footer').html($(this.template(this.attributes)));
+        }
+        if (this.questionOfTheDay === null) {    
+            $.get('/api/questions/of-the-day')
+            .done(function (response) {
+                thisObj.questionOfTheDay = new askmePro.views.InboxQuestionOfTheDay({
+                    model: new askmePro.models.QuestionModel(response),
+                    attributes: {
+                        parent: thisObj
+                    }
+                });
+               thisObj.$('#questions-container > .question-of-the-day').html(thisObj.questionOfTheDay.render().$el);
+            });
         }
         return this;
     },
@@ -54,7 +67,7 @@ askmePro.views.InboxIndexView = Backbone.View.extend({
     }
 });
 
-askmePro.views.InboxQuestionView = Backbone.View.extend({
+askmePro.views.inboxQuestion = {
     template: _.template($('#inbox-question-tpl').html()),
     validationInitialized: false,
     initialize: function () {
@@ -87,7 +100,7 @@ askmePro.views.InboxQuestionView = Backbone.View.extend({
         'click button.show-answer-form': 'showAnswerForm',
         'click button.cancel': 'cancel',
         'click button.remove': 'removeQuestion',
-        'click button.yt': 'record'
+        'click .btn.yt': 'record'
     },
     showAnswerForm: function showAnswerForm() {
         var thisObj = this;
@@ -209,4 +222,31 @@ askmePro.views.InboxQuestionView = Backbone.View.extend({
             });
         });
     }
-});
+};
+
+askmePro.views.InboxQuestionView = Backbone.View.extend(askmePro.views.inboxQuestion);
+
+askmePro.views.InboxQuestionOfTheDay =  Backbone.View.extend(_.extend({
+    removeQuestion: function removeQuestion() {
+        
+    },
+    showAnswerForm: function showAnswerForm() {
+        var thisObj = this;
+        this.attributes.parent.$('.buttons').hide();    
+        this.$('.answer-form-wrapper').show();
+        $(window).scrollTop(this.$('.answer-form-wrapper').position().top);
+        if (!this.validationInitialized) {
+            this.$('form').validate({
+                rules: {
+                    'question[answer]': {
+                        required: true
+                    }
+                },
+                submitHandler: function submitHandler(form, e) {
+                    thisObj.answer(form, e);
+                }
+            });
+            this.validationInitialized = true;
+        }
+    }
+}, askmePro.views.inboxQuestion));

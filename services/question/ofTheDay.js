@@ -77,5 +77,26 @@ module.exports = _.extend({
                 return callback();
             }
         });
+    },
+    add: function add(userId, callback) {
+        this.getUnasweredByUserId(userId, function (err, questionOfTheDay) {
+            if (err) {
+                return callback(err);
+            }
+            if (!questionOfTheDay) {
+                return callback(new Error('No question of the day found'));
+            }
+            var question = new QuestionModel({
+                contents:  questionOfTheDay.contents,
+                to: userId,
+                qday_id: questionOfTheDay._id
+            });
+            question.save(function (err, question) {
+                if (err) {
+                    return callback(err);
+                }
+                callback(null, question);
+            });
+        });
     }
 }, require('../../lib/service'));
