@@ -5,7 +5,7 @@
                 <div class="media">
                     <%=askmePro.views.helpers.userAvatar({~lb}user: question.from, size: 'cropped/100x', wrapper: true, cssClass: "box-shadow img-circle user-avatar small", linkClass: "user-avatar-wrapper pull-left"{~rb})%>
                     <div class="media-body">
-                        <strong><%-question.contents%></strong><br/>
+                        <% if(question.qday_id){~lb}%> {@__ phrase="Pytanie dnia" /}:<%{~rb}%><strong><%-question.contents%></strong><br/>
                         <small class="text-muted">
                             {@__ phrase="Zapytano" /} <em><%=moment(question.created_at).fromNow()%></em>
                             <% if(question.from){~lb}%> {@__ phrase="przez" /} <a href="/<%=question.from.username%>"><%=question.from.username%></a><%{~rb}else{~lb}%>, {@__ phrase="anonimowo" /}<%{~rb}%>

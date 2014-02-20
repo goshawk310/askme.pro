@@ -4,7 +4,7 @@ var GiftModel = require('../models/gift'),
     mongoose = require('mongoose'),
     _ = require('underscore');
 
-module.exports = _.extend({
+module.exports = _.defaults({
     getAll: function getAll(callback) {
         GiftModel
             .find()

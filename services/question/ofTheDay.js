@@ -16,7 +16,7 @@ function getTodayCondition() {
     };    
 };
 
-module.exports = _.extend({
+module.exports = _.defaults({
     ask: function ask(callback) {
         var req = this.getReq(),
             today = new Date(),

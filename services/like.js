@@ -3,7 +3,7 @@ var LikeModel = require('../models/like'),
     mongoose = require('mongoose'),
     _ = require('underscore');
 
-module.exports = _.extend({
+module.exports = _.defaults({
     create: function create(params, callback) {
         var req = this.getReq(),
             res = this.getRes(),

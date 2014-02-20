@@ -7,7 +7,7 @@ var QuestionModel = require('../models/question'),
     FileUpload = require('../lib/file/upload'),
     validator = require('validator');
 
-module.exports = _.extend({
+module.exports = _.defaults({
     ask: function ask(callback) {
         var req = this.getReq(),
             res = this.getRes(),

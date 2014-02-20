@@ -23,7 +23,7 @@ var CommentModel = require('../models/comment'),
         }
     };
 
-module.exports = _.extend({
+module.exports = _.defaults({
     create: function create(params, callback) {
         var comment = new CommentModel(),
             req = this.getReq();
