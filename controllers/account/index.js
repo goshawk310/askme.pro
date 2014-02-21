@@ -4,7 +4,6 @@ var auth = require('../../lib/auth'),
     check = require('validator').check,
     userService = require('../../services/user'),
     UserModel = require('../../models/user'),
-    StickerModel = require('../../models/sticker'),
     _ = require('underscore');
 
 module.exports = function (server) {

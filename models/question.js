@@ -2,7 +2,6 @@
 
 var mongoose = require('mongoose'),
     validate = require('mongoose-validator').validate,
-    UserModel = require('./user'),
     fsExtra = require('fs-extra'),
     config = require('../config/app'),
     blockedWords = require('../lib/blockedWords'),
@@ -93,6 +92,7 @@ var Question = function Question() {
      * @return void
      */
     schema.post('save', function(question) {
+        var UserModel = require('./user');
         if (this.wasNew) {
             UserModel.update({
                 _id: question.to
@@ -140,6 +140,9 @@ var Question = function Question() {
      * @return void
      */
     schema.post('remove', function(question) {
+        var UserModel = require('./user'),
+            CommentModel = require('./comment'),
+            LikeModel = require('./like');
         if (question.answer === null) {
             UserModel.update({
                 _id: question.to
@@ -158,6 +161,16 @@ var Question = function Question() {
                 }
             }, function (err, user) {
             
+            });
+            CommentModel.remove({
+                question_id: question._id
+            }, function (err) {
+               
+            });
+            LikeModel.remove({
+                question_id: question._id
+            }, function (err) {
+               
             });
         }
         if (question.image !== null) {

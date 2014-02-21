@@ -470,7 +470,7 @@ module.exports = _.defaults({
                     return callback(err);
                 }
                 if (blocked === null) {
-                    return blocked(new Error('Blocked not found'));
+                    return callback(new Error('Blocked not found'));
                 }
                 blocked.remove(function (err) {
                     if (err) {

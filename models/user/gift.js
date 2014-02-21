@@ -1,8 +1,7 @@
 'use strict';
 
 var mongoose = require('mongoose'),
-    validate = require('mongoose-validator').validate,
-    UserModel = require('../user');
+    validate = require('mongoose-validator').validate;
 
 var UserGift = function() {
 
@@ -93,6 +92,7 @@ var UserGift = function() {
      */
     schema.post('save', function(userGift) {
         if (this.wasNew) {
+            var UserModel = require('../user');
             UserModel.update({
                 _id: userGift.from
             }, {
@@ -121,6 +121,7 @@ var UserGift = function() {
      * @return {void}
      */
     schema.post('remove', function(userGift) {
+        var UserModel = require('../user');
         UserModel.update({
             _id: userGift.to
         }, {

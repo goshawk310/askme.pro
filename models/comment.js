@@ -2,8 +2,6 @@
 
 var mongoose = require('mongoose'),
     validate = require('mongoose-validator').validate,
-    QuestionModel = require('./question'),
-    UserModel = require('./user'),
     ioHelper = require('../lib/socket.io');
 
 var Comment = function() {
@@ -76,6 +74,9 @@ var Comment = function() {
      * @return {void}
      */
     schema.post('save', function(comment) {
+        var QuestionModel = require('./question'),
+            UserModel = require('./user');
+    
         if (this.wasNew) {
             QuestionModel.update({
                 _id: comment.question_id
@@ -113,6 +114,7 @@ var Comment = function() {
      * @return {void}
      */
     schema.post('remove', function(comment) {
+        var QuestionModel = require('./question');
         QuestionModel.update({
             _id: comment.question_id
         }, {

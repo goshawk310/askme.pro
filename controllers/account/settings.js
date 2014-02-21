@@ -3,7 +3,6 @@ var auth = require('../../lib/auth'),
     captcha = require('easy-captcha'),
     check = require('validator').check,
     userService = require('../../services/user'),
-    UserModel = require('../../models/user'),
     StickerModel = require('../../models/sticker'),
     _ = require('underscore');
 

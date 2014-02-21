@@ -1,8 +1,7 @@
 'use strict';
 
 var mongoose = require('mongoose'),
-    validate = require('mongoose-validator').validate,
-    UserModel = require('../user');
+    validate = require('mongoose-validator').validate;
 
 var UserFollowed = function() {
 
@@ -55,6 +54,7 @@ var UserFollowed = function() {
      */
     schema.post('save', function(followed) {
         if (this.wasNew) {
+            var UserModel = require('../user');
             UserModel.update({
                 _id: followed.by
             }, {
@@ -84,6 +84,7 @@ var UserFollowed = function() {
      * @return {void}
      */
     schema.post('remove', function(followed) {
+        var UserModel = require('../user');
         UserModel.update({
             _id: followed.by
         }, {
@@ -97,14 +98,14 @@ var UserFollowed = function() {
         
         });
         UserModel.update({
-                _id: followed.user
-            }, {
-                $inc: {
-                    'stats.followers': -1
-                }
-            }, function (err, user) {
-            
-            });
+            _id: followed.user
+        }, {
+            $inc: {
+                'stats.followers': -1
+            }
+        }, function (err, user) {
+        
+        });
     });
     return mongoose.model('UserFollowed', schema);
 };

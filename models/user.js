@@ -1,15 +1,13 @@
-'use strict';
-
 var mongoose = require('mongoose'),
     validate = require('mongoose-validator').validate,
     bcrypt = require('bcrypt'),
     crypto = require('crypto'),
     fsExtra = require('fs-extra'),
     config = require('../config/app'),
-    path = require('path');
+    path = require('path'),
+    _ = require('underscore');
 
 var User = function() {
-
     var schema = mongoose.Schema({
         username: {
             type: String,
@@ -44,7 +42,8 @@ var User = function() {
         },
         settings: {
             anonymous_disallowed: {
-                type: Boolean, default: false
+                type: Boolean,
+                default: false
             }
         },
         profile: {
@@ -244,7 +243,7 @@ var User = function() {
      */
     schema.methods.isFollowing = function isFollowing(id) {
         if (this.users && this.users.followed && this.users.followed.indexOf(id) !== -1) {
-            return true
+            return true;
         }
         return false;
     };
@@ -263,7 +262,7 @@ var User = function() {
                     }
                     user.password = hash;
                     next();
-                })
+                });
             });
         } else if (user.isModified('status.value') && user.status.value === 0) {
             bcrypt.genSalt(10, function(err, salt) {
@@ -273,7 +272,7 @@ var User = function() {
                     }
                     user.status.token = token;
                     next();
-                })
+                });
             });
         } else {
             next();
@@ -305,6 +304,47 @@ var User = function() {
                 fsExtra.remove(config.topbg.dir + oldTopbg);
             }
         }
+    });
+    
+    /**
+     * post remove
+     * @return void
+     */
+    schema.post('remove', function(user) {
+        var UserBlockedModel = require('./user/blocked'),
+            UserFollowedModel = require('./user/followed'),
+            UserGiftModel = require('./user/gift'),
+            QuestionModel = require('./question');
+        if (user.avatar) {
+            fsExtra.remove(config.avatar.dir + user.avatar);
+            fsExtra.remove(config.avatar.dir + user.avatar.replace(path.extname(user.avatar), ''));
+        }
+        if (user.custom_background) {
+            fsExtra.remove(config.custom_background.dir + user.custom_background);
+        }
+        if (user.top_bg) {
+            fsExtra.remove(config.top_bg.dir + user.top_bg);
+        }
+        UserBlockedModel.remove({
+            $or: [{by: user._id}, {user: user._id}]
+        }, function () {
+               
+        });
+        UserFollowedModel.remove({
+            $or: [{by: user._id}, {user: user._id}]
+        }, function () {
+               
+        });
+        UserGiftModel.remove({
+            to: user._id
+        }, function () {
+               
+        });
+        QuestionModel.remove({
+            to: user._id
+        }, function () {
+               
+        });
     });
 
     schema.methods.comparePasswords = function comparePasswords(password, callback) {

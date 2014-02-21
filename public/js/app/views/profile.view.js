@@ -542,12 +542,14 @@ askmePro.views.ProfileFollowsView = Backbone.View.extend({
                 body.html('');
                 collection.add(response.users);
                 collection.each(function (user) {
-                    user.url = '/api/users/' + user.attributes.user._id + '/follow';
-                    body.append(new askmePro.views.ProfileUserView({
-                        model: user,
-                        parent: thisObj,
-                        editable: true
-                    }).render().$el);
+                    if (user.attributes.user) {
+                        user.url = '/api/users/' + user.attributes.user._id + '/follow';
+                        body.append(new askmePro.views.ProfileUserView({
+                            model: user,
+                            parent: thisObj,
+                            editable: true
+                        }).render().$el);
+                    }
                 });
                 if (response.total > thisObj.limit) {
                     if (thisObj.pagination === null) {
