@@ -9,6 +9,10 @@ var mongoose = require('mongoose'),
 
 var User = function() {
     var schema = mongoose.Schema({
+        created_at: {
+            type: Date,
+            default: Date.now
+        },
         username: {
             type: String,
             index: {
@@ -31,11 +35,11 @@ var User = function() {
         },
         name: {
             type: String,
-            required: true
+            required: false
         },
         lastname: {
             type: String,
-            required: true
+            required: false
         },
         avatar: {
             type: String,
@@ -348,6 +352,8 @@ var User = function() {
     });
 
     schema.methods.comparePasswords = function comparePasswords(password, callback) {
+        console.log('comparePasswords');
+        console.log(this.old);
         if (this.old === false) {
             return bcrypt.compare(password, this.password, function(err, matched) {
                 if (err) {
@@ -360,6 +366,7 @@ var User = function() {
             password = crypto.createHash('md5').update(password.toLowerCase()).digest('hex');
             password = (new Buffer(password)).toString('base64');
             password = crypto.createHash('sha1').update(password).digest('hex');
+            console.log(password + '   ' + this.password);
             if (password === this.password) {
                 matched = true;
             }
