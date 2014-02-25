@@ -5,7 +5,9 @@ var _ = require('underscore'),
         user: 'admin_ask',
         password: 'POgoda84',
         database: 'admin_ask'
-    });
+    }),
+    http = require('http'),
+    fs = require('fs');
 
 module.exports.db = {
     mysql: {
@@ -21,4 +23,25 @@ module.exports.convertToUtf8 = function convertToUtf8(fields) {
         selectFields.push(mysql.replace(/__field__/g, field));
     });
     return selectFields.join(', ');
+};
+
+module.exports.downloadFile = function downloadFile(url, dest, cb) {
+    var file = fs.createWriteStream(dest);
+    var request = http.get(url, function(response) {
+        if (response.statusCode === 200) {
+            response.pipe(file);
+            file.on('finish', function() {
+                file.close();
+                file.end();
+                if (cb) {
+                    cb(null, url, dest);
+                }
+            });
+        } else {
+            cb(new Error('404'));
+        }
+    });
+    request.on('error', function (e) {
+        console.log('get error: ' + e.message);
+    });
 };

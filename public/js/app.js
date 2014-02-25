@@ -147,14 +147,16 @@ var askmePro = {
             elementLength = elements.length,
             i = 1;
         elements.first().show();
-        setInterval(function () {
-            $(elements).fadeOut();
-            $(elements[i]).fadeIn();
-            i += 1;
-            if (i >= elementLength) {
-                i = 0;
-            }
-        }, 4000);
+        if (elementLength > 1) {
+            setInterval(function () {
+                $(elements).fadeOut();
+                $(elements[i]).fadeIn();
+                i += 1;
+                if (i >= elementLength) {
+                    i = 0;
+                }
+            }, 4000);
+        }
     },
     signup: function signup() {
         this.utils.setupDefaultValidator();

@@ -11,7 +11,7 @@ body {
     box-shadow: none;
     -webkit-box-shadow: none;
 }
-.fade-carousel {position: relative; min-height: 360px;}
+.fade-carousel {position: relative; min-height: 483px;}
 .fade-carousel img {display: none; position: absolute; left: 0; top: 0; max-width: 100%;}
 .fade-carousel img.active {display: block;}
 .single-form-panel {max-width: 600px; margin: 0 auto;}
@@ -90,6 +90,10 @@ a:hover, a:focus {color: #464646;}
     background-repeat: repeat;
     background-position: left top;
     background-attachment: fixed;
+}
+
+.welcome#wrapper {
+    min-height: inherit;
 }
 
 #content > .container {

@@ -57,3 +57,32 @@ ul#profile-menu li a {
     white-space: normal;
 }
 #profile-stats-container a { border-color:#e8e8e8;}
+
+#wrapper {
+    background: radial-gradient(circle, #94D2F8, #0188BD) repeat scroll 0 0 rgba(0, 0, 0, 0);
+}
+
+#footer {
+    background-color: #FFFFFF;
+    color: #000000;
+    min-height: 105px;
+    padding: 10px 0 20px;
+}
+
+#footer hr {
+    border-top: 1px solid #CCCCCC;
+    margin-bottom: 5px;
+    margin-top: 5px;
+}
+
+#footer a {
+    color: #357EBD;
+}
+
+#footer a {
+    color: #357EBD;
+}
+
+#main-navbar {
+    background: none repeat scroll 0 0 #35AADC;
+}

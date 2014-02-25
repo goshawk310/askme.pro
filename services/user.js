@@ -489,7 +489,7 @@ module.exports = _.defaults({
             .find({
                 by: id
             })
-            .populate('user', 'username avatar')
+            .populate('user', 'username avatar profile.location')
             .skip(skip)
             .limit(limit)
             .sort({_id: -1})
@@ -512,7 +512,7 @@ module.exports = _.defaults({
             .find({
                 user: id
             })
-            .populate('by', 'username avatar')
+            .populate('by', 'username avatar profile.location')
             .skip(skip)
             .limit(limit)
             .sort({_id: -1})

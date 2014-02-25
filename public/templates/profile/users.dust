@@ -20,7 +20,7 @@
         <div class="caption">
             <p>
                 <strong><a href="/<%=user.user.username%>"><%=user.user.username%></a></strong><br>
-                <em class="small"><%=moment(user.created_at).fromNow()%></em>
+                <em class="small"><%=user.user.profile.location%></em>
             </p>
         </div>
         {?user}
