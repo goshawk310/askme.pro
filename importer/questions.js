@@ -1,10 +1,9 @@
-var pool = require('../common').db.mysql.pool,
-    convertToUtf8 = require('../common').convertToUtf8,
+var pool = require('./common').db.mysql.pool,
+    convertToUtf8 = require('./common').convertToUtf8,
      _ = require('underscore'),
     async = require('async'),
-    UserModel = require('../../models/user'),
-    UserGiftModel = require('../../models/user/gift'),
-    GiftModel = require('../../models/gift'),
+    UserModel = require('../models/user'),
+    QuestionModel = require('../models/question'),
     settings = {
         page: 0,
         limit: 1000,
@@ -25,9 +24,9 @@ var dataImport = {
         async.waterfall([
             function get(callback) {
                 var sql = 'SELECT *, ' + convertToUtf8([
-                        'to_user', 'from_user'
+                        'to_user', 'from_user', 'question', 'answer'
                     ]) +
-                    ' FROM gifts' +
+                    ' FROM questions' +
                     ' LIMIT ' + offset + ', ' + limit;
                 connection.query(sql, function (err, rows) {
                     callback(err, rows);

@@ -63,6 +63,12 @@ var Question = function Question() {
             ref: 'QuestionOfTheDay',
             index: true
         },
+        sync: {
+            id: {
+                type: Number,
+                default: null
+            }
+        }
     }, {
         collection: 'questions',
         autoIndex: false
