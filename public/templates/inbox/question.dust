@@ -105,3 +105,13 @@
         <%{~rb}%>
     </ul>    
 </script>
+<script type="text/template" id="inbox-no-questions-tpl">
+    <div class="text-center">
+        <p><img src="/images/empty.png" /></p>
+        <p class="alert alert-info">{@__ phrase="Brak pytań?  Udostępniaj swój profil na ulubionej platformie!" /}</p>
+        <p class="share-box">
+            <a href="http://facebook.com/sharer.php?u=http://askme.pro/{user.username}&t=Zadaj pytanie  {user.username} - http://askme.pro/{user.username}" siteload="siteload" target="_blank" title="{@__ phrase="Udostępnij na facebooku" /}"><img src="/images/social/facebook.png"></a>
+            <a href="http://twitter.com/home?status=Zadaj pytanie  {user.username} - http://askme.pro/{user.username} @askme.pro" siteload="siteload" target="_blank" title="{@__ phrase="Udostępnij na twitterze" /}"><img src="/images/social/twitter.png"></a>
+        </p>
+    </div>
+</script>

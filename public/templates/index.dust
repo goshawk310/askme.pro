@@ -72,4 +72,15 @@
         </div>
     </div>
 </script>
+<script type="text/template" id="empty-stream-tpl">
+    <div class="row">
+        <div class="col-md-12 text-center">
+            {@eq key=mode value="friends"}
+                <p class="alert alert-info">{@__ phrase="Nie obserwujesz nikogo. Dodaj do obserwowanych ciekawych użytkowników, aby być na bieżąco!" /}</p>
+            {:else}
+                <p></p>
+            {/eq}
+        </div>
+    </div>
+</script>
 {/jsTemplates}

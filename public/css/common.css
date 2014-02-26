@@ -1162,6 +1162,10 @@ ul#profile-menu li.active a {
     display: none;
 }
 
+.share-box a {
+    margin: 0 10px 0 10px;
+}
+
 @media (min-width: 768px) {
 	#profile-info-container {
         min-height: 150px;

@@ -193,6 +193,16 @@ var User = function() {
         incomplete: {
             type: Boolean,
             default: false
+        },
+        sync: {
+            avatar: {
+                type: Boolean,
+                default: false
+            },
+            bg: {
+                type: Boolean,
+                default: false
+            }
         }
     }, {
         collection: 'users',

@@ -9,15 +9,20 @@ askmePro.views.InboxIndexView = Backbone.View.extend({
     render: function () {
         var thisObj = this,
             container = this.$('#questions-container > .questions');
-        container.html('');    
-        this.collection.each(function (question) {
-            container.append(new askmePro.views.InboxQuestionView({
-                model: question,
-                attributes: {
-                    parent: thisObj
-                }
-            }).render().$el);
-        });
+        if (!this.collection.length) {
+            var npqTpl = _.template($('#inbox-no-questions-tpl').html());
+            container.html($(npqTpl()));
+        } else {
+            container.html('');
+            this.collection.each(function (question) {
+                container.append(new askmePro.views.InboxQuestionView({
+                    model: question,
+                    attributes: {
+                        parent: thisObj
+                    }
+                }).render().$el);
+            });
+        }
         if (this.attributes.total > this.attributes.perPage) {
             this.$('.panel-footer').html($(this.template(this.attributes)));
         }

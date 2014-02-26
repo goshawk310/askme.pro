@@ -1,43 +1,15 @@
-var pool = require('./common').db.mysql.pool,
-    convertToUtf8 = require('./common').convertToUtf8,
-    downloadFile = require('./common').downloadFile,
-    validator = require('validator'),
-    _ = require('underscore'),
-    fs = require('fs'),
+var pool = require('../common').db.mysql.pool,
+     _ = require('underscore'),
     async = require('async'),
-    UserModel = require('../models/user'),
-    UserFollowedModel = require('../models/user/followed'),
-    UserBlockedModel = require('../models/user/blocked'),
-    FileImage = require('../lib/file/image'),
+    UserModel = require('../../models/user'),
     settings = {
-        users: {
-            page: 0,
-            limit: 1000
-        },
-        followed: {
-            page: 0,
-            limit: 1000
-        },
-        blocked: {
-            page: 0,
-            limit: 1000
-        },
-        avatars: {
-            page: 0,
-            limit: 20,
-            processed: 0,
-            errors: 0,
-            overall: 0
-        },
-        backgrounds: {
-            page: 0,
-            limit: 20,
-            processed: 0,
-            errors: 0,
-            overall: 0
-        }
+        page: 0,
+        limit: 20,
+        processed: 0,
+        errors: 0,
+        overall: 0
     };
-require('../lib/database').config({
+require('../../lib/database').config({
     host: 'localhost',
     name: 'askme_pro'
 });

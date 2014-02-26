@@ -28,24 +28,28 @@ askmePro.views.StreamView = Backbone.View.extend({
         this.collection.sync('read', this.collection, {
             data: {lastAnsweredAt: thisObj.lastAnsweredAt, mode: askmePro.settings.stream.mode},
             success: function (response) {
-                _.each(response.questions, function (question) {
-                    thisObj.collection.add(question);
-                    body.append(new askmePro.views.QuestionView({
-                        model: thisObj.collection.last(),
-                        parent: thisObj
-                    }).render().$el);
-                });
-                thisObj.lastAnsweredAt = thisObj.collection.last().get('answered_at');
+                if (response.questions && response.questions.length) {
+                    _.each(response.questions, function (question) {
+                        thisObj.collection.add(question);
+                        body.append(new askmePro.views.QuestionView({
+                            model: thisObj.collection.last(),
+                            parent: thisObj
+                        }).render().$el);
+                    });
+                    thisObj.lastAnsweredAt = thisObj.collection.last().get('answered_at');
+                    if (!thisObj.interval) {
+                        thisObj.firstAnsweredAt = thisObj.collection.first().get('answered_at');
+                        thisObj.setupInterval();
+                    }
+                } else {
+                    body.html($(_.template($('#empty-stream-tpl').html())()));
+                }
                 if (response.hasMore === false) {
                     thisObj.page =  0;
                     moreContainer.hide();
                 } else {
                     thisObj.page = response.hasMore;
                     moreContainer.show();
-                }
-                if (!thisObj.interval) {
-                    thisObj.firstAnsweredAt = thisObj.collection.first().get('answered_at');
-                    thisObj.setupInterval();
                 }
                 thisObj.loader('hide');
             }
