@@ -15,9 +15,12 @@ var Gift = function() {
             type: String,
             required: false
         },
-        old_id: {
-            type: Number,
-            required: false
+        sync: {
+           id: {
+                type: Number,
+                required: false,
+                index: {unique: true, sparse: true}
+            }
         }
     }, {
         collection: 'gifts',

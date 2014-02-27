@@ -66,7 +66,8 @@ var Question = function Question() {
         sync: {
             id: {
                 type: Number,
-                default: null
+                default: null,
+                index: {unique: true, sparse: true}
             }
         }
     }, {

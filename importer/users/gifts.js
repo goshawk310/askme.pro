@@ -44,44 +44,47 @@ var dataImport = {
                 async.eachLimit(rows, 50, function (row, eachCallback) {
                     async.waterfall([
                         function getUserFrom(giftCallback) {
-                            UserModel.findOne({_id: row.from_user}, function (err, userFrom) {
+                            UserModel.findOne({username: row.from_user}, function (err, userFrom) {
                                 if (err) {
                                     return giftCallback(err);
                                 }
                                 if (!userFrom) {
-                                    return giftCallback(new Error('User not found'));
+                                    return giftCallback(new Error('User not found: "' + row.to_user + '"'));
                                 }
                                 giftCallback(null, row, userFrom);
                             });
                         },
                         function getUserTo(row, userFrom, giftCallback) {
-                            UserModel.findOne({_id: row.to_user}, function (err, userTo) {
+                            UserModel.findOne({username: row.to_user}, function (err, userTo) {
                                 if (err) {
                                     return giftCallback(err);
                                 }
                                 if (!userTo) {
-                                    return giftCallback(new Error('User not found'));
+                                    return giftCallback(new Error('User not found: "' + row.to_user + '"'));
                                 }
                                 giftCallback(null, row, userFrom, userTo);
                             });
                         },
-                        function getGift(row, userFrom, userTo) {
-                            GiftModel.findOne({old_id: row.gift_id}, function (err, gift) {
+                        function getGift(row, userFrom, userTo, giftCallback) {
+                            GiftModel.findOne({'sync.id': row.gift_id}, function (err, gift) {
                                 if (err) {
                                     return giftCallback(err);
                                 }
                                 if (!gift) {
-                                    return giftCallback(new Error('Gift not found'));
+                                    return giftCallback(new Error('Gift not found: "' + row.gift_id + '"'));
                                 }
                                 giftCallback(null, row, userFrom, userTo, gift);
                             });
                         },
-                        function add(row, userFrom, userTo, gift) {
+                        function add(row, userFrom, userTo, gift, giftCallback) {
                             var data = {
                                 created_at: new Date(row.date),
                                 gift: gift._id,
                                 to: userTo._id,
-                                from: userFrom._id
+                                from: userFrom._id,
+                                sync: {
+                                    id: row.id
+                                }
                             },
                             type = parseInt(row.type, 10);
                             if (type === 2) {

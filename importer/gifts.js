@@ -29,7 +29,7 @@ var dataImport = {
 
                     });
                     (new GiftModel({
-                        old_id: row.id,
+                        'sync.id': row.id,
                         name: row.name,
                         file: row.image
                     })).save(function (err) {

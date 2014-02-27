@@ -50,6 +50,13 @@ var UserGift = function() {
                 type: Number,
                 default: 0
             }
+        }, 
+        sync: {
+            id: {
+                type: Number,
+                default: null,
+                index: {unique: true, sparse: true}
+            }
         }
     }, {
         collection: 'users_gifts',
