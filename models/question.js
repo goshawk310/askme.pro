@@ -22,6 +22,11 @@ var Question = function Question() {
             ref: 'User',
             index: true
         },
+        og_from: {
+            type: mongoose.Schema.Types.ObjectId,
+            default: null,
+            ref: 'User'
+        },
         contents: {
             type: String,
             required: true,
@@ -62,6 +67,11 @@ var Question = function Question() {
             default: null,
             ref: 'QuestionOfTheDay',
             index: true
+        },
+        ip: {
+            type: String,
+            required: false,
+            default: null
         },
         sync: {
             id: {
@@ -108,9 +118,12 @@ var Question = function Question() {
             }, function (err, user) {
             
             });
-            ioHelper.io().sockets.socket(ioHelper.getSocketId(question.to)).emit('questions', {
-                id: question._id
-            });
+            var io = ioHelper.io();
+            if (io) {
+                io.sockets.socket(ioHelper.getSocketId(question.to)).emit('questions', {
+                    id: question._id
+                });
+            }
         } else if (this._original.answer === null && this.answer !== null) {
             UserModel.update({
                 _id: question.to
@@ -133,9 +146,12 @@ var Question = function Question() {
                 }, function (err, user) {
                     
                 });
-                ioHelper.io().sockets.socket(ioHelper.getSocketId(question.from)).emit('feed', {
-                    type: 'answer'
-                });
+                var io = ioHelper.io();
+                if (io) {
+                    io.sockets.socket(ioHelper.getSocketId(question.from)).emit('feed', {
+                        type: 'answer'
+                    });
+                }
             }
         } else if (this._original.image !== null && this.image === null) {
             fsExtra.remove(config.answer.dir + this._original.image);

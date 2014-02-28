@@ -6,7 +6,6 @@ var pool = require('./common').db.mysql.pool,
     fs = require('fs'),
     async = require('async'),
     UserModel = require('../models/user'),
-    UserFollowedModel = require('../models/user/followed'),
     UserBlockedModel = require('../models/user/blocked'),
     FileImage = require('../lib/file/image'),
     settings = {
@@ -103,72 +102,6 @@ var dataImport = {
                 });
             });
             connection.release();
-        });
-    },
-    followed: function followed(connection, page) {
-        var index = 0,
-            errors = 0,
-            limit = settings.followed.limit,
-            offset = page * limit;  
-        UserModel.find({})
-        .skip(offset)
-        .limit(limit)
-        .exec(function (err, users) {
-            if (!err && users && users.length) {
-                _.each(users, function (user) {
-                    connection.query('SELECT * FROM users_friends WHERE username = "' + user.username + '"', function(err, rows) {
-                        if (err || !rows || !rows.length) {
-                            if (err) {
-                                errors += 1;
-                            }
-                            index += 1;
-                            if (index === limit) {
-                                console.log('1.page: ' + settings.followed.page + ', successful: ' + (limit - errors) + ', errors: ' + errors);
-                                settings.followed.page += 1;
-                                dataImport.followed(connection, settings.followed.page);
-                            }
-                        } else {
-                            _.each(rows, function (row) {
-                                UserModel
-                                .findOne({username: row.friend})
-                                .exec(function (err, followed) {
-                                    if (err || !followed) {
-                                        if (err) {
-                                            errors += 1;
-                                        }
-                                        index += 1;
-                                        if (index === limit) {
-                                            console.log('2.page: ' + settings.followed.page + ', successful: ' + (limit - errors) + ', errors: ' + errors);
-                                            settings.followed.page += 1;
-                                            dataImport.followed(connection, settings.followed.page);
-                                        }
-                                    } else {
-                                        var userFollowed = new UserFollowedModel({
-                                            by: user._id,
-                                            user: followed._id
-                                        });
-                                        userFollowed.save(function (err) {
-                                            index += 1;
-                                            if (err) {
-                                                errors += 1;
-                                            }
-                                            if (index === limit) {
-                                                console.log('3.page: ' + settings.followed.page + ', successful: ' + (limit - errors) + ', errors: ' + errors);
-                                                settings.followed.page += 1;
-                                                dataImport.followed(connection, settings.followed.page);
-                                            }
-                                        });
-                                    }
-                                });
-                                
-                            });
-                        }
-                    });
-                });
-                connection.release();
-            } else {
-                return console.log('END OF IMPORT...')
-            }
         });
     },
     blocked: function blocked(connection, page) {

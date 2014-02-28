@@ -1,22 +1,22 @@
-var pool = require('./common').db.mysql.pool,
-    convertToUtf8 = require('./common').convertToUtf8,
+var pool = require('../common').db.mysql.pool,
+    convertToUtf8 = require('../common').convertToUtf8,
      _ = require('underscore'),
     async = require('async'),
-    UserModel = require('../models/user'),
-    QuestionModel = require('../models/question'),
+    UserModel = require('../../models/user'),
+    UserBlockedModel = require('../../models/user/blocked'),
     settings = {
         page: 0,
         limit: 1000,
         errors: 0,
         overall: 0
     };
-require('../lib/database').config({
+require('../../lib/database').config({
     host: 'localhost',
     name: 'askme_pro'
 });
 
 var dataImport = {
-    questions: function users(connection, page) {
+    blocked: function users(connection, page) {
         var count = 0,
             errors = 0,
             limit = settings.limit,
@@ -24,13 +24,13 @@ var dataImport = {
         async.waterfall([
             function get(callback) {
                 var sql = 'SELECT *, ' + convertToUtf8([
-                        'to_user', 'from_user', 'question', 'answer'
+                        'username', 'blocked'
                     ]) +
-                    ' FROM questions' +
+                    ' FROM users_blocked' +
                     ' LIMIT ' + offset + ', ' + limit;
                 connection.query(sql, function (err, rows) {
                     callback(err, rows);
-                });    
+                }); 
             },
             function check(rows, callback) {
                 if (!rows || !rows.length) {
@@ -42,41 +42,34 @@ var dataImport = {
             function each(rows, callback) {
                 async.eachLimit(rows, 50, function (row, eachCallback) {
                     async.waterfall([
-                        function getUserTo(nestedCallback) {
-                            UserModel.findOne({username: row.to_user}, function (err, userTo) {
+                        function getFollowingUser(nestedCallback) {
+                            UserModel.findOne({username: row.username}, function (err, by) {
                                 if (err) {
                                     return nestedCallback(err);
                                 }
-                                if (!userTo) {
-                                    return nestedCallback(new Error('User not found: "' + row.to_user + '"'));
+                                if (!by) {
+                                    return nestedCallback(new Error('User not found: "' + row.username + '"'));
                                 }
-                                nestedCallback(null, row, userTo);
+                                nestedCallback(null, row, by);
                             });
                         },
-                        function getUserFrom(row, userTo, nestedCallback) {
-                            UserModel.findOne({username: row.from_user}, function (err, userFrom) {
+                        function getFollowedUser(row, by, nestedCallback) {
+                            UserModel.findOne({username: row.blocked}, function (err, user) {
                                 if (err) {
                                     return nestedCallback(err);
                                 }
-                                nestedCallback(null, row, userTo, userFrom);
+                                if (!user) {
+                                    return nestedCallback(new Error('User not found: "' + row.blocked + '"'));
+                                }
+                                nestedCallback(null, row, by, user);
                             });
                         },
-                        function add(row, userTo, userFrom, nestedCallback) {
-                            var data = {
-                                to: userTo._id,
-                                from: parseInt(row.anonymous, 10) === 1 || !userFrom ? null : userFrom._id,
-                                og_from: parseInt(row.anonymous, 10) === 0 && userFrom ? userFrom._id : null,
-                                contents: row.question,
-                                answer: row.answer || null,
-                                answered_at: row.answer ? new Date(row.date.split('-').reverse().join('-') + ' ' + row.time) : null,
-                                image: row.image || null,
-                                ip: row.ip,
-                                sync: {
-                                    id: row.id
-                                }
-                            };
-                            var question = new QuestionModel(data);
-                            question.save(function (err) {
+                        function add(row, by, user, nestedCallback) {
+                            var blocked = new UserBlockedModel({
+                                by: by._id,
+                                user: user._id
+                            });
+                            blocked.save(function (err) {
                                 nestedCallback(err);
                             });
                         }
@@ -104,7 +97,7 @@ var dataImport = {
             settings.overall += count;
             console.log('page: ' + settings.page + ', processed: ' + count + ', errors: ' + errors);
             settings.page += 1;
-            dataImport.questions(connection, settings.page);
+            dataImport.blocked(connection, settings.page);
         }); 
     }
 };
@@ -113,6 +106,6 @@ pool.getConnection(function(err, connection) {
         return console.error(err);
     }
     connection.query('SET NAMES utf8', function () {
-        dataImport.questions(connection, settings.page);
+        dataImport.blocked(connection, settings.page);
     });
 });
