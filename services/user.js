@@ -14,7 +14,7 @@ module.exports = _.defaults({
         UserModel.schema.path('password').validate(function(password) {
             return password == req.body.password2;
         }, 'Passwords do not match.');
-        var user = new UserModel(req.body);
+        var user = new UserModel(_.pick(req.body, 'username', 'email', 'password', 'name', 'lastname', 'terms_accepted'));
         user.save(function(err, user) {
             callback(req, res, user, err);
         });

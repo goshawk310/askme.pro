@@ -3,11 +3,12 @@ var questionService = require('../../services/question'),
     questionOfTheDayService = require('../../services/question/ofTheDay'),
     likeService = require('../../services/like'),
     commentService = require('../../services/comment'),
-    auth = require('../../lib/auth');
+    auth = require('../../lib/auth'),
+    captcha = require('easy-captcha');
 
 module.exports = function(server) {
 
-    server.post('/api/questions', function(req, res) {
+    server.post('/api/questions', auth.isAuthenticated, function(req, res) {
         questionService.setServer(server)
             .setReq(req).setRes(res)
             .ask(function (err, question) {
@@ -15,6 +16,29 @@ module.exports = function(server) {
                     return res.send(500, {
                         status: 'error',
                         message: res.__('Wystąpił nieoczekiwany błąd!')
+                    });
+                }
+                res.send({
+                    status: 'success',
+                    message: res.__('Pytanie zostało wysłane')
+                });
+            });
+    });
+
+    server.post('/api/questions/anonymous', captcha.check, function(req, res) {
+        if (!req.session.captcha.valid) {
+            return res.send(500, {
+                status: 'error',
+                message: res.__('Nieprawidłowy kod captcha!')
+            });
+        }
+        questionService.setServer(server)
+            .setReq(req).setRes(res)
+            .ask(function (err, question) {
+                if (err) {
+                    return res.send(500, {
+                        status: 'error',
+                        message: err
                     });
                 }
                 res.send({

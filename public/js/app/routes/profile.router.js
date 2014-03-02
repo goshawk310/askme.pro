@@ -26,6 +26,9 @@ askmePro.routers.Profile = Backbone.Router.extend({
                 this.views.index.loadGifts(JSON.parse($('#gifts-data').html()), $('#gifts-data').data('editable'));
             }
             $('#profile-tabs-content').html(this.views.index.$el);
+            $('#captcha-image').on('click', function() {
+                $(this).attr('src', '/captcha.jpg?' + (new Date()).getTime());
+            });
         } else {
             window.location.reload();
             return;

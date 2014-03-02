@@ -2,6 +2,7 @@ var pool = require('../common').db.mysql.pool,
     downloadFile = require('../common').downloadFile,
      _ = require('underscore'),
     async = require('async'),
+    fs = require('fs'),
     UserModel = require('../../models/user'),
     FileImage = require('../../lib/file/image'),
     settings = {
@@ -77,12 +78,12 @@ var dataImport = {
         function (err, users, processed, errors, index) {
             if (err) {
                 if (err.message && err.message === 'endOfImport') {
-                    console.log(settings.avatars);
+                    console.log(settings);
                     return console.log('END OF IMPORT');
                 }
                 console.log(err);
                 console.log('restarting');
-                settings.avatars = {
+                settings = {
                     page: 0,
                     limit: 20,
                     processed: 0,

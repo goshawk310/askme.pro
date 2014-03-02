@@ -33,13 +33,19 @@ askmePro.views.ProfileIndexView = Backbone.View.extend({
         var form = this.$('#question-form'),
             message = this.$('#question-form-message-container'),
             success = message.children('.success'),
-            error = message.children('.error');
-        form.validate({
-            rules: {
+            error = message.children('.error'),
+            rules = {
                 'question[contents]': {
                     required: true
                 }
-            },
+            };
+        if (this.$('#question-captcha').length) {
+            rules['captcha'] = {
+                required: true
+            }
+        }    
+        form.validate({
+            rules: rules,
             submitHandler: function(form) {
                 var $form = $(form),
                     submit = $form.find('button[type="submit"]');
@@ -73,6 +79,8 @@ askmePro.views.ProfileIndexView = Backbone.View.extend({
         message.children('.message').hide();
         message.hide();
         this.$('#question-contents').val('');
+        this.$('#question-captcha').val('');
+        $('#captcha-image').trigger('click');
         this.$('#question-contents-count').html(200);
     },
     setupPointsProgress: function setupPointsProgress() {

@@ -28,6 +28,13 @@ var Like = function() {
         viewed: {
             type: Boolean,
             default: false
+        },
+        sync: {
+            id: {
+                type: Number,
+                required: false,
+                index: {unique: true, sparse: true}
+            }
         }
     }, {
         collection: 'likes',
@@ -77,9 +84,12 @@ var Like = function() {
             }, function (err, user) {
             
             });
-            ioHelper.io().sockets.socket(ioHelper.getSocketId(like.to)).emit('likes', {
-                id: like.question_id
-            });
+            var io = ioHelper.io();
+            if (io) {
+                io.sockets.socket(ioHelper.getSocketId(like.to)).emit('likes', {
+                    id: like.question_id
+                });
+            }
         }
     });
 

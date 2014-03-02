@@ -54,7 +54,7 @@ var UserGift = function() {
         sync: {
             id: {
                 type: Number,
-                default: null,
+                required: false,
                 index: {unique: true, sparse: true}
             }
         }

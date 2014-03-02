@@ -40,7 +40,8 @@ var Question = function Question() {
         answered_at: {
             type: Date,
             required: false,
-            default: null
+            default: null,
+            index: true
         },
         image: {
             type: String,
@@ -76,8 +77,11 @@ var Question = function Question() {
         sync: {
             id: {
                 type: Number,
-                default: null,
                 index: {unique: true, sparse: true}
+            },
+            image: {
+                type: Boolean,
+                default: false
             }
         }
     }, {

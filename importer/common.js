@@ -17,10 +17,12 @@ module.exports.db = {
 };
 
 module.exports.convertToUtf8 = function convertToUtf8(fields) {
-    var mysql = 'TRIM(CONVERT(CAST(CONVERT(__field__ USING latin1) AS BINARY) USING utf8)) as __field__',
+    var mysql = 'TRIM(CONVERT(CAST(CONVERT(__field__ USING latin1) AS BINARY) USING utf8)) as __as_field__',
         selectFields = [];
     _.each(fields, function (field) {
-        selectFields.push(mysql.replace(/__field__/g, field));
+        mysql = mysql.replace(/__field__/g, field);
+        mysql = mysql.replace(/__as_field__/g, field.replace('.', '_'));
+        selectFields.push(mysql);
     });
     return selectFields.join(', ');
 };

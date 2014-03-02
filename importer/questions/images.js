@@ -1,9 +1,8 @@
-var pool = require('../common').db.mysql.pool,
-    downloadFile = require('../common').downloadFile,
+var downloadFile = require('../common').downloadFile,
      _ = require('underscore'),
     async = require('async'),
     fs = require('fs'),
-    UserModel = require('../../models/user'),
+    QuestionModel = require('../../models/question'),
     FileImage = require('../../lib/file/image'),
     settings = {
         page: 0,
@@ -15,34 +14,35 @@ var pool = require('../common').db.mysql.pool,
 require('../../lib/database').config({
     host: 'localhost',
     name: 'askme_pro'
-});
-
+});    
 var dataImport = {
-    backgrounds: function backgrounds(page) {
+    images: function images(page) {
         var limit = settings.limit,
             offset = page * limit;
         async.waterfall([
-            function getUsers(callback) {
-                UserModel.find({'sync.bg': {$ne: true}})
+            function getQuestions(callback) {
+                QuestionModel.find({$and: [{'sync.image': {$ne: true}}, {image: {$ne: null}}]})
                 .skip(offset)
                 .limit(limit)
-                .exec(callback);
-            }, function checkUsers(users, callback) {
-                if (!users || !users.length) {
+                .exec(function (err, rows) {
+                    callback(err, rows);
+                });
+            }, function check(rows, callback) {
+                if (!rows || !rows.length) {
                     callback(new Error('endOfImport'));
                 } else {
-                    callback(null, users);
+                    callback(null, rows);
                 }
-            }, function processAvatar(users, callback) {
+            }, function process(rows, callback) {
                 var filesProcessed = 0,
                     errors = 0,
                     index = 0;
-                async.eachLimit(users, settings.limit / 2, function (user, eachCallback) {
-                    if (!user.custom_background) {
+                async.eachLimit(rows, settings.limit / 2, function (row, eachCallback) {
+                    if (!row.image) {
                         return eachCallback();
                     }
-                    downloadFile('http://askme.pro/media/images/backgrounds/' + user.custom_background,
-                    __dirname + '/../../uploads/backgrounds/' + user.custom_background,
+                    downloadFile('http://askme.pro/media/images/answers/' + row.image,
+                    __dirname + '/../../uploads/answers/' + row.image,
                     function (err, url, des) {
                         if (err) {
                             errors += 1;
@@ -63,57 +63,50 @@ var dataImport = {
                         });
                     });
                 }, function (err) {
-                    callback(null, users, filesProcessed, errors, index);
+                    callback(null, rows, filesProcessed, errors, index);
                 });
             }
         ], 
-        function (err, users, processed, errors, index) {
+        function (err, rows, processed, errors, index) {
             if (err) {
                 if (err.message && err.message === 'endOfImport') {
-                    console.log(settings.backgrounds);
+                    console.log(settings);
                     return console.log('END OF IMPORT');
                 }
                 console.log(err);
                 console.log('restarting');
-                settings.backgrounds = {
+                settings = {
                     page: 0,
                     limit: 20,
                     processed: 0,
                     errors: 0,
                     overall: 0
                 };
-                dataImport.backgrounds(settings.page);
+                dataImport.images(settings.page);
                 return;
             }
             settings.errors += errors;
             settings.processed += processed;
-            settings.overall += users.length;
+            settings.overall += rows.length;
             var ids = [];
-            _.each(users, function (user) {
-                ids.push(user._id);
+            _.each(rows, function (row) {
+                ids.push(row._id);
             });
-            UserModel.update({
+            QuestionModel.update({
                 _id: {$in: ids}
             }, {
-                'sync.bg': true
+                'sync.avatar': true
             }, {
                 multi: true
             }, function (err, numberAffected) {
                 if (err) {
                     return console.log(err);
                 }
-                console.log('page: ' + settings.page + ', successful: ' + (users.length - errors) + ', processed: ' + processed + ', errors: ' + errors);
+                console.log('page: ' + settings.page + ', successful: ' + (rows.length - errors) + ', processed: ' + processed + ', errors: ' + errors);
                 settings.page += 1;
-                dataImport.backgrounds(settings.page);
+                dataImport.images(settings.page);
             });
-        });      
+        });
     }
 };
-pool.getConnection(function(err, connection) {
-    if (err) {
-        return console.error(err);
-    }
-    connection.query('SET NAMES utf8', function () {
-        dataImport.backgrounds(connection, settings.page);
-    });
-});
+dataImport.images(settings.page);
