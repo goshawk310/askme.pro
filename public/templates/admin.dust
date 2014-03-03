@@ -3,9 +3,11 @@
 <div class="container" id="admin-content-wrapper">
     <div class="row">
         <div class="col-md-2">
-            <div class="list-group">
-                <a href="/admin/question-of-the-day" class="list-group-item active">{@__ phrase="Pytanie dnia" /}</a>
-            </div>
+            <ul class="nav nav-pills nav-stacked">
+                {#adminMenuElements}
+                    <li class="{?.active}active{/.active}"><a href="{.url}">{.label}</a></li>
+                {/adminMenuElements}
+            </ul>
         </div>
         <div class="col-md-10">
             <div class="center-block">

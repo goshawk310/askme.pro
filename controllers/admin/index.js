@@ -12,7 +12,5 @@ module.exports = function(server) {
                 data: question
             });
         });
-        
     });
-
 };

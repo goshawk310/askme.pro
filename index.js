@@ -1,6 +1,4 @@
 'use strict';
-
-
 var kraken = require('kraken-js'),
     db = require('./lib/database'),
     flash = require('connect-flash'),
@@ -64,6 +62,34 @@ app.requestBeforeRoute = function requestBeforeRoute(server) {
     server.use(flash());
     //init passport
     auth.init(server);
+    //admin menu
+    server.use(function(req, res, next) {
+        if (req.method.toLowerCase() === 'get' && req.isAuthenticated() && auth.hasPrivilegesOf('editor')) {
+            var elements = [{
+                    url: '/admin/question-of-the-day',
+                    role: 'editor',
+                    label: 'Pytanie dnia'
+                }, {
+                    url: '/admin/users', 
+                    role: 'admin',
+                    label: 'Użytkownicy'
+                }
+            ];
+            for (var i = 0; i < elements.length; i += 1) {
+                if (auth.getRoles()[req.user.role].indexOf(elements[i].role) < 0) {
+                    elements.slice(i , i + 1);
+                } else if (req.url === elements[i].url) {
+                    elements[i].active = true;
+                } else {
+                    elements[i].active = false;
+                }
+            }
+            res.locals.adminMenuElements = elements;
+        } else {
+            res.locals.adminMenuElements = null;
+        }
+        next();
+    });
     //init dustjs custom helpers
     dustjsHelper(server).init(dust);
     server.use('/captcha.jpg', require('easy-captcha').generate());
