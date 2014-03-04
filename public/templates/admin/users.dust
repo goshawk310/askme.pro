@@ -1,0 +1,11 @@
+{>"layouts/admin" /}
+{<title}Użytkownicy{/title}
+
+
+{<js}
+<script src="/components/backbone.datagrid/dist/backbone.datagrid.js"></script>
+<script src="/js/app/models.js"></script>
+<script src="/js/app/collections.js"></script>
+<script src="/js/admin/routes/users.router.js"></script>
+
+{/js}

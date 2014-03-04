@@ -14,9 +14,7 @@
         <link href="/css/common.css" rel="stylesheet" />
         <link href="/css/pogo.css" rel="stylesheet" />
         {+css /}
-        {@hasPrivilegesOf user=user role="editor"}
-            <link href="/css/admin.css" rel="stylesheet" />
-        {/hasPrivilegesOf}
+        <link href="/css/admin.css" rel="stylesheet" />
         <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!--[if lt IE 9]>
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
@@ -27,10 +25,41 @@
         {>"partials/search_results"/}
     </head>
     <body>
-        <div id="wrapper"{+wrapperAttribs}{?user.background} class="custom-bg" style="background-image: url('{user.background}')"{/user.background} {/wrapperAttribs}>
+        <div id="wrapper">
             {>"layouts/partials/top"/}
             <div id="content">
-                {+body /}
+                <div class="container" id="admin-content-wrapper">
+                    <div class="row">
+                        <div class="col-md-2">
+                            <ul class="nav nav-pills nav-stacked">
+                                {#adminMenuElements}
+                                    <li class="{?.active}active{/.active}"><a href="{.url}">{.label}</a></li>
+                                {/adminMenuElements}
+                            </ul>
+                        </div>
+                        <div class="col-md-10">
+                            <div class="center-block">
+                                {>"layouts/partials/ajaxalert" /}
+                                {?message}
+                                    {@message data=message /}
+                                {/message}
+                                <div class="panel panel-default" id="content-wrapper">
+                                    <div class="panel-heading">
+                                        <h4>{+title /}</h4>
+                                    </div>
+                                    <div class="panel-body">
+                                        <div id="content-container">
+                                            {+body /}
+                                        </div>
+                                    </div>
+                                    <div class="panel-footer">
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <div class="clearfix"></div>
             </div>
             <div class="clearfix"></div>
@@ -51,10 +80,7 @@
         </script>
         <script src="/js/app/views/top.notifications.view.js"></script>
         {+js /}
-        {@hasPrivilegesOf user=user role="editor"}
-            <script src="/components/jquery.cookie.js"></script>
-            <script src="/js/admin.js"></script>
-            {>"admin/partials/bar"/}
-        {/hasPrivilegesOf}
+        <script src="/components/jquery.cookie.js"></script>
+        <script src="/js/admin.js"></script>
     </body>
 </html>

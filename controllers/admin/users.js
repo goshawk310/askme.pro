@@ -5,9 +5,8 @@ var auth = require('../../lib/auth'),
 module.exports = function(server) {
     
     server.get('/admin/users', auth.hasPrivilegesOf('admin'), function (req, res) {
-        res.render('admin', {
-            title: res.__('Użytkownicy'),
-            content: 'users'
+        res.render('admin/users', {
+            title: res.__('Użytkownicy')
         });
     });
 };

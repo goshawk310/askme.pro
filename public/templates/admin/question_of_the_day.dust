@@ -1,12 +1,26 @@
+{>"layouts/admin" /}
+{<title}Pytanie dnia{/title}
+{<body}
 <form role="form" method="post" action="/api/admin/questions/of-the-day" class="admin-form default">
     <div class="form-group">
         <label for="contents">{@__ phrase="Treść" /}:</label>
         <textarea name="contents" id="contents" class="form-control" rows="3" required>
-            {?data}
-                {data.contents}
-            {/data}
+            {contents}
         </textarea>
     </div>
     <input type="hidden" name="_csrf" value="{_csrf}">
     <button type="submit" class="btn btn-primary">{@__ phrase="Zapisz" /}</button>
 </form>
+{/body}
+{<js}
+<script src="/components/validate/jquery.validate.min.js"></script>
+<script src="/components/validate/additional-methods.js"></script>
+{@ne key="en" value="{locale}"}
+    <script src="/components/validate/localization/messages_{locale}.js"></script>
+{/ne}
+<script src="/js/app/models.js"></script>
+<script src="/js/app/collections.js"></script>
+<script type="text/javascript">
+    askmePro.utils.setupDefaultValidator();
+</script>
+{/js}
