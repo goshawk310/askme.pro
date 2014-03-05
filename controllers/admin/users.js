@@ -1,6 +1,6 @@
 'use strict';
 var auth = require('../../lib/auth'),
-    questionOfTheDay = require('../../services/question/ofTheDay');;
+    adminUserService = require('../../services/admin/user');
 
 module.exports = function(server) {
     

@@ -1,16 +1,18 @@
 'use strict';
 var auth = require('../../../lib/auth'),
-    userService = require('../../../services/user'),
+    adminUserService = require('../../../services/admin/user'),
     UserModel = require('../../../models/user');
 
 module.exports = function(server) {
 
     server.get('/api/admin/users', auth.hasPrivilegesOf('admin'), function (req, res) {
-        UserModel
-        .find({})
-        .limit(20)
-        .exec(function (err, users) {
-            res.send(users);
+        adminUserService
+        .setReq(req)
+        .getUsers(function (err, rows, total) {
+            res.send({
+                total: total,
+                rows: rows
+            });
         });
     });
 

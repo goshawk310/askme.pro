@@ -278,16 +278,21 @@ var User = function() {
                     next();
                 });
             });
-        } else if (user.isModified('status.value') && user.status.value === 0) {
-            bcrypt.genSalt(10, function(err, salt) {
-                bcrypt.hash(user.status.changed_on + user.id, salt, function(err, token) {
-                    if (err) {
-                        return next(err);
-                    }
-                    user.status.token = token;
-                    next();
+        } else if (user.isModified('status.value')) {
+            user.status.modified_on = new Date();
+            if (user.status.value === 0) {
+                bcrypt.genSalt(10, function(err, salt) {
+                    bcrypt.hash(user.status.modified_on + user.id, salt, function(err, token) {
+                        if (err) {
+                            return next(err);
+                        }
+                        user.status.token = token;
+                        next();
+                    });
                 });
-            });
+            } else {
+                next();
+            }
         } else {
             next();
         }
@@ -362,8 +367,6 @@ var User = function() {
     });
 
     schema.methods.comparePasswords = function comparePasswords(password, callback) {
-        console.log('comparePasswords');
-        console.log(this.old);
         if (this.old === false) {
             return bcrypt.compare(password, this.password, function(err, matched) {
                 if (err) {
@@ -376,7 +379,6 @@ var User = function() {
             password = crypto.createHash('md5').update(password.toLowerCase()).digest('hex');
             password = (new Buffer(password)).toString('base64');
             password = crypto.createHash('sha1').update(password).digest('hex');
-            console.log(password + '   ' + this.password);
             if (password === this.password) {
                 matched = true;
             }

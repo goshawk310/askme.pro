@@ -55,6 +55,19 @@
 
 #admin-content-wrapper {
     background-color: #fff;
+    width: 100%;
+    margin: 0 auto;
+}
+
+#content-wrapper > .panel-heading {
+    position: relative;
+}
+
+#content-wrapper > .panel-heading .backgrid-filter.form-search {
+    position: absolute;
+    right: 15px;
+    top: 15px;
+    margin: 0;
 }
 
 .backgrid-paginator {
@@ -63,4 +76,51 @@
 
 .backgrid-paginator .pagination {
     margin: 0 0;
+}
+
+.table .sortable a {
+    display: inline-block;
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+}
+
+.table .sort-caret {
+    position: relative;
+    top: 1px;
+    display: inline-block;
+    font-family: 'Glyphicons Halflings';
+    font-style: normal;
+    font-weight: normal;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    margin-left: 8px;
+}
+
+.table .sort-caret:before {
+    content: "\2212";
+}
+
+.table .descending .sort-caret:before {
+    content: "\e113";
+}
+
+.table .ascending .sort-caret:before {
+    content: "\e114";
+}
+
+.select-cell {
+    position: relative;
+}
+
+.select-cell select {
+    position: absolute;
+    left: 1%;
+    width: 98%;
+    top: 4px;
+}
+
+.user-status-cell {
+    width: 15%;
 }

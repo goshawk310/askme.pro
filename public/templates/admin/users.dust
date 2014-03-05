@@ -2,12 +2,17 @@
 {<title}Użytkownicy{/title}
 
 
+
+{<css}
+<link href="/components/backgrid/lib/backgrid.min.css" rel="stylesheet" />
+<link href="/components/backgrid-filter/backgrid-filter.min.css" rel="stylesheet" />
+{/css}
 {<js}
 <script src="/components/backgrid/lib/backgrid.min.js"></script>
 <script src="/components/backbone-pageable/lib/backbone-pageable.min.js"></script>
 <script src="/components/backgrid-paginator/backgrid-paginator.min.js"></script>
+<script src="/components/backgrid-filter/backgrid-filter.min.js"></script>
 <script src="/js/app/models.js"></script>
 <script src="/js/app/collections.js"></script>
 <script src="/js/admin/routes/users.router.js"></script>
-
 {/js}
