@@ -56,3 +56,11 @@
 #admin-content-wrapper {
     background-color: #fff;
 }
+
+.backgrid-paginator {
+    text-align: center;
+}
+
+.backgrid-paginator .pagination {
+    margin: 0 0;
+}
