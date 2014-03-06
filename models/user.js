@@ -275,6 +275,9 @@ var User = function() {
         user.terms_accepted = Boolean(user.terms_accepted);
         if (user.old === false && user.isModified('password')) {
             bcrypt.genSalt(10, function(err, salt) {
+                if (err) {
+                    return next(err);
+                }
                 bcrypt.hash(user.password, salt, function(err, hash) {
                     if (err) {
                         return next(err);
@@ -287,6 +290,9 @@ var User = function() {
             user.status.modified_on = new Date();
             if (user.status.value === 0) {
                 bcrypt.genSalt(10, function(err, salt) {
+                    if (err) {
+                        return next(err);
+                    }
                     bcrypt.hash(user.status.modified_on + user.id, salt, function(err, token) {
                         if (err) {
                             return next(err);
