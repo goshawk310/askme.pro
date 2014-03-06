@@ -10,7 +10,7 @@ var pool = require('../common').db.mysql.pool,
         errors: 0,
         overall: 0
     };
-
+require('../common').db.mongo();
 var dataImport = {
     followed: function users(connection, page) {
         var count = 0,

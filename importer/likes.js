@@ -11,11 +11,7 @@ var pool = require('./common').db.mysql.pool,
         errors: 0,
         overall: 0
     };
-require('../lib/database').config({
-    host: 'localhost',
-    name: 'askme_pro'
-});
-
+require('./common').db.mongo();
 var dataImport = {
     likes: function likes(connection, page) {
         var count = 0,

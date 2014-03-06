@@ -1,13 +1,8 @@
 var pool = require('./common').db.mysql.pool,
     convertToUtf8 = require('./common').convertToUtf8,
-    downloadFile = require('./common').downloadFile,
     validator = require('validator'),
     _ = require('underscore'),
-    fs = require('fs'),
-    async = require('async'),
     UserModel = require('../models/user'),
-    UserBlockedModel = require('../models/user/blocked'),
-    FileImage = require('../lib/file/image'),
     minId = null,
     settings = {
         page: 0,
@@ -34,7 +29,7 @@ var dataImport = {
                 return console.error(err);
             }
             if (!rows || !rows.length) {
-                return console.log('END OF IMPORT...')
+                return console.log('END OF IMPORT...');
             }
             _.each(rows, function (row) {
                 var data = {
@@ -63,7 +58,6 @@ var dataImport = {
                     terms_accepted: true,
                     status: row.status,
                     last_visit_at: new Date(row.visit),
-                    blocked_words: row.words,
                     sync: {
                         id: row.id
                     }

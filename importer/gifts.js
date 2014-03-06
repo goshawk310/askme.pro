@@ -3,11 +3,7 @@ var pool = require('./common').db.mysql.pool,
      _ = require('underscore'),
     async = require('async'),
     GiftModel = require('../models/gift');
-require('../lib/database').config({
-    host: 'localhost',
-    name: 'askme_pro'
-});
-
+require('./common').db.mongo();
 var dataImport = {
     gifts: function gifts(connection) {
         async.waterfall([
