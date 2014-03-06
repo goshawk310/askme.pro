@@ -5,6 +5,7 @@ var pool = require('../common').db.mysql.pool,
     UserModel = require('../../models/user'),
     UserGiftModel = require('../../models/user/gift'),
     GiftModel = require('../../models/gift'),
+    minId = null,
     settings = {
         page: 0,
         limit: 1000,
@@ -24,6 +25,7 @@ var dataImport = {
                         'to_user', 'from_user'
                     ]) +
                     ' FROM gifts' +
+                    (minId ? (' WHERE id > ' + minId) : '') +
                     ' LIMIT ' + offset + ', ' + limit;
                 connection.query(sql, function (err, rows) {
                     callback(err, rows);
@@ -128,6 +130,17 @@ pool.getConnection(function(err, connection) {
         return console.error(err);
     }
     connection.query('SET NAMES utf8', function () {
-        dataImport.usersGifts(connection, settings.page);
+        UserGiftModel.find({})
+        .sort({'sync.id': -1})
+        .limit(1)
+        .exec(function (err, rows) {
+            if (err) {
+                return console.log(err);
+            }
+            if (rows && rows.length && rows[0].sync && rows[0].sync.id) {
+                minId = rows[0].sync.id;
+            }
+            dataImport.usersGifts(connection, settings.page);
+        });
     });
 });

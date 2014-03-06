@@ -4,6 +4,7 @@ var pool = require('./common').db.mysql.pool,
     async = require('async'),
     UserModel = require('../models/user'),
     QuestionModel = require('../models/question'),
+    minId = null,
     settings = {
         page: 0,
         limit: 1000,
@@ -23,6 +24,7 @@ var dataImport = {
                         'to_user', 'from_user', 'question', 'answer'
                     ]) +
                     ' FROM questions' +
+                    (minId ? (' WHERE id > ' + minId) : '') +
                     ' LIMIT ' + offset + ', ' + limit;
                 connection.query(sql, function (err, rows) {
                     callback(err, rows);
@@ -109,6 +111,17 @@ pool.getConnection(function(err, connection) {
         return console.error(err);
     }
     connection.query('SET NAMES utf8', function () {
-        dataImport.questions(connection, settings.page);
+        QuestionModel.find({})
+        .sort({'sync.id': -1})
+        .limit(1)
+        .exec(function (err, rows) {
+            if (err) {
+                return console.log(err);
+            }
+            if (rows && rows.length && rows[0].sync && rows[0].sync.id) {
+                minId = rows[0].sync.id;
+            }
+            dataImport.questions(connection, settings.page);
+        });
     });
 });
