@@ -58,9 +58,7 @@ var dataImport = {
                     terms_accepted: true,
                     status: row.status,
                     last_visit_at: new Date(row.visit),
-                    sync: {
-                        id: row.id
-                    }
+                    'sync.id': row.id
                 };
                 if (row.background) {
                     data.custom_background = row.background;
