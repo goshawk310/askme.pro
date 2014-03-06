@@ -8,30 +8,17 @@ var pool = require('./common').db.mysql.pool,
     UserModel = require('../models/user'),
     UserBlockedModel = require('../models/user/blocked'),
     FileImage = require('../lib/file/image'),
+    minId = null,
     settings = {
-        users: {
-            page: 0,
-            limit: 1000
-        },
-        followed: {
-            page: 0,
-            limit: 1000
-        },
-        blocked: {
-            page: 0,
-            limit: 1000
-        }
+        page: 0,
+        limit: 1000
     };
-require('../lib/database').config({
-    host: 'localhost',
-    name: 'askme_pro'
-});
-
+require('./common').db.mongo();
 var dataImport = {
     users: function users(connection, page) {
         var index = 0,
             errors = 0,
-            limit = settings.users.limit,
+            limit = settings.limit,
             offset = page * limit, 
             sql = 'SELECT users.*, ' + convertToUtf8([
                 'username', 'real_surname', 'real_name', 'website',
@@ -39,8 +26,8 @@ var dataImport = {
             ]) +
             ', stickerstype.image AS sticker_image FROM users LEFT JOIN stickerstype ON users.sticker = stickerstype.id' +
             ' WHERE users.password != "" AND visit >= "2013-09-01 00:00:00"' +
+            (minId ? (' AND users.id > ' + minId) : '') +
             ' LIMIT ' + offset + ', ' + limit;
-
         connection.query(sql, function(err, rows) {
             if (err) {
                 connection.release();
@@ -76,7 +63,10 @@ var dataImport = {
                     terms_accepted: true,
                     status: row.status,
                     last_visit_at: new Date(row.visit),
-                    blocked_words: row.words
+                    blocked_words: row.words,
+                    sync: {
+                        id: row.id
+                    }
                 };
                 if (row.background) {
                     data.custom_background = row.background;
@@ -95,79 +85,13 @@ var dataImport = {
                         errors += 1;
                     }
                     if (index === limit) {
-                        console.log('page: ' + settings.users.page + ', successful: ' + (limit - errors) + ', errors: ' + errors);
-                        settings.users.page += 1;
-                        dataImport.users(connection, settings.users.page);
+                        console.log('page: ' + settings.page + ', successful: ' + (limit - errors) + ', errors: ' + errors);
+                        settings.page += 1;
+                        dataImport.users(connection, settings.page);
                     }
                 });
             });
             connection.release();
-        });
-    },
-    blocked: function blocked(connection, page) {
-        var index = 0,
-            errors = 0,
-            limit = settings.blocked.limit,
-            offset = page * limit;  
-        UserModel.find({})
-        .skip(offset)
-        .limit(limit)
-        .exec(function (err, users) {
-            if (!err && users && users.length) {
-                _.each(users, function (user) {
-                    connection.query('SELECT * FROM users_blocked WHERE username = "' + user.username + '"', function(err, rows) {
-                        if (err || !rows || !rows.length) {
-                            if (err) {
-                                errors += 1;
-                            }
-                            index += 1;
-                            if (index === limit) {
-                                console.log('1.page: ' + settings.blocked.page + ', successful: ' + (limit - errors) + ', errors: ' + errors);
-                                settings.blocked.page += 1;
-                                dataImport.blocked(connection, settings.blocked.page);
-                            }
-                        } else {
-                            _.each(rows, function (row) {
-                                UserModel
-                                .findOne({username: row.friend})
-                                .exec(function (err, blocked) {
-                                    if (err || !blocked) {
-                                        if (err) {
-                                            errors += 1;
-                                        }
-                                        index += 1;
-                                        if (index === limit) {
-                                            console.log('2.page: ' + settings.blocked.page + ', successful: ' + (limit - errors) + ', errors: ' + errors);
-                                            settings.blocked.page += 1;
-                                            dataImport.blocked(connection, settings.blocked.page);
-                                        }
-                                    } else {
-                                        var userBlocked = new UserBlockedModel({
-                                            by: user._id,
-                                            user: blocked._id
-                                        });
-                                        userBlocked.save(function (err) {
-                                            index += 1;
-                                            if (err) {
-                                                errors += 1;
-                                            }
-                                            if (index === limit) {
-                                                console.log('3.page: ' + settings.blocked.page + ', successful: ' + (limit - errors) + ', errors: ' + errors);
-                                                settings.blocked.page += 1;
-                                                dataImport.blocked(connection, settings.blocked.page);
-                                            }
-                                        });
-                                    }
-                                });
-                                
-                            });
-                        }
-                    });
-                });
-                connection.release();
-            } else {
-                return console.log('END OF IMPORT...')
-            }
         });
     }
 };
@@ -176,20 +100,17 @@ pool.getConnection(function(err, connection) {
         return console.error(err);
     }
     connection.query('SET NAMES utf8', function () {
-        var mode = process.argv[2] ? process.argv[2] : 'users';
-        switch(mode) {
-            case 'users':
-                dataImport.users(connection, settings.users.page);
-                break;
-            case 'followed':
-                dataImport.followed(connection, settings.followed.page);
-                break;
-            case 'blocked':
-                dataImport.blocked(connection, settings.blocked.page);
-                break;
-            default:
-                console.log('invalid mode!');
-                break;    
-        }
+        UserModel.find({})
+        .sort({'sync.id': -1})
+        .limit(1)
+        .exec(function (err, users) {
+            if (err) {
+                return console.log(err);
+            }
+            if (users && users.length && users[0].sync && users[0].sync.id) {
+                minId = users[0].sync.id;
+            }
+            dataImport.users(connection, settings.page);
+        });
     });
 });

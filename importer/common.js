@@ -7,12 +7,26 @@ var _ = require('underscore'),
         database: 'admin_ask'
     }),
     http = require('http'),
-    fs = require('fs');
-
+    fs = require('fs'),
+    env = process.env.NODE_ENV || 'development';
+JSON.minify = JSON.minify || require('node-json-minify');
 module.exports.db = {
     mysql: {
         mysql: mysql,
         pool: pool
+    },
+    mongo: function () {
+        var file = '';
+        if (env === 'production') {
+            file = __dirname + '/../config/app.json';
+        } else {
+            file = __dirname + '/../config/app-'  + env + '.json';
+        }
+        var appConfig = JSON.parse(JSON.minify(fs.readFileSync(file, 'utf8')));
+        require('../lib/database').config({
+            host: appConfig.database.host,
+            name: appConfig.database.name
+        });
     }
 };
 

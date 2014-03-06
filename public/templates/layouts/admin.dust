@@ -70,7 +70,7 @@
         <script src="/js/socket.client.js"></script>
         <script src="/components/underscore-min.js"></script>
         <script src="/components/backbone-min.js"></script>
-        <script src="/components/backbone/deep-model.min.js"></script>
+        <script src="/components/deep-model.min.js"></script>
         <script src="/components/bootstrap/dist/js/bootstrap.min.js"></script>
         <script src="/js/app.js"></script>
         <script type="text/javascript">

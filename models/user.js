@@ -202,6 +202,11 @@ var User = function() {
             bg: {
                 type: Boolean,
                 default: false
+            },
+            id: {
+                type: Number,
+                required: false,
+                index: {unique: true, sparse: true}
             }
         }
     }, {

@@ -11,10 +11,6 @@ var pool = require('../common').db.mysql.pool,
         errors: 0,
         overall: 0
     };
-require('../../lib/database').config({
-    host: 'localhost',
-    name: 'askme_pro'
-});
 
 var dataImport = {
     usersGifts: function users(connection, page) {
