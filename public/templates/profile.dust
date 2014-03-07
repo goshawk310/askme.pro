@@ -139,7 +139,7 @@
 <link href="/components/magnific-popup/magnific-popup.css" rel="stylesheet" />
 {/css}
 {<js}
-<script src="/components/jquery/ui/jquery-ui-1.10.4.custom.min.js"></script>
+<script src="/js/vendor/jquery-ui-1.10.4.custom.min.js"></script>
 <script src="/components/momentjs/min/moment.min.js"></script>
 <script src="/components/validate/jquery.validate.min.js"></script>
 <script src="/components/validate/additional-methods.js"></script>
