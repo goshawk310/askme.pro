@@ -26,7 +26,7 @@ var dataImport = {
                     ]) +
                     ' FROM questions' +
                     (minId ? (' WHERE id > ' + minId) : '') +
-                    ' LIMIT ' + offset + ', ' + limit;
+                    ' ORDER BY id ASC LIMIT ' + offset + ', ' + limit;
                 connection.query(sql, function (err, rows) {
                     callback(err, rows);
                 });    
