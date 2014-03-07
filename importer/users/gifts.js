@@ -21,9 +21,7 @@ var dataImport = {
             offset = page * limit;
         async.waterfall([
             function get(callback) {
-                var sql = 'SELECT *, ' + convertToUtf8([
-                        'to_user', 'from_user'
-                    ]) +
+                var sql = 'SELECT *' +
                     ' FROM gifts' +
                     (minId ? (' WHERE id > ' + minId) : '') +
                     ' LIMIT ' + offset + ', ' + limit;

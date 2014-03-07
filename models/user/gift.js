@@ -8,7 +8,8 @@ var UserGift = function() {
     var schema = mongoose.Schema({
         created_at: {
             type: Date,
-            required: true
+            required: true,
+            default: Date.now
         },
         gift: {
             type: mongoose.Schema.Types.ObjectId,
@@ -69,9 +70,6 @@ var UserGift = function() {
      * @return void
      */
     schema.pre('validate', function(next) {
-        if (this.isNew) {
-            this.created_at = new Date();
-        }
         next();
     });
     

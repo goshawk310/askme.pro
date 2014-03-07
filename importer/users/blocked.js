@@ -19,9 +19,7 @@ var dataImport = {
             offset = page * limit;
         async.waterfall([
             function get(callback) {
-                var sql = 'SELECT *, ' + convertToUtf8([
-                        'username', 'blocked'
-                    ]) +
+                var sql = 'SELECT *' +
                     ' FROM users_blocked' +
                     ' LIMIT ' + offset + ', ' + limit;
                 connection.query(sql, function (err, rows) {

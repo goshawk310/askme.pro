@@ -15,14 +15,17 @@ var dataImport = {
             errors = 0,
             limit = settings.limit,
             offset = page * limit, 
-            sql = 'SELECT users.*, ' + convertToUtf8([
-                'username', 'real_surname', 'real_name', 'website',
-                'facebook', 'bio', 'what_ask', 'localization', 'words'
-            ]) +
-            ', stickerstype.image AS sticker_image FROM users LEFT JOIN stickerstype ON users.sticker = stickerstype.id' +
-            ' WHERE users.password != "" AND visit >= "2013-09-01 00:00:00"' +
-            (minId ? (' AND users.id > ' + minId) : '') +
-            ' LIMIT ' + offset + ', ' + limit;
+            sql = 'SELECT users.id, users.password, users.rank, users.email, users.fanpage, users.points, ' +
+                'users.sticker, users.theme, users.background, users.photo, users.status, users.ip, ' + 
+                'users.anonymous_view, users.reg_date, users.lang, users.acticated, users.visit, users.visit_timestamp, ' + 
+                convertToUtf8([
+                    'username', 'real_surname', 'real_name', 'website',
+                    'facebook', 'bio', 'what_ask', 'localization', 'words'
+                ]) +
+                ', stickerstype.image AS sticker_image FROM users LEFT JOIN stickerstype ON users.sticker = stickerstype.id' +
+                ' WHERE users.password != "" AND visit >= "2013-09-01 00:00:00"' +
+                (minId ? (' AND users.id > ' + minId) : '') +
+                ' LIMIT ' + offset + ', ' + limit;
         connection.query(sql, function(err, rows) {
             if (err) {
                 connection.release();
@@ -54,7 +57,7 @@ var dataImport = {
                     blocked_words: row.words,
                     sticker: row.sticker_image,
                     background: row.background ? '/uploads/backgrounds/' + row.background : '/images/themes/' + row.theme + '.png',
-                    points: row.points,
+                    points: parseInt(row.points, 10),
                     terms_accepted: true,
                     status: row.status,
                     last_visit_at: new Date(row.visit),

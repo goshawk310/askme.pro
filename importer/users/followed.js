@@ -19,9 +19,7 @@ var dataImport = {
             offset = page * limit;
         async.waterfall([
             function get(callback) {
-                var sql = 'SELECT *, ' + convertToUtf8([
-                        'username', 'friend'
-                    ]) +
+                var sql = 'SELECT *' +
                     ' FROM users_friends' +
                     ' LIMIT ' + offset + ', ' + limit;
                 connection.query(sql, function (err, rows) {

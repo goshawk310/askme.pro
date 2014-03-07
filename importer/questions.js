@@ -20,8 +20,9 @@ var dataImport = {
             offset = page * limit;
         async.waterfall([
             function get(callback) {
-                var sql = 'SELECT *, ' + convertToUtf8([
-                        'to_user', 'from_user', 'question', 'answer'
+                var sql = 'SELECT id, to_user, from_user, image, status, viewed, anonymous, date, ip, time, answer_timestamp, ' +
+                    convertToUtf8([
+                        'question', 'answer'
                     ]) +
                     ' FROM questions' +
                     (minId ? (' WHERE id > ' + minId) : '') +
