@@ -22,11 +22,14 @@
             "dumpExceptions": true,
             "showStack": true
         },
-        
         "multipart": {
             "params": {
                 "keepExtensions": true
             }
+        },
+        "static": {
+            "srcRoot": "path:./public",
+            "rootPath": "path:./public"
         }
     }
 }
