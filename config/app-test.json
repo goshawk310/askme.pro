@@ -7,45 +7,11 @@
             "pass": "MA35D2357k"
          }
     },
-    // Uncomment and change as needed (Be careful not to leave trailing commas!)
-
-    // "port": 8000,
-    //
-    // "host": "localhost",
-    //
-        "i18n": false
-    //
-    // "routes": {
-    //     "routePath": "path:./controllers"
-    // },
-    //
-    //  "view engines": {
-    //      "js": {
-    //         "module": "adaro",
-    //         "settings": {
-    //             "helpers": null,
-    //             "stream": false
-    //         }
-    //      },
-    //
-    //     "dust": {
-    //         "module": "adaro",
-    //         "settings": {
-    //             "helpers": null,
-    //             "stream": false
-    //         }
-    //     }
-    // },
-    // "express": {
-    //     "x-powered-by": false,
-    //     "trust proxy": false,
-    //     "jsonp callback name": null,
-    //     "json replacer": null,
-    //     "json spaces": 0,
-    //     "case sensitive routing": false,
-    //     "strict routing": false,
-    //     "view cache": true,
-    //     "view engine": "js",
-    //     "views": "path:./.build/templates"
-    // 
+    "i18n": false,
+    "express": {
+        "view cache": false,
+        "view engine": "dust",
+        "json spaces": 2,
+        "views": "path:./public/templates"
+    }
 }
