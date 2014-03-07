@@ -17,7 +17,7 @@ var dataImport = {
             offset = page * limit, 
             sql = 'SELECT users.id, users.password, users.rank, users.email, users.fanpage, users.points, ' +
                 'users.sticker, users.theme, users.background, users.photo, users.status, users.ip, ' + 
-                'users.anonymous_view, users.reg_date, users.lang, users.acticated, users.visit, users.visit_timestamp, ' + 
+                'users.anonymous_view, users.reg_date, users.lang, users.activated, users.visit, users.visit_timestamp, ' + 
                 convertToUtf8([
                     'username', 'real_surname', 'real_name', 'website',
                     'facebook', 'bio', 'what_ask', 'localization', 'words'
