@@ -1,7 +1,9 @@
 {
     "database": {
         "host": "185.5.96.106",
-        "name": "askme_pro"
+        "name": "askme_pro",
+        "user": "askme_pro",
+        "pass": "MA35D2357k"
     },
     // Uncomment and change as needed (Be careful not to leave trailing commas!)
 
