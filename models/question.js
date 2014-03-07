@@ -128,7 +128,7 @@ var Question = function Question() {
                     id: question._id
                 });
             }
-        } else if (this._original.answer === null && this.answer !== null) {
+        } else if (this._original.answer === null && this.answer !== null && (!this.sync || !this.sync.id)) {
             UserModel.update({
                 _id: question.to
             }, {

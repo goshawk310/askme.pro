@@ -74,6 +74,7 @@ var askmePro = {
             parseUsersText: function parseUsersText(value, params) {
                 var helpers = askmePro.views.helpers
                     params = params || {};
+                return helpers.parseUrls($('<div>' + helpers.nl2br(value).replace(/\<br\>/g, '&lt;br&gt;') + '</div>').text(), params.url || null).replace(/&lt;br&gt;/g, '<br>');
                 return helpers.nl2br(helpers.parseUrls(_.escape(value), params.url || null)).replace(/&lt;br&gt;/g, '<br>');
             }
         }

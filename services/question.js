@@ -179,7 +179,7 @@ module.exports = _.defaults({
             limit = params.limit || null,
             where = {},
             blocked = null,
-            $and = [{answered_at: {'$ne': null}];
+            $and = [{answered_at: {'$ne': null}}];
         if (_.isArray(params.to) && params.to.length) {
             where.to = {$in: params.to};
         } else if (_.isString(params.to) || _.isObject(params.to)) {
