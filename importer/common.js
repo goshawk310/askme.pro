@@ -23,10 +23,7 @@ module.exports.db = {
             file = __dirname + '/../config/app-'  + env + '.json';
         }
         var appConfig = JSON.parse(JSON.minify(fs.readFileSync(file, 'utf8')));
-        require('../lib/database').config({
-            host: appConfig.database.host,
-            name: appConfig.database.name
-        });
+        require('../lib/database').config(appConfig.database);
     }
 };
 

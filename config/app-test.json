@@ -4,11 +4,8 @@
         "name": "askme_pro",
         "options": {
             "user": "askme_pro",
-            "pass": "MA35D2357k",
-            "auth": {
-                "authdb": "admin"
-            }
-        }
+            "pass": "MA35D2357k"
+         }
     },
     // Uncomment and change as needed (Be careful not to leave trailing commas!)
 
