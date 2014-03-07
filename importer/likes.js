@@ -21,12 +21,10 @@ var dataImport = {
             offset = page * limit;
         async.waterfall([
             function get(callback) {
-                var sql = 'SELECT likes.*, ' + convertToUtf8([
-                        'likes.user', 'likes.to_user'
-                    ]) +
-                    ' FROM likes INNER JOIN questions ON likes.q_id = questions.id ' +
+                var sql = 'SELECT *' + 
+                    ' FROM likes' +
                     (minId ? (' WHERE id > ' + minId) : '') +
-                    ' LIMIT ' + offset + ', ' + limit;
+                    ' ORDER BY id ASC LIMIT ' + offset + ', ' + limit;
                 connection.query(sql, function (err, rows) {
                     callback(err, rows);
                 });    
@@ -42,29 +40,29 @@ var dataImport = {
                 async.eachLimit(rows, 50, function (row, eachCallback) {
                     async.waterfall([
                         function filter(nestedCallback) {
-                            if (row.likes_user === row.likes_to_user) {
+                            if (row.user === row.to_user) {
                                 return nestedCallback(new Error('Thats wierd, users cant do that!!!!'));
                             }
                             nestedCallback(null, row);
                         },
                         function getUserTo(row, nestedCallback) {
-                            UserModel.findOne({username: row.likes_to_user}, function (err, userTo) {
+                            UserModel.findOne({username: row.to_user}, function (err, userTo) {
                                 if (err) {
                                     return nestedCallback(err);
                                 }
                                 if (!userTo) {
-                                    return nestedCallback(new Error('User not found: "' + row.likes_to_user + '"'));
+                                    return nestedCallback(new Error('User not found: "' + row.to_user + '"'));
                                 }
                                 nestedCallback(null, row, userTo);
                             });
                         },
                         function getUserFrom(row, userTo, nestedCallback) {
-                            UserModel.findOne({username: row.likes_user}, function (err, userFrom) {
+                            UserModel.findOne({username: row.user}, function (err, userFrom) {
                                 if (err) {
                                     return nestedCallback(err);
                                 }
                                 if (!userFrom) {
-                                    return nestedCallback(new Error('User not found: "' + row.likes_user + '"'));
+                                    return nestedCallback(new Error('User not found: "' + row.user + '"'));
                                 }
                                 nestedCallback(null, row, userTo, userFrom);
                             });
