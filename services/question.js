@@ -177,9 +177,9 @@ module.exports = _.defaults({
     getAnswered: function getAnswered(params, callback) {
         var skip = params.limit && params.page ? (params.limit) * params.page : null,
             limit = params.limit || null,
-            where = {answer: {'$ne': null}},
+            where = {},
             blocked = null,
-            $and = [];
+            $and = [{answered_at: {'$ne': null}];
         if (_.isArray(params.to) && params.to.length) {
             where.to = {$in: params.to};
         } else if (_.isString(params.to) || _.isObject(params.to)) {

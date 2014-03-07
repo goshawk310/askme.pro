@@ -97,14 +97,17 @@ var UserGift = function() {
      */
     schema.post('save', function(userGift) {
         if (this.wasNew) {
-            var UserModel = require('../user');
+            var UserModel = require('../user'),
+                inc = {
+                    'stats.gifts_sent': 1
+                };
+            if (!userGift.sync || !userGift.sync.id) {
+                inc.points = -20;
+            }    
             UserModel.update({
                 _id: userGift.from
             }, {
-                $inc: {
-                    'stats.gifts_sent': 1,
-                    points: -20
-                }
+                $inc: inc
             }, function (err, user) {
             
             });
