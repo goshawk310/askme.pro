@@ -10,6 +10,10 @@ var mongoose = require('mongoose'),
 var Question = function Question() {
 
     var schema = mongoose.Schema({
+        created_at: {
+            type: Date,
+            default: Date.now
+        },
         to: {
             type: mongoose.Schema.Types.ObjectId,
             required: true,
@@ -114,6 +118,29 @@ var Question = function Question() {
      */
     schema.post('save', function(question) {
         var UserModel = require('./user');
+        if (this.sync && this.sync.id) {
+            if (this.answer === null) {
+                UserModel.update({
+                    _id: question.to
+                }, {
+                    $inc: {'stats.questions_unanswered': 1}
+                }, function (err, user) {
+                
+                });
+            } else {
+                UserModel.update({
+                    _id: question.to
+                }, {
+                    $inc: {
+                        'stats.questions_answered': 1,
+                        points: (question.to !== question.from) ? 0.2 : 0
+                    }
+                }, function (err, user) {
+                    
+                });
+            }
+            return;
+        }
         if (this.wasNew) {
             UserModel.update({
                 _id: question.to
@@ -128,7 +155,7 @@ var Question = function Question() {
                     id: question._id
                 });
             }
-        } else if (this._original.answer === null && this.answer !== null && (!this.sync || !this.sync.id)) {
+        } else if (this._original.answer === null && this.answer !== null) {
             UserModel.update({
                 _id: question.to
             }, {

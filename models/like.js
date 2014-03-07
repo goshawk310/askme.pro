@@ -74,6 +74,18 @@ var Like = function() {
             }, function (err, user) {
             
             });
+            if (this.sync && this.sync.id) {
+                UserModel.update({
+                    _id: like.to
+                }, {
+                    $inc: {
+                        'stats.likes': 1
+                    }
+                }, function (err, user) {
+                
+                });
+                return;
+            }
             UserModel.update({
                 _id: like.to
             }, {

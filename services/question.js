@@ -41,13 +41,7 @@ module.exports = _.defaults({
                 if (err) {
                     return callback(err);
                 }
-                var output = []
-                _.each(questions, function (question) {
-                    question = question.toObject();
-                    question.created_at = question._id.getTimestamp();
-                    output.push(question);
-                });
-                callback(null, output);
+                callback(null, questions);
         });
     },
     /**
@@ -230,7 +224,6 @@ module.exports = _.defaults({
                     index = 0,
                     isLikedByUser = function isLikedByUser(question) {
                         question = question.toObject();
-                        question.created_at = question._id.getTimestamp();
                         LikeModel
                             .findOne({question_id: question._id, from: params.from})
                             .exec(function (err, like) {

@@ -62,18 +62,25 @@ var dataImport = {
                         },
                         function add(row, userTo, userFrom, nestedCallback) {
                             var data = {
+                                created_at: new Date(row.date.split('-').reverse().join('-') + ' ' + row.time),
                                 to: userTo._id,
                                 from: parseInt(row.anonymous, 10) === 1 || !userFrom ? null : userFrom._id,
                                 og_from: parseInt(row.anonymous, 10) === 0 && userFrom ? userFrom._id : null,
                                 contents: row.question,
                                 answer: row.answer || null,
-                                answered_at: row.answer ? new Date(row.date.split('-').reverse().join('-') + ' ' + row.time) : null,
                                 image: row.image || null,
                                 ip: row.ip,
                                 sync: {
                                     id: row.id
                                 }
                             };
+                            if (row.answer) {
+                                if (row.answer_timestamp) {
+                                    data.answered_at = new Date(parseInt(row.answer_timestamp, 10) * 1000);
+                                } else {
+                                    data.answered_at = new Date(row.date.split('-').reverse().join('-') + ' ' + row.time);
+                                }
+                            }
                             var question = new QuestionModel(data);
                             question.save(function (err) {
                                 nestedCallback(err);
