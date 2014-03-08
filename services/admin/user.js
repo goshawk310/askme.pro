@@ -43,5 +43,18 @@ module.exports = _.extend({
                 callback(err, rows, total);
             });
         })    
+    },
+    patch: function patch(id, callback) {
+        var req = this.getReq();
+        UserModel.findOne({_id: id}, function (err, user) {
+            if (err) {
+                return callback(err);
+            }
+            if (!user || user._id === req.user._id) {
+                return callback(new Error('User not found'));
+            }
+            user.set(req.body);
+            user.save(callback)
+        })
     }
 }, service);

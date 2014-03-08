@@ -124,3 +124,19 @@
 .user-status-cell {
     width: 15%;
 }
+
+.button-cell {
+    width: 140px;
+}
+
+.table-striped > tbody > tr > .success,
+.table-striped > tbody > .success > td,
+.table-striped > tbody > .success > th {
+  background-color: #d0e9c6 !important;
+}
+
+.table-striped > tbody > tr > .danger,
+.table-striped > tbody > .danger > td,
+.table-striped > tbody > .danger > th {
+  background-color: #f2dede !important;
+}

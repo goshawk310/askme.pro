@@ -22,7 +22,6 @@
             "dumpExceptions": true,
             "showStack": true
         },
-        
         "multipart": {
             "params": {
                 "keepExtensions": true

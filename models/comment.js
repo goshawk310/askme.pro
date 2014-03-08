@@ -124,6 +124,54 @@ var Comment = function() {
         });
     });
 
+    schema.statics.removeAllTo = function removeAllTo(id, callback) {
+        this.find({to: id}, function (err, docs) {
+            if (err) {
+                return callback(err);
+            }
+            var all = docs.length,
+                i = 0;
+            if (!all) {
+                return callback(null);
+            }
+            docs.forEach(function (doc) {
+                doc.remove(function (err) {
+                    i += 1;
+                    if (err) {
+                        console.log(err);
+                    }
+                    if (i >= all) {
+                        return callback(null, all);
+                    }
+                });
+            });
+        });
+    };
+
+    schema.statics.removeAllFrom = function removeAllFrom(id, callback) {
+        this.find({from: id}, function (err, docs) {
+            if (err) {
+                return callback(err);
+            }
+            var all = docs.length,
+                i = 0;
+            if (!all) {
+                return callback(null);
+            }
+            docs.forEach(function (doc) {
+                doc.remove(function (err) {
+                    i += 1;
+                    if (err) {
+                        console.log(err);
+                    }
+                    if (i >= all) {
+                        return callback(null, all);
+                    }
+                });
+            });
+        });
+    };
+    
     return mongoose.model('Comment', schema);
 };
 

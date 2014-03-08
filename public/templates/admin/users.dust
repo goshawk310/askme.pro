@@ -15,4 +15,5 @@
 <script src="/js/app/models.js"></script>
 <script src="/js/app/collections.js"></script>
 <script src="/js/admin/routes/users.router.js"></script>
+<script src="/js/admin/views/users.view.js"></script>
 {/js}

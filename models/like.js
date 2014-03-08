@@ -2,8 +2,6 @@
 
 var mongoose = require('mongoose'),
     validate = require('mongoose-validator').validate,
-    QuestionModel = require('./question'),
-    UserModel = require('./user'),
     ioHelper = require('../lib/socket.io');
 
 var Like = function() {
@@ -66,6 +64,8 @@ var Like = function() {
      * @return {void}
      */
     schema.post('save', function(like) {
+        var QuestionModel = require('./question'),
+            UserModel = require('./user');
         if (this.wasNew) {
             QuestionModel.update({
                 _id: like.question_id
@@ -110,6 +110,8 @@ var Like = function() {
      * @return {void}
      */
     schema.post('remove', function(like) {
+        var QuestionModel = require('./question'),
+            UserModel = require('./user');
         QuestionModel.update({
             _id: like.question_id
         }, {
@@ -125,6 +127,54 @@ var Like = function() {
         
         });
     });
+
+    schema.statics.removeAllTo = function removeAllTo(id, callback) {
+        this.find({to: id}, function (err, docs) {
+            if (err) {
+                return callback(err);
+            }
+            var all = docs.length,
+                i = 0;
+            if (!all) {
+                return callback(null);
+            }
+            docs.forEach(function (doc) {
+                doc.remove(function (err) {
+                    i += 1;
+                    if (err) {
+                        console.log(err);
+                    }
+                    if (i >= all) {
+                        return callback(null, all);
+                    }
+                });
+            });
+        });
+    };
+
+    schema.statics.removeAllFrom = function removeAllFrom(id, callback) {
+        this.find({from: id}, function (err, docs) {
+            if (err) {
+                return callback(err);
+            }
+            var all = docs.length,
+                i = 0;
+            if (!all) {
+                return callback(null);
+            }
+            docs.forEach(function (doc) {
+                doc.remove(function (err) {
+                    i += 1;
+                    if (err) {
+                        console.log(err);
+                    }
+                    if (i >= all) {
+                        return callback(null, all);
+                    }
+                });
+            });
+        });
+    };
 
     return mongoose.model('Like', schema);
 };

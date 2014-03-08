@@ -341,10 +341,6 @@ var User = function() {
      * @return void
      */
     schema.post('remove', function(user) {
-        var UserBlockedModel = require('./user/blocked'),
-            UserFollowedModel = require('./user/followed'),
-            UserGiftModel = require('./user/gift'),
-            QuestionModel = require('./question');
         if (user.avatar) {
             fsExtra.remove(config.avatar.dir + user.avatar);
             fsExtra.remove(config.avatar.dir + user.avatar.replace(path.extname(user.avatar), ''));
@@ -365,16 +361,7 @@ var User = function() {
         }, function () {
                
         });
-        UserGiftModel.remove({
-            to: user._id
-        }, function () {
-               
-        });
-        QuestionModel.remove({
-            to: user._id
-        }, function () {
-               
-        });
+        mongoose.model('User', schema).removeAll(user._id);
     });
 
     schema.methods.comparePasswords = function comparePasswords(password, callback) {
@@ -404,6 +391,39 @@ var User = function() {
         this.old = false;
         this.save(function(err, user) {
             callback(err, user, newPassword);
+        });
+    };
+
+    schema.statics.removeAll = function removeAll(id, callback) {
+        var UserBlockedModel = require('./user/blocked'),
+            UserFollowedModel = require('./user/followed'),
+            UserGiftModel = require('./user/gift'),
+            QuestionModel = require('./question'),
+            CommentModel = require('./comment'),
+            LikeModel = require('./like');
+        UserGiftModel.removeAllTo(id, function () {
+
+        });
+        UserGiftModel.removeAllFrom(id, function () {
+            
+        });
+        QuestionModel.removeAllTo(id, function () {
+
+        });
+        QuestionModel.removeAllFrom(id, function () {
+            
+        });
+        CommentModel.removeAllTo(id, function () {
+
+        });
+        CommentModel.removeAllFrom(id, function () {
+            
+        });
+        LikeModel.removeAllTo(id, function () {
+
+        });
+        LikeModel.removeAllFrom(id, function () {
+            
         });
     };
 
