@@ -132,8 +132,7 @@ var Question = function Question() {
                     _id: question.to
                 }, {
                     $inc: {
-                        'stats.questions_answered': 1,
-                        points: (question.to !== question.from) ? 0.2 : 0
+                        'stats.questions_answered': 1
                     }
                 }, function (err, user) {
                     
