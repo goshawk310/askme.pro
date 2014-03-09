@@ -341,6 +341,8 @@ var User = function() {
      * @return void
      */
     schema.post('remove', function(user) {
+        var UserBlockedModel = require('./user/blocked'),
+            UserFollowedModel = require('./user/followed');
         if (user.avatar) {
             fsExtra.remove(config.avatar.dir + user.avatar);
             fsExtra.remove(config.avatar.dir + user.avatar.replace(path.extname(user.avatar), ''));

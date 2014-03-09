@@ -1,7 +1,10 @@
 'use strict';
 var auth = require('../../../lib/auth'),
     adminUserService = require('../../../services/admin/user'),
-    adminQuestionService = require('../../../services/admin/question');
+    adminQuestionService = require('../../../services/admin/question'),
+    adminGiftService = require('../../../services/admin/gift'),
+    adminCommentService = require('../../../services/admin/comment'),
+    adminLikeService = require('../../../services/admin/like');
 
 module.exports = function(server) {
 
@@ -33,11 +36,137 @@ module.exports = function(server) {
         });
     });
 
+    server.delete('/api/admin/users/:id', auth.hasPrivilegesOf('admin'), function (req, res) {
+        adminUserService
+        .setReq(req)
+        .remove(req.param('id'), function (err) {
+            if (err) {
+                return res.send({
+                    status: 0,
+                    message: err
+                });
+            }
+            return res.send({
+                status: 1
+            });
+        });
+    });
+
     server.delete('/api/admin/users/:id/answers', auth.hasPrivilegesOf('admin'), function (req, res) {
         adminQuestionService
-        .setReq(req)
-        .setRes(res)
-        .deleteAllTo(req.param('id'), function (err, count) {
+        .removeAllTo(req.param('id'), function (err, count) {
+            if (err) {
+                return res.send({
+                    status: 0,
+                    message: err
+                });
+            }
+            return res.send({
+                status: 1,
+                message: count
+            });
+        });
+    });
+
+    server.delete('/api/admin/users/:id/questions', auth.hasPrivilegesOf('admin'), function (req, res) {
+        adminQuestionService
+        .removeAllFrom(req.param('id'), function (err, count) {
+            if (err) {
+                return res.send({
+                    status: 0,
+                    message: err
+                });
+            }
+            return res.send({
+                status: 1,
+                message: count
+            });
+        });
+    });
+
+    server.delete('/api/admin/users/:id/gifts/recived', auth.hasPrivilegesOf('admin'), function (req, res) {
+        adminGiftService
+        .removeAllTo(req.param('id'), function (err, count) {
+            if (err) {
+                return res.send({
+                    status: 0,
+                    message: err
+                });
+            }
+            return res.send({
+                status: 1,
+                message: count
+            });
+        });
+    });
+
+    server.delete('/api/admin/users/:id/gifts/sent', auth.hasPrivilegesOf('admin'), function (req, res) {
+        adminGiftService
+        .removeAllFrom(req.param('id'), function (err, count) {
+            if (err) {
+                return res.send({
+                    status: 0,
+                    message: err
+                });
+            }
+            return res.send({
+                status: 1,
+                message: count
+            });
+        });
+    });
+
+    server.delete('/api/admin/users/:id/comments/recived', auth.hasPrivilegesOf('admin'), function (req, res) {
+        adminCommentService
+        .removeAllTo(req.param('id'), function (err, count) {
+            if (err) {
+                return res.send({
+                    status: 0,
+                    message: err
+                });
+            }
+            return res.send({
+                status: 1,
+                message: count
+            });
+        });
+    });
+
+    server.delete('/api/admin/users/:id/comments/sent', auth.hasPrivilegesOf('admin'), function (req, res) {
+        adminCommentService
+        .removeAllFrom(req.param('id'), function (err, count) {
+            if (err) {
+                return res.send({
+                    status: 0,
+                    message: err
+                });
+            }
+            return res.send({
+                status: 1,
+                message: count
+            });
+        });
+    });
+
+    server.delete('/api/admin/users/:id/likes/recived', auth.hasPrivilegesOf('admin'), function (req, res) {
+        adminLikeService
+        .removeAllTo(req.param('id'), function (err, count) {
+            if (err) {
+                return res.send({
+                    status: 0,
+                    message: err
+                });
+            }
+            return res.send({
+                status: 1,
+                message: count
+            });
+        });
+    });
+
+    server.delete('/api/admin/users/:id/likes/sent', auth.hasPrivilegesOf('admin'), function (req, res) {
+        adminLikeService
+        .removeAllFrom(req.param('id'), function (err, count) {
             if (err) {
                 return res.send({
                     status: 0,

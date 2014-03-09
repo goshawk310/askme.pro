@@ -1,13 +1,13 @@
 'use strict';
-var QuestionModel = require('../../models/question'),
+var UserGiftModel = require('../../models/user/gift'),
     service = require('../../lib/service'),
     _ = require('underscore');
 
 module.exports = _.extend({
     deleteAllTo: function deleteAllTo(id, callback) {
-        QuestionModel.removeAllTo(id, callback);
+        UserGiftModel.removeAllTo(id, callback);
     },
     deleteAllFrom: function deleteAllFrom(id, callback) {
-        QuestionModel.removeAllFrom(id, callback);
+        UserGiftModel.removeAllFrom(id, callback);
     }
 }, service);
