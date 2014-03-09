@@ -4,10 +4,10 @@ var LikeModel = require('../../models/like'),
     _ = require('underscore');
 
 module.exports = _.extend({
-    deleteAllTo: function deleteAllTo(id, callback) {
+    removeAllTo: function removeAllTo(id, callback) {
         LikeModel.removeAllTo(id, callback);
     },
-    deleteAllFrom: function deleteAllFrom(id, callback) {
+    removeAllFrom: function removeAllFrom(id, callback) {
         LikeModel.removeAllFrom(id, callback);
     }
 }, service);

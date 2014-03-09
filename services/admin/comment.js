@@ -4,10 +4,10 @@ var CommentModel = require('../../models/comment'),
     _ = require('underscore');
 
 module.exports = _.extend({
-    deleteAllTo: function deleteAllTo(id, callback) {
+    removeAllTo: function removeAllTo(id, callback) {
         CommentModel.removeAllTo(id, callback);
     },
-    deleteAllFrom: function deleteAllFrom(id, callback) {
+    removeAllFrom: function removeAllFrom(id, callback) {
         CommentModel.removeAllFrom(id, callback);
     }
 }, service);

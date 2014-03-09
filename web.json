@@ -1,0 +1,8 @@
+[{
+    "name"       : "www",
+    "script"     : "./index.js",
+    "instances"  : "1",
+    "error_file" : "./logs/www-err.log",
+    "out_file"   : "./logs/www-out.log",
+    "exec_mode"  : "fork_mode"
+}]

@@ -4,10 +4,10 @@ var QuestionModel = require('../../models/question'),
     _ = require('underscore');
 
 module.exports = _.extend({
-    deleteAllTo: function deleteAllTo(id, callback) {
+    removeAllTo: function removeAllTo(id, callback) {
         QuestionModel.removeAllTo(id, callback);
     },
-    deleteAllFrom: function deleteAllFrom(id, callback) {
+    removeAllFrom: function removeAllFrom(id, callback) {
         QuestionModel.removeAllFrom(id, callback);
     }
 }, service);

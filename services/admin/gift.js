@@ -4,10 +4,10 @@ var UserGiftModel = require('../../models/user/gift'),
     _ = require('underscore');
 
 module.exports = _.extend({
-    deleteAllTo: function deleteAllTo(id, callback) {
+    removeAllTo: function removeAllTo(id, callback) {
         UserGiftModel.removeAllTo(id, callback);
     },
-    deleteAllFrom: function deleteAllFrom(id, callback) {
+    removeAllFrom: function removeAllFrom(id, callback) {
         UserGiftModel.removeAllFrom(id, callback);
     }
 }, service);
