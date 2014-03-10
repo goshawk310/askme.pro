@@ -1166,6 +1166,10 @@ ul#profile-menu li.active a {
     margin: 0 10px 0 10px;
 }
 
+.list-elem-container.user-container {
+    height: 220px;
+}
+
 @media (min-width: 768px) {
 	#profile-info-container {
         min-height: 150px;
