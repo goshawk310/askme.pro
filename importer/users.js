@@ -79,7 +79,7 @@ var dataImport = {
                     if (err) {
                         errors += 1;
                     }
-                    if (index === limit) {
+                    if (index === limit || index >= rows.length) {
                         console.log('page: ' + settings.page + ', successful: ' + (limit - errors) + ', errors: ' + errors);
                         settings.page += 1;
                         dataImport.users(connection, settings.page);
