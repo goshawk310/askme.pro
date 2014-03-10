@@ -1,8 +1,15 @@
 [{
-    "name"       : "www",
+    "name"       : "www-1",
     "script"     : "./index.js",
-    "instances"  : "2",
-    "error_file" : "./logs/www-err.log",
-    "out_file"   : "./logs/www-out.log",
+    "instances"  : "1",
+    "error_file" : "./logs/www-err-1.log",
+    "out_file"   : "./logs/www-out-1.log",
+    "exec_mode"  : "fork_mode"
+}, {
+    "name"       : "www-2",
+    "script"     : "./index.js",
+    "instances"  : "1",
+    "error_file" : "./logs/www-err-2.log",
+    "out_file"   : "./logs/www-out-2.log",
     "exec_mode"  : "fork_mode"
 }]
