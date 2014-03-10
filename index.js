@@ -97,6 +97,15 @@ app.requestBeforeRoute = function requestBeforeRoute(server) {
 
 app.requestAfterRoute = function requestAfterRoute(server) {
     // Fired after routing occurs
+    server.use(function (req, res, next) {
+        if (req.path.substr(0, 17) === '/uploads/avatars/') {
+            res.status(404).sendfile('./public/images/default_avatar.png');
+        } else if (req.path.substr(0, 21) === '/uploads/backgrounds/') {
+            res.status(404).sendfile('./public/images/themes/default.png');
+        } else {
+            next();
+        }
+    });
 };
 
 if (require.main === module) {
