@@ -114,18 +114,18 @@ if (require.main === module) {
         i = 0;
 
     if (cluster.isMaster) {  
-      for (i = 0; i < cCPUs; i++) {
-          cluster.fork();
-      }
-      cluster.on('online', function (worker) {
-          console.log('Worker ' + worker.process.pid + ' started.');
-      });
-      cluster.on('exit', function (worker, code, signal) {
-          console.log('Worker ' + worker.process.pid + ' died.');
-          cluster.fork();
-      });
+        for (i = 0; i < cCPUs; i++) {
+            cluster.fork();
+        }
+        cluster.on('online', function (worker) {
+            console.log('Worker ' + worker.process.pid + ' started.');
+        });
+        cluster.on('exit', function (worker, code, signal) {
+            console.log('Worker ' + worker.process.pid + ' died.');
+            cluster.fork();
+        });
     } else {
-      kraken.create(app).listen(function (err, server) {
+        kraken.create(app).listen(function (err, server) {
             if (err) {
                 console.error(err.stack);
             }

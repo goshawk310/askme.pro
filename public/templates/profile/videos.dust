@@ -13,7 +13,7 @@
     </div>
 </script>
 <script type="text/template" id="profile-video-tpl">
-    <div class="col-md-4 col-sm-6 col-xs-12 list-elem-container">
+    <div class="col-md-12 list-elem-container">
         <div class="list-elem">
             <div class="video-container visible text-center">
                 <% if (video.yt_video) {~lb} %>

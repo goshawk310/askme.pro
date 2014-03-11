@@ -1170,6 +1170,11 @@ ul#profile-menu li.active a {
     height: 220px;
 }
 
+#profile-videos-container .list-elem {
+    max-width: 640px;
+    margin: 0 auto;
+}
+
 @media (min-width: 768px) {
 	#profile-info-container {
         min-height: 150px;

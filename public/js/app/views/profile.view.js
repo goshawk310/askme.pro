@@ -759,7 +759,7 @@ askmePro.views.ProfileVideosView = Backbone.View.extend({
     loader: null,
     pagination: null,
     initialize: function(options) {
-        this.limit = options.limit || 18;
+        this.limit = options.limit || 6;
     },
     render: function() {
         this.setElement($(this.template()));

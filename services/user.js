@@ -563,16 +563,17 @@ module.exports = _.defaults({
     },
     getVideosById: function getVideosById(id, params, callback) {
         var page = params.page || 0,
-            limit = params.limit || 18,
+            limit = params.limit || 6,
             skip = limit * page,
             where = {
                 to: id,
-                yt_video: {$ne: null}
+                $or: [{yt_video: {$ne: null}}, {answer: /.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/}]
             };
         QuestionModel.count(where, function (err, total) {
             if (err) {
                 return callback(err);
             }
+            console.log(total);
             if (!total) {
                 return callback(null, {
                     total: 0,
@@ -581,14 +582,35 @@ module.exports = _.defaults({
             }
             QuestionModel
                 .find(where)
-                .select('to answered_at yt_video')
+                .select('to answered_at yt_video answer')
                 .skip(skip)
                 .limit(limit)
                 .sort({answered_at: -1})
-                .exec(function (err, videos) {
+                .exec(function (err, rows) {
                     if (err) {
                         return callback(err);
                     }
+                    var urlRegexp = /((https?:\/\/)?[\w-]+(\.[\w-]+)+\.?(:\d+)?(\/\S*)?)/gi,
+                        ytRegExp = /.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/,
+                        videos = [];
+                    _.each(rows, function (row) {
+                        if (row.yt_video !== null) {
+                            videos.push(_.pick(row, 'to', 'answered_at', 'yt_video'));
+                        }
+                        var urlMatches = row.answer.match(urlRegexp);
+                        if (urlMatches) {
+                            _.each(urlMatches, function (url) {
+                                var matches = url.match(ytRegExp);
+                                if (matches && matches[2].length) {
+                                    var video = _.pick(row, 'to', 'answered_at');
+                                    video.yt_video = matches[2];
+                                    videos.push(video);      
+                                }
+                            });
+                        } 
+                    });
+                        
+                       
                     return callback(null, {
                         total: total,
                         videos: videos

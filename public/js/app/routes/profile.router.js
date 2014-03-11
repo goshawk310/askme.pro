@@ -123,7 +123,7 @@ askmePro.routers.Profile = Backbone.Router.extend({
         } else {
             $('#profile-tabs-content').html(this.views.profilePhotos.$el);
         }
-        this.views.profilePhotos.load(parseInt(page, 10) || 0);;
+        this.views.profilePhotos.load(parseInt(page, 10) || 0);
     },
     videos: function videos(page) {
         $('#profile-menu li a[href="#videos"]').tab('show');
@@ -137,6 +137,6 @@ askmePro.routers.Profile = Backbone.Router.extend({
         } else {
             $('#profile-tabs-content').html(this.views.profileVideos.$el);
         }
-        this.views.profileVideos.load(parseInt(page, 10) || 0);;
+        this.views.profileVideos.load(parseInt(page, 10) || 0);
     }
 });

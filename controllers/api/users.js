@@ -242,7 +242,7 @@ module.exports = function(server) {
             }
             userService
                 .getVideosById(user._id, {
-                    limit: 18,
+                    limit: 6,
                     page: Math.abs(parseInt(req.param('page'), 10))
                 }, function (err, videos) {
                     if (err) {
