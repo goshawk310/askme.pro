@@ -129,7 +129,7 @@ module.exports = function(server) {
     });
 
     server.get('/api/questions/:id/likes', function (req, res) {
-        likeService.getByQuestionId({
+        likeService.setReq(req).getByQuestionId({
             id: req.param('id')
         }, function (err, likes) {
             if (err) {
@@ -140,8 +140,7 @@ module.exports = function(server) {
             }
             res.send(likes);
         });
-        
-    });
+   });
 
     /**
      * 

@@ -46,7 +46,7 @@ module.exports = _.defaults({
     },
     resetPassword: function resetPassword(req, res, callback) {
         UserModel.findOne({
-            email: req.body.email
+            email: new RegExp('^' + req.body.email + '$', 'i')
         }, function(err, user) {
             if (err) {
                 return callback(req, res, err);

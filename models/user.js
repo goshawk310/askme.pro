@@ -178,7 +178,7 @@ var User = function() {
         },
         role: {
             type: String,
-            enum: ['user', 'editor', 'admin'],
+            enum: ['user', 'editor', 'moderator', 'admin'],
             default: 'user'
         },
         last_visit_at: {

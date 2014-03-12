@@ -34,10 +34,37 @@ module.exports = _.defaults({
             });
     },
     getByQuestionId: function getByQuestionId(params, callback) {
+        var req = this.getReq();
         LikeModel
             .find({question_id: params.id})
             .populate('from', 'username avatar stats')
-            .exec(callback);
+            .exec(function (err, rows) {
+                if (err) {
+                    return callback(err);
+                }
+                var output = [],
+                    like = null;
+                if (req && req.user) {
+                    rows.forEach(function (row) {
+                        if (row.from && !(req.user.users.blocked && row.from.isBlocked(req.user.users.blocked))) {
+                            like = row.toObject();
+                            if ((req.user.users.followed && row.from.isFollowed(req.user.users.followed)) || String(like.from._id) === String(req.user._id)) {
+                                like.from.isFollowed = true;
+                            } else {
+                                like.from.isFollowed = false;
+                            }
+                            output.push(like);
+                        }
+                    });
+                } else {
+                    rows.forEach(function (row) {
+                        if (row.from) {
+                            output.push(row.toObject());
+                        }
+                    });
+                }
+                return callback(null, output); 
+            });
     },
     getTop: function getTop(params, callback) {
         var where = {
