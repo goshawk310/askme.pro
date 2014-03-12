@@ -5,6 +5,7 @@ askmePro.views.ProfileIndexView = Backbone.View.extend({
     giftBounds: [],
     page: 0,
     path: null,
+    adDisplayed: false,
     initialize: function(options) {
         this.path = options.path || null;
         this.render();
@@ -111,8 +112,7 @@ askmePro.views.ProfileIndexView = Backbone.View.extend({
             container = this.$('#answers-container'),
             moreContainer = this.$('.more-container'),
             more = moreContainer.children('.more'),
-            p = page || 0,
-            adDisplayed = false;
+            p = page || 0;
         loader('show');
         $.get(window.location.pathname + '/answers?p=' + p)
             .done(function (response) {
@@ -126,9 +126,9 @@ askmePro.views.ProfileIndexView = Backbone.View.extend({
                         showAdd: i === 0 ? true : false
                     }));
                     container.append(thisObj.questions[thisObj.questions.length - 1].render().$el);
-                    if (!adDisplayed && thisObj.questions[thisObj.questions.length - 1].showAdd) {
+                    if (!thisObj.adDisplayed && thisObj.questions[thisObj.questions.length - 1].showAdd) {
                         (adsbygoogle = window.adsbygoogle || []).push({});
-                        adDisplayed = true;
+                        thisObj.adDisplayed = true;
                     }
                 });
                 if (response.hasMore === false) {
