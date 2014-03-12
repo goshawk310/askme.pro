@@ -292,7 +292,7 @@ module.exports = _.defaults({
      * @return {void}
      */
     getByUsername: function getByUsername(username, callback) {
-        UserModel.findOne({username: new RegExp(username, 'i')}, callback);
+        UserModel.findOne({username: new RegExp('^' + username + '$', 'i')}, callback);
     },
 
     changeTopbg: function changeTopbg() {
