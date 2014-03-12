@@ -43,7 +43,6 @@ module.exports = {
         'stream',
         'online',
         'top20',
-        'admin',
         'api',
         'account'
     ]

@@ -7,6 +7,7 @@ var userService = require('../services/user'),
 module.exports = function(server) {
 
     server.get('/:username', function(req, res, next) {
+        console.log(req.param('username'));
         return Q.npost(userService, 'getByUsername', [req.param('username')])
         .then(function (user) {
             if (!req.isAuthenticated() && user.settings.anonymous_disallowed) {
@@ -57,7 +58,8 @@ module.exports = function(server) {
             return res.render('profile', data);
         })
         .fail(function (err) {
-            if (err.message && err.message) {
+            console.log(err);
+            if (err && err.message) {
                 req.flash('error', res.__('Aby przeglądać tą stronę trzeba się zalogować'));
                 return res.redirect('/account/login');
             }

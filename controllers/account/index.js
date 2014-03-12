@@ -87,12 +87,12 @@ module.exports = function (server) {
     server.get('/account/check', function (req, res) {
         var conds = {},
             alreadyExistsMsg = '',
-            errorMessage = res.__('Wystąpił nieoczekiwany błąd.');;
+            errorMessage = res.__('Wystąpił nieoczekiwany błąd.');
         if (req.query.username) {
-            conds = {username: req.query.username};
+            conds = {username: new RegExp(req.query.username, 'i')};
             alreadyExistsMsg = res.__('Podana nazwa użytkownika jest już zajęta.');
         } else if (req.query.email) {
-            conds = {email: req.query.email};
+            conds = {email: new RegExp(req.query.email, 'i')};
             alreadyExistsMsg = res.__('Podany adres e-mail jest już zajęty.');
         } else {
             return res.json(errorMessage);
