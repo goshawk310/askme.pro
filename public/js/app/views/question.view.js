@@ -259,6 +259,7 @@ askmePro.views.QuestionLikeView = Backbone.View.extend(_.extend({
     },
     render: function () {
         this.setElement($(this.template({like: this.model.attributes})));
+        this.delegateEvents();
         return this;
     },
     events: {
