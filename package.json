@@ -7,7 +7,7 @@
   "scripts": {
     "dev": "nodemon --ext js,dust --ignore '.build*' --ignore 'uploads*' index.js",
     "dev-test": "NODE_ENV=test nodemon --ext js,dust --ignore '.build*' --ignore 'uploads*' index.js",
-    "start": "forever start index.js"
+    "start": "NODE_ENV=production forever start index.js"
   },
   "engines": {
     "node": ">=0.10.0"

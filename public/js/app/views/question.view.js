@@ -3,15 +3,17 @@ askmePro.views.QuestionView = Backbone.View.extend({
     commentsFormInitialized: false,
     commentsView: null,
     likesView: null,
-    initialize: function () {
+    showAdd: false,
+    initialize: function (options) {
         var thisObj = this;
+        this.showAdd = options && options.showAdd ? true : false;
         this.collection = new askmePro.collections.QuestionCommentCollection();
         this.model.on('change:stats.comments', function (model, val) {
             thisObj.$('.btn-comments > span.count').html(val);
         });
     },
     render: function () {
-        this.setElement($(this.template({question: this.model.attributes})));
+        this.setElement($(this.template({question: this.model.attributes, showAdd: this.showAdd})));
         return this;
     },
     events: {

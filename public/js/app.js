@@ -49,7 +49,7 @@ var askmePro = {
                             matches = url.match(ytRegExp);
                             if (matches && matches[2].length) {
                                 if (options.yt === 'video') {
-                                    replacedHtml = ytVideoHtmlTpl.replace('src=""', 'src="http://www.youtube.com/embed/' + matches[2] + '?wmode=transparent"');
+                                    replacedHtml = ytVideoHtmlTpl.replace('src=""', 'src="http://www.youtube.com/embed/' + matches[2] + '?wmode=opaque"');
                                     value = value.replace(url, replacedHtml);
                                 } else if (options.yt === 'link') {
                                     replacedHtml = '<a href="http://www.youtube.com/watch?v=' + matches[2] + ' " target="_blank">http://www.youtube.com/watch?v=' + matches[2] + ' </a>';

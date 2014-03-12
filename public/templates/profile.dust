@@ -18,7 +18,13 @@
                     <div class="col-md-9">
                         <ul class="nav nav-tabs" id="profile-menu">
                             <li class="active"><a href="/{profile.username}"><span class="glyphicon glyphicon-user"></span> {@__ phrase="Profil" /}</a></li>
-                            <li><a href="#info"><span class="glyphicon glyphicon-info-sign"></span> {@__ phrase="Informacje" /}</a></li>
+                            <li>
+                                <a href="#info">
+                                    <span class="glyphicon glyphicon-info-sign"></span> 
+                                    <span class="full-text">{@__ phrase="Informacje" /}</span>
+                                    <span class="short-text">{@__ phrase="Info" /}</span>
+                                </a>
+                            </li>
                             <li><a href="#photos"><span class="glyphicon glyphicon-picture"></span> {@__ phrase="Zdjęcia" /}</a></li>
                             <li><a href="#videos"><span class="glyphicon glyphicon-film"></span> {@__ phrase="Video" /}</a></li>
                         </ul>        

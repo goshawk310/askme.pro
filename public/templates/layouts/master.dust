@@ -50,6 +50,26 @@
             };
         </script>
         <script src="/js/app/views/top.notifications.view.js"></script>
+        <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+        <script>
+            $(function () {
+                var adds = $('.adsbygoogle'),
+                    i = 0,
+                    renderAdds = function render() {
+                        if (adds.length) {
+                            adds.each(function () {
+                                if ($(this).is(':visible') && !$(this).children().length) {
+                                    (adsbygoogle = window.adsbygoogle || []).push({});
+                                }
+                            });
+                        }
+                    };
+                renderAdds();
+                $(window).on('resize', function () {
+                    renderAdds();
+                });
+            });
+        </script>
         {+js /}
         {@hasPrivilegesOf user=user role="editor"}
             <script src="/components/jquery.cookie.js"></script>

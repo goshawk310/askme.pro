@@ -116,14 +116,18 @@ askmePro.views.ProfileIndexView = Backbone.View.extend({
         $.get(window.location.pathname + '/answers?p=' + p)
             .done(function (response) {
                 thisObj.collection = new askmePro.collections.QuestionCollection(response.questions);
-                thisObj.collection.each(function (question) {
+                thisObj.collection.each(function (question, i) {
                     thisObj.questions.push(new askmePro.views.QuestionView({
                         model: question,
                         attributes: {
                             parent: thisObj
-                        }
+                        },
+                        showAdd: i === 0 ? true : false
                     }));
                     container.append(thisObj.questions[thisObj.questions.length - 1].render().$el);
+                    if (thisObj.questions[thisObj.questions.length - 1].showAdd) {
+                        (adsbygoogle = window.adsbygoogle || []).push({});
+                    }
                 });
                 if (response.hasMore === false) {
                     thisObj.page =  0;
