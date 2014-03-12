@@ -1205,6 +1205,38 @@ ul#profile-menu li.active a {
     height: 250px;
 }
 
+.user-info-footer .stats-contaier, .user-info-footer .img-container {
+    display: inline-block; float: left; text-align: center;
+}
+
+.user-info-footer .data-row-1, .user-info-footer .data-row-2 {
+    clear: both;
+    float: left;
+    width: 100%;
+}
+
+.user-info-footer .data-row-1 .stats-contaier {
+    width: 50%;
+}
+
+.user-info-footer .data-row-1 .stats-contaier:first-child {
+    width: 40%;
+}
+
+.user-info-footer .data-row-1 .img-container {
+    width: 10%;
+}
+
+.user-info-footer .data-row-2 {
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px solid #e4e4e4;
+}
+
+.user-info-footer .data-row-2 .stats-contaier {
+    width: 33.3333333%;
+}
+
 @media (min-width: 768px) {
 	#profile-info-container {
         min-height: 150px;

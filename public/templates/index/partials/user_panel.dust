@@ -14,7 +14,15 @@
             </ul>
         </div>
     </div>
-    <div class="panel-footer hidden-sm hidden-xs">
-
+    <div class="user-info-footer panel-footer hidden-sm hidden-xs">
+    <div class="data-row-1">
+        <span class="stats-contaier">obserwuje <strong>{user.stats.follows}</strong></span><span class="img-container"><img src="/images/icons/followers.png" alt="followers"></span><span class="stats-contaier">obserwujących <strong>{user.stats.follows}</strong></span>
+    </div>
+    <div class="data-row-2">
+        <span class="stats-contaier"><img src="/images/icons/qa.png" alt="answers"> <strong>{user.stats.questions_answered}</strong></span>
+        <span class="stats-contaier"><img src="/images/icons/likes.png" alt="likes"> <strong>{user.stats.likes}</strong></span>
+        <span class="stats-contaier"><img src="/images/icons/giftbox.png" alt="gifts"> <strong>{user.stats.gifts_received}</strong></span>
+    </div>
+    <div class="clearfix"></div>
     </div>
 </div>
