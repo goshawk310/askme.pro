@@ -44,7 +44,9 @@
                             <div class="col-md-9" id="profile-info-container">
                                 <div class="well well-sm{?profile.top_bg} box-shadow{:else} no-shadow{/profile.top_bg}">
                                     <h1>{profile.name} {profile.lastname} </h1>
-                                    {?profile.online}<span class="online text-success">online</span>{:else}<span class="offline text-muted">{@__ phrase="ostatnia wizyta" /}: {@dateTime date=profile.last_visit_at method="fromNow" /}</span>{/profile.online}
+                                    {?profile.online}<div class="online text-success">online</div>{:else}<div class="offline text-muted">{@__ phrase="ostatnia wizyta" /}: {@dateTime date=profile.last_visit_at method="fromNow" /}</div>{/profile.online}
+                                    <div class="clearfix"></div>
+                                    <div class="fb-like" data-href="http://askme.pro/{profile.username}" data-layout="button_count" data-action="like" data-show-faces="false" data-share="true"></div>
                                 </div>
                                 {?user}
                                     <div id="profile-buttons-container">
