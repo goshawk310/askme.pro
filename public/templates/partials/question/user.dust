@@ -6,7 +6,7 @@
                     <%=askmePro.views.helpers.userAvatar({~lb}user: question.to, size: 'cropped/100x', wrapper: true, cssClass: "box-shadow img-circle user-avatar small", linkClass: "user-avatar-wrapper pull-left"{~rb})%>
                     <div class="media-body">
                         <h4><%=askmePro.views.helpers.parseUsersText(question.contents, {url: {yt: 'link'}})%></h4>
-                        <span><%=askmePro.views.helpers.parseUsersText(question.answer)%></span>
+                        <div class="asnwer"><%=askmePro.views.helpers.parseUsersText(question.answer)%></div>
                         <div class="clearfix"></div>
                         <% if (question.image) {~lb} %>
                             <div class="media-wrapper panel panel-link no-shadow">

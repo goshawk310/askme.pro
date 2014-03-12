@@ -7,7 +7,7 @@
                     <div class="media-body">
                         <h4><%=askmePro.views.helpers.parseUsersText(question.contents, {url: {yt: 'link'}})%></h4>
                         <span class="triangle"></span>
-                        <span><%=askmePro.views.helpers.parseUsersText(question.answer)%></span>
+                        <div class="asnwer"><%=askmePro.views.helpers.parseUsersText(question.answer)%></div>
                         <div class="clearfix"></div>
                         <% if (question.image) {~lb} %>
                             <div class="media-wrapper panel panel-link no-shadow">

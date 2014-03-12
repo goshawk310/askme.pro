@@ -34,9 +34,11 @@ var askmePro = {
                     allowedLinksRegExp = /^((https?:\/\/)(www[.])?(askme.pro|facebook.com)(.*))$/,
                     urlMatches = value.match(urlRegexp),
                     matches = null,
-                    ytVideoHtmlTpl = '<div class="video-wrapper"><div class="video-container visible">' +
-                        '<iframe width="400" height="255" src="" frameborder="0" allowfullscreen></iframe>' +
-                        '</div></div>',
+                    ytVideoHtmlTpl = '<div class="media-wrapper panel panel-link no-shadow">' +
+                        '<div class="panel-body text-center">' +
+                        '<div class="video-container visible">' +
+                        '<iframe width="640" height="360" src="" frameborder="0" allowfullscreen></iframe>' +
+                        '</div></div></div></div>',    
                     replacedHtml = '',
                     defaults = {
                         links: true,
