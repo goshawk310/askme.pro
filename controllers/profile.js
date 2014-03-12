@@ -7,7 +7,6 @@ var userService = require('../services/user'),
 module.exports = function(server) {
 
     server.get('/:username', function(req, res, next) {
-        console.log(req.param('username'));
         return Q.npost(userService, 'getByUsername', [req.param('username')])
         .then(function (user) {
             if (!req.isAuthenticated() && user.settings.anonymous_disallowed) {

@@ -44,7 +44,7 @@
                             <div class="col-md-9" id="profile-info-container">
                                 <div class="well well-sm{?profile.top_bg} box-shadow{:else} no-shadow{/profile.top_bg}">
                                     <h1>{profile.name} {profile.lastname} </h1>
-                                    {?profile.online}<span class="online text-success">online</span>{:else}<span class="offline text-muted">offline</span>{/profile.online}
+                                    {?profile.online}<span class="online text-success">online</span>{:else}<span class="offline text-muted">{@__ phrase="ostatnia wizyta" /}: {@dateTime date=profile.last_visit_at method="fromNow" /}</span>{/profile.online}
                                 </div>
                                 {?user}
                                     <div id="profile-buttons-container">
