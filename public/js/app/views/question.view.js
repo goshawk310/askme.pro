@@ -252,7 +252,7 @@ askmePro.views.QuestionLikesView = Backbone.View.extend({
     }
 });
 
-askmePro.views.QuestionLikeView = Backbone.View.extend({
+askmePro.views.QuestionLikeView = Backbone.View.extend(_.extend({
     template: _.template($('#question-like-tpl').html()),
     initialize: function () {
         
@@ -261,7 +261,7 @@ askmePro.views.QuestionLikeView = Backbone.View.extend({
         this.setElement($(this.template({like: this.model.attributes})));
         return this;
     }
-});
+}, askmePro.mixins.userFollow));
 
 askmePro.views.QuestionCommentsView = Backbone.View.extend({
     questionView: null,

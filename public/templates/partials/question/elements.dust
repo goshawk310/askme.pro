@@ -25,8 +25,16 @@
             </div>
        </div>
        <div class="col-md-2">
-            
-       </div>
+            {?user}
+                <% if ('{user.id}' !== like.from._id) {~lb}%>
+                    <% if (like.from.isFollowed) {~lb} %>
+                        <a class="btn btn-sm btn-default btn-unfollow" data-alttext="{@__ phrase="Obserwuj" /}">{@__ phrase="Zrezygnuj" /}</a>
+                    <% {~rb} else {~lb} %>
+                        <a class="btn btn-sm btn-success btn-follow" data-alttext="{@__ phrase="Zrezygnuj" /}">{@__ phrase="Obserwuj" /}</a>
+                    <% {~rb} %>
+                <% {~rb} %>
+            {/user}
+        </div>
        <div class="clearfix"></div>
        <hr>
        <div class="clearfix"></div>
