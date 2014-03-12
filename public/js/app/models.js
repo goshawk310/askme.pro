@@ -13,7 +13,7 @@ askmePro.models.QuestionModel = Backbone.DeepModel.extend({
     }
 });
 
-askmePro.models.QuestionLikeModel = Backbone.Model.extend({
+askmePro.models.QuestionLikeModel = Backbone.DeepModel.extend({
     idAttribute: '_id',
     initialize: function () {
     },
