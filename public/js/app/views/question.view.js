@@ -240,9 +240,11 @@ askmePro.views.QuestionLikesView = Backbone.View.extend({
             success: function (collection, response, options) {
                 loader('hide');
                 collection.each(function (like) {
-                    body.append(new askmePro.views.QuestionLikeView({
-                        model: like,
-                    }).render().$el);
+                    var likeView = new askmePro.views.QuestionLikeView({
+                        model: like
+                    });
+                    body.append(likeView.render().$el);
+                    likeView.delegateEvents();
                 });
             },
             error: function () {
@@ -259,11 +261,7 @@ askmePro.views.QuestionLikeView = Backbone.View.extend(_.extend({
     },
     render: function () {
         this.setElement($(this.template({like: this.model.attributes})));
-        this.delegateEvents();
         return this;
-    },
-    events: {
-        
     }
 }, askmePro.mixins.userFollow));
 
