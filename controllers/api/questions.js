@@ -231,7 +231,7 @@ module.exports = function(server) {
      * @param  {Object} res
      * @return {void}
      */
-    server.get('/api/questions/:id/comments', auth.isAuthenticated, function (req, res) {
+    server.get('/api/questions/:id/comments', function (req, res) {
         commentService
             .setReq(req)
             .getForQuestion(function (err, comments) {
