@@ -5,10 +5,12 @@
         <div class="col-md-3 hidden-sm hidden-xs" id="user-info-wrapper">
             {>"index/partials/user_panel" /}
             {>"partials/users/online" type="friends" onlineUsers="{onlineUsers}" /}
+            {>"layouts/partials/ads/left"/}
         </div>
         <div class="col-md-9 col-sm-12 col-xs-12" id="main-content-wrapper">
             <div class="panel panel-default box-shadow">
                 <div class="panel-body">
+                    {>"layouts/partials/ads/content_horizontal"/}
                     <div class="row">
                         {>"index/partials/menu" mode="{mode}" /}
                         <div id="main-content-container" class="col-md-12">

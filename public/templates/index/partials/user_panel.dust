@@ -4,6 +4,9 @@
         <div class="user-info">
             <h4>{user.name} {user.lastname}</h4>
             <h5>@{user.username}</h5>
+            {?user.profile.motto}
+                <em>"{user.profile.motto}"</em>
+            {/user.profile.motto}
             <ul class="nav nav-pills nav-stacked">
                 <li class="active"><a href="/inbox">Pytania <span class="badge pull-right">{user.stats.questions_unanswered}</span></a></li>
                 <li><a href="/{user.username}#photos">Zdjęcia</a></li>

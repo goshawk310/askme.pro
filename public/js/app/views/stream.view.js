@@ -52,6 +52,9 @@ askmePro.views.StreamView = Backbone.View.extend({
                     moreContainer.show();
                 }
                 thisObj.loader('hide');
+            },
+            error: function () {
+                thisObj.loader('hide');
             }
         });
     },

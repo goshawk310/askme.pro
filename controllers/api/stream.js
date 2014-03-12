@@ -16,7 +16,7 @@ module.exports = function(server) {
             blocked: [req.user._id].concat(req.user.users.blocked)
         }, function(err, results) {
             if (err) {
-                return res.send(500, {});
+                return res.send(500, []);
             }
             res.send(results);
         });

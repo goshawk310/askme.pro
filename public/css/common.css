@@ -891,6 +891,13 @@ ul#profile-menu li.active a {
 #user-info-wrapper .user-avatar {
     max-width: 80%;
 }
+
+.user-info em {
+    display: inline-block;
+    margin-bottom: 10px;
+    font-size: 0.9em;
+}
+
 #activity-menu-wrapper .nav-justified > li {
     display: table-cell;
     width: 1%;
@@ -1183,9 +1190,13 @@ ul#profile-menu li.active a {
     display: none;
 }
 
-.add-container-top ins {
+.add-container-top ins, .add-container.content-horizontal ins {
     height: 60px;
     width: 100%;
+}
+
+.add-container.content-horizontal {
+    margin-bottom: 15px;
 }
 
 .add-container-answer ins {
@@ -1213,7 +1224,7 @@ ul#profile-menu li.active a {
     .full-text {
         display: inline;
     }
-    .add-container-top ins {
+    .add-container-top ins, .add-container.content-horizontal ins {
         height: 90px;
     }
     .add-container-answer ins {
