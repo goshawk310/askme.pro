@@ -1,9 +1,10 @@
-<div class="col-md-12 text-center hidden-xs">
+<div class="col-md-12 add-container add-container-answer text-center">
     <hr>
     <!-- askme wkadrat -->
     <ins class="adsbygoogle"
-         style="display:inline-block;width:336px;height:280px"
+         style="display:inline-block;"
          data-ad-client="ca-pub-7747179704335231"
-         data-ad-slot="9960553540"></ins>
+         data-ad-slot="9960553540"
+         data-add-format="auto"></ins>
     <div class="clearfix"></div>
 </div>

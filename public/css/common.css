@@ -1183,6 +1183,17 @@ ul#profile-menu li.active a {
     display: none;
 }
 
+.add-container-top ins {
+    height: 60px;
+    width: 100%;
+}
+
+.add-container-answer ins {
+    max-width: 100%;
+    width: 336px;
+    height: 250px;
+}
+
 @media (min-width: 768px) {
 	#profile-info-container {
         min-height: 150px;
@@ -1201,6 +1212,12 @@ ul#profile-menu li.active a {
 
     .full-text {
         display: inline;
+    }
+    .add-container-top ins {
+        height: 90px;
+    }
+    .add-container-answer ins {
+        height: 280px;
     }
 }
 
@@ -1221,7 +1238,7 @@ ul#profile-menu li.active a {
     }
     #main-search-query {
         width: 250px;
-    }
+    }   
 }
 
 @media (min-width: 1200px) { 
@@ -1243,9 +1260,6 @@ ul#profile-menu li.active a {
 }
 
 @media (max-width: 991px) { 
-    .add-container-top {
-        margin-left: -8px;
-    }
     .profile-info-wrapper .progress {
         margin-bottom: 15px;
     }
