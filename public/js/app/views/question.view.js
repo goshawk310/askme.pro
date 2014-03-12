@@ -257,7 +257,7 @@ askmePro.views.QuestionLikesView = Backbone.View.extend({
 askmePro.views.QuestionLikeView = Backbone.View.extend(_.extend({
     template: _.template($('#question-like-tpl').html()),
     initialize: function () {
-        
+        this.idKey = 'from._id';
     },
     render: function () {
         this.setElement($(this.template({like: this.model.attributes})));

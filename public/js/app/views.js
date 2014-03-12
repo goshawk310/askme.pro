@@ -78,6 +78,7 @@ askmePro.views.PaginationView = Backbone.View.extend({
 });
 
 askmePro.mixins.userFollow = {
+    idKey: '_id',
     events: {
         'click .btn-follow':  'follow',
         'click .btn-unfollow':  'unfollow'
@@ -92,7 +93,7 @@ askmePro.mixins.userFollow = {
             return;
         }
         $this.addClass('disabled');
-        $.ajax('/api/users/' + this.model.get('_id') + '/follow', {
+        $.ajax('/api/users/' + this.model.get(this.idKey) + '/follow', {
             type: 'post',
             beforeSend: function(xhr){
                xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-param"]').attr('content'));
@@ -120,7 +121,7 @@ askmePro.mixins.userFollow = {
             return;
         }
         $this.addClass('disabled');
-        $.ajax('/api/users/' + this.model.get('_id') + '/follow', {
+        $.ajax('/api/users/' + this.model.get(this.idKey) + '/follow', {
             type: 'post',
             beforeSend: function(xhr){
                xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-param"]').attr('content'));
