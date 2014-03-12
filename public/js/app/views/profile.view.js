@@ -123,7 +123,7 @@ askmePro.views.ProfileIndexView = Backbone.View.extend({
                         attributes: {
                             parent: thisObj
                         },
-                        showAdd: i === 0 ? true : false
+                        showAdd: (i === 0 && !thisObj.adDisplayed) ? true : false
                     }));
                     container.append(thisObj.questions[thisObj.questions.length - 1].render().$el);
                     if (!thisObj.adDisplayed && thisObj.questions[thisObj.questions.length - 1].showAdd) {
