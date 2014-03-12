@@ -35,6 +35,7 @@
 <script src="/components/magnific-popup/jquery.magnific-popup.min.js"></script>
 <script src="/js/app/models.js"></script>
 <script src="/js/app/collections.js"></script>
+<script src="/js/app/views.js"></script>
 <script src="/js/app/views/question.view.js"></script>
 <script src="/js/app/views/stream.view.js"></script>
 <script src="/js/app/routes/stream.router.js"></script>
