@@ -26,6 +26,15 @@ app.configure = function configure(nconf, next) {
 
 app.requestStart = function requestStart(server) {
     // Fired at the beginning of an incoming request
+    
+    server.stack.some(function (middleware, idx, stack) {
+        if (middleware.handle.name === 'favicon') {
+            stack.splice(idx, 1);
+            server.use(express.favicon(__dirname + '/public/favicon.ico'));
+            return true;
+        }
+    });
+
     var config = require('./config/app');
     server.locals({
         config: config
