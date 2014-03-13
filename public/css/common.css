@@ -1240,6 +1240,10 @@ ul#profile-menu li.active a {
     margin-bottom: 4px;
 }
 
+h1, .h1 {
+    font-size: 22px;
+}
+
 @media (min-width: 768px) {
 	#profile-info-container {
         min-height: 150px;
