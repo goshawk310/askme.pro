@@ -2,6 +2,6 @@ module.exports = {
     facebook: {
         clientID: '600921269985597',
         clientSecret: '1f713ba5dac17854026c2107e2c8fe85',
-        callbackURL: 'http://new.askme.pro/auth/facebook/callback'
+        callbackURL: 'http://askme.pro/auth/facebook/callback'
     }
 };
