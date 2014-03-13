@@ -31,7 +31,7 @@ module.exports = _.extend({
     },
     getUsers: function getUsers(callback) {
         var req = this.getReq(),
-            regex = new RegExp('^' + req.param('query') + '$', 'i'),
+            regex = new RegExp(req.param('query'), 'i'),
             whereOr = [{username: {$regex: regex}}],
             conds = {
                 $or: whereOr

@@ -1,7 +1,12 @@
 {
-	"database": {
+	"port": 8000,
+    "database": {
 		"host": "localhost",
-		"name": "askme_pro"
+		"name": "askme_pro",
+        "options": {
+            "user": false,
+            "pass": false
+        }
 	},
     // Uncomment and change as needed (Be careful not to leave trailing commas!)
 

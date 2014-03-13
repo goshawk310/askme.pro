@@ -1,5 +1,5 @@
 {
-	"port": 1337,
+    "port": 1337,
     "database": {
         "host": "185.5.96.106",
         "name": "askme_pro",
