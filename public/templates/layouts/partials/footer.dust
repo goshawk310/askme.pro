@@ -23,8 +23,8 @@
         </div>
         <ul class="nav nav-pills navbar-right">
             <li><a href="mailto:ask@askme.pro">{@__ phrase="Kontakt" /}</a></li>
-            <li><a href="site/terms">{@__ phrase="Regulamin"/}</a></li>
-            <li><a href="site/privacy">{@__ phrase="Polityka prywatności"/}</a></li>
+            <li><a href="/site/terms">{@__ phrase="Regulamin"/}</a></li>
+            <li><a href="/site/privacy">{@__ phrase="Polityka prywatności"/}</a></li>
         </ul>
         <div class="clearfix"></div>
         <div class="center-block">
