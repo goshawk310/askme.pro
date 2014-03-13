@@ -18,9 +18,10 @@
       		"cookie": "locale",
       		"directory": "./locales"
         },
-        "errorHandler": {
-            "dumpExceptions": false,
-            "showStack": false
+        "errorPages": {
+            "404": "errors/404",
+            "500": "errors/500",
+            "503": "errors/503"
         },
         "multipart": {
             "params": {
