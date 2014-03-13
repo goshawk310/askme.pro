@@ -6,7 +6,7 @@
             <div class="center-block">
                 <div class="panel panel-default box-shadow" id="main-content-wrapper">
                     <div class="panel-heading">
-                        <h1>{@__ phrase="Plityka prywatności" /}</h1>
+                        <h1>{@__ phrase="Regulamin" /}</h1>
                     </div>
                     <div class="panel-body" id="main-content-container">
                         <p>Korzystając z portalu askme.pro zobowiązujesz się do przestrzegania niniejszych zasad Polityki prywatności. Portal askme.pro zastrzega sobie prawo do zmiany zasad Polityki prywatności w dowolnym momencie bez wcześniejszego powiadomienia, a twoje dalsze korzystanie z portalu askme.pro oznacza zgodę na wprowadzone zmiany.</p>
