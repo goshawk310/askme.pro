@@ -38,7 +38,7 @@ var askmePro = {
                         '<div class="panel-body text-center">' +
                         '<div class="video-container visible">' +
                         '<iframe width="640" height="360" src="" frameborder="0" allowfullscreen></iframe>' +
-                        '</div></div></div></div>',    
+                        '</div></div></div>',    
                     replacedHtml = '',
                     defaults = {
                         links: true,
