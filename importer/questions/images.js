@@ -11,7 +11,7 @@ var downloadFile = require('../common').downloadFile,
         errors: 0,
         overall: 0
     };
-require('./common').db.mongo();  
+require('../common').db.mongo();  
 var dataImport = {
     images: function images(page) {
         var limit = settings.limit,

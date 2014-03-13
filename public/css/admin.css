@@ -110,15 +110,11 @@
     content: "\e114";
 }
 
-.select-cell {
-    position: relative;
-}
-
 .select-cell select {
-    position: absolute;
-    left: 1%;
+    padding: 0 1% 0 1%;
     width: 98%;
-    top: 4px;
+    height: 24px;
+    line-height: 24px;
 }
 
 .user-status-cell {
