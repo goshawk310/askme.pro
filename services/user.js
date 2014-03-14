@@ -334,7 +334,7 @@ module.exports = _.defaults({
             };
         if (req.files && req.files.top_bg) {
             upload = new FileUpload(req, res, {
-                allowedTypes: ['image/jpeg', 'image/jpg'],
+                allowedTypes: ['image/jpeg', 'image/jpg', 'image/png', 'image/gif'],
                 dir: server.locals.config.topbg.dir,
                 fileKey: 'top_bg',
                 preProcess: function preProcess(file, callback) {
