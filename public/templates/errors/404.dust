@@ -5,7 +5,7 @@
         <div class="col-md-2">
             {>"layouts/partials/ads/left"/}
         </div>
-        <div class="col-md-10">
+        <div class="col-md-8">
             <div class="center-block">
                 <div class="panel panel-default box-shadow" id="main-content-wrapper">
                     <div class="panel-heading">
