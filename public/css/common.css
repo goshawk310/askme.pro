@@ -932,6 +932,10 @@ ul#profile-menu li.active a {
     padding: 0 8px 0 8px;
 }
 
+.users-online-wrapper {
+    margin-bottom: 15px;
+}
+
 .users-online-wrapper .users-online-container a img {
     width: 30px; 
     margin: 5px;
