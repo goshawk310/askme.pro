@@ -8,6 +8,7 @@ var _ = require('underscore'),
     }),
     http = require('http'),
     fs = require('fs'),
+    fsExtra = require('fs-extra'),
     env = process.env.NODE_ENV || 'development';
 JSON.minify = JSON.minify || require('node-json-minify');
 module.exports.db = {
@@ -57,5 +58,14 @@ module.exports.downloadFile = function downloadFile(url, dest, cb) {
     });
     request.on('error', function (e) {
         console.log('get error: ' + e.message);
+    });
+};
+
+module.exports.copyFile = function copyFile(src, dest, cb) {
+    fs.copy(src, dest, function (err) {
+        if (err) {
+            return cb(err);
+        }
+        cb(null, src, dest);
     });
 };
