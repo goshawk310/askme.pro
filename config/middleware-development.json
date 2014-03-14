@@ -24,7 +24,8 @@
         },
         "multipart": {
             "params": {
-                "keepExtensions": true
+                "keepExtensions": true,
+                "maxFieldsSize": 2097152
             }
         }
     }
