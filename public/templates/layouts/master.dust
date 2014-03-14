@@ -5,6 +5,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta name="description" content="Wysyłaj i odbieraj anonimowe pytania aby dowiedzieć się, co inni myślą o tobie.">
+        <meta property="og:image" content="http://askme.pro/images/ask.jpg" />
         <meta name="csrf-param" content="{_csrf}">
         <link rel="shortcut icon" href="/favicon.ico">
         <title>{+title}askme.pro{/title}</title>
