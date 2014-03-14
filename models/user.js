@@ -19,7 +19,7 @@ var User = function() {
                 unique: true
             },
             required: true,
-            validate: [validate('len', 4, 20), validate('regex', /[A-Za-z0-0\.\_\-]+/)]
+            validate: [validate('len', 4, 20), validate('regex', /[A-Za-z0-9\.\_\-]+/)]
         },
         password: {
             type: String,
