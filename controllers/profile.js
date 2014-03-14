@@ -43,7 +43,7 @@ module.exports = function(server) {
             if (req.isAuthenticated() && req.user.users) {
                 return Q.ninvoke(userService, 'getOnline', {
                     blocked: req.user.users.blocked,
-                    limit: 30
+                    limit: 48
                 }).then(function (users) {
                     data.onlineUsers = users;
                     return data;
