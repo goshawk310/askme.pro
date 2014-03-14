@@ -6,7 +6,6 @@ askmePro.routers.CompleteRegistration = Backbone.Router.extend({
     index: function index() {
         askmePro.utils.setupDefaultValidator();
         $('#signup-form').validate({
-            debug: true,
             rules: {
                 username: {
                     required: true,
@@ -27,6 +26,14 @@ askmePro.routers.CompleteRegistration = Backbone.Router.extend({
             },
             submitHandler: function(form) {
                 form.submit();
+            }
+        });
+        $('#change-username').on('change', function () {
+            if ($(this).is(':checked')) {
+                $('#username').removeAttr('disabled');
+            } else {
+                $('#username').attr('disabled', true).parents('.form-group').removeClass('has-error');
+
             }
         });
     }
