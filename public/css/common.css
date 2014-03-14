@@ -1180,6 +1180,10 @@ ul#profile-menu li.active a {
     height: 220px;
 }
 
+#online-container .list-elem-container.user-container {
+    height: auto;
+}
+
 #profile-videos-container .list-elem {
     max-width: 640px;
     margin: 0 auto;

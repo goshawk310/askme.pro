@@ -642,6 +642,7 @@ module.exports = _.defaults({
             .find({$and: whereAnd})
             .select('username avatar')
             .sort({last_visit_at: -1})
+            .limit(params.limit ? parseInt(params.limit, 10) : null)
             .exec(callback);
     },
     resetNotifications: function resetNotifications(params, callback) {

@@ -3,7 +3,7 @@
     "script"     : "./index.js",
     "instances"  : "1",
     "error_file" : "./logs/www-err.log",
-    "out_file"   : "./logs/www-out.log",
+    "out_file"   : "/dev/null",
     "exec_mode"  : "fork_mode",
     "env": {
         "NODE_ENV": "production"
