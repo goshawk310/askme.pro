@@ -23,12 +23,7 @@
                                         <label class="sr-only" for="username">{@__ phrase="Login" /}:</label>
                                     </div>
                                     <div class="col-md-6">
-                                        <div class="input-group">
-                                            <input type="text" name="username" id="username" value="{?formData.username}{formData.username}{:else}{user.username}{/formData.username}" class="form-control" placeholder="{@__ phrase="Login" /}:" autocomplete="off" disabled>
-                                            <span class="input-group-addon">
-                                                <input type="checkbox" id="change-username" name="change-username">
-                                            </span>
-                                        </div>
+                                        <input type="text" name="username" id="username" value="{?formData.username}{formData.username}{:else}{user.username}{/formData.username}" class="form-control" placeholder="{@__ phrase="Login" /}:" autocomplete="off" >
                                     </div>
                                     <div class="col-md-6">
                                         <span class="help-block">

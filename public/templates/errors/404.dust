@@ -1,1 +1,29 @@
-404
+{>"layouts/master" /}
+{<body}
+<div class="container">
+    <div class="row">
+        <div class="col-md-2">
+            {>"layouts/partials/ads/left"/}
+        </div>
+        <div class="col-md-10">
+            <div class="center-block">
+                <div class="panel panel-default box-shadow" id="main-content-wrapper">
+                    <div class="panel-heading">
+                        <h1>404</h1>
+                    </div>
+                    <div class="panel-body" id="main-content-container">
+                        <p>{@__ phrase="Szukana strona nie została znaleziona" /}</p>
+                        <p>{@__ phrase="Przejdź do strony" /} <a href="/">{@__ phrase="głownej" /}</a></p>
+                    </div>
+                    <div class="panel-footer panel-footer-main" id="main-content-footer">
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-2">
+            {>"layouts/partials/ads/right"/}
+        </div>
+    </div>
+</div>
+{/body}
