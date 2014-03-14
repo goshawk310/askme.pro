@@ -8,7 +8,7 @@ module.exports = function(server) {
         if (!req.isAuthenticated()) {
             return res.render('index/welcome');
         }
-        userService.getOnline({id: req.user._id, followed: req.user.followed, blocked: req.user.blocked}, function (err, users) {
+        userService.getOnline({id: req.user._id, followed: req.user.users.followed, blocked: req.user.users.blocked}, function (err, users) {
             res.render('index', {
                 mode: 'friends',
                 onlineUsers: users
@@ -17,7 +17,7 @@ module.exports = function(server) {
     });
 
     server.get('/stream', auth.isAuthenticated,  function(req, res) {
-        userService.getOnline({id: req.user._id, followed: req.user.followed, blocked: req.user.blocked}, function (err, users) {
+        userService.getOnline({id: req.user._id, followed: req.user.users.followed, blocked: req.user.users.blocked}, function (err, users) {
             res.render('index', {
                 mode: 'all',
                 onlineUsers: users
@@ -26,7 +26,7 @@ module.exports = function(server) {
     });
 
     server.get('/online', auth.isAuthenticated,  function(req, res) {
-        userService.getOnline({id: req.user._id, followed: req.user.followed, blocked: req.user.blocked}, function (err, users) {
+        userService.getOnline({id: req.user._id, followed: req.user.users.followed, blocked: req.user.users.blocked}, function (err, users) {
             res.render('index/online', {
                 onlineUsers: users
             });
