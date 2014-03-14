@@ -138,7 +138,7 @@ module.exports = _.defaults({
                 });
             }
             QuestionModel.findOne({_id: params.id, to: params.to}, function(err, question) {
-                if (err) {
+                if (err || !question) {
                     return res.send({
                         status: 'error',
                         message: res.__('Wystąpił błąd podczas wgrywania zdjęcia.')
