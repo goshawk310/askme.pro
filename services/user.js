@@ -247,7 +247,7 @@ module.exports = _.defaults({
             if (err) {
                 return res.send({
                     status: 'error',
-                    message: (req.isAuthenticated() && req.user.role === 'admin' ? err : res.__('Wystąpił błąd podczas zmiany zdjęcia.'))
+                    message: res.__('Wystąpił błąd podczas zmiany zdjęcia.')
                 });
             }
             UserModel.findById(req.user._id, function(err, user) {
