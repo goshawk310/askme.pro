@@ -13,7 +13,7 @@ module.exports = _.defaults({
     signup: function signup(req, res, callback) {
         UserModel.schema.path('password').validate(function(password) {
             return password == req.body.password2;
-        }, 'Passwords do not match.');
+        }, 'signup::Passwords do not match. ' + password + '  ' + req.body.password2);
         var user = new UserModel(_.pick(req.body, 'username', 'email', 'password', 'name', 'lastname', 'terms_accepted'));
         user.save(function(err, user) {
             callback(req, res, user, err);
@@ -23,7 +23,7 @@ module.exports = _.defaults({
         var req = this.getReq();
         UserModel.schema.path('password').validate(function(password) {
             return password == req.body.password2;
-        }, 'Passwords do not match.');
+        }, 'completeRegistration::Passwords do not match. ' + password + '  ' + req.body.password2);
         UserModel.findOne({_id: id}, function (err, user) {
             if (err) {
                 return callback(err);
