@@ -23,7 +23,8 @@ var dataImport = {
                     'facebook', 'bio', 'what_ask', 'localization', 'words'
                 ]) +
                 ', stickerstype.image AS sticker_image FROM users LEFT JOIN stickerstype ON users.sticker = stickerstype.id' +
-                ' WHERE users.password != "" AND visit >= "2013-09-01 00:00:00"' +
+                //' WHERE users.password != "" AND visit >= "2013-09-01 00:00:00"' +
+                ' WHERE users.password = "" AND visit >= "2013-09-01 00:00:00"' +
                 (minId ? (' AND users.id > ' + minId) : '') +
                 ' LIMIT ' + offset + ', ' + limit;
         connection.query(sql, function(err, rows) {
@@ -39,11 +40,11 @@ var dataImport = {
                     created_at: new Date(row.reg_date.split('-').reverse().join('-')),
                     old: true,
                     username: row.username,
-                    password: row.password,
+                    password: row.password || (new Date).getTime(),
                     email: row.email,
                     name: row.real_name,
                     lastname: row.real_surname,
-                    avatar: row.photo,
+                    avatar: row.photo === 'default_photo.png' ? null : row.photo,
                     settings: {
                         anonymous_disallowed: Boolean(row.anonymous_view)
                     },
@@ -95,6 +96,7 @@ pool.getConnection(function(err, connection) {
         return console.error(err);
     }
     connection.query('SET NAMES utf8', function () {
+        return dataImport.users(connection, settings.page);
         UserModel.find({})
         .sort({'sync.id': -1})
         .limit(1)

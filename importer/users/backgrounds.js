@@ -1,5 +1,6 @@
 var pool = require('../common').db.mysql.pool,
     downloadFile = require('../common').downloadFile,
+    copyFile = require('../common').copyFile,
      _ = require('underscore'),
     async = require('async'),
     fs = require('fs'),
@@ -37,7 +38,7 @@ var dataImport = {
                     if (!user.custom_background) {
                         return eachCallback();
                     }
-                    downloadFile('http://askme.pro/media/images/backgrounds/' + user.custom_background,
+                    copyFile('/home/admin/www/media/images/backgrounds/' + user.custom_background,
                     __dirname + '/../../uploads/backgrounds/' + user.custom_background,
                     function (err, url, des) {
                         if (err) {

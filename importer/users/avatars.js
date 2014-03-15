@@ -1,5 +1,6 @@
 var pool = require('../common').db.mysql.pool,
     downloadFile = require('../common').downloadFile,
+    copyFile = require('../common').copyFile,
      _ = require('underscore'),
     async = require('async'),
     fs = require('fs'),
@@ -37,7 +38,7 @@ var dataImport = {
                     if (!user.avatar || user.avatar === 'photo_default.png') {
                         return eachCallback();
                     }
-                    downloadFile('http://askme.pro/media/images/users/b_' + user.avatar,
+                    copyFile('/home/admin/www/media/images/users/b_' + user.avatar,
                     __dirname + '/../../uploads/avatars/' + user.avatar,
                     function (err, url, des) {
                         if (err) {
