@@ -13,9 +13,9 @@
                                 <dt>Akceptowane formaty:</dt>
                                 <dd>jpg, png</dd>
                                 <dt>Wymiar minimalny (szerokość x wysokość):</dt>
-                                <dd>970px x 270px</dd>
+                                <dd>200px x 200px</dd>
                                 <dt>Wymiar maksymalny (szerokość x wysokość):</dt>
-                                <dd>2000px x 2000px</dd>
+                                <dd>5000px x 5000px</dd>
                             </dl>
                         </div>
                         <button type="button" class="close{^user.top_bg} hidden{/user.top_bg}" aria-hidden="true" id="top-bg-remove">&times;</button>
