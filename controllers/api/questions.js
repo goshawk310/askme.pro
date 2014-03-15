@@ -257,7 +257,7 @@ module.exports = function(server) {
         questionService
             .removeImage({
                 _id: req.param('id'),
-                from: req.user._id
+                to: req.user._id
             }, function (err) {
                 if (err) {
                     return res.send(500, {
@@ -282,7 +282,7 @@ module.exports = function(server) {
         questionService
             .removeVideo({
                 _id: req.param('id'),
-                from: req.user._id
+                to: req.user._id
             }, function (err) {
                 if (err) {
                     return res.send(500, {
