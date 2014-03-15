@@ -5,6 +5,6 @@
     "exec_mode"  : "cluster_mode",
     "args"       : "['--port=1338']",
     "env": {
-        "NODE_ENV": "development"
+        "NODE_ENV": "test"
     }
 }]
