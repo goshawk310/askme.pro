@@ -116,29 +116,9 @@ app.requestAfterRoute = function requestAfterRoute(server) {
         }
     });
 };
-
-if (require.main === module) {
-    var cluster = require('cluster'),
-        cCPUs   = require('os').cpus().length,
-        i = 0;
-
-    if (cluster.isMaster) {  
-        for (i = 0; i < cCPUs; i++) {
-            cluster.fork();
-        }
-        cluster.on('online', function (worker) {
-            console.log('Worker ' + worker.process.pid + ' started.');
-        });
-        cluster.on('exit', function (worker, code, signal) {
-            console.log('Worker ' + worker.process.pid + ' died.');
-            cluster.fork();
-        });
-    } else {
-        kraken.create(app).listen(function (err, server) {
-            if (err) {
-                console.error(err.stack);
-            }
-            //socketHelper.init(server);
-        });
+kraken.create(app).listen(function (err, server) {
+    if (err) {
+        console.error(err.stack);
     }
-}
+    //socketHelper.init(server);
+});
