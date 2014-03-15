@@ -317,7 +317,9 @@ module.exports = _.defaults({
                     user.top_bg = filename ? require('path').basename(filename) : null;
                     user.save(function (err) {
                         if (err) {
-                            upload.clearAll();
+                            if (upload) {
+                                upload.clearAll();
+                            }
                             return res.send({
                                 status: 'error',
                                 message: res.__('Wystąpił błąd podczas zmiany zdjęcia.')
