@@ -148,12 +148,12 @@ var Question = function Question() {
             }, function (err, user) {
             
             });
-            var io = ioHelper.io();
+            /*var io = ioHelper.io();
             if (io) {
                 io.sockets.socket(ioHelper.getSocketId(question.to)).emit('questions', {
                     id: question._id
                 });
-            }
+            }*/
         } else if (this._original.answer === null && this.answer !== null) {
             UserModel.update({
                 _id: question.to
@@ -176,12 +176,12 @@ var Question = function Question() {
                 }, function (err, user) {
                     
                 });
-                var io = ioHelper.io();
+                /*var io = ioHelper.io();
                 if (io) {
                     io.sockets.socket(ioHelper.getSocketId(question.from)).emit('feed', {
                         type: 'answer'
                     });
-                }
+                }*/
             }
         } else if (this._original.image !== null && this.image === null) {
             fsExtra.remove(config.answer.dir + this._original.image);

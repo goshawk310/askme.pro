@@ -101,9 +101,9 @@ var Comment = function() {
                     }, function () {
                     
                     });
-                    ioHelper.io().sockets.socket(ioHelper.getSocketId(question.to)).emit('feed', {
+                    /*ioHelper.io().sockets.socket(ioHelper.getSocketId(question.to)).emit('feed', {
                         type: 'comment'
-                    });
+                    });*/
                 }
             });
         }

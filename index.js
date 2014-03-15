@@ -138,7 +138,7 @@ if (require.main === module) {
             if (err) {
                 console.error(err.stack);
             }
-            socketHelper.init(server);
+            //socketHelper.init(server);
         });
     }
 }

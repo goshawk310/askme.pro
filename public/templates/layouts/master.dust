@@ -58,8 +58,7 @@
         </div>
         {>"layouts/partials/footer"/}
         <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
-        <script src="/socket.io/socket.io.js"></script>
-        <script src="/js/socket.client.js"></script>
+        <script src="/js/ntfctns.js"></script>
         <script src="/components/underscore-min.js"></script>
         <script src="/components/backbone-min.js"></script>
         <script src="/components/deep-model.min.js"></script>

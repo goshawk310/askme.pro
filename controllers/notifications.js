@@ -41,6 +41,20 @@ module.exports = function(server) {
             }
         })
         .done();
-        
+    });
+
+
+    /**
+     *
+     * @param  {Object} req
+     * @param  {Object} res
+     * @return {void}
+     */
+    server.get('/ntfctns', auth.isAuthenticated, function(req, res) {
+        res.send({
+            questions: req.user.stats.questions_unanswered,
+            likes: req.user.notifications.likes,
+            feed: req.user.notifications.comments + req.user.notifications.answers
+        });
     });
 }

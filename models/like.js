@@ -96,12 +96,12 @@ var Like = function() {
             }, function (err, user) {
             
             });
-            var io = ioHelper.io();
+            /*var io = ioHelper.io();
             if (io) {
                 io.sockets.socket(ioHelper.getSocketId(like.to)).emit('likes', {
                     id: like.question_id
                 });
-            }
+            }*/
         }
     });
 
