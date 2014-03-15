@@ -11,9 +11,6 @@ var UserModel = require('../models/user'),
 
 module.exports = _.defaults({
     signup: function signup(req, res, callback) {
-        UserModel.schema.path('password').validate(function(password) {
-            return password == req.body.password2;
-        }, 'Passwords do not match.');
         var user = new UserModel(_.pick(req.body, 'username', 'email', 'password', 'name', 'lastname', 'terms_accepted'));
         user.save(function(err, user) {
             callback(req, res, user, err);
@@ -21,9 +18,6 @@ module.exports = _.defaults({
     },
     completeRegistration: function completeRegistration(id, callback) {
         var req = this.getReq();
-        UserModel.schema.path('password').validate(function(password) {
-            return password == req.body.password2;
-        }, 'Passwords do not match.');
         UserModel.findOne({_id: id}, function (err, user) {
             if (err) {
                 return callback(err);
