@@ -757,4 +757,20 @@ module.exports = _.defaults({
                 }
             });
     },
+    fixStatsCounter: function fixStatsCounter(user, callback) {
+        QuestionModel
+        .count({'$and': [{to: user._id}, {answer: null}]})
+        .exec(function (err, total) {
+            if (err || total === user.stats.questions_unanswered) {
+                return callback(user);
+            }
+            user.set('stats.questions_unanswered', total);
+            user.save(function (err, user) {
+                if (err) {
+                    console.log(err);
+                }
+                callback(user);
+            });
+        });
+    }
 }, require('../lib/service'));
