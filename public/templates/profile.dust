@@ -34,7 +34,7 @@
                     <div class="panel-body profile-info-wrapper">
                         <div class="row" id="profile-top"{?profile.top_bg} style="background-image: url('{config.topbg.url}{profile.top_bg}')"{/profile.top_bg}>
                             <div class="col-md-3">
-                                {@userAvatar user=profile size="cropped/300x" wrapper="true"/}
+                                {@userAvatar user=profile size="cropped/300x" wrapper="true" enlarge="true" /}
                                 <div class="progress box-shadow user-points-progress">
                                     <div class="progress-bar" id="user-points-progress-bar" role="progressbar" aria-valuenow="{profile.pointsInt}" aria-valuemin="0" aria-valuemax="100">
                                     </div>
@@ -162,7 +162,7 @@
 <script src="/js/app/views.js"></script>
 <script src="/js/app/views/question.view.js"></script>
 <script src="/js/app/views/profile.view.js"></script>
-<script src="/js/app/routes/profile.router.js"></script>
+<script src="/js/app/routes/profile.router.js?1"></script>
 <script type="text/javascript">
     askmePro.data.profile = {
         id: '{profile._id}',

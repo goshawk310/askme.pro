@@ -140,3 +140,10 @@ askmePro.routers.Profile = Backbone.Router.extend({
         this.views.profileVideos.load(parseInt(page, 10) || 0);
     }
 });
+
+$(function () {
+    $('a.magnific').magnificPopup({
+        type:'image',
+        mainClass: 'mfp-fade'
+    });
+});
