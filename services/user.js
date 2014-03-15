@@ -77,6 +77,10 @@ module.exports = _.defaults({
             res = this.getRes(),
             upload = null,
             update = function update(err, req, res, filename) {
+                if (upload) {
+                    upload.gmInstance = null;
+                    delete upload.gmInstance;
+                }
                 if (err) {
                     return res.send({
                         status: 'error',
@@ -93,7 +97,9 @@ module.exports = _.defaults({
                     user.avatar = require('path').basename(filename);
                     user.save(function (err) {
                         if (err) {
-                            upload.clearAll();
+                            if (upload) {
+                                upload.clearAll();
+                            }
                             return res.send({
                                 status: 'error',
                                 message: res.__('Wystąpił błąd podczas zmiany zdjęcia.')
@@ -221,7 +227,7 @@ module.exports = _.defaults({
                     FileImage = require('../lib/file/image'),
                     fileImage = new FileImage(file.path);
                 fileImage.checkSize(function (err, value) {
-                    if (err || value.width < 2 || value.height < 2 || value.width > 2000 || value.height > 2000) {
+                    if (err || value.width < 2 || value.height < 2 || value.width > 5000 || value.height > 5000) {
                         thisObj.clearAll();
                         return callback(new Error('Invalid image size.'), thisObj.req, thisObj.res);
                     } else {
@@ -244,6 +250,8 @@ module.exports = _.defaults({
             }
         });
         upload.one(function (err, req, res, filename) {
+            upload.gmInstance = null;
+            delete upload.gmInstance;
             if (err) {
                 return res.send({
                     status: 'error',
@@ -301,6 +309,10 @@ module.exports = _.defaults({
             res = this.getRes(),
             upload = null,
             update = function update(err, req, res, filename) {
+                if (upload) {
+                    upload.gmInstance = null;
+                    delete upload.gmInstance;
+                }
                 if (err) {
                     return res.send({
                         status: 'error',
@@ -344,9 +356,9 @@ module.exports = _.defaults({
                         FileImage = require('../lib/file/image'),
                         fileImage = new FileImage(file.path);
                     fileImage.checkSize(function (err, value) {
-                        if (err || value.width < 950 || value.height < 270 || value.width > 2000 || value.height > 2000) {
+                        if (err || value.width < 200 || value.height < 200 || value.width > 5000 || value.height > 5000) {
                             thisObj.clearAll();
-                            return callback(new Error('Invalid image size.'), thisObj.req, thisObj.res);
+                            return callback(new Error('Invalid image size.' + value.width + 'x' + value.height), thisObj.req, thisObj.res);
                         } else {
                             thisObj.renameFile(file, callback);
                         }
@@ -362,6 +374,8 @@ module.exports = _.defaults({
                             return callback(new Error('cropCenter error.'), thisObj.req, thisObj.res);
                         }
                         this.quality(45, function (err) {
+                            thisObj.gmInstance = null;
+                            delete thisObj.gmInstance;
                             if (err) {
                                 thisObj.clearAll();
                                 return callback(new Error('Quality change error.'), thisObj.req, thisObj.res);

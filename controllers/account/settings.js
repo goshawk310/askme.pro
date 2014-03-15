@@ -95,7 +95,6 @@ module.exports = function (server) {
     server.put('/account/settings/background', auth.isAuthenticated, function (req, res) {
         userService.setServer(server).setReq(req).setRes(res).updateBackground(req.user._id, req.body, function (err, req, res) {
             if (err) {
-                console.log(err);
                 return res.send({
                     status: 'error',
                     message: res.__('Wystąpił błąd podczas aktualizacji danych.')

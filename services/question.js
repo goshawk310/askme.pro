@@ -107,7 +107,9 @@ module.exports = _.defaults({
                     FileImage = require('../lib/file/image'),
                     fileImage = new FileImage(file.path);
                 fileImage.checkSize(function (err, value) {
-                    if (err || value.width > 2000 || value.height > 2000) {
+                    if (err || value.width > 5000 || value.height > 5000) {
+                        thisObj.gmInstance = null;
+                        delete thisObj.gmInstance;
                         thisObj.clearAll();
                         return callback(new Error('Invalid image size.'), thisObj.req, thisObj.res);
                     } else {
@@ -120,6 +122,8 @@ module.exports = _.defaults({
                     FileImage = require('../lib/file/image'),
                     fileImage = new FileImage(filename);
                 fileImage.quality(45, function (err) {
+                    thisObj.gmInstance = null;
+                    delete thisObj.gmInstance;
                     if (err) {
                         thisObj.clearAll();
                         return callback(new Error('Quality change error.'), thisObj.req, thisObj.res);
