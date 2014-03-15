@@ -119,6 +119,7 @@ pool.getConnection(function(err, connection) {
         return console.error(err);
     }
     connection.query('SET NAMES utf8', function () {
+        return dataImport.questions(connection, settings.page);
         QuestionModel.find({})
         .sort({'sync.id': -1})
         .limit(1)

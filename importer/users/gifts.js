@@ -128,6 +128,7 @@ pool.getConnection(function(err, connection) {
         return console.error(err);
     }
     connection.query('SET NAMES utf8', function () {
+        return dataImport.usersGifts(connection, settings.page);
         UserGiftModel.find({})
         .sort({'sync.id': -1})
         .limit(1)
