@@ -163,10 +163,17 @@ askmePro.mixins.inboxQuestion = {
     },
     removeQuestion: function removeQuestion() {
         var thisObj = this,
-            counter = $('.inbox-count');
+            counter = $('.inbox-count'),
+            notifyCounter = $('#notify-questions > span');
         this.model.destroy({
             success: function (model, xhr) {
-                counter.html(parseInt(counter.html(), 10) - 1);
+                var count = parseInt(counter.html(), 10) - 1;
+                counter.html(count);
+                notifyCounter.html(count);
+                if (count < 1) {
+                    notifyCounter.remove();
+                }
+                askmePro.utils.title.update(count, false);
                 thisObj.showMessage(xhr.message, 'alert-info');
             },
             error: function (model, xhr) {
