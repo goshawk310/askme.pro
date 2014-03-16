@@ -61,9 +61,13 @@ module.exports = function(server) {
             return res.render('profile', data);
         })
         .fail(function (err) {
-            if (err && err.message && err.message === 'unauthorized') {
-                req.flash('error', res.__('Aby przeglądać tą stronę trzeba się zalogować'));
-                return res.redirect('/account/login');
+            if (err && err.message) {
+                if (err.message === 'unauthorized') {
+                    req.flash('error', res.__('Aby przeglądać tą stronę trzeba się zalogować'));
+                    return res.redirect('/account/login');
+                } else if (err.message === 'notFound') {
+                    return next();
+                }
             }
             if (err) {
                 return next(err);
