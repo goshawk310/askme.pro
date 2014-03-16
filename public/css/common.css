@@ -28,6 +28,7 @@ body .popover {max-width: 100%;}
 #main-navbar {
     background: #0187bb !important;
     box-shadow: 0 6px 4px rgba(0, 0, 0, 0.1);
+    border-width: 0;
 }
 
 .navbar-default {
