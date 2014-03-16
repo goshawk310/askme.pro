@@ -9,6 +9,9 @@ module.exports = function(server) {
     server.get('/:username', function(req, res, next) {
         return Q.npost(userService, 'getByUsername', [req.param('username')])
         .then(function (user) {
+            if (!user) {
+                throw new Error('notFound');
+            }
             if (!req.isAuthenticated() && user.settings.anonymous_disallowed) {
                 throw new Error('unauthorized');
             }
@@ -58,8 +61,7 @@ module.exports = function(server) {
             return res.render('profile', data);
         })
         .fail(function (err) {
-            console.log(err);
-            if (err && err.message) {
+            if (err && err.message && err.message === 'unauthorized') {
                 req.flash('error', res.__('Aby przeglądać tą stronę trzeba się zalogować'));
                 return res.redirect('/account/login');
             }
