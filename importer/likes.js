@@ -123,6 +123,7 @@ pool.getConnection(function(err, connection) {
     if (err) {
         return console.error(err);
     }
+    return dataImport.likes(connection, settings.page);
     connection.query('SET NAMES utf8', function () {
         LikeModel.find({})
         .sort({'sync.id': -1})
