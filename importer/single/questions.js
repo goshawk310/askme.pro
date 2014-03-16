@@ -1,0 +1,108 @@
+var pool = require('../common').db.mysql.pool,
+    convertToUtf8 = require('../common').convertToUtf8,
+     _ = require('underscore'),
+    async = require('async'),
+    UserModel = require('../../models/user'),
+    QuestionModel = require('../../models/question'),
+    username = process.argv[2] || '';
+require('../common').db.mongo();
+var dataImport = {
+    questions: function questions(connection, page) {
+        var count = 0,
+            errors = 0;
+        async.waterfall([
+            function get(callback) {
+                var sql = 'SELECT id, to_user, from_user, image, status, viewed, anonymous, date, ip, time, answer_timestamp, ' +
+                    convertToUtf8([
+                        'question', 'answer'
+                    ]) +
+                    ' FROM questions' +
+                    ' WHERE to_user = "' + username + '" OR from_user = "' + username + '"'
+                    ' ORDER BY id ASC'
+                connection.query(sql, function (err, rows) {
+                    callback(err, rows);
+                });    
+            },
+            function check(rows, callback) {
+                if (!rows || !rows.length) {
+                    callback(new Error('endOfImport'));
+                } else {
+                    callback(null, rows);
+                }
+            },
+            function each(rows, callback) {
+                async.eachLimit(rows, 50, function (row, eachCallback) {
+                    async.waterfall([
+                        function getUserTo(nestedCallback) {
+                            UserModel.findOne({username: row.to_user}, function (err, userTo) {
+                                if (err) {
+                                    return nestedCallback(err);
+                                }
+                                if (!userTo) {
+                                    return nestedCallback(new Error('User not found: "' + row.to_user + '"'));
+                                }
+                                nestedCallback(null, row, userTo);
+                            });
+                        },
+                        function getUserFrom(row, userTo, nestedCallback) {
+                            UserModel.findOne({username: row.from_user}, function (err, userFrom) {
+                                if (err) {
+                                    return nestedCallback(err);
+                                }
+                                nestedCallback(null, row, userTo, userFrom);
+                            });
+                        },
+                        function add(row, userTo, userFrom, nestedCallback) {
+                            var data = {
+                                created_at: new Date(row.date.split('-').reverse().join('-') + ' ' + row.time),
+                                to: userTo._id,
+                                from: parseInt(row.anonymous, 10) === 1 || !userFrom ? null : userFrom._id,
+                                og_from: parseInt(row.anonymous, 10) === 0 && userFrom ? userFrom._id : null,
+                                contents: row.question,
+                                answer: row.answer || null,
+                                image: row.image || null,
+                                ip: row.ip,
+                                sync: {
+                                    id: row.id
+                                }
+                            };
+                            if (row.answer) {
+                                if (row.answer_timestamp) {
+                                    data.answered_at = new Date(parseInt(row.answer_timestamp, 10) * 1000);
+                                } else {
+                                    data.answered_at = new Date(row.date.split('-').reverse().join('-') + ' ' + row.time);
+                                }
+                            }
+                            var question = new QuestionModel(data);
+                            question.save(function (err) {
+                                nestedCallback(err);
+                            });
+                        }
+                    ], function (err) {
+                        count += 1;
+                        if (err) {
+                            errors += 1;
+                        }
+                        eachCallback(null);
+                    });     
+                }, function (err) {
+                    callback(null, count, errors);
+                });
+            }
+        ], function (err, count, errors) {
+            connection.release();
+            if (err) {
+                console.log(err);
+            }
+            console.log('processed: ' + count + ', errors: ' + errors);
+        }); 
+    }
+};
+pool.getConnection(function(err, connection) {
+    if (err) {
+        return console.error(err);
+    }
+    connection.query('SET NAMES utf8', function () {
+        return dataImport.questions(connection);
+    });
+});

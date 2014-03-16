@@ -24,7 +24,8 @@ var dataImport = {
                 ]) +
                 ', stickerstype.image AS sticker_image FROM users LEFT JOIN stickerstype ON users.sticker = stickerstype.id' +
                 //' WHERE users.password != "" AND visit >= "2013-09-01 00:00:00"' +
-                ' WHERE users.password = "" AND visit >= "2013-09-01 00:00:00"' +
+                //' WHERE users.password = "" AND visit >= "2013-09-01 00:00:00"' +
+                ' WHERE users.username = "Tadeoo"' +
                 (minId ? (' AND users.id > ' + minId) : '') +
                 ' LIMIT ' + offset + ', ' + limit;
         connection.query(sql, function(err, rows) {
