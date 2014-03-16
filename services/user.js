@@ -136,7 +136,7 @@ module.exports = _.defaults({
                             thisObj.clearAll();
                             return callback(new Error('cropCenter error.'), thisObj.req, thisObj.res);
                         }
-                        this.quality(45, function (err) {
+                        this.quality(60, function (err) {
                             if (err) {
                                 thisObj.clearAll();
                                 return callback(new Error('Quality change error.'), thisObj.req, thisObj.res);
@@ -233,7 +233,7 @@ module.exports = _.defaults({
                 var thisObj = this,
                     FileImage = require('../lib/file/image'),
                     fileImage = new FileImage(filename);
-                fileImage.quality(45, function (err) {
+                fileImage.quality(60, function (err) {
                     if (err) {
                         thisObj.clearAll();
                         return callback(new Error('Quality change error.'), thisObj.req, thisObj.res);
@@ -367,7 +367,7 @@ module.exports = _.defaults({
                             thisObj.clearAll();
                             return callback(new Error('cropCenter error.'), thisObj.req, thisObj.res);
                         }
-                        this.quality(45, function (err) {
+                        this.quality(60, function (err) {
                             thisObj.gmInstance = null;
                             delete thisObj.gmInstance;
                             if (err) {
