@@ -58,12 +58,12 @@
         </div>
         {>"layouts/partials/footer"/}
         <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
-        <script src="/js/ntfctns.js"></script>
+        <script src="/js/ntfctns.js?1"></script>
         <script src="/components/underscore-min.js"></script>
         <script src="/components/backbone-min.js"></script>
         <script src="/components/deep-model.min.js"></script>
         <script src="/components/bootstrap/dist/js/bootstrap.min.js"></script>
-        <script src="/js/app.js"></script>
+        <script src="/js/app.js?1"></script>
         <script type="text/javascript">
             askmePro.data.user = {
                 id: {?user._id}'{user._id}'{:else}null{/user._id}

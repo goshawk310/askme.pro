@@ -29,6 +29,7 @@ $(function () {
                         $('.inbox-count').html(count);
                         $('#inbox-count').show();
                     });
+                    askmePro.utils.title.update(response.questions, 'Nowe pytanie');
                     updateCounter('notify-feed', 'feed', response.feed);
                     updateCounter('notify-likes', 'likes', response.likes);
                     ready = true;
@@ -37,5 +38,6 @@ $(function () {
                     ready = true;
                 });
             }, 15000);
+            askmePro.utils.title.update(parseInt($('#inbox-count > .inbox-count').text(), 10), false);
     }
 })

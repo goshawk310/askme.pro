@@ -144,6 +144,38 @@ var askmePro = {
                 clearInterval(interval);
                 interval = null;
             }, 7000);
+        },
+        title: {
+            titleInterval: null,
+            title: document.title,
+            unansweredQuestions: parseInt($('#inbox-count > .inbox-count').text(), 10),
+            update: function update(count, message) {
+                var i = 0,
+                    thisObj = this;
+                if (this.titleInterval !== null) {
+                    clearInterval(this.titleInterval);
+                }
+                if (count > this.unansweredQuestions && message) {
+                    this.titleInterval = setInterval(function () {
+                        if (parseInt($('#inbox-count > .inbox-count').text(), 10) <= thisObj.unansweredQuestions) {
+                            document.title = thisObj.title;
+                            clearInterval(thisObj.titleInterval);
+                            thisObj.titleInterval = null;
+                            return;
+                        }
+                        if (i % 2 === 0) {
+                            document.title = '(' + count + ') ' + thisObj.title;
+                        } else {
+                            document.title = message + ' - ' + thisObj.title;
+                        }
+                        i += 1;
+                    }, 2000);
+                } else if (count > 0) {
+                    document.title = '(' + count + ') ' + thisObj.title;
+                } else {
+                    document.title = thisObj.title;
+                }
+            }
         }
     },
     index: function index() {

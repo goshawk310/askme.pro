@@ -149,6 +149,7 @@ askmePro.mixins.inboxQuestion = {
                     notifyCounter.remove();
                 }
                 thisObj.showMessage(xhr.message);
+                askmePro.utils.title.update(count, false);
             },
             error: function (model, xhr) {
                 submitButton.attr('disabled', false);
