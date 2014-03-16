@@ -30,6 +30,12 @@ body .popover {max-width: 100%;}
     box-shadow: 0 6px 4px rgba(0, 0, 0, 0.1);
 }
 
+.navbar-default {
+    background-color: none;
+    border-color: none;
+}
+
+
 .nav-pills > li.active > a, .nav-pills > li.active > a:hover, .nav-pills > li.active > a:focus {
   background-color:#9cd106;
   color:#FFFFFF;
@@ -70,8 +76,14 @@ a:hover, a:focus {color: #464646;}
 .navbar-default .navbar-nav > li > a  {color: #fff;} 
 .navbar-default .navbar-nav > li > a:hover,
 .navbar-default .navbar-nav > li > a:focus {
-    color: #fa6900;
+    color: #84ca2a;
 }
+
+.navbar-default .navbar-nav > .open > a, .navbar-default .navbar-nav > .open > a:hover, .navbar-default .navbar-nav > .open > a:focus {
+    background-color: #028DC3;
+    color: #FFFFFF;
+}
+
 
 #inbox-count {display: none}
 #inbox-count span {color: #ff0000;}
@@ -83,7 +95,7 @@ a:hover, a:focus {color: #464646;}
   margin: 0 auto -105px;
   /* Pad bottom by footer height */
   padding: 0 0 105px;
-  background: url("../images/home.jpg") no-repeat fixed center top;
+  /*background: url("../images/home.jpg") no-repeat fixed center top;*/
 }
 
 .custom-bg#wrapper {
