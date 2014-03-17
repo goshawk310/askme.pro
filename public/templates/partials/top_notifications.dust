@@ -3,18 +3,20 @@
         <% if (typeof elements !== 'undefined' && elements && elements.length) {~lb} %>
             <div class="list-group">
                 <% for (var i = 0; i < elements.length; i += 1) {~lb} %>
-                    <div class="list-group-item">
-                        <div class="media">
-                            <a class="pull-left user-avatar-wrapper" href="/<%=elements[i].from.username%>">
-                                <%=askmePro.views.helpers.userAvatar({user: elements[i].from, size: 'cropped/100x', link: false, cssClass: 'media-object box-shadow img-circle'})%>
-                            </a>
-                            <div class="media-body">
-                                <a href="/questions/<%=elements[i].question_id%>" class="question-link"> 
-                                    {@__ phrase="Użytkownik" /} <strong><%=elements[i].from.username%></strong> {@__ phrase="lubi Twoją odpowiedź" /}
-                                </a> 
+                    <% if (elements[i].from) {~lb} %>
+                        <div class="list-group-item">
+                            <div class="media">
+                                <a class="pull-left user-avatar-wrapper" href="/<%=elements[i].from.username%>">
+                                    <%=askmePro.views.helpers.userAvatar({user: elements[i].from, size: 'cropped/100x', link: false, cssClass: 'media-object box-shadow img-circle'})%>
+                                </a>
+                                <div class="media-body">
+                                    <a href="/questions/<%=elements[i].question_id%>" class="question-link"> 
+                                        {@__ phrase="Użytkownik" /} <strong><%=elements[i].from.username%></strong> {@__ phrase="lubi Twoją odpowiedź" /}
+                                    </a> 
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    <% {~rb} %>
                 <% {~rb} %>
                 <div class="list-group-item see-all-container">
                     <a href="/notifications#likes">{@__ phrase="Zobacz wszystkie" /}</a>
@@ -32,19 +34,21 @@
         <% if (typeof elements !== 'undefined' && elements && elements.length) {~lb} %>
             <div class="list-group">
                 <% for (var i = 0; i < elements.length; i += 1) {~lb} %>
-                    <div class="list-group-item">
-                        <div class="media">
-                            <a class="pull-left user-avatar-wrapper"<% if (elements[i].from) {~lb}%> href="/<%=elements[i].from.username%>"<% {~rb} %>>
-                                <%=askmePro.views.helpers.userAvatar({user: elements[i].from, size: 'cropped/100x', link: false, cssClass: 'media-object box-shadow img-circle'})%>
-                            </a>
-                            <div class="media-body">
-                                <a href="/inbox" class="question-link"> 
-                                    <strong><% if (elements[i].from) {~lb}%><%=elements[i].from.username%><% {~rb} else {~lb} %>{@__ phrase="anonimowo" /}<% {~rb} %></strong><br>
-                                    {@__ phrase="Pytanie" /}: <%=askmePro.views.helpers.parseUsersText(elements[i].contents)%>
-                                </a>   
+                    <% if (elements[i].from) {~lb} %>
+                        <div class="list-group-item">
+                            <div class="media">
+                                <a class="pull-left user-avatar-wrapper"<% if (elements[i].from) {~lb}%> href="/<%=elements[i].from.username%>"<% {~rb} %>>
+                                    <%=askmePro.views.helpers.userAvatar({user: elements[i].from, size: 'cropped/100x', link: false, cssClass: 'media-object box-shadow img-circle'})%>
+                                </a>
+                                <div class="media-body">
+                                    <a href="/inbox" class="question-link"> 
+                                        <strong><% if (elements[i].from) {~lb}%><%=elements[i].from.username%><% {~rb} else {~lb} %>{@__ phrase="anonimowo" /}<% {~rb} %></strong><br>
+                                        {@__ phrase="Pytanie" /}: <%=askmePro.views.helpers.parseUsersText(elements[i].contents)%>
+                                    </a>   
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    <% {~rb} %>
                 <% {~rb} %>
                 <div class="list-group-item see-all-container">
                     <a href="/inbox">{@__ phrase="Zobacz wszystkie" /}</a>
@@ -68,19 +72,21 @@
                 <% if (typeof answers !== 'undefined' && answers && answers.length) {~lb} %>
                     <div class="list-group">
                         <% for (var i = 0; i < answers.length; i += 1) {~lb} %>
-                            <div class="list-group-item">
-                                <div class="media">
-                                    <a class="pull-left user-avatar-wrapper" href="/<%=answers[i].to.username%>">
-                                        <%=askmePro.views.helpers.userAvatar({user: answers[i].to, size: 'cropped/100x', link: false, cssClass: 'media-object box-shadow img-circle'})%>
-                                    </a>
-                                    <div class="media-body">
-                                        <a href="/questions/<%=answers[i]._id%>" class="question-link"> 
-                                            {@__ phrase="Użytkownik" /} <strong><%=answers[i].to.username%></strong> 
-                                            {@__ phrase="odpowiedział na pytanie" /}
-                                        </a>   
+                            <% if (answers[i].to) {~lb} %>
+                                <div class="list-group-item">
+                                    <div class="media">
+                                        <a class="pull-left user-avatar-wrapper" href="/<%=answers[i].to.username%>">
+                                            <%=askmePro.views.helpers.userAvatar({user: answers[i].to, size: 'cropped/100x', link: false, cssClass: 'media-object box-shadow img-circle'})%>
+                                        </a>
+                                        <div class="media-body">
+                                            <a href="/questions/<%=answers[i]._id%>" class="question-link"> 
+                                                {@__ phrase="Użytkownik" /} <strong><%=answers[i].to.username%></strong> 
+                                                {@__ phrase="odpowiedział na pytanie" /}
+                                            </a>   
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
+                            <% {~rb} %>
                         <% {~rb} %>
                         <div class="list-group-item see-all-container">
                             <a href="/notifications#answers">{@__ phrase="Zobacz wszystkie" /}</a>
@@ -96,19 +102,21 @@
                 <% if (typeof comments !== 'undefined' && comments && comments.length) {~lb} %>
                     <div class="list-group">
                         <% for (var i = 0; i < comments.length; i += 1) {~lb} %>
-                            <div class="list-group-item">
-                                <div class="media">
-                                    <a class="pull-left user-avatar-wrapper" href="/<%=comments[i].from.username%>">
-                                        <%=askmePro.views.helpers.userAvatar({user: comments[i].from, size: 'cropped/100x', link: false, cssClass: 'media-object box-shadow img-circle'})%>
-                                    </a>
-                                    <div class="media-body">
-                                        <a href="/questions/<%=comments[i].question_id%>" class="question-link"> 
-                                            {@__ phrase="Użytkownik" /} <strong><%=comments[i].from.username%></strong> 
-                                            {@__ phrase="dodał komentarz" /}: <%=askmePro.views.helpers.parseUsersText(comments[i].contents)%>
-                                        </a>   
+                            <% if (comments[i].from) {~lb} %>
+                                <div class="list-group-item">
+                                    <div class="media">
+                                        <a class="pull-left user-avatar-wrapper" href="/<%=comments[i].from.username%>">
+                                            <%=askmePro.views.helpers.userAvatar({user: comments[i].from, size: 'cropped/100x', link: false, cssClass: 'media-object box-shadow img-circle'})%>
+                                        </a>
+                                        <div class="media-body">
+                                            <a href="/questions/<%=comments[i].question_id%>" class="question-link"> 
+                                                {@__ phrase="Użytkownik" /} <strong><%=comments[i].from.username%></strong> 
+                                                {@__ phrase="dodał komentarz" /}: <%=askmePro.views.helpers.parseUsersText(comments[i].contents)%>
+                                            </a>   
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
+                            <% {~rb} %>
                         <% {~rb} %>
                         <div class="list-group-item see-all-container">
                             <a href="/notifications#comments">{@__ phrase="Zobacz wszystkie" /}</a>
