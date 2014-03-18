@@ -45,9 +45,12 @@
                                 <div class="panel panel-default" id="content-wrapper">
                                     <div class="panel-heading">
                                         <h4>{+title /}</h4>
+                                        {+actions /}
                                     </div>
                                     <div class="panel-body">
+                                        
                                         <div id="content-container">
+
                                             {+body /}
                                         </div>
                                     </div>

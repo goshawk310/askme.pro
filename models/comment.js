@@ -88,7 +88,7 @@ var Comment = function() {
             QuestionModel.findOne({
                 _id: comment.question_id
             }, function (err, question) {
-                if (!err && question &&  question.to.toString() !== comment.from.toString()) {
+                if (!err && question && (!comment.from || question.to.toString() !== comment.from.toString())) {
                     UserModel.update({
                         _id: question.to
                     }, {

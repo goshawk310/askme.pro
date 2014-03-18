@@ -125,6 +125,10 @@
     width: 140px;
 }
 
+.sticker-cell {
+    width:140px ;
+}
+
 .table-striped > tbody > tr > .success,
 .table-striped > tbody > .success > td,
 .table-striped > tbody > .success > th {
@@ -135,4 +139,13 @@
 .table-striped > tbody > .danger > td,
 .table-striped > tbody > .danger > th {
   background-color: #f2dede !important;
+}
+
+
+
+
+@media screen and (min-width: 768px) {
+    .modal-dialog.admin-form-modal-dialog {
+        width: 800px;
+    }
 }

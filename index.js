@@ -81,6 +81,10 @@ app.requestBeforeRoute = function requestBeforeRoute(server) {
                     url: '/admin/users', 
                     role: 'admin',
                     label: 'Użytkownicy'
+                }, {
+                    url: '/admin/stickers',
+                    role: 'moderator',
+                    label: 'Wstążki'
                 }
             ];
             for (var i = 0; i < elements.length; i += 1) {

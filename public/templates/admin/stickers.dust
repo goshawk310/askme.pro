@@ -1,0 +1,51 @@
+{>"layouts/admin" /}
+{<title}Wstążki{/title}
+{<actions}
+    <div id="sticker-actions">
+        <a href="#add" class="btn btn-primary" id="sicker-add">Dodaj <span class="glyphicon glyphicon-plus"></span></a>
+    </div>
+{/actions}
+
+{<css}
+<link href="/components/backgrid/lib/backgrid.min.css" rel="stylesheet" />
+<link href="/components/backgrid-filter/backgrid-filter.min.css" rel="stylesheet" />
+<link href="/components/backbone-forms/distribution/templates/bootstrap3.css" rel="stylesheet" />
+{/css}
+{<js}
+<script src="/components/backgrid/lib/backgrid.min.js"></script>
+<script src="/components/backbone-pageable/lib/backbone-pageable.min.js"></script>
+<script src="/components/backgrid-paginator/backgrid-paginator.min.js"></script>
+<script src="/components/backgrid-filter/backgrid-filter.min.js"></script>
+<script src="/components/backbone-forms/distribution/backbone-forms.min.js"></script>
+<script src="/components/backbone-forms/distribution/templates/bootstrap3.js"></script>
+<script src="/components/backbone-forms/distribution/adapters/backbone.bootstrap-modal.js"></script>
+<script src="/js/admin/models/sticker.model.js"></script>
+<script src="/js/admin/helpers.js"></script>
+<script src="/js/admin/routes/stickers.router.js"></script>
+<script src="/js/admin/views/stickers.view.js"></script>
+{/js}
+{<jsTemplates}
+<script type="text/template" id="form-modal-tpl">
+    <div class="modal-dialog admin-form-modal-dialog">
+        <div class="modal-content">
+            <% if (title) { %>
+              <div class="modal-header">
+                <% if (allowCancel) { %>
+                  <a class="close">×</a>
+                <% } %>
+                <h3>{~lb}{~lb}title{~rb}{~rb}</h3>
+              </div>
+            <% } %>
+            <div class="modal-body">{{content}}</div>
+            <div class="modal-footer">
+              <% if (allowCancel) { %>
+                <% if (cancelText) { %>
+                  <a href="#" class="btn cancel">{~lb}{~lb}cancelText{~rb}{~rb}</a>
+                <% } %>
+              <% } %>
+              <a href="#" class="btn ok btn-primary">{~lb}{~lb}okText{~rb}{~rb}</a>
+            </div>
+        </div>
+    </div>
+</script>
+{/jsTemplates}
