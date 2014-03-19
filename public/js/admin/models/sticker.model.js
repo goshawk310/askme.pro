@@ -7,7 +7,7 @@ askmePro.models.AdminStickerModel = Backbone.Model.extend({
             validators: ['required']
         },
         file: {
-            type: 'Text',
+            type: askmePro.views.helpers.form.editors.File,
             title: 'Plik',
             validators: ['required']
         }

@@ -146,3 +146,79 @@ askmePro.views.helpers.gird.columnStatus = function columnStatus(column, classNa
         t = null;
     }, 4000);
 };
+
+askmePro.views.helpers.form = {
+    editors: {}
+};
+askmePro.views.helpers.form.editors.File = Backbone.Form.editors.Base.extend({
+    template: _.template('<span class="btn btn-default fileinput-button">Wybierz<input type="file" name="<%=name%>"></span>'),
+    events: {
+        'change': function() {
+            // The 'change' event should be triggered whenever something happens
+            // that affects the result of `this.getValue()`.
+            this.trigger('change', this);
+        },
+        'focus': function() {
+            // The 'focus' event should be triggered whenever an input within
+            // this editor becomes the `document.activeElement`.
+            this.trigger('focus', this);
+            // This call automatically sets `this.hasFocus` to `true`.
+        },
+        'blur': function() {
+            // The 'blur' event should be triggered whenever an input within
+            // this editor stops being the `document.activeElement`.
+            this.trigger('blur', this);
+            // This call automatically sets `this.hasFocus` to `false`.
+        }
+    },
+    initialize: function(options) {
+        this.setElement(this.template());
+        // Call parent constructor
+        Backbone.Form.editors.Base.prototype.initialize.call(this, options);
+        
+
+        askmePro.upload.image(
+            this.$el.parent('form'),
+            null,
+            null,
+            '/xxx',
+            null,
+            function (e, data, formElem, progressElem, imgContainer, path) {
+                var uploadObj = this,
+                    filename = '';
+                if (data.result.status === 'success' && data.result.filename) {
+                    filename = path + data.result.filename;
+                    imgContainer.html('<img src="' + filename + '"  class="img-thumbnail">');
+                } else {
+                    askmePro.utils.showAlert(data.result);
+                }
+                uploadObj.hideProgress(progressElem);
+            }
+        );
+    },
+    render: function() {
+        this.setValue(this.value);
+        return this;
+    },
+    getValue: function() {
+        return this.$el.val();
+    },
+    setValue: function(value) {
+        this.$el.val(value);
+    },
+    focus: function() {
+        if (this.hasFocus) return;
+
+        // This method call should result in an input within this edior
+        // becoming the `document.activeElement`.
+        // This, in turn, should result in this editor's `focus` event
+        // being triggered, setting `this.hasFocus` to `true`.
+        // See above for more detail.
+        this.$el.focus();
+    },
+    blur: function() {
+        if (!this.hasFocus) return;
+
+        this.$el.blur();
+    }
+});

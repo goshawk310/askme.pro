@@ -12,6 +12,11 @@
 <link href="/components/backbone-forms/distribution/templates/bootstrap3.css" rel="stylesheet" />
 {/css}
 {<js}
+<script src="/components/fileupload/vendor/jquery.ui.widget.js"></script>
+<script src="/components/fileupload/jquery.iframe-transport.js"></script>
+<script src="/components/fileupload/jquery.fileupload.js"></script>
+<script src="/components/fileupload/jquery.fileupload-process.js"></script>
+<script src="/components/fileupload/jquery.fileupload-validate.js"></script>
 <script src="/components/backgrid/lib/backgrid.min.js"></script>
 <script src="/components/backbone-pageable/lib/backbone-pageable.min.js"></script>
 <script src="/components/backgrid-paginator/backgrid-paginator.min.js"></script>
@@ -19,8 +24,9 @@
 <script src="/components/backbone-forms/distribution/backbone-forms.min.js"></script>
 <script src="/components/backbone-forms/distribution/templates/bootstrap3.js"></script>
 <script src="/components/backbone-forms/distribution/adapters/backbone.bootstrap-modal.js"></script>
-<script src="/js/admin/models/sticker.model.js"></script>
+<script src="/js/utils/upload.js"></script>
 <script src="/js/admin/helpers.js"></script>
+<script src="/js/admin/models/sticker.model.js"></script>
 <script src="/js/admin/routes/stickers.router.js"></script>
 <script src="/js/admin/views/stickers.view.js"></script>
 {/js}
