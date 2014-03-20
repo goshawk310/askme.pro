@@ -8,7 +8,7 @@ var auth = require('../../../lib/auth'),
 
 module.exports = function(server) {
 
-    server.get('/api/admin/users', auth.hasPrivilegesOf('admin'), function (req, res) {
+    server.get('/api/admin/users', auth.hasPrivilegesOf('moderator'), function (req, res) {
         adminUserService
         .setReq(req)
         .getUsers(function (err, rows, total) {
@@ -19,7 +19,7 @@ module.exports = function(server) {
         });
     });
 
-    server.patch('/api/admin/users/:id', auth.hasPrivilegesOf('admin'), function (req, res) {
+    server.patch('/api/admin/users/:id', auth.hasPrivilegesOf('moderator'), function (req, res) {
         adminUserService
         .setReq(req)
         .setRes(res)
@@ -36,7 +36,7 @@ module.exports = function(server) {
         });
     });
 
-    server.delete('/api/admin/users/:id', auth.hasPrivilegesOf('admin'), function (req, res) {
+    server.delete('/api/admin/users/:id', auth.hasPrivilegesOf('moderator'), function (req, res) {
         adminUserService
         .setReq(req)
         .remove(req.param('id'), function (err) {
@@ -52,7 +52,7 @@ module.exports = function(server) {
         });
     });
 
-    server.delete('/api/admin/users/:id/answers', auth.hasPrivilegesOf('admin'), function (req, res) {
+    server.delete('/api/admin/users/:id/answers', auth.hasPrivilegesOf('moderator'), function (req, res) {
         adminQuestionService
         .removeAllTo(req.param('id'), function (err, count) {
             if (err) {
@@ -68,7 +68,7 @@ module.exports = function(server) {
         });
     });
 
-    server.delete('/api/admin/users/:id/questions', auth.hasPrivilegesOf('admin'), function (req, res) {
+    server.delete('/api/admin/users/:id/questions', auth.hasPrivilegesOf('moderator'), function (req, res) {
         adminQuestionService
         .removeAllFrom(req.param('id'), function (err, count) {
             if (err) {
@@ -84,7 +84,7 @@ module.exports = function(server) {
         });
     });
 
-    server.delete('/api/admin/users/:id/gifts/recived', auth.hasPrivilegesOf('admin'), function (req, res) {
+    server.delete('/api/admin/users/:id/gifts/recived', auth.hasPrivilegesOf('moderator'), function (req, res) {
         adminGiftService
         .removeAllTo(req.param('id'), function (err, count) {
             if (err) {
@@ -100,7 +100,7 @@ module.exports = function(server) {
         });
     });
 
-    server.delete('/api/admin/users/:id/gifts/sent', auth.hasPrivilegesOf('admin'), function (req, res) {
+    server.delete('/api/admin/users/:id/gifts/sent', auth.hasPrivilegesOf('moderator'), function (req, res) {
         adminGiftService
         .removeAllFrom(req.param('id'), function (err, count) {
             if (err) {
@@ -116,7 +116,7 @@ module.exports = function(server) {
         });
     });
 
-    server.delete('/api/admin/users/:id/comments/recived', auth.hasPrivilegesOf('admin'), function (req, res) {
+    server.delete('/api/admin/users/:id/comments/recived', auth.hasPrivilegesOf('moderator'), function (req, res) {
         adminCommentService
         .removeAllTo(req.param('id'), function (err, count) {
             if (err) {
@@ -132,7 +132,7 @@ module.exports = function(server) {
         });
     });
 
-    server.delete('/api/admin/users/:id/comments/sent', auth.hasPrivilegesOf('admin'), function (req, res) {
+    server.delete('/api/admin/users/:id/comments/sent', auth.hasPrivilegesOf('moderator'), function (req, res) {
         adminCommentService
         .removeAllFrom(req.param('id'), function (err, count) {
             if (err) {
@@ -148,7 +148,7 @@ module.exports = function(server) {
         });
     });
 
-    server.delete('/api/admin/users/:id/likes/recived', auth.hasPrivilegesOf('admin'), function (req, res) {
+    server.delete('/api/admin/users/:id/likes/recived', auth.hasPrivilegesOf('moderator'), function (req, res) {
         adminLikeService
         .removeAllTo(req.param('id'), function (err, count) {
             if (err) {
@@ -164,7 +164,7 @@ module.exports = function(server) {
         });
     });
 
-    server.delete('/api/admin/users/:id/likes/sent', auth.hasPrivilegesOf('admin'), function (req, res) {
+    server.delete('/api/admin/users/:id/likes/sent', auth.hasPrivilegesOf('moderator'), function (req, res) {
         adminLikeService
         .removeAllFrom(req.param('id'), function (err, count) {
             if (err) {

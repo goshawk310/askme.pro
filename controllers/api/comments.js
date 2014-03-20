@@ -14,7 +14,7 @@ module.exports = function(server) {
         var where = {
             _id: req.param('id')
         };
-        if (req.user.role !== 'admin') {
+        if (!auth.hasPrivilegesOf('moderator', req.user.role)) {
             where.from = req.user._id;
         }
         commentService

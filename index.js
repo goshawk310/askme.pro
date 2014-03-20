@@ -79,17 +79,17 @@ app.requestBeforeRoute = function requestBeforeRoute(server) {
                     label: 'Pytanie dnia'
                 }, {
                     url: '/admin/users', 
-                    role: 'admin',
+                    role: 'moderator',
                     label: 'Użytkownicy'
                 }, {
                     url: '/admin/stickers',
-                    role: 'moderator',
+                    role: 'admin',
                     label: 'Wstążki'
                 }
             ];
             for (var i = 0; i < elements.length; i += 1) {
                 if (auth.getRoles()[req.user.role].indexOf(elements[i].role) < 0) {
-                    elements.slice(i , i + 1);
+                    elements.splice(i , 1);
                 } else if (req.url === elements[i].url) {
                     elements[i].active = true;
                 } else {

@@ -56,7 +56,7 @@
                 </div>
             </div>
             {?user}
-                <% if((comment.from && comment.from._id === '{user._id}') || '{user.role}' === 'admin'){~lb}%>
+                <% if((comment.from && comment.from._id === '{user._id}') || ['admin', 'moderator'].indexOf('{user.role}') > - 1) {~lb}%>
                     <button type="button" class="comment-remove close" aria-hidden="true">&times;</button>
                 <%{~rb}%>
             {/user}

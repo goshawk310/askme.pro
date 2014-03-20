@@ -89,7 +89,7 @@
                         <ul class="dropdown-menu">
                             <li><button type="button" onclick="location.href='/questions/<%=question._id%>'" class="btn btn-link btn-xs">{@__ phrase="Przejdź" /}</button></li>
                             
-                                <% if((question.to && question.to._id === '{user._id}') || '{user.role}' === 'admin'){~lb}%>
+                                <% if((question.to && question.to._id === '{user._id}') || ['admin', 'moderator'].indexOf('{user.role}') > - 1) {~lb}%>
                                     <li><button type="button" class="btn btn-link btn-xs btn-remove">{@__ phrase="Usuń" /}</button></li>
                                 <%{~rb}%>
                         </ul>

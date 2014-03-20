@@ -110,7 +110,7 @@ module.exports = function(server) {
         var where = {
             _id: req.param('id')
         };
-        if (req.user.role !== 'admin') {
+        if (!auth.hasPrivilegesOf('moderator', req.user.role)) {
             where.to = req.user._id;
         }
         questionService.setReq(req).setRes(res)
