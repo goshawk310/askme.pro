@@ -26,6 +26,7 @@
 <script src="/components/backbone-forms/distribution/adapters/backbone.bootstrap-modal.min.js"></script>
 <script src="/js/utils/upload.js"></script>
 <script src="/js/admin/helpers.js"></script>
+<script src="/js/admin/form.js"></script>
 <script src="/js/admin/models/sticker.model.js"></script>
 <script src="/js/admin/routes/stickers.router.js"></script>
 <script src="/js/admin/views/stickers.view.js"></script>

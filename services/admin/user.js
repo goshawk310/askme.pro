@@ -9,12 +9,15 @@ module.exports = _.extend({
     },
     getUsers: function getUsers(callback) {
         var req = this.getReq(),
-            regex = new RegExp(req.param('query'), 'i'),
-            whereOr = [{username: {$regex: regex}}],
-            conds = {
-                $or: whereOr
-            },
+            whereOr = [],
+            conds = {},
             thisObj = this;
+        if (req.param('query')) {
+            whereOr.push({username: {$regex: new RegExp('^' + req.param('query') + '$', 'i')}});
+        }
+        if (whereOr.length) {
+            conds.$or = whereOr;
+        }
         UserModel.count(conds, function (err, total) {
             thisObj.paginate(UserModel.find(conds))
             .exec(function (err, rows) {
