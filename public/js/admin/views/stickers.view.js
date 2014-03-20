@@ -102,7 +102,10 @@ askmePro.views.AdminStickerActionsView = Backbone.View.extend({
     },
     render: function() {
         var form = new Backbone.Form({
-            model: new askmePro.models.AdminStickerModel()
+            model: new askmePro.models.AdminStickerModel(),
+            template: _.template('\
+            <form action="/api/admin/stickers/image" method="post" enctype="multipart/form-data" class="form-horizontal" role="form" data-fieldsets></form>\
+            ')
         });
         var _interpolateBackup = _.templateSettings;
         _.templateSettings = {
@@ -117,8 +120,30 @@ askmePro.views.AdminStickerActionsView = Backbone.View.extend({
             cancelText: 'Anuluj',
             okText: 'Zapisz',
             template: _.template($('#form-modal-tpl').html())
-        }).open();
+        }).open(function () {
+            var errors = form.commit();
+        });
         _.templateSettings = _interpolateBackup;
+
+        askmePro.upload.image(
+            form.$el,
+            form.$('.progress'),
+            form.$('.image-container'),
+            '/images/stickers/',
+            null, 
+            function (e, data, formElem, progressElem, imgContainer, path) {
+                var uploadObj = this,
+                    filename = '';
+                if (data.result.status === 'success' && data.result.filename) {
+                    filename = path + data.result.filename;
+                    imgContainer.html('<img src="' + filename + '"  class="img-thumbnail">');
+                } else {
+                    askmePro.utils.showAlert(data.result);
+                }
+                uploadObj.hideProgress(progressElem);
+            }
+        );
+
         modal.on('cancel', function () {
             askmePro.router.navigate('/', {trigger: true, replace: true});
         });

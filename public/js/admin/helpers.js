@@ -151,7 +151,7 @@ askmePro.views.helpers.form = {
     editors: {}
 };
 askmePro.views.helpers.form.editors.File = Backbone.Form.editors.Base.extend({
-    template: _.template('<span class="btn btn-default fileinput-button">Wybierz<input type="file" name="<%=name%>"></span>'),
+    tagName: 'input',
     events: {
         'change': function() {
             // The 'change' event should be triggered whenever something happens
@@ -172,29 +172,10 @@ askmePro.views.helpers.form.editors.File = Backbone.Form.editors.Base.extend({
         }
     },
     initialize: function(options) {
-        this.setElement(this.template());
         // Call parent constructor
         Backbone.Form.editors.Base.prototype.initialize.call(this, options);
-        
-
-        askmePro.upload.image(
-            this.$el.parent('form'),
-            null,
-            null,
-            '/xxx',
-            null,
-            function (e, data, formElem, progressElem, imgContainer, path) {
-                var uploadObj = this,
-                    filename = '';
-                if (data.result.status === 'success' && data.result.filename) {
-                    filename = path + data.result.filename;
-                    imgContainer.html('<img src="' + filename + '"  class="img-thumbnail">');
-                } else {
-                    askmePro.utils.showAlert(data.result);
-                }
-                uploadObj.hideProgress(progressElem);
-            }
-        );
+        this.$el.attr('type', 'file');
+        this.$el.after('<div class="progress"></div><div class="image-container"></div>');
     },
     render: function() {
         this.setValue(this.value);
