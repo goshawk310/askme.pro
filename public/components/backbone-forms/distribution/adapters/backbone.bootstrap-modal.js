@@ -106,8 +106,6 @@
           content = options.content;
 
       //Create the modal container
-      //
-      console.log(options);
       $el.html(options.template(options));
 
       var $content = this.$content = $el.find('.modal-body')

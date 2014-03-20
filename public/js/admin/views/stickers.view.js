@@ -74,9 +74,7 @@ askmePro.views.AdminStickersGridView = Backbone.View.extend({
             collection: rows,
             className: 'table table-striped table-bordered table-hover'
         });
-        $('#content-container').append(grid.render().el);
-        
-        // Initialize the paginator
+        $('#content-container').html(grid.render().el);
         var GridPaginator = Backgrid.Extension.Paginator.extend({
             render: function () {
                 Backgrid.Extension.Paginator.prototype.render.call(this);
@@ -89,7 +87,7 @@ askmePro.views.AdminStickersGridView = Backbone.View.extend({
         });
         rows.fetch({reset: true});
         var paginatorElem = paginator.render().$el;
-        $('.panel-footer').append(paginatorElem);
+        $('.panel-footer').html(paginatorElem);
         return this;
     }
 });
@@ -101,10 +99,13 @@ askmePro.views.AdminStickerActionsView = Backbone.View.extend({
         
     },
     render: function() {
-        var form = new Backbone.Form({
+        var fileData = null,
+            form = new Backbone.Form({
             model: new askmePro.models.AdminStickerModel(),
             template: _.template('\
-            <form action="/api/admin/stickers/image" method="post" enctype="multipart/form-data" class="form-horizontal" role="form" data-fieldsets></form>\
+            <form action="/api/admin/stickers/image" method="post" enctype="multipart/form-data" class="form-horizontal" role="form" data-fieldsets>\
+                <input type="hidden" name="_csrf" value="' + $('meta[name="csrf-param"]').attr('content') + '">\
+            </form>\
             ')
         });
         var _interpolateBackup = _.templateSettings;
@@ -121,28 +122,35 @@ askmePro.views.AdminStickerActionsView = Backbone.View.extend({
             okText: 'Zapisz',
             template: _.template($('#form-modal-tpl').html())
         }).open(function () {
+            modal.preventClose();
             var errors = form.commit();
+            if (fileData !== null && !errors) {
+                fileData.submit();
+            }
         });
+
         _.templateSettings = _interpolateBackup;
 
-        askmePro.upload.image(
-            form.$el,
-            form.$('.progress'),
-            form.$('.image-container'),
-            '/images/stickers/',
-            null, 
-            function (e, data, formElem, progressElem, imgContainer, path) {
-                var uploadObj = this,
-                    filename = '';
-                if (data.result.status === 'success' && data.result.filename) {
-                    filename = path + data.result.filename;
-                    imgContainer.html('<img src="' + filename + '"  class="img-thumbnail">');
-                } else {
-                    askmePro.utils.showAlert(data.result);
-                }
-                uploadObj.hideProgress(progressElem);
-            }
-        );
+        form.$el.fileupload({
+            replaceFileInput: false,
+            autoUpload: false,
+            acceptFileTypes: askmePro.upload.settings.acceptFileTypes.image,
+            maxFileSize: askmePro.upload.settings.maxFileSize,
+            dataType: 'json',
+            add: function (e, data) {
+                fileData = data;
+            },
+            done: function (e, data) {
+                askmePro.router.navigate('/', {trigger: true, replace: true});
+                modal.close();
+            },
+            fail: function (e, data) {
+                askmePro.router.navigate('/', {trigger: true, replace: true});
+                modal.close();
+            },
+            messages: askmePro.settings.upload.messages
+        }).prop('disabled', !$.support.fileInput)
+            .parent().addClass($.support.fileInput ? undefined : 'disabled');
 
         modal.on('cancel', function () {
             askmePro.router.navigate('/', {trigger: true, replace: true});

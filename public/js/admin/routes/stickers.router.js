@@ -6,10 +6,8 @@ askmePro.routers.AdminStickersRouter = Backbone.Router.extend({
         '*path': 'index'
     },
     index: function index() {
-        if (typeof this.views.grid === 'undefined') {
-            this.views.grid = new askmePro.views.AdminStickersGridView();
-            this.views.grid.render();
-        }
+        this.views.grid = new askmePro.views.AdminStickersGridView();
+        this.views.grid.render();
     },
     add: function add() {
         this.views.actions = new askmePro.views.AdminStickerActionsView();

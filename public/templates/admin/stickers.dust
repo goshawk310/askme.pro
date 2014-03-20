@@ -23,7 +23,7 @@
 <script src="/components/backgrid-filter/backgrid-filter.min.js"></script>
 <script src="/components/backbone-forms/distribution/backbone-forms.min.js"></script>
 <script src="/components/backbone-forms/distribution/templates/bootstrap3.js"></script>
-<script src="/components/backbone-forms/distribution/adapters/backbone.bootstrap-modal.js"></script>
+<script src="/components/backbone-forms/distribution/adapters/backbone.bootstrap-modal.min.js"></script>
 <script src="/js/utils/upload.js"></script>
 <script src="/js/admin/helpers.js"></script>
 <script src="/js/admin/models/sticker.model.js"></script>

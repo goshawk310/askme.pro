@@ -30,4 +30,23 @@ module.exports = function(server) {
             });
         });
     });
+
+    server.post('/api/admin/stickers/image', auth.hasPrivilegesOf('admin'), function (req, res) {
+        adminStickerService
+        .setServer(server)
+        .setReq(req)
+        .setRes(res)
+        .add(function (err, sticker) {
+            if (err) {
+                return res.send({
+                    status: 'error',
+                    message: ''
+                });
+            }
+            return res.send({
+                status: 'success',
+                message: sticker
+            });
+        });
+    });
 };

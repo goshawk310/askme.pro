@@ -141,8 +141,9 @@
   background-color: #f2dede !important;
 }
 
-
-
+.file-wrapper .progress-container {
+    margin-top: 15px;
+}
 
 @media screen and (min-width: 768px) {
     .modal-dialog.admin-form-modal-dialog {

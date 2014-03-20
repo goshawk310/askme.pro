@@ -22,6 +22,12 @@ module.exports = {
         dir: dirname + '/uploads/answers/',
         url: '/uploads/answers/'
     },
+    sticker: {
+        tmpDir: dirname + '/uploads/tmp/stickers/',
+        tmpUrl: '/tmp/stickers/',
+        dir: dirname + '/public/images/stickers/',
+        url: '/images/stickers/'
+    },
     locales: [{
         key: 'pl',
         name: 'Polski'

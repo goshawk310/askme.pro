@@ -154,52 +154,45 @@ askmePro.views.helpers.form.editors.File = Backbone.Form.editors.Base.extend({
     tagName: 'input',
     events: {
         'change': function() {
-            // The 'change' event should be triggered whenever something happens
-            // that affects the result of `this.getValue()`.
             this.trigger('change', this);
         },
         'focus': function() {
-            // The 'focus' event should be triggered whenever an input within
-            // this editor becomes the `document.activeElement`.
             this.trigger('focus', this);
-            // This call automatically sets `this.hasFocus` to `true`.
         },
         'blur': function() {
-            // The 'blur' event should be triggered whenever an input within
-            // this editor stops being the `document.activeElement`.
             this.trigger('blur', this);
-            // This call automatically sets `this.hasFocus` to `false`.
         }
     },
     initialize: function(options) {
-        // Call parent constructor
         Backbone.Form.editors.Base.prototype.initialize.call(this, options);
         this.$el.attr('type', 'file');
-        this.$el.after('<div class="progress"></div><div class="image-container"></div>');
+        var element = $('\
+        <div class="file-wrapper">\
+            <span class="btn btn-default fileinput-button">\
+                <span>wybierz...</span>\
+            </span>\
+        </div>\
+        ');
+        element.find('.fileinput-button').append(this.$el);
+        this.setElement(element);
+        
     },
     render: function() {
         this.setValue(this.value);
         return this;
     },
     getValue: function() {
-        return this.$el.val();
+        return this.$('input').val();
     },
     setValue: function(value) {
-        this.$el.val(value);
+        this.$('input').val(value);
     },
     focus: function() {
         if (this.hasFocus) return;
-
-        // This method call should result in an input within this edior
-        // becoming the `document.activeElement`.
-        // This, in turn, should result in this editor's `focus` event
-        // being triggered, setting `this.hasFocus` to `true`.
-        // See above for more detail.
-        this.$el.focus();
+        this.$('.fileinput-button').focus();
     },
     blur: function() {
         if (!this.hasFocus) return;
-
-        this.$el.blur();
+        this.$('.fileinput-button').blur();
     }
 });
