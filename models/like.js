@@ -7,6 +7,10 @@ var mongoose = require('mongoose'),
 var Like = function() {
 
     var schema = mongoose.Schema({
+        created_at: {
+            type: Date,
+            default: Date.now
+        },
         question_id: {
             type: mongoose.Schema.Types.ObjectId,
             required: true,

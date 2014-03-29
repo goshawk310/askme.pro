@@ -77,5 +77,17 @@ module.exports = _.defaults({
             .sort({_id: -1})
             .populate('from', 'username avatar')
             .exec(callback);
+    },
+    getByUsersFollowed: function getByUsersFollowed(params, callback) {
+        var where = {
+                from: {$in: params.followed}
+            },
+            limit: params.limit || 10,
+            skip = limit && params.page ? (limit) * params.page : null,;
+        if (params.lastCreatedAt && validator.validators.isDate(params.lastCreatedAt)) {
+            where.created_at = {$lt: new Date(params.lastCreatedAt)};
+        } else if (params.firstCreatedAt && validator.validators.isDate(params.firstCreatedAt)) {
+            where.created_at = {$gt: new Date(params.firstCreatedAt)};
+        }
     }
 }, require('../lib/service'));
