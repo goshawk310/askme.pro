@@ -82,8 +82,8 @@ module.exports = _.defaults({
         var where = {
                 from: {$in: params.followed}
             },
-            limit: params.limit || 10,
-            skip = limit && params.page ? (limit) * params.page : null,;
+            limit = params.limit || 10,
+            skip = limit && params.page ? (limit) * params.page : null;
         if (params.lastCreatedAt && validator.validators.isDate(params.lastCreatedAt)) {
             where.created_at = {$lt: new Date(params.lastCreatedAt)};
         } else if (params.firstCreatedAt && validator.validators.isDate(params.firstCreatedAt)) {
