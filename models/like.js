@@ -20,12 +20,14 @@ var Like = function() {
         to: {
             type: mongoose.Schema.Types.ObjectId,
             required: true,
-            ref: 'User'
+            ref: 'User',
+            index: true
         },
         from: {
             type: mongoose.Schema.Types.ObjectId,
             required: true,
-            ref: 'User'
+            ref: 'User',
+            index: true
         },
         viewed: {
             type: Boolean,

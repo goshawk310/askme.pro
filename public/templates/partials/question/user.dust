@@ -103,3 +103,99 @@
         </div>
     </div>
 </script>
+
+<script type="text/template" id="stream-like-tpl">
+    <div class="row question-wrapper stream-like-wrapper stream-likes-<%=pageIndex%> stream-likes-index-<%=index%>">
+        <div class="question-container stream-like-container">
+            <div class="col-md-12 question">
+                <div class="media">
+                    <%=askmePro.views.helpers.userAvatar({~lb}user: data.from, size: 'cropped/100x', wrapper: true, cssClass: "box-shadow img-circle user-avatar small", linkClass: "user-avatar-wrapper pull-left"{~rb})%>
+                    <div class="media-body">
+                        <div class="stream-action-descr-top">
+                            <a href="/<%=data.from.username%>"><%=data.from.username%></a> <span>{@__ phrase="lubi odpowiedź na pytanie" /}:</span>
+                        </div>
+                        <div class="well well-sm">
+                            <h5><%=askmePro.views.helpers.parseUsersText(data.question_id.contents, {url: {yt: 'link'}})%></h5>
+                            <div class="asnwer"><%=askmePro.views.helpers.parseUsersText(data.question_id.answer)%></div>
+                            <div class="clearfix"></div>
+                            <% if (data.question_id.image) {~lb} %>
+                                <div class="media-wrapper panel panel-link no-shadow">
+                                    <div class="panel-body text-center">
+                                        <img src="<%=askmePro.settings.upload.answer.url + data.question_id.image%>" class="img-thumbnail">
+                                    </div>
+                                </div>
+                            <% {~rb} %>
+                            <% if (data.question_id.yt_video) {~lb} %>
+                                <div class="media-wrapper panel panel-link no-shadow">
+                                    <div class="panel-body text-center">
+                                        <div class="video-container visible">
+                                            <iframe width="640" height="360" src="//www.youtube.com/embed/<%=data.question_id.yt_video%>?wmode=opaque" frameborder="0" allowfullscreen></iframe>
+                                        </div>
+                                    </div>
+                                </div>
+                            <% {~rb} %>
+                        </div>
+                        <div class="stream-action-descr-bottom">
+                            <% if (count > 1 && parseInt(index, 10) === 0) {~lb} %>
+                                <button class="btn btn-link btn-xs pull-left btn-show-more">{@__ phrase="zobacz inne" /}</button>
+                            <% {~rb} %>
+                            <a href="/questions/<%=data.question_id._id%>" class="pull-right">{@__ phrase="Idź do odpowiedzi" /}</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12">
+            <hr>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+</script>
+
+<script type="text/template" id="stream-comment-tpl">
+    <div class="row question-wrapper stream-comment-wrapper stream-comments-<%=pageIndex%> stream-comments-index-<%=index%>">
+        <div class="question-container stream-comment-container">
+            <div class="col-md-12 question">
+                <div class="media">
+                    <%=askmePro.views.helpers.userAvatar({~lb}user: data.from, size: 'cropped/100x', wrapper: true, cssClass: "box-shadow img-circle user-avatar small", linkClass: "user-avatar-wrapper pull-left"{~rb})%>
+                    <div class="media-body">
+                        <div class="stream-action-descr-top">
+                            <a href="/<%=data.from.username%>"><%=data.from.username%></a> <span>{@__ phrase="skomentował(a) odpowiedź na pytanie" /}:</span>
+                        </div>
+                        <div class="well well-sm">
+                            <h5><%=askmePro.views.helpers.parseUsersText(data.question_id.contents, {url: {yt: 'link'}})%></h5>
+                            <div class="asnwer"><%=askmePro.views.helpers.parseUsersText(data.question_id.answer)%></div>
+                            <div class="clearfix"></div>
+                            <% if (data.question_id.image) {~lb} %>
+                                <div class="media-wrapper panel panel-link no-shadow">
+                                    <div class="panel-body text-center">
+                                        <img src="<%=askmePro.settings.upload.answer.url + data.question_id.image%>" class="img-thumbnail">
+                                    </div>
+                                </div>
+                            <% {~rb} %>
+                            <% if (data.question_id.yt_video) {~lb} %>
+                                <div class="media-wrapper panel panel-link no-shadow">
+                                    <div class="panel-body text-center">
+                                        <div class="video-container visible">
+                                            <iframe width="640" height="360" src="//www.youtube.com/embed/<%=data.question_id.yt_video%>?wmode=opaque" frameborder="0" allowfullscreen></iframe>
+                                        </div>
+                                    </div>
+                                </div>
+                            <% {~rb} %>
+                        </div>
+                        <div class="stream-action-descr-bottom">
+                            <% if (count > 1 && parseInt(index, 10) === 0) {~lb} %>
+                                <button class="btn btn-link btn-xs pull-left btn-show-more">{@__ phrase="zobacz inne" /}</button>
+                            <% {~rb} %>
+                            <a href="/questions/<%=data.question_id._id%>" class="pull-right">{@__ phrase="Idź do odpowiedzi" /}</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12">
+            <hr>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+</script>

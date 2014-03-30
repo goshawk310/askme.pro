@@ -1525,3 +1525,44 @@ ul#profile-menu li a {
 #footer a {
     color: #357EBD;
 }
+
+.stream-like-container .well,
+.stream-comment-container .well {
+    font-size: 13px;
+    margin-bottom: 3px;
+}
+
+.stream-like-container .well h5,
+.stream-comment-container .well h5 {
+    font-weight: bold;
+    font-size: 14px;
+    margin-top: 0;
+    margin-bottom: 5px;
+}
+
+.stream-action-descr-top {
+    clear: both;
+    margin-top: 16px;
+    margin-bottom: 5px;
+    font-size: 12px;
+}
+
+.stream-action-descr-top a, .stream-action-descr-bottom a {
+    color: #428bca;
+    font-size: 13px;
+}
+
+
+.stream-action-descr-top span {
+    color: #47a447;   
+}
+
+.stream-like-wrapper,
+.stream-comment-wrapper {
+    display: none;
+}
+
+.stream-like-wrapper.stream-likes-index-0,
+.stream-comment-wrapper.stream-comments-index-0 {
+    display: block;
+}

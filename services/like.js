@@ -1,7 +1,8 @@
 'use strict';
 var LikeModel = require('../models/like'),
     mongoose = require('mongoose'),
-    _ = require('underscore');
+    _ = require('underscore'),
+    validator = require('validator');
 
 module.exports = _.defaults({
     create: function create(params, callback) {
@@ -80,14 +81,45 @@ module.exports = _.defaults({
     },
     getByUsersFollowed: function getByUsersFollowed(params, callback) {
         var where = {
-                from: {$in: params.followed}
+                from: {$in: params.followed},
+                to: {$ne: params.userId}
             },
-            limit = params.limit || 10,
+            $and = [{created_at: {$ne: null}}],
+            limit = params.limit || 50,
             skip = limit && params.page ? (limit) * params.page : null;
         if (params.lastCreatedAt && validator.validators.isDate(params.lastCreatedAt)) {
             where.created_at = {$lt: new Date(params.lastCreatedAt)};
         } else if (params.firstCreatedAt && validator.validators.isDate(params.firstCreatedAt)) {
             where.created_at = {$gt: new Date(params.firstCreatedAt)};
         }
+        var obj = {};
+        for (var i in where) {
+            obj = {};
+            obj[i] = where[i];
+            $and.push(obj);
+        }
+        LikeModel
+            .find({$and: $and})
+            .populate('from', 'username avatar')
+            .populate('question_id', 'contents answer')
+            .sort({created_at: -1})
+            .skip(skip).limit(limit ? limit : null)
+            .exec(function (err, docs) {
+                if (err) {
+                    return callback(err);
+                }
+                var results = [],
+                    fromIds = [];
+                docs.forEach(function (doc) {
+                    if (fromIds.indexOf(String(doc.from._id)) < 0) {
+                        fromIds.push(String(doc.from._id));
+                        results.push(doc);
+                        if (results.length === 5) {
+                            return callback(null, results);
+                        }
+                    }
+                });
+                return callback(null, results);
+            });
     }
 }, require('../lib/service'));

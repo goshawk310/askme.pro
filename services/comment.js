@@ -2,6 +2,7 @@
 var CommentModel = require('../models/comment'),
     mongoose = require('mongoose'),
     _ = require('underscore'),
+    validator = require('validator'),
     helpers = {
         getPreparedParams: function (req) {
             var limit = parseInt(req.param('limit'), 10) || 10,
@@ -95,4 +96,47 @@ module.exports = _.defaults({
             .populate('from', 'username avatar')
             .exec(callback);
     },
+    getByUsersFollowed: function getByUsersFollowed(params, callback) {
+        var where = {
+                from: {$in: params.followed},
+                to: {$ne: params.userId}
+            },
+            $and = [{created_at: {$ne: null}}],
+            limit = params.limit || 50,
+            skip = limit && params.page ? (limit) * params.page : null;
+        if (params.lastCreatedAt && validator.validators.isDate(params.lastCreatedAt)) {
+            where.created_at = {$lt: new Date(params.lastCreatedAt)};
+        } else if (params.firstCreatedAt && validator.validators.isDate(params.firstCreatedAt)) {
+            where.created_at = {$gt: new Date(params.firstCreatedAt)};
+        }
+        var obj = {};
+        for (var i in where) {
+            obj = {};
+            obj[i] = where[i];
+            $and.push(obj);
+        }
+        CommentModel
+            .find({$and: $and})
+            .populate('from', 'username avatar')
+            .populate('question_id', 'contents answer')
+            .sort({created_at: -1})
+            .skip(skip).limit(limit ? limit : null)
+            .exec(function (err, docs) {
+                if (err) {
+                    return callback(err);
+                }
+                var results = [],
+                    fromIds = [];
+                docs.forEach(function (doc) {
+                    if (fromIds.indexOf(String(doc.from._id)) < 0) {
+                        fromIds.push(String(doc.from._id));
+                        results.push(doc);
+                        if (results.length === 5) {
+                            return callback(null, results);
+                        }
+                    }
+                });
+                return callback(null, results);
+            });
+    }
 }, require('../lib/service'));

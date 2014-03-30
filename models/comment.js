@@ -10,7 +10,8 @@ var Comment = function() {
         created_at: {
             type: Date,
             default: Date.now,
-            required: true
+            required: true,
+            index: true
         },
         question_id: {
             type: mongoose.Schema.Types.ObjectId,
@@ -21,12 +22,14 @@ var Comment = function() {
         from: {
             type: mongoose.Schema.Types.ObjectId,
             required: false,
-            ref: 'User'
+            ref: 'User',
+            index: true
         },
         to: {
             type: mongoose.Schema.Types.ObjectId,
             required: false,
-            ref: 'User'
+            ref: 'User',
+            index: true
         },
         contents: {
             type: String,
