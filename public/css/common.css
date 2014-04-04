@@ -521,6 +521,14 @@ ul#profile-menu li.active a {
     font-weight: bold;
 }
 
+#answers-container .question h4 small {
+    font-size: 12px;
+}
+
+#answers-container .question h4 small a {
+    color: #999;
+}
+
 #answers-container .question .panel {
     border: 0;
     margin-bottom: 0;

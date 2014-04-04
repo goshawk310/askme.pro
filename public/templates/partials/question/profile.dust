@@ -5,7 +5,10 @@
                 <div class="media">
                     <%=askmePro.views.helpers.userAvatar({~lb}user: question.from, size: 'cropped/100x', wrapper: true, cssClass: "box-shadow img-circle user-avatar small", linkClass: "user-avatar-wrapper pull-left"{~rb})%>
                     <div class="media-body">
-                        <h4><%=askmePro.views.helpers.parseUsersText(question.contents, {url: {yt: 'link'}})%></h4>
+                        <h4>
+                            <%=askmePro.views.helpers.parseUsersText(question.contents, {url: {yt: 'link'}})%>
+                            <small class="text-muted"><% if(question.from){~lb}%> {@__ phrase="przez" /} <a href="/<%=question.from.username%>"><%=question.from.username%></a><%{~rb}else{~lb}%>, {@__ phrase="anonimowo" /}<%{~rb}%></small>
+                        </h4>
                         <span class="triangle"></span>
                         <div class="asnwer"><%=askmePro.views.helpers.parseUsersText(question.answer)%></div>
                         <div class="clearfix"></div>
@@ -28,8 +31,7 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <small class="text-muted">
-                                    {@__ phrase="Zapytano" /} <em><%=moment(question.created_at).fromNow()%></em>
-                                    <% if(question.from){~lb}%> {@__ phrase="przez" /} <a href="/<%=question.from.username%>"><%=question.from.username%></a><%{~rb}else{~lb}%>, {@__ phrase="anonimowo" /}<%{~rb}%>
+                                    {@__ phrase="Odpowiedziano" /} <em><%=moment(question.answered_at).fromNow()%></em>
                                 </small>
                             </div>
                             <div class="col-md-6">
