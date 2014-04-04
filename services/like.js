@@ -108,6 +108,9 @@ module.exports = _.defaults({
                 if (err) {
                     return callback(err);
                 }
+                if (!docs || !docs.length) {
+                    return callback(null, []);
+                }
                 var results = [],
                     fromIds = [];
                 docs.forEach(function (doc) {
