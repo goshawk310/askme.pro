@@ -34,21 +34,19 @@
         <% if (typeof elements !== 'undefined' && elements && elements.length) {~lb} %>
             <div class="list-group">
                 <% for (var i = 0; i < elements.length; i += 1) {~lb} %>
-                    <% if (elements[i].from) {~lb} %>
-                        <div class="list-group-item">
-                            <div class="media">
-                                <a class="pull-left user-avatar-wrapper"<% if (elements[i].from) {~lb}%> href="/<%=elements[i].from.username%>"<% {~rb} %>>
-                                    <%=askmePro.views.helpers.userAvatar({user: elements[i].from, size: 'cropped/100x', link: false, cssClass: 'media-object box-shadow img-circle'})%>
-                                </a>
-                                <div class="media-body">
-                                    <a href="/inbox" class="question-link"> 
-                                        <strong><% if (elements[i].from) {~lb}%><%=elements[i].from.username%><% {~rb} else {~lb} %>{@__ phrase="anonimowo" /}<% {~rb} %></strong><br>
-                                        {@__ phrase="Pytanie" /}: <%=askmePro.views.helpers.parseUsersText(elements[i].contents)%>
-                                    </a>   
-                                </div>
+                    <div class="list-group-item">
+                        <div class="media">
+                            <a class="pull-left user-avatar-wrapper"<% if (elements[i].from) {~lb}%> href="/<%=elements[i].from.username%>"<% {~rb} %>>
+                                <%=askmePro.views.helpers.userAvatar({user: elements[i].from, size: 'cropped/100x', link: false, cssClass: 'media-object box-shadow img-circle'})%>
+                            </a>
+                            <div class="media-body">
+                                <a href="/inbox" class="question-link"> 
+                                    <strong><% if (elements[i].from) {~lb}%><%=elements[i].from.username%><% {~rb} else {~lb} %>{@__ phrase="anonimowo" /}<% {~rb} %></strong><br>
+                                    {@__ phrase="Pytanie" /}: <%=askmePro.views.helpers.parseUsersText(elements[i].contents)%>
+                                </a>   
                             </div>
                         </div>
-                    <% {~rb} %>
+                    </div>
                 <% {~rb} %>
                 <div class="list-group-item see-all-container">
                     <a href="/inbox">{@__ phrase="Zobacz wszystkie" /}</a>
