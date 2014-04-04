@@ -180,11 +180,11 @@ askmePro.views.StreamView = Backbone.View.extend({
                             thisObj.newestQuestions = response.questions.reverse().concat(thisObj.newestQuestions);
                             thisObj.$('.btn-newest').show().children('strong').html(thisObj.newestQuestions.length);
                         }
-                        if (response.likes.length) {
+                        if (response.likes && response.likes.length) {
                             thisObj.newestLikes = response.likes;
                             thisObj.firstLikeAt = response.likes[0].created_at;
                         }
-                        if (response.comments.length) {
+                        if (response.comments && response.comments.length) {
                             thisObj.newestComments = response.comments;
                             thisObj.firstCommentAt = response.comments[0].created_at;
                         }

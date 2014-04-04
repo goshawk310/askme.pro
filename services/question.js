@@ -1,10 +1,12 @@
 'use strict';
 var QuestionModel = require('../models/question'),
     LikeModel = require('../models/like'),
+    UserModel = require('../models/user'),
     mongoose = require('mongoose'),
     _ = require('underscore'),
     redisClient = require('../lib/redis').client,
     FileUpload = require('../lib/file/upload'),
+    Email = require('../lib/email'),
     validator = require('validator');
 
 module.exports = _.defaults({
@@ -22,7 +24,32 @@ module.exports = _.defaults({
         } else {
             question.from = mongoose.Types.ObjectId(req.user.id)
         }
-        question.save(callback);
+        question.save(function (err, doc) {
+            if (!err && String(doc.to) !== String(doc.from)) {
+                UserModel.findById(doc.to, function (err, user) {
+                    if (err) {
+                        console.log(err);
+                        return;
+                    }
+                    if (user.online) {
+                        return;
+                    }
+                    var email = new Email();
+                    email.setTemplate(res.locals.getLocale() + '/question', {}, function (err, html, text) {
+                        if (err) {
+                            console.log(err);
+                            return;
+                        }
+                        this.setSubject(res.__('Otrzymałeś nowe pytanie na Askme.Pro!'))
+                            .setTo(user.email)
+                            .setHtml(html)
+                            .send(function (err, msg) {
+                            });
+                    });    
+                });
+            }
+            callback(err, doc);
+        });
     },
     /**
      * getUnansweredByUserId
