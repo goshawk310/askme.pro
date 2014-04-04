@@ -131,7 +131,7 @@ module.exports = _.defaults({
                 var results = [],
                     fromIds = [];
                 docs.forEach(function (doc) {
-                    if (fromIds.indexOf(String(doc.from._id)) < 0) {
+                    if (doc.from && fromIds.indexOf(String(doc.from._id)) < 0) {
                         fromIds.push(String(doc.from._id));
                         results.push(doc);
                         if (results.length === 5) {
