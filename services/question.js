@@ -44,6 +44,9 @@ module.exports = _.defaults({
                             .setTo(user.email)
                             .setHtml(html)
                             .send(function (err, msg) {
+                                if (err) {
+                                    console.log(err);
+                                }
                             });
                     });    
                 });
