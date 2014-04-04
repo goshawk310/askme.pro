@@ -40,7 +40,7 @@ module.exports = _.defaults({
                             console.log(err);
                             return;
                         }
-                        this.setSubject(res.__('Otrzymałeś nowe pytanie na Askme.Pro!'))
+                        this.setSubject(res.__('Otrzymałeś nowe pytanie na askme.pro!'))
                             .setTo(user.email)
                             .setHtml(html)
                             .send(function (err, msg) {
