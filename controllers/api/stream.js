@@ -12,7 +12,7 @@ module.exports = function(server) {
         if (req.param('mode') === 'friends') {
             return Q.ninvoke(questionService, 'getAnswered', {
                 to: req.user.users.followed,
-                limit: 10,
+                limit: 20,
                 page: 0,
                 from: req.user._id,
                 lastAnsweredAt: req.param('lastAnsweredAt') || null,
@@ -70,7 +70,7 @@ module.exports = function(server) {
         } else {
             questionService.getAnswered({
                 to: null,
-                limit: 10,
+                limit: 20,
                 page: 0,
                 from: req.user._id,
                 lastAnsweredAt: req.param('lastAnsweredAt') || null,
