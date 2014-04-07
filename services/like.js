@@ -101,7 +101,7 @@ module.exports = _.defaults({
         LikeModel
             .find({$and: $and})
             .populate('from', 'username avatar')
-            .populate('question_id', 'contents answer')
+            .populate('question_id', 'contents answer image yt_video')
             .sort({created_at: -1})
             .skip(skip).limit(limit ? limit : null)
             .exec(function (err, docs) {
