@@ -23,16 +23,43 @@
                                         <label class="sr-only" for="username">{@__ phrase="Login" /}:</label>
                                     </div>
                                     <div class="col-md-6">
-                                        <div class="input-group">
-                                            <input type="text" name="username" id="username" value="{?formData.username}{formData.username}{:else}{user.username}{/formData.username}" class="form-control" placeholder="{@__ phrase="Login" /}:" autocomplete="off" disabled>
-                                            <span class="input-group-addon">
-                                                <input type="checkbox" id="change-username" name="change-username">
-                                            </span>
-                                        </div>
+                                        {?user.facebook.r_no_username}
+                                            <input type="text" name="username" id="username" value="{formData.username}" class="form-control" placeholder="{@__ phrase="Login" /}:" autocomplete="off">
+                                        {:else}
+                                            <div class="input-group">
+                                                <input type="text" name="username" id="username" value="{?formData.username}{formData.username}{:else}{user.username}{/formData.username}" class="form-control" placeholder="{@__ phrase="Login" /}:" autocomplete="off" disabled>
+                                                <span class="input-group-addon">
+                                                    <input type="checkbox" id="change-username" name="change-username">
+                                                </span>
+                                            </div>
+                                        {/user.facebook.r_no_username}
                                     </div>
                                     <div class="col-md-6">
                                         <span class="help-block">
                                             <small>{@__ phrase="Twój profil (tylko litery i cyfry bez polskich znaków): http://askme.pro/twoj_login" /}</small>
+                                        </span>
+                                    </div>
+                                    <div class="clearfix"></div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-md-12">
+                                        <label class="sr-only" for="username">{@__ phrase="Email" /}:</label>
+                                    </div>
+                                    <div class="col-md-6">
+                                        {?user.facebook.r_no_email}
+                                            <input type="email" name="email" id="email" value="{formData.email}" class="form-control" placeholder="{@__ phrase="Email" /}:" autocomplete="off">
+                                        {:else}
+                                            <div class="input-group">
+                                                <input type="email" name="email" id="email" value="{?formData.email}{formData.email}{:else}{user.email}{/formData.email}" class="form-control" placeholder="{@__ phrase="Email" /}:" autocomplete="off" disabled>
+                                                <span class="input-group-addon">
+                                                    <input type="checkbox" id="change-email" name="change-email">
+                                                </span>
+                                            </div>
+                                        {/user.facebook.r_no_email}
+                                    </div>
+                                    <div class="col-md-6">
+                                        <span class="help-block">
+                                            <small>{@__ phrase="Twój adres email." /}</small>
                                         </span>
                                     </div>
                                     <div class="clearfix"></div>
@@ -91,9 +118,9 @@
 {/body}
 {<js}
     <script src="/components/validate/jquery.validate.min.js"></script>
-    <script src="/components/validate/additional-methods.js"></script>
+    <script src="/components/validate/additional-methods.js?1"></script>
     {@ne key="en" value="{locale}"}
         <script src="/components/validate/localization/messages_{locale}.js"></script>
     {/ne}
-    <script src="/js/app/routes/complete.registration.router.js"></script>
+    <script src="/js/app/routes/complete.registration.router.js?1"></script>
 {/js}

@@ -12,6 +12,11 @@ askmePro.routers.CompleteRegistration = Backbone.Router.extend({
                     username: true,
                     remote: '/account/check'
                 },
+                email: {
+                    required: true,
+                    email: true,
+                    remote: '/account/check'
+                },
                 password: {
                     required: true,
                     password: true
@@ -32,8 +37,23 @@ askmePro.routers.CompleteRegistration = Backbone.Router.extend({
             if ($(this).is(':checked')) {
                 $('#username').removeAttr('disabled');
             } else {
-                $('#username').attr('disabled', true).parents('.form-group').removeClass('has-error');
+                $('#username').attr('disabled', true);
+                var usernameParent = $('#username').parents('.form-group');
+                usernameParent.removeClass('has-error');
+                usernameParent.find('label.help-block[for="username"]').html('');
+                usernameParent.find('span.help-block:hidden').show();
 
+            }
+        });
+        $('#change-email').on('change', function () {
+            if ($(this).is(':checked')) {
+                $('#email').removeAttr('disabled');
+            } else {
+                $('#email').attr('disabled', true);
+                var emailParent = $('#email').parents('.form-group');
+                emailParent.removeClass('has-error');
+                emailParent.find('label.help-block[for="email"]').html('');
+                emailParent.find('span.help-block:hidden').show();
             }
         });
     }

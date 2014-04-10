@@ -22,7 +22,7 @@ module.exports = _.defaults({
             if (err) {
                 return callback(err);
             }
-            var data = _.pick(req.body, 'username', 'password', 'terms_accepted');
+            var data = _.pick(req.body, 'username', 'email', 'password', 'terms_accepted');
             data.incomplete = false;
             data.status = {
                 value: 1

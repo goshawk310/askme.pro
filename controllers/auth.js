@@ -9,6 +9,14 @@ module.exports = function(server) {
         passport.authenticate('facebook', {
             successRedirect: '/', 
             failureRedirect: '/account/login'
-        })
+        }),
+        function (err, req, res, next) {
+            if (err) {
+                console.log('fb err:');
+                console.log(err);
+                return res.redirect('/account/login');
+            }
+            next();
+        }
     );
 };

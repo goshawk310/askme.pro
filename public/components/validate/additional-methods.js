@@ -617,7 +617,7 @@ jQuery.validator.addMethod("extension", function(value, element, param) {
 }, jQuery.format("Please enter a value with a valid extension."));
 
 jQuery.validator.addMethod('username', function(value, element) {
-    return this.optional(element) || /^[A-Za-z0-9\.\_\-]{4,20}$/.test(value);
+    return this.optional(element) || /^[A-Za-z0-9\.\_\-]{4,100}$/.test(value);
 }, 'Please, provide proper username.');
 jQuery.validator.addMethod('password', function(value, element) {
     return this.optional(element) || /^[0-9a-zA-Z!@#$%*]{6,30}$/.test(value);
