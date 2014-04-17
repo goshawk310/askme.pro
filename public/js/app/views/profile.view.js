@@ -1,34 +1,13 @@
-askmePro.views.ProfileIndexView = Backbone.View.extend({
-    template: $('#profile-index-tpl').length ? _.template($('#profile-index-tpl').html()) : null,
-    questions: [],
-    gifts: [],
-    giftBounds: [],
-    page: 0,
-    path: null,
-    adDisplayed: false,
+askmePro.views.QuestionFormView = Backbone.View.extend({
     initialize: function(options) {
-        this.path = options.path || null;
-        this.render();
-    },
-    render: function() {
-        var buttonsContainer = $('#profile-info-container, #profile-buttons-container-small');
-        this.setElement($(this.template()));
+        this.setElement($('#question-form-wrapper'));
         if (this.$('#question-form').length) {
             this.$('#question-contents').charsLimiter(200, this.$('#question-contents-count'));
             this.ask();
         }
-        this.loadAnswers();
-        this.setupPointsProgress();
-        $('#btn-stats-answered').on('click', this.showAnswered);
-        buttonsContainer.on('click', '.btn-follow', this.follow);
-        buttonsContainer.on('click', '.btn-unfollow', this.unfollow);
-        buttonsContainer.on('click', '.btn-block-user', this.block);
-        buttonsContainer.on('click', '.btn-unblock-user', this.unblock);
-        return this;
     },
     events: {
-        'click #question-form-message-container a': 'hideMessage',
-        'click .more': 'more'
+        'click #question-form-message-container a': 'hideMessage'
     },
     ask: function ask() {
         var form = this.$('#question-form'),
@@ -83,6 +62,35 @@ askmePro.views.ProfileIndexView = Backbone.View.extend({
         this.$('#question-captcha').val('');
         $('#captcha-image').trigger('click');
         this.$('#question-contents-count').html(200);
+    }
+});
+
+askmePro.views.ProfileIndexView = Backbone.View.extend({
+    template: $('#profile-index-tpl').length ? _.template($('#profile-index-tpl').html()) : null,
+    questions: [],
+    gifts: [],
+    giftBounds: [],
+    page: 0,
+    path: null,
+    adDisplayed: false,
+    initialize: function(options) {
+        this.path = options.path || null;
+        this.render();
+    },
+    render: function() {
+        var buttonsContainer = $('#profile-info-container, #profile-buttons-container-small');
+        this.setElement($(this.template()));
+        this.loadAnswers();
+        this.setupPointsProgress();
+        $('#btn-stats-answered').on('click', this.showAnswered);
+        buttonsContainer.on('click', '.btn-follow', this.follow);
+        buttonsContainer.on('click', '.btn-unfollow', this.unfollow);
+        buttonsContainer.on('click', '.btn-block-user', this.block);
+        buttonsContainer.on('click', '.btn-unblock-user', this.unblock);
+        return this;
+    },
+    events: {
+        'click .more': 'more'
     },
     setupPointsProgress: function setupPointsProgress() {
         var progressElem = $('#user-points-progress-bar'),

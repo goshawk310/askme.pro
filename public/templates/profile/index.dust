@@ -1,21 +1,6 @@
 <script type="text/template" id="profile-index-tpl">
     <div class="row">
         <div class="col-md-12">
-            {?profile.profile.motto}
-                <p>{profile.profile.motto}</p>
-            {/profile.profile.motto}
-            {?user}
-                {>"profile/qform" profile=profile /}
-            {:else}
-                {^profile.settings.anonymous_disallowed}
-                    {>"profile/qform" profile=profile isAnonymous="1" /}
-                {/profile.settings.anonymous_disallowed}
-            {/user}  
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-12">
-            <h4>{@__ phrase="Odpowiedzi" /}:</h4>
             <div id="answers-wrapper">
                 <div id="answers-container">
                         

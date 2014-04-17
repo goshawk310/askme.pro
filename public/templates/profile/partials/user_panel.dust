@@ -1,0 +1,30 @@
+<div class="panel panel-default box-shadow">
+    <div class="panel-body">
+        <div class="user-info">
+            <div class="text-center">
+                <h4>{profile.name} {profile.lastname}</h4>
+                <h5>@{profile.username}</h5>
+                {?profile.profile.motto}
+                    <em>"{profile.profile.motto}"</em>
+                {/profile.profile.motto}
+            </div>
+            <ul class="nav nav-pills nav-stacked">
+                <li class="active"><a href="/{profile.username}#">{@__ phrase="Odpowiedzi" /} <span class="badge pull-right">{profile.stats.questions_answered}</span></a></li>
+                <li><a href="/{profile.username}#info">{@__ phrase="Informacje" /}</a></li>
+                <li><a href="/{profile.username}#photos">{@__ phrase="Zdjęcia" /}</a></li>
+                <li><a href="/{profile.username}#videos">{@__ phrase="Video" /}</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="user-info-footer panel-footer hidden-sm hidden-xs">
+    <div class="data-row-1">
+        <span class="stats-contaier">obserwuje<br><strong>{profile.stats.follows}</strong></span><span class="img-container"><img src="/images/icons/followers.png" alt="followers"></span><span class="stats-contaier">obserwujących<br><strong>{profile.stats.followers}</strong></span>
+    </div>
+    <div class="data-row-2">
+        <span class="stats-contaier"><img src="/images/icons/qa.png" alt="answers"> <strong>{profile.stats.questions_answered}</strong></span>
+        <span class="stats-contaier"><img src="/images/icons/likes.png" alt="likes"> <strong>{profile.stats.likes}</strong></span>
+        <span class="stats-contaier"><img src="/images/icons/giftbox.png" alt="gifts"> <strong>{profile.stats.gifts_received}</strong></span>
+    </div>
+    <div class="clearfix"></div>
+    </div>
+</div>

@@ -5,130 +5,142 @@
     {/profile}
 {/wrapperAttribs}
 {<body}
-<div class="container">
-    <div class="row">
-        <div class="col-md-10">
-            <div class="center-block">
-                {?message}
-                    {@message data=message /}
-                {/message}
-                <div class="row">
-                    <div class="col-md-3">
-                    </div>
-                    <div class="col-md-9">
-                        <ul class="nav nav-tabs" id="profile-menu">
-                            <li class="active"><a href="/{profile.username}"><span class="glyphicon glyphicon-user"></span> {@__ phrase="Profil" /}</a></li>
-                            <li>
-                                <a href="#info">
-                                    <span class="glyphicon glyphicon-info-sign"></span> 
-                                    <span class="full-text">{@__ phrase="Informacje" /}</span>
-                                    <span class="short-text">{@__ phrase="Info" /}</span>
-                                </a>
-                            </li>
-                            <li><a href="#photos"><span class="glyphicon glyphicon-picture"></span> {@__ phrase="Zdjęcia" /}</a></li>
-                            <li><a href="#videos"><span class="glyphicon glyphicon-film"></span> {@__ phrase="Video" /}</a></li>
-                        </ul>        
-                    </div>
-                </div>
-                <div class="panel panel-default box-shadow">
-                    <div class="panel-body profile-info-wrapper">
-                        <div class="row" id="profile-top"{?profile.top_bg} style="background-image: url('{config.topbg.url}{profile.top_bg}')"{/profile.top_bg}>
-                            <div class="col-md-3">
-                                {@userAvatar user=profile size="cropped/300x" wrapper="true" enlarge="true" /}
-                                <div class="progress box-shadow user-points-progress">
-                                    <div class="progress-bar" id="user-points-progress-bar" role="progressbar" aria-valuenow="{profile.pointsInt}" aria-valuemin="0" aria-valuemax="100">
-                                    </div>
-                                    <div class="progress-value">{profile.pointsInt} {@__ phrase="pkt." /}</div>
-                                </div>
+<div id="profile-top-full">
+    <div class="bg-container"{?profile.top_bg} style="background-image: url('{config.topbg.url}{profile.top_bg}')"{/profile.top_bg}>
+        <div class="container">
+            <div class="row" id="profile-top">
+                <div class="col-md-3 full-height">
+                    <div id="profile-avatar-wrapper">
+                        {@userAvatar user=profile size="cropped/300x" wrapper="true" enlarge="true" cssClass="box-shadow user-avatar"/}
+                        <div class="progress box-shadow user-points-progress">
+                            <div class="progress-bar" id="user-points-progress-bar" role="progressbar" aria-valuenow="{profile.pointsInt}" aria-valuemin="0" aria-valuemax="100">
                             </div>
-                            <div class="col-md-9" id="profile-info-container">
-                                <div class="well well-sm{?profile.top_bg} box-shadow{:else} no-shadow{/profile.top_bg}">
-                                    <h1>{profile.name} {profile.lastname} </h1>
-                                    {?profile.online}<div class="online text-success">online</div>{:else}<div class="offline text-muted">{@__ phrase="ostatnia wizyta" /}: {@dateTime date=profile.last_visit_at method="fromNow" /}</div>{/profile.online}
-                                    <div class="clearfix"></div>
-                                    <div class="fb-like" data-href="http://askme.pro/{profile.username}" data-layout="button_count" data-action="like" data-show-faces="false" data-share="true"></div>
-                                </div>
-                                {?user}
-                                    <div id="profile-buttons-container">
-                                        {@ne key="{user.id}" value="{profile.id}"}
-                                            {?isFollowed}
-                                                <a class="btn btn-sm btn-unfollow" data-alttext="{@__ phrase="Obserwuj" /}">{@__ phrase="Zrezygnuj" /}</a>
-                                            {:else}
-                                                <a class="btn btn-sm btn-follow" data-alttext="{@__ phrase="Zrezygnuj" /}">{@__ phrase="Obserwuj" /}</a>
-                                            {/isFollowed}
-                                        {/ne}
-                                        <a href="/{profile.username}#gifts/send" class="btn btn-success btn-sm">{@__ phrase="Wyślij gifta" /}</a>
-                                        {@ne key="{user.id}" value="{profile.id}"}
-                                            {^isBlocked}
-                                                <a class="btn btn-sm pull-right btn-block-user" data-alttext="{@__ phrase="Odblokuj" /}">{@__ phrase="Zablokuj" /}</a>
-                                            {:else}
-                                                <a class="btn btn-sm pull-right btn-unblock-user" data-alttext="{@__ phrase="Zablokuj" /}">{@__ phrase="Odblokuj" /}</a>
-                                            {/isBlocked}
-                                        {/ne}
-                                    </div>
-                                {/user}
-                                <div class="clearfix"></div>
-                            </div>
-                            {?user}
-                                <div id="profile-buttons-container-small" class="btn-group">
-                                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-                                        <span class="glyphicon glyphicon-tasks"></span>
-                                    </button>
-                                    <ul class="dropdown-menu" role="menu">
-                                        {@ne key="{user.id}" value="{profile.id}"}
-                                            <li>
-                                                {?isFollowed}
-                                                    <a href="" class="text-default btn-unfollow" data-alttext="{@__ phrase="Obserwuj" /}">{@__ phrase="Zrezygnuj" /}</a>
-                                                {:else}
-                                                    <a href="" class="text-succes btn-follow" data-alttext="{@__ phrase="Zrezygnuj" /}">{@__ phrase="Obserwuj" /}</a>
-                                                {/isFollowed}
-                                            </li>
-                                        {/ne}
-                                        <li><a href="/{profile.username}#gifts/send" class="text-success">{@__ phrase="Wyślij gifta" /}</a></li>
-                                        {@ne key="{user.id}" value="{profile.id}"}
-                                            <li class="divider"></li>
-                                            <li>
-                                                {^isBlocked}
-                                                    <a href="" class="btn-block-user" data-alttext="{@__ phrase="Odblokuj" /}">{@__ phrase="Zablokuj" /}</a>
-                                                {:else}
-                                                    <a href="" class="btn-unblock-user" data-alttext="{@__ phrase="Zablokuj" /}">{@__ phrase="Odblokuj" /}</a>
-                                                {/isBlocked}
-                                            </li>
-                                        {/ne}
-                                    </ul>
-                                </div>
-                            {/user}
-                            <div class="clearfix"></div>
+                            <div class="progress-value">{profile.pointsInt} {@__ phrase="pkt." /}</div>
                         </div>
                         {?profile.sticker}
                             <img src="/images/stickers/{profile.sticker}" alt="" class="profile-sticker" />
                         {/profile.sticker}
-                        <div class="row">    
-                            <div class="col-md-12" id="profile-stats-wrapper">
-                                <div class="btn-group btn-group-justified" id="profile-stats-container">
-                                    <a href="#follows" id="profile-stats-link-follows" class="btn btn-default" role="button">
-                                        <strong>{profile.stats.follows}</strong> 
-                                        <span>{@__ phrase="obserwuje" /}</span>
-                                    </a>
-                                    <a href="#followers" id="profile-stats-link-followers" class="btn btn-default no-left-border" role="button">
-                                        <img src="/images/icons/followers.png" alt="followers">
-                                        <strong>{profile.stats.followers}</strong> <span>{@p__ words="obserwujący,obserwujących,obserwujących" /}</span>
-                                    </a>
-                                    <a href="#answers" id="profile-stats-link-answers" class="btn btn-default no-left-border active" role="button" id="btn-stats-answered">
-                                        <img src="/images/icons/qa.png" alt="answers">
-                                        <strong>{profile.stats.questions_answered}</strong> <span>{@__ phrase="odpowiedzi" /}</span>
-                                    </a>
-                                    <a id="profile-stats-link-likes" class="btn btn-default no-left-border" role="button">
-                                        <img src="/images/icons/likes.png" alt="likes">
-                                        <strong>{profile.stats.likes}</strong> <span>{@__ phrase="lubi to" /}</span>
-                                    </a>
-                                    <a id="profile-stats-link-gifts" href="#gifts" class="btn btn-default no-left-border" role="button">
-                                        <img src="/images/icons/giftbox.png" alt="gifts">
-                                        <strong>{profile.stats.gifts_received}</strong> <span>{@p__ words="gift,gifty,giftów" value="{profile.stats.gifts_received}" /}</span>
-                                    </a>
-                                </div>
+                    </div>
+                </div>
+                <div class="col-md-9 full-height" id="profile-info-container">
+                    <div class="well well-sm{?profile.top_bg} box-shadow{:else} no-shadow{/profile.top_bg}">
+                        {?profile.online}<div class="online text-success">online</div>{:else}<div class="offline text-muted">{@__ phrase="ostatnia wizyta" /}: {@dateTime date=profile.last_visit_at method="fromNow" /}</div>{/profile.online}
+                        <div class="clearfix"></div>
+                        <div class="fb-like" data-href="http://askme.pro/{profile.username}" data-layout="button_count" data-action="like" data-show-faces="false" data-share="true"></div>
+                    </div>
+                    {?user}
+                        <div id="profile-buttons-container">
+                            {@ne key="{user.id}" value="{profile.id}"}
+                                {?isFollowed}
+                                    <a class="btn btn-sm btn-unfollow" data-alttext="{@__ phrase="Obserwuj" /}">{@__ phrase="Zrezygnuj" /}</a>
+                                {:else}
+                                    <a class="btn btn-sm btn-follow" data-alttext="{@__ phrase="Zrezygnuj" /}">{@__ phrase="Obserwuj" /}</a>
+                                {/isFollowed}
+                            {/ne}
+                            <a href="/{profile.username}#gifts/send" class="btn btn-success btn-sm">{@__ phrase="Wyślij gifta" /}</a>
+                            {@ne key="{user.id}" value="{profile.id}"}
+                                {^isBlocked}
+                                    <a class="btn btn-sm pull-right btn-block-user" data-alttext="{@__ phrase="Odblokuj" /}">{@__ phrase="Zablokuj" /}</a>
+                                {:else}
+                                    <a class="btn btn-sm pull-right btn-unblock-user" data-alttext="{@__ phrase="Zablokuj" /}">{@__ phrase="Odblokuj" /}</a>
+                                {/isBlocked}
+                            {/ne}
+                        </div>
+                    {/user}
+                    <div class="clearfix"></div>
+                </div>
+                {?user}
+                    <div id="profile-buttons-container-small" class="btn-group">
+                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                            <span class="glyphicon glyphicon-tasks"></span>
+                        </button>
+                        <ul class="dropdown-menu" role="menu">
+                            {@ne key="{user.id}" value="{profile.id}"}
+                                <li>
+                                    {?isFollowed}
+                                        <a href="" class="text-default btn-unfollow" data-alttext="{@__ phrase="Obserwuj" /}">{@__ phrase="Zrezygnuj" /}</a>
+                                    {:else}
+                                        <a href="" class="text-succes btn-follow" data-alttext="{@__ phrase="Zrezygnuj" /}">{@__ phrase="Obserwuj" /}</a>
+                                    {/isFollowed}
+                                </li>
+                            {/ne}
+                            <li><a href="/{profile.username}#gifts/send" class="text-success">{@__ phrase="Wyślij gifta" /}</a></li>
+                            {@ne key="{user.id}" value="{profile.id}"}
+                                <li class="divider"></li>
+                                <li>
+                                    {^isBlocked}
+                                        <a href="" class="btn-block-user" data-alttext="{@__ phrase="Odblokuj" /}">{@__ phrase="Zablokuj" /}</a>
+                                    {:else}
+                                        <a href="" class="btn-unblock-user" data-alttext="{@__ phrase="Zablokuj" /}">{@__ phrase="Odblokuj" /}</a>
+                                    {/isBlocked}
+                                </li>
+                            {/ne}
+                        </ul>
+                    </div>
+                {/user}
+                <div class="clearfix"></div>
+            </div>
+        </div>
+    </div>
+    <div class="menu-container">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3"></div>    
+                <div class="col-md-9" id="profile-stats-wrapper">
+                    <div class="btn-group btn-group-justified" id="profile-stats-container">
+                        <a id="profile-stats-link-likes" class="btn btn-default no-left-border" role="button">
+                            <span>{@__ phrase="lubi to" /}</span>
+                            <strong>{profile.stats.likes}</strong>
+                        </a>
+                        <a id="profile-stats-link-gifts" href="#gifts" class="btn btn-default no-left-border" role="button">
+                            <span>{@p__ words="gift,gifty,giftów" value="{profile.stats.gifts_received}" /}</span>
+                            <strong>{profile.stats.gifts_received}</strong> 
+                        </a>
+                        <a href="#follows" id="profile-stats-link-follows" class="btn btn-default" role="button">
+                            <span>{@__ phrase="obserwuje" /}</span>
+                            <strong>{profile.stats.follows}</strong> 
+                        </a>
+                        <a href="#followers" id="profile-stats-link-followers" class="btn btn-default no-left-border" role="button">
+                            <span>{@p__ words="obserwujący,obserwujących,obserwujących" /}</span>
+                            <strong>{profile.stats.followers}</strong> 
+                        </a>
+                        <a href="#answers" id="profile-stats-link-answers" class="btn btn-default no-left-border active" role="button" id="btn-stats-answered">
+                            <span>{@__ phrase="odpowiedzi" /}</span>
+                            <strong>{profile.stats.questions_answered}</strong>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container profile">
+    <div class="row">
+        <div class="col-md-3">
+             {>"profile/partials/user_panel" user=profile /}
+        </div>
+        <div class="col-md-7">
+            <div class="center-block">
+                {?message}
+                    {@message data=message /}
+                {/message}
+                <div class="panel panel-default box-shadow" id="question-form-wrapper">
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-md-12">
+                                {?user}
+                                    {>"profile/qform" profile=profile /}
+                                {:else}
+                                    {^profile.settings.anonymous_disallowed}
+                                        {>"profile/qform" profile=profile isAnonymous="1" /}
+                                    {/profile.settings.anonymous_disallowed}
+                                {/user}  
                             </div>
                         </div>
+                    </div>
+                </div>
+                <div class="panel panel-default box-shadow">
+                    <div class="panel-body profile-info-wrapper">
                         <div id="profile-tabs-content">
                             <hr>
                         </div>
@@ -137,7 +149,12 @@
             </div>
         </div>
         <div class="col-md-2">
-            {>"partials/users/online" type="all" onlineUsers="{onlineUsers}" /}
+            <div class="panel panel-default box-shadow" id="online-users-wrapper">
+                <div class="panel-heading">Warto odwiedzić</div>
+                <div class="panel-body">
+                    {>"partials/users/online" type="all" onlineUsers="{onlineUsers}" /}
+                </div>
+            </div>
             {>"layouts/partials/ads/right"/}
         </div>
     </div>

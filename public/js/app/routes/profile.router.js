@@ -13,11 +13,9 @@ askmePro.routers.Profile = Backbone.Router.extend({
         '*path': 'index'
     },
     index: function index(path) {
+        $('#question-form-wrapper').show();
         $('#profile-stats-container').children('.btn').removeClass('active');
         $('#profile-stats-link-answers').addClass('active');
-        $('#profile-menu li a[href="#"]').tab('show');
-        $('#profile-top').removeClass('small');
-        $('#profile-stats-wrapper').show();
         if (typeof this.views.index === 'undefined') {
             this.views.index = new askmePro.views.ProfileIndexView({
                 path: path
@@ -35,9 +33,8 @@ askmePro.routers.Profile = Backbone.Router.extend({
         }
     },
     info: function info() {
+        $('#question-form-wrapper').hide();
         $('#profile-menu li a[href="#info"]').tab('show');
-        $('#profile-top').removeClass('gifts-visible').addClass('small');
-        $('#profile-stats-wrapper').hide();
         if (typeof this.views.info === 'undefined') {
             this.views.info = new askmePro.views.ProfileInfoView();
         }
@@ -66,11 +63,9 @@ askmePro.routers.Profile = Backbone.Router.extend({
         this.views.profileSendGifts.load(this);
     },
     gifts: function gifts(page) {
+        $('#question-form-wrapper').hide();
         $('#profile-stats-container').children('.btn').removeClass('active');
         $('#profile-stats-link-gifts').addClass('active');
-        $('#profile-top').removeClass('gifts-visible').addClass('small');
-        $('#profile-stats-wrapper').show();
-
         if (typeof this.views.profileGifts === 'undefined') {
             this.views.profileGifts = new askmePro.views.ProfileGiftsView({
                 collection: new askmePro.collections.GiftCollection()
@@ -82,10 +77,9 @@ askmePro.routers.Profile = Backbone.Router.extend({
         this.views.profileGifts.load(parseInt(page, 10) || 0);
     },
     follows: function follows(page) {
+        $('#question-form-wrapper').hide();
         $('#profile-stats-container').children('.btn').removeClass('active');
         $('#profile-stats-link-follows').addClass('active');
-        $('#profile-top').removeClass('gifts-visible').addClass('small');
-        $('#profile-stats-wrapper').show();
         if (typeof this.views.profileFollows === 'undefined') {
             this.views.profileFollows = new askmePro.views.ProfileFollowsView({
                 collection: new askmePro.collections.UsersCollection()
@@ -97,10 +91,9 @@ askmePro.routers.Profile = Backbone.Router.extend({
         this.views.profileFollows.load(parseInt(page, 10) || 0);
     },
     followers: function followers(page) {
+        $('#question-form-wrapper').hide();
         $('#profile-stats-container').children('.btn').removeClass('active');
         $('#profile-stats-link-followers').addClass('active');
-        $('#profile-top').removeClass('gifts-visible').addClass('small');
-        $('#profile-stats-wrapper').show();
         if (typeof this.views.profileFollowers === 'undefined') {
             this.views.profileFollowers = new askmePro.views.ProfileFollowersView({
                 collection: new askmePro.collections.UsersCollection()
@@ -112,9 +105,7 @@ askmePro.routers.Profile = Backbone.Router.extend({
         this.views.profileFollowers.load(parseInt(page, 10) || 0);
     },
     photos: function photos(page) {
-        $('#profile-menu li a[href="#photos"]').tab('show');
-        $('#profile-top').removeClass('gifts-visible').addClass('small');
-        $('#profile-stats-wrapper').hide();
+        $('#question-form-wrapper').hide();
         if (typeof this.views.profilePhotos === 'undefined') {
             this.views.profilePhotos = new askmePro.views.ProfilePhotosView({
                 collection: new askmePro.collections.PhotosCollection()
@@ -126,9 +117,7 @@ askmePro.routers.Profile = Backbone.Router.extend({
         this.views.profilePhotos.load(parseInt(page, 10) || 0);
     },
     videos: function videos(page) {
-        $('#profile-menu li a[href="#videos"]').tab('show');
-        $('#profile-top').removeClass('gifts-visible').addClass('small');
-        $('#profile-stats-wrapper').hide();
+        $('#question-form-wrapper').hide();
         if (typeof this.views.profileVideos === 'undefined') {
             this.views.profileVideos = new askmePro.views.ProfileVideosView({
                 collection: new askmePro.collections.VideosCollection()
@@ -146,4 +135,6 @@ $(function () {
         type:'image',
         mainClass: 'mfp-fade'
     });
+
+    var questionFormView = new askmePro.views.QuestionFormView();
 });
