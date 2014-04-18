@@ -3,16 +3,19 @@
         <div class="user-info">
             <div class="text-center">
                 <h4>{profile.name} {profile.lastname}</h4>
+                {?profile.online}<div class="online text-success">online</div>{:else}<div class="offline text-muted">{@__ phrase="ostatnia wizyta" /}: {@dateTime date=profile.last_visit_at method="fromNow" /}</div>{/profile.online}
+                <div class="clearfix"></div>
+                <div class="fb-like" data-href="http://askme.pro/{profile.username}" data-layout="button_count" data-action="like" data-show-faces="false" data-share="true"></div>
                 <h5>@{profile.username}</h5>
                 {?profile.profile.motto}
                     <em>"{profile.profile.motto}"</em>
                 {/profile.profile.motto}
             </div>
-            <ul class="nav nav-pills nav-stacked">
-                <li class="active"><a href="/{profile.username}#">{@__ phrase="Odpowiedzi" /} <span class="badge pull-right">{profile.stats.questions_answered}</span></a></li>
-                <li><a href="/{profile.username}#info">{@__ phrase="Informacje" /}</a></li>
-                <li><a href="/{profile.username}#photos">{@__ phrase="Zdjęcia" /}</a></li>
-                <li><a href="/{profile.username}#videos">{@__ phrase="Video" /}</a></li>
+            <ul class="nav nav-pills nav-stacked" id="profile-btns">
+                <li class="profile-btn profile-answers-btn"><a href="/{profile.username}#">{@__ phrase="Odpowiedzi" /} <span class="badge pull-right">{profile.stats.questions_answered}</span></a></li>
+                <li class="profile-btn profile-info-btn"><a href="/{profile.username}#info">{@__ phrase="Informacje" /}</a></li>
+                <li class="profile-btn profile-photos-btn"><a href="/{profile.username}#photos">{@__ phrase="Zdjęcia" /}</a></li>
+                <li class="profile-btn profile-videos-btn"><a href="/{profile.username}#videos">{@__ phrase="Video" /}</a></li>
             </ul>
         </div>
     </div>

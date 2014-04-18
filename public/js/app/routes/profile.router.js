@@ -15,7 +15,8 @@ askmePro.routers.Profile = Backbone.Router.extend({
     index: function index(path) {
         $('#question-form-wrapper').show();
         $('#profile-stats-container').children('.btn').removeClass('active');
-        $('#profile-stats-link-answers').addClass('active');
+        $('.profile-btn').removeClass('active');
+        $('.profile-answers-btn').addClass('active');
         if (typeof this.views.index === 'undefined') {
             this.views.index = new askmePro.views.ProfileIndexView({
                 path: path
@@ -34,7 +35,8 @@ askmePro.routers.Profile = Backbone.Router.extend({
     },
     info: function info() {
         $('#question-form-wrapper').hide();
-        $('#profile-menu li a[href="#info"]').tab('show');
+        $('.profile-btn').removeClass('active');
+        $('.profile-info-btn').addClass('active');
         if (typeof this.views.info === 'undefined') {
             this.views.info = new askmePro.views.ProfileInfoView();
         }
@@ -66,6 +68,7 @@ askmePro.routers.Profile = Backbone.Router.extend({
         $('#question-form-wrapper').hide();
         $('#profile-stats-container').children('.btn').removeClass('active');
         $('#profile-stats-link-gifts').addClass('active');
+
         if (typeof this.views.profileGifts === 'undefined') {
             this.views.profileGifts = new askmePro.views.ProfileGiftsView({
                 collection: new askmePro.collections.GiftCollection()
@@ -106,6 +109,8 @@ askmePro.routers.Profile = Backbone.Router.extend({
     },
     photos: function photos(page) {
         $('#question-form-wrapper').hide();
+        $('.profile-btn').removeClass('active');
+        $('.profile-photos-btn').addClass('active');
         if (typeof this.views.profilePhotos === 'undefined') {
             this.views.profilePhotos = new askmePro.views.ProfilePhotosView({
                 collection: new askmePro.collections.PhotosCollection()
@@ -118,6 +123,8 @@ askmePro.routers.Profile = Backbone.Router.extend({
     },
     videos: function videos(page) {
         $('#question-form-wrapper').hide();
+        $('.profile-btn').removeClass('active');
+        $('.profile-videos-btn').addClass('active');
         if (typeof this.views.profileVideos === 'undefined') {
             this.views.profileVideos = new askmePro.views.ProfileVideosView({
                 collection: new askmePro.collections.VideosCollection()

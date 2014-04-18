@@ -9,8 +9,8 @@
     <div class="bg-container"{?profile.top_bg} style="background-image: url('{config.topbg.url}{profile.top_bg}')"{/profile.top_bg}>
         <div class="container">
             <div class="row" id="profile-top">
-                <div class="col-md-3 full-height">
-                    <div id="profile-avatar-wrapper">
+                <div class="col-md-3 full-height hidden-sm hidden-xs" id="profile-top-left">
+                    <div class="profile-avatar-wrapper">
                         {@userAvatar user=profile size="cropped/300x" wrapper="true" enlarge="true" cssClass="box-shadow user-avatar"/}
                         <div class="progress box-shadow user-points-progress">
                             <div class="progress-bar" id="user-points-progress-bar" role="progressbar" aria-valuenow="{profile.pointsInt}" aria-valuemin="0" aria-valuemax="100">
@@ -22,11 +22,16 @@
                         {/profile.sticker}
                     </div>
                 </div>
-                <div class="col-md-9 full-height" id="profile-info-container">
-                    <div class="well well-sm{?profile.top_bg} box-shadow{:else} no-shadow{/profile.top_bg}">
-                        {?profile.online}<div class="online text-success">online</div>{:else}<div class="offline text-muted">{@__ phrase="ostatnia wizyta" /}: {@dateTime date=profile.last_visit_at method="fromNow" /}</div>{/profile.online}
-                        <div class="clearfix"></div>
-                        <div class="fb-like" data-href="http://askme.pro/{profile.username}" data-layout="button_count" data-action="like" data-show-faces="false" data-share="true"></div>
+                <div class="col-md-9 col-xs-12 col-sm-12 full-height" id="profile-info-container">
+                    <div class="profile-avatar-wrapper visible-sm visible-xs">
+                        {@userAvatar user=profile size="cropped/300x" wrapper="true" enlarge="true" cssClass="box-shadow user-avatar"/}
+                    </div>
+                    <div class="profile-name visible-sm visible-xs">
+                        <p class="text-center">
+                            <strong>{profile.name} {profile.lastname}</strong>
+                            <br>
+                            <span>@{profile.username}</span>
+                        </p>
                     </div>
                     {?user}
                         <div id="profile-buttons-container">
@@ -49,12 +54,15 @@
                     {/user}
                     <div class="clearfix"></div>
                 </div>
-                {?user}
-                    <div id="profile-buttons-container-small" class="btn-group">
-                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-                            <span class="glyphicon glyphicon-tasks"></span>
-                        </button>
-                        <ul class="dropdown-menu" role="menu">
+                <div id="profile-buttons-container-small" class="btn-group">
+                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                        <span class="glyphicon glyphicon-tasks"></span>
+                    </button>
+                    <ul class="dropdown-menu" role="menu">
+                        <li class="profile-btn profile-info-btn"><a href="/{profile.username}#info">{@__ phrase="Informacje" /}</a></li>
+                        <li class="profile-btn profile-photos-btn"><a href="/{profile.username}#photos">{@__ phrase="Zdjęcia" /}</a></li>
+                        <li class="profile-btn profile-videos-btn"><a href="/{profile.username}#videos">{@__ phrase="Video" /}</a></li>
+                        {?user}
                             {@ne key="{user.id}" value="{profile.id}"}
                                 <li>
                                     {?isFollowed}
@@ -75,9 +83,9 @@
                                     {/isBlocked}
                                 </li>
                             {/ne}
-                        </ul>
-                    </div>
-                {/user}
+                        {/user}
+                    </ul>
+                </div>
                 <div class="clearfix"></div>
             </div>
         </div>
@@ -88,23 +96,23 @@
                 <div class="col-md-3"></div>    
                 <div class="col-md-9" id="profile-stats-wrapper">
                     <div class="btn-group btn-group-justified" id="profile-stats-container">
-                        <a id="profile-stats-link-likes" class="btn btn-default no-left-border" role="button">
+                        <a id="profile-stats-link-likes" class="profile-btn btn btn-default no-left-border" role="button">
                             <span>{@__ phrase="lubi to" /}</span>
                             <strong>{profile.stats.likes}</strong>
                         </a>
-                        <a id="profile-stats-link-gifts" href="#gifts" class="btn btn-default no-left-border" role="button">
+                        <a id="profile-stats-link-gifts" href="#gifts" class="profile-btn btn btn-default no-left-border" role="button">
                             <span>{@p__ words="gift,gifty,giftów" value="{profile.stats.gifts_received}" /}</span>
                             <strong>{profile.stats.gifts_received}</strong> 
                         </a>
-                        <a href="#follows" id="profile-stats-link-follows" class="btn btn-default" role="button">
+                        <a href="#follows" id="profile-stats-link-follows" class="profile-btn btn btn-default" role="button">
                             <span>{@__ phrase="obserwuje" /}</span>
                             <strong>{profile.stats.follows}</strong> 
                         </a>
-                        <a href="#followers" id="profile-stats-link-followers" class="btn btn-default no-left-border" role="button">
+                        <a href="#followers" id="profile-stats-link-followers" class="profile-btn btn btn-default no-left-border" role="button">
                             <span>{@p__ words="obserwujący,obserwujących,obserwujących" /}</span>
                             <strong>{profile.stats.followers}</strong> 
                         </a>
-                        <a href="#answers" id="profile-stats-link-answers" class="btn btn-default no-left-border active" role="button" id="btn-stats-answered">
+                        <a href="#answers" id="btn-stats-answered" class="profile-btn profile-answers-btn btn btn-default no-left-border" role="button">
                             <span>{@__ phrase="odpowiedzi" /}</span>
                             <strong>{profile.stats.questions_answered}</strong>
                         </a>
@@ -116,7 +124,7 @@
 </div>
 <div class="container profile">
     <div class="row">
-        <div class="col-md-3">
+        <div class="col-md-3 hidden-sm hidden-xs">
              {>"profile/partials/user_panel" user=profile /}
         </div>
         <div class="col-md-7">

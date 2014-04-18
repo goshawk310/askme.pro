@@ -13,7 +13,7 @@
     </div>
 </script>
 <script type="text/template" id="profile-user-tpl">
-    <div class="col-md-2 col-sm-3 col-xs-4 list-elem-container user-container">
+    <div class="col-md-3 col-sm-3 col-xs-4 list-elem-container user-container">
         <div class="list-elem">
             <%=askmePro.views.helpers.userAvatar({user: user.user, size: 'cropped/300x'})%>
         </div>
