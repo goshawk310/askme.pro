@@ -43,19 +43,15 @@ module.exports = function(server) {
         })
         .spread(function (user, data) {
             data.onlineUsers = [];
-            if (req.isAuthenticated() && req.user.users) {
-                return Q.ninvoke(userService, 'getOnline', {
-                    blocked: req.user.users.blocked,
-                    limit: 48
-                }).then(function (users) {
-                    data.onlineUsers = users;
-                    return data;
-                }, function () {
-                    return data;
-                });
-            } else {
+            return Q.ninvoke(userService, 'getOnline', {
+                blocked: req.isAuthenticated() && req.user.users ? req.user.users.blocked : null,
+                limit: 48
+            }).then(function (users) {
+                data.onlineUsers = users;
                 return data;
-            }
+            }, function () {
+                return data;
+            });
         })
         .then(function (data) {
             return res.render('profile', data);

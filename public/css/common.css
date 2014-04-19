@@ -1293,10 +1293,11 @@ h1, .h1 {
 }
 
 #profile-top-left .profile-avatar-wrapper {
+    width: 70%;
     position: absolute;
-    left: 30px;
+    left: 50%;
     bottom: -60px;
-    padding-right: 50px;
+    margin-left: -35%;
 }
 
 .profile-avatar-wrapper .user-points-progress  {
@@ -1307,7 +1308,7 @@ h1, .h1 {
 .profile-avatar-wrapper .profile-sticker {
     position: absolute;
     top: -5px;
-    right: 43px;
+    right: -6px;
     z-index: 2;
 }
 
@@ -1526,7 +1527,7 @@ ul#profile-menu li a {
 #profile-stats-container a { border-color:#e8e8e8;}
 
 #wrapper {
-    background: radial-gradient(circle, #94D2F8, #0188BD) repeat scroll 0 0 rgba(0, 0, 0, 0);
+    background: #f5f5f5;
 }
 
 #footer {

@@ -94,7 +94,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-3"></div>    
-                <div class="col-md-9" id="profile-stats-wrapper">
+                <div class="col-md-7" id="profile-stats-wrapper">
                     <div class="btn-group btn-group-justified" id="profile-stats-container">
                         <a id="profile-stats-link-likes" class="profile-btn btn btn-default no-left-border" role="button">
                             <span>{@__ phrase="lubi to" /}</span>

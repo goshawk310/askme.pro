@@ -82,7 +82,6 @@ askmePro.views.ProfileIndexView = Backbone.View.extend({
         this.setElement($(this.template()));
         this.loadAnswers();
         this.setupPointsProgress();
-        $('#btn-stats-answered').on('click', this.showAnswered);
         buttonsContainer.on('click', '.btn-follow', this.follow);
         buttonsContainer.on('click', '.btn-unfollow', this.unfollow);
         buttonsContainer.on('click', '.btn-block-user', this.block);
@@ -146,9 +145,6 @@ askmePro.views.ProfileIndexView = Backbone.View.extend({
                     thisObj.page = response.hasMore;
                     moreContainer.show();
                 }
-                if (p === 0 && thisObj.path === 'answers') {
-                    thisObj.showAnswered();
-                }
             })
             .fail(function () {
 
@@ -203,9 +199,6 @@ askmePro.views.ProfileIndexView = Backbone.View.extend({
             ];
             giftElems.draggable({containment: thisObj.bounds});
         });
-    },
-    showAnswered: function showAnswered() {
-        $('html, body').animate({scrollTop: $('#answers-wrapper').offset().top - 90});
     },
     follow: function follow (e) {
         e.preventDefault();
