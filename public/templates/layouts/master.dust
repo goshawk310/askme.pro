@@ -47,7 +47,7 @@
           js.src = "//connect.facebook.net/pl_PL/all.js#xfbml=1&appId=600921269985597";
           fjs.parentNode.insertBefore(js, fjs);
         }(document, 'script', 'facebook-jssdk'));</script>
-        <div id="wrapper"{+wrapperAttribs}{?user.background} class="custom-bg" style="background-image: url('{user.background}')"{/user.background} {/wrapperAttribs}>
+        <div id="wrapper"{+wrapperAttribs}{?user.background} class="custom-bg" style="background-image: url('{user.background}')"{/user.background}{/wrapperAttribs}>
             {>"layouts/partials/top"/}
             <div id="content">
                 {+body /}

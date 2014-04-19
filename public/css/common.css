@@ -1272,6 +1272,7 @@ h1, .h1 {
 }
 
 #profile-top-full .bg-container {
+    background-color: #0188BD;
     background-position: center center;
     background-attachment:scroll; 
     -webkit-background-size: cover;
@@ -1527,6 +1528,10 @@ ul#profile-menu li a {
 #profile-stats-container a { border-color:#e8e8e8;}
 
 #wrapper {
+    background: radial-gradient(circle, #94D2F8, #0188BD) repeat scroll 0 0 rgba(0, 0, 0, 0);
+}
+
+.profile#wrapper {
     background: #f5f5f5;
 }
 

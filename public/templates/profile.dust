@@ -1,7 +1,7 @@
 {>"layouts/master" /}
 {<wrapperAttribs}
     {?profile}
-        {?profile.background} class="custom-bg" style="background-image: url('{profile.background}')"{/profile.background}
+        {?profile.background} class="custom-bg profile" style="background-image: url('{profile.background}')"{/profile.background}
     {/profile}
 {/wrapperAttribs}
 {<body}
@@ -49,6 +49,12 @@
                                 {:else}
                                     <a class="btn btn-sm pull-right btn-unblock-user" data-alttext="{@__ phrase="Zablokuj" /}">{@__ phrase="Odblokuj" /}</a>
                                 {/isBlocked}
+                            {:else}
+                                {^profile.top_bg}
+                                    <a href="/account/settings#/topbg" class="btn btn-warning btn-sm pull-right"><span class="glyphicon glyphicon-plus"></span>&nbsp;&nbsp;{@__ phrase="Dodaj zdjęcie w tle" /}</a>
+                                {:else}
+                                    <a href="/account/settings#/topbg" class="btn btn-warning btn-sm pull-right"><span class="glyphicon glyphicon-pencil"></span>&nbsp;&nbsp;{@__ phrase="Zmień zdjęcie w tle" /}</a>
+                                {/profile.top_bg}
                             {/ne}
                         </div>
                     {/user}
