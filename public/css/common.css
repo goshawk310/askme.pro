@@ -1420,7 +1420,7 @@ h1, .h1 {
     .profile-name strong {
         font-size: 1.4em;
     }
-    #profile-buttons-container .btn-block-user {
+    #profile-buttons-container .btn.pull-right {
         margin-right: 60px;
     }
 }
