@@ -15,9 +15,13 @@ module.exports = function(server) {
             if (!req.isAuthenticated() && user.settings.anonymous_disallowed) {
                 throw new Error('unauthorized');
             }
+            if (req.isAuthenticated() && user.users && req.user.isBlocked(user.users.blocked)) {
+                throw new Error('notFound');        
+            }
             var isFollowed = false,
                 isBlocked = false;
             if (req.isAuthenticated() && req.user.users) {
+
                 isFollowed = req.user.users.followed ? user.isFollowed(req.user.users.followed) : false;
                 isBlocked = req.user.users.blocked ? user.isBlocked(req.user.users.blocked) : false;
             }
