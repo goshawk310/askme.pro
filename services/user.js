@@ -362,22 +362,16 @@ module.exports = _.defaults({
                     var thisObj = this,
                         FileImage = require('../lib/file/image'),
                         fileImage = new FileImage(filename);
-                    fileImage.resize(970, null, function (err) {
+                    fileImage.quality(80 , function () {
+                        thisObj.gmInstance = null;
+                        delete thisObj.gmInstance;
                         if (err) {
                             thisObj.clearAll();
-                            return callback(new Error('cropCenter error.'), thisObj.req, thisObj.res);
+                            return callback(new Error('Quality change error.'), thisObj.req, thisObj.res);
+                        } else {
+                            return callback(null, thisObj.req, thisObj.res, filename);
                         }
-                        this.quality(60, function (err) {
-                            thisObj.gmInstance = null;
-                            delete thisObj.gmInstance;
-                            if (err) {
-                                thisObj.clearAll();
-                                return callback(new Error('Quality change error.'), thisObj.req, thisObj.res);
-                            } else {
-                                return callback(null, thisObj.req, thisObj.res, filename);
-                            }
-                        });
-                    }); 
+                    });
                 }
             });
             upload.one(update);
