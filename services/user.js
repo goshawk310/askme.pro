@@ -362,7 +362,7 @@ module.exports = _.defaults({
                     var thisObj = this,
                         FileImage = require('../lib/file/image'),
                         fileImage = new FileImage(filename);
-                    fileImage.quality(80 , function (err) {
+                    fileImage.quality(65 , function (err) {
                         thisObj.gmInstance = null;
                         delete thisObj.gmInstance;
                         if (err) {
