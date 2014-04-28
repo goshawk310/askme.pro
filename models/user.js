@@ -357,7 +357,7 @@ var User = function() {
             fsExtra.remove(config.custom_background.dir + user.custom_background);
         }
         if (user.top_bg) {
-            fsExtra.remove(config.top_bg.dir + user.top_bg);
+            fsExtra.remove(config.topbg.dir + user.top_bg);
         }
         UserBlockedModel.remove({
             $or: [{by: user._id}, {user: user._id}]

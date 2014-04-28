@@ -1,7 +1,10 @@
 'use strict';
 var UserModel = require('../../models/user'),
     service = require('../../lib/service'),
-    _ = require('underscore');
+    _ = require('underscore'),
+     fsExtra = require('fs-extra'),
+    config = require('../../config/app'),
+    path = require('path');
 
 module.exports = _.extend({
     countAll: function countAll(callback) {
@@ -48,6 +51,82 @@ module.exports = _.extend({
                 return callback(new Error('User not found'));
             }
             user.remove(callback)
-        })
+        });
+    },
+    removeTopBg: function removeTopBg(id, callback) {
+        var req = this.getReq();
+        UserModel.findOne({_id: id}, function (err, user) {
+            if (err) {
+                return callback(err);
+            }
+            if (!user) {
+                return callback(new Error('Document not found'));
+            }
+            console.log(config);
+            if (user.top_bg) {
+                fsExtra.remove(config.topbg.dir + user.top_bg, function (err) {
+                    if (err) {
+                        return callback(err);
+                    }
+                    user.set({
+                        top_bg: null
+                    });
+                    user.save(callback);
+                });
+                
+            } else {
+                callback(new Error('No top background set'));
+            }
+        });
+    },
+    removeCustomBg: function removeCustomBg(id, callback) {
+        var req = this.getReq();
+        UserModel.findOne({_id: id}, function (err, user) {
+            if (err) {
+                return callback(err);
+            }
+            if (!user) {
+                return callback(new Error('Document not found'));
+            }
+            if (user.custom_background) {
+                fsExtra.remove(config.custom_background.dir + user.custom_background, function (err) {
+                    if (err) {
+                        return callback(err);
+                    }
+                    user.set({
+                        custom_background: null,
+                        background: null
+                    });
+                    user.save(callback);
+                });
+            } else {
+                callback(new Error('No custom background set'));
+            }
+        });
+    },
+    removeAvatar: function removeAvatar(id, callback) {
+        var req = this.getReq();
+        UserModel.findOne({_id: id}, function (err, user) {
+            if (err) {
+                return callback(err);
+            }
+            if (!user) {
+                return callback(new Error('Document not found'));
+            }
+            if (user.avatar) {
+                fsExtra.remove(config.avatar.dir + user.avatar, function (err) {
+                    if (err) {
+                        return callback(err);
+                    }
+                    fsExtra.remove(config.avatar.dir + user.avatar.replace(path.extname(user.avatar), ''));
+                    user.set({
+                        avatar: null
+                    });
+                    user.save(callback);
+                });
+            } else {
+                callback(new Error('No custom background set'));
+            }
+        });
     }
 }, service);

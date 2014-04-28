@@ -4,7 +4,7 @@ askmePro.Backgrid.ButtonCell = Backgrid.Cell.extend({
     defaultButtonOptions: {
         text: '',
         loadingText: '',
-        confirm: '',
+        confirm: false,
         method: 'delete',
         url: '',
         buttonClassName: 'btn btn-primary btn-xs',
@@ -26,28 +26,37 @@ askmePro.Backgrid.ButtonCell = Backgrid.Cell.extend({
         'click .btn': 'onClick'
     },
     onClick: function onClick() {
-        if (window.confirm(this.buttonOptions.confirm)) {
-            var thisObj = this,
-                model = this.model,
-                buttonElem = this.$('button.btn'),
-                tableCol = thisObj.$el.parent(),
-                id = this.formatter.fromRaw(model.get(this.column.get('name')), model);
-            buttonElem.button('loading');    
-            $.ajax(this.buttonOptions.url.replace(':id', id), {
-                type: 'post',
-                data: null,
-                beforeSend: function(xhr){
-                   xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-param"]').attr('content'));
-                   xhr.setRequestHeader('X-HTTP-Method-Override', thisObj.buttonOptions.method);
-                }
-            }).done(function () {
-                thisObj.buttonOptions.callbacks.success(tableCol);      
-            }).fail(function () {
-                thisObj.buttonOptions.callbacks.success(tableCol);
-            }).always(function () {
-                buttonElem.button('reset');   
-            });
+        var thisObj = this,
+            model = this.model,
+            buttonElem = this.$('button.btn'),
+            tableCol = thisObj.$el.parent(),
+            id = this.formatter.fromRaw(model.get(this.column.get('name')), model),
+            callback = function callback() {
+                buttonElem.button('loading');    
+                $.ajax(thisObj.buttonOptions.url.replace(':id', id), {
+                    type: 'post',
+                    data: null,
+                    beforeSend: function(xhr){
+                       xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-param"]').attr('content'));
+                       xhr.setRequestHeader('X-HTTP-Method-Override', thisObj.buttonOptions.method);
+                    }
+                }).done(function () {
+                    thisObj.buttonOptions.callbacks.success(tableCol);      
+                }).fail(function () {
+                    thisObj.buttonOptions.callbacks.success(tableCol);
+                }).always(function () {
+                    buttonElem.button('reset');   
+                });
+            };
+        
+        if (this.buttonOptions.confirm) {
+            if (window.confirm(this.buttonOptions.confirm)) {
+                callback();
+            }
+        } else {
+            callback();
         }
+        
     },
     render: function () {
         this.$el.empty();

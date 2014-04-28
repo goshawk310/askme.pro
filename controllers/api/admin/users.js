@@ -179,4 +179,53 @@ module.exports = function(server) {
             });
         });
     });
+
+    server.delete('/api/admin/users/:id/top_bg', auth.hasPrivilegesOf('moderator'), function (req, res) {
+        adminUserService
+        .removeTopBg(req.param('id'), function (err) {
+            if (err) {
+                return res.send({
+                    status: 0,
+                    message: err
+                });
+            }
+            return res.send({
+                status: 1,
+                message: 1
+            });
+        });
+    });
+
+    server.delete('/api/admin/users/:id/custom_bg', auth.hasPrivilegesOf('moderator'), function (req, res) {
+        adminUserService
+        .removeCustomBg(req.param('id'), function (err) {
+            if (err) {
+                console.log(err);
+                return res.send({
+                    status: 0,
+                    message: err
+                });
+            }
+            return res.send({
+                status: 1,
+                message: 1
+            });
+        });
+    });
+
+    server.delete('/api/admin/users/:id/avatar', auth.hasPrivilegesOf('moderator'), function (req, res) {
+        adminUserService
+        .removeAvatar(req.param('id'), function (err) {
+            if (err) {
+                return res.send({
+                    status: 0,
+                    message: err
+                });
+            }
+            return res.send({
+                status: 1,
+                message: 1
+            });
+        });
+    });
 };

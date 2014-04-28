@@ -145,6 +145,10 @@
     margin-top: 15px;
 }
 
+.string-cell .img-thumbnail {
+    max-width: 350px;
+}
+
 @media screen and (min-width: 768px) {
     .modal-dialog.admin-form-modal-dialog {
         width: 800px;

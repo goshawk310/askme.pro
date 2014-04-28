@@ -1,6 +1,7 @@
 'use strict';
 var auth = require('../../../lib/auth'),
-    questionOfTheDay = require('../../../services/question/ofTheDay');
+    questionOfTheDay = require('../../../services/question/ofTheDay'),
+    adminQuestionService = require('../../../services/admin/question');
 
 module.exports = function(server) {
     
@@ -21,4 +22,30 @@ module.exports = function(server) {
         });
     });
 
+    server.get('/api/admin/questions', auth.hasPrivilegesOf('moderator'), function (req, res) {
+        adminQuestionService
+        .setReq(req)
+        .getQuestions(function (err, rows, total) {
+            res.send({
+                total: total,
+                rows: rows
+            });
+        });
+    });
+
+    server.delete('/api/admin/questions/:id', auth.hasPrivilegesOf('moderator'), function (req, res) {
+        adminQuestionService
+        .setReq(req)
+        .remove(req.param('id'), function (err) {
+            if (err) {
+                return res.send({
+                    status: 0,
+                    message: err
+                });
+            }
+            return res.send({
+                status: 1
+            });
+        });
+    });
 };

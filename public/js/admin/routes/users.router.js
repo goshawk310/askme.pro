@@ -4,8 +4,10 @@ askmePro.routers.AdminUsersRouter = Backbone.Router.extend({
     routes: {
         '*path': 'index'
     },
-    index: function index() {
-        this.views.grid = new askmePro.views.AdminUsersGridView();
+    index: function index(query) {
+    	this.views.grid = new askmePro.views.AdminUsersGridView({
+        	queryData: {query: query}
+        });
         this.views.grid.render();
     }
 });

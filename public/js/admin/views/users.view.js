@@ -1,6 +1,6 @@
 askmePro.views.AdminUsersGridView = Backbone.View.extend({
-    initialize: function () {
-        
+    initialize: function (options) {
+        this.queryData = options.queryData || null;
     },
     render: function() {
         var UsersCollection = Backbone.PageableCollection.extend({
@@ -80,6 +80,32 @@ askmePro.views.AdminUsersGridView = Backbone.View.extend({
                 })
             }, {
                 name: '_id',
+                label: 'Zdjęcia profilowe',
+                sortable: false,
+                editable: false,
+                cell: askmePro.Backgrid.ButtonDropdownCell.extend({
+                    buttonOptions: {
+                        text: 'Wybierz',
+                        loadingText: 'Trwa usuwanie...',
+                        confirm: 'Czy napewno usunąć element?',
+                        listClassName: 'dropdown-menu pull-right',
+                        actions: [{
+                            label: 'Top',
+                            url: '/api/admin/users/:id/top_bg',
+                            method: 'delete'
+                        }, {
+                            label: 'Tło',
+                            url: '/api/admin/users/:id/custom_bg',
+                            method: 'delete'
+                        }, {
+                            label: 'Avatar',
+                            url: '/api/admin/users/:id/avatar',
+                            method: 'delete'
+                        }]
+                    }
+                })
+            }, {
+                name: '_id',
                 label: 'Usuń wszystkie',
                 sortable: false,
                 editable: false,
@@ -148,7 +174,7 @@ askmePro.views.AdminUsersGridView = Backbone.View.extend({
             collection: users,
             className: 'table table-striped table-bordered table-hover'
         });
-        $('#content-container').append(grid.render().el);
+        $('#content-container').html(grid.render().el);
         
         // Initialize the paginator
         var GridPaginator = Backgrid.Extension.Paginator.extend({
@@ -159,11 +185,17 @@ askmePro.views.AdminUsersGridView = Backbone.View.extend({
             }
         });
         var paginator = new GridPaginator({
-            collection: users,
+            collection: users
         });
-        users.fetch({reset: true});
+
+        if (this.queryData) {
+            users.fetch({reset: true, data: this.queryData});
+        } else {
+            users.fetch({reset: true});
+        }
+        
         var paginatorElem = paginator.render().$el;
-        $('.panel-footer').append(paginatorElem);
+        $('.panel-footer').html(paginatorElem);
         
         // ServerSideFilter delegates the searching to the server by submitting a query.
         var serverSideFilter = new Backgrid.Extension.ServerSideFilter({
@@ -171,6 +203,7 @@ askmePro.views.AdminUsersGridView = Backbone.View.extend({
             name: 'query',
             placeholder: 'filtruj'
         });
+        $('.panel-heading').find('form').remove();
         $('.panel-heading').append(serverSideFilter.render().el);
 
         return this;

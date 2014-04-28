@@ -1,0 +1,25 @@
+{>"layouts/admin" /}
+{<title}Pytania{/title}
+
+
+
+{<css}
+<link href="/components/backgrid/lib/backgrid.min.css" rel="stylesheet" />
+<link href="/components/backgrid-filter/backgrid-filter.min.css" rel="stylesheet" />
+{/css}
+{<js}
+<script type="text/javascript">
+    askmePro.settings.upload.answer = {
+        url: 'http://askme.pro{config.answer.url}'
+    };
+</script>
+<script src="/components/backgrid/lib/backgrid.min.js"></script>
+<script src="/components/backbone-pageable/lib/backbone-pageable.min.js"></script>
+<script src="/components/backgrid-paginator/backgrid-paginator.min.js"></script>
+<script src="/components/backgrid-filter/backgrid-filter.min.js"></script>
+<script src="/js/app/models.js"></script>
+<script src="/js/app/collections.js"></script>
+<script src="/js/admin/routes/questions.router.js"></script>
+<script src="/js/admin/helpers.js"></script>
+<script src="/js/admin/views/questions.view.js"></script>
+{/js}
