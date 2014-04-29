@@ -25,7 +25,7 @@
             </p>
         </div>
         {?user}
-            <% if('{user._id}' === photo.to){~lb}%>
+            <% if('{user._id}' === photo.to || ['admin', 'moderator'].indexOf('{user.role}') > - 1){~lb}%>
                 <button type="button" class="photo-remove close" aria-hidden="true">&times;</button>
             <%{~rb}%>
         {/user}

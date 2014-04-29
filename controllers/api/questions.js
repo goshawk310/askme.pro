@@ -254,11 +254,14 @@ module.exports = function(server) {
      * @return {void}
      */
     server.delete('/api/questions/:id/photos', auth.isAuthenticated, function (req, res) {
-        questionService
-            .removeImage({
-                _id: req.param('id'),
-                to: req.user._id
-            }, function (err) {
+        var where = {
+            _id: req.param('id')
+        };
+        if (!auth.hasPrivilegesOf('moderator', req.user.role)) {
+            where.to = req.user._id;
+        }
+	questionService
+            .removeImage(where, function (err) {
                 if (err) {
                     return res.send(500, {
                         status: 'error',
@@ -279,11 +282,14 @@ module.exports = function(server) {
      * @return {void}
      */
     server.delete('/api/questions/:id/videos', auth.isAuthenticated, function (req, res) {
-        questionService
-            .removeVideo({
-                _id: req.param('id'),
-                to: req.user._id
-            }, function (err) {
+	var where = {
+            _id: req.param('id')
+        };
+        if (!auth.hasPrivilegesOf('moderator', req.user.role)) {
+            where.to = req.user._id;
+        }        
+	questionService
+            .removeVideo(where, function (err) {
                 if (err) {
                     return res.send(500, {
                         status: 'error',

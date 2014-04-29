@@ -27,7 +27,7 @@
             </p>
         </div>
         {?user}
-            <% if('{user._id}' === video.to){~lb}%>
+            <% if('{user._id}' === video.to || ['admin', 'moderator'].indexOf('{user.role}') > - 1){~lb}%>
                 <button type="button" class="video-remove close" aria-hidden="true">&times;</button>
             <%{~rb}%>
         {/user}
