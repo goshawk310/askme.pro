@@ -78,6 +78,11 @@ var Question = function Question() {
             required: false,
             default: null
         },
+        a_ip: {
+            type: String,
+            required: false,
+            default: null
+        },
         sync: {
             id: {
                 type: Number,

@@ -86,6 +86,7 @@ module.exports = _.defaults({
      * @return {void}
      */
     answer: function answer(params, callback) {
+        var req = this.getReq();
         QuestionModel
             .findOne({_id: params.id, to: params.to, answer: null})
             .exec(function (err, question) {
@@ -96,6 +97,9 @@ module.exports = _.defaults({
                     return callback(new Error('Question not found'));
                 }
                 question.answer = params.answer;
+                if (req) {
+                    question.a_ip = req.ip;
+                }
                 question.answered_at = new Date();
                 question.save(function (err) {
                     if (err) {

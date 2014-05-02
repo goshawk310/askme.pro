@@ -79,6 +79,11 @@ askmePro.views.AdminQuestionsGridView = Backbone.View.extend({
                     }
                 })
             }, {
+                name: 'a_ip',
+                sortable: false,
+                label: 'IP',
+                cell: 'string'
+            }, {
                 name: 'answer',
                 sortable: false,
                 label: 'Odpowiedź',
