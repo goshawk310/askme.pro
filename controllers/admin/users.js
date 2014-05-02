@@ -9,4 +9,8 @@ module.exports = function(server) {
             title: res.__('Użytkownicy')
         });
     });
+
+    server.get('/admin/users/images', auth.hasPrivilegesOf('moderator'), function (req, res) {
+        res.render('admin/users/images');
+    });
 };

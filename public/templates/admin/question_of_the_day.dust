@@ -13,6 +13,11 @@
 </form>
 {/body}
 {<js}
+<script type="text/javascript">
+    askmePro.settings.upload.answer = {
+        url: '{config.answer.url}'
+    };
+</script>
 <script src="/components/validate/jquery.validate.min.js"></script>
 <script src="/components/validate/additional-methods.js"></script>
 {@ne key="en" value="{locale}"}

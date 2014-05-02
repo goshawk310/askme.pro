@@ -101,6 +101,10 @@ app.requestBeforeRoute = function requestBeforeRoute(server) {
                     role: 'moderator',
                     label: 'Użytkownicy'
                 }, {
+                    url: '/admin/users/images', 
+                    role: 'moderator',
+                    label: 'Obrazki użytkowników'
+                }, {
                     url: '/admin/questions', 
                     role: 'moderator',
                     label: 'Pytania'
