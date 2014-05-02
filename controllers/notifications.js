@@ -15,6 +15,7 @@ module.exports = function(server) {
             };
         })
         .then(function (data) {
+            questionService.setServer(server);
             return Q.ninvoke(questionService, 'getAnsweredByUserFrom', {from: req.user._id, limit: 20})
             .then(function (questions) {
                 data.questions = questions;

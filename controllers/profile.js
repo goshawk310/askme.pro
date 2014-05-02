@@ -94,6 +94,7 @@ module.exports = function(server) {
                 req.flash('error', res.__('Aby przeglądać tą stronę trzeba się zalogować'));
                 return res.send(500, {});
             }
+            questionService.setServer(server);
             questionService.getAnswered({
                 to: user._id,
                 limit: 10,

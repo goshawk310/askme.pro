@@ -34,6 +34,7 @@ module.exports = function(server) {
     });
 
     server.get('/api/notifications/feed/top', auth.isAuthenticated,  function(req, res) {
+        questionService.setServer(server);
         questionService.getAnsweredByUserFrom({from: req.user._id, limit: 3}, function (err, questions) {
             if (err) {
                 return res.send(500, {});

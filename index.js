@@ -39,6 +39,18 @@ app.requestStart = function requestStart(server) {
     server.locals({
         config: config
     });
+    server.use(function (req, res, next) {
+        require('./services/setting').getAll(function (err, docs) {
+            var settings = {};
+            docs.forEach(function (doc) {
+                settings[doc.key] = doc.value;
+            });
+            server.locals({
+                siteSettings: settings
+            });
+            next();
+        });
+    });
     require('./lib/uploads')(server, __dirname);
     server.param(function(name, fn) {
         if (fn instanceof RegExp) {
@@ -85,6 +97,10 @@ app.requestBeforeRoute = function requestBeforeRoute(server) {
                     url: '/admin/questions', 
                     role: 'moderator',
                     label: 'Pytania'
+                }, {
+                    url: '/admin/settings',
+                    role: 'admin',
+                    label: 'Ustawienia'
                 }, {
                     url: '/admin/stickers',
                     role: 'admin',

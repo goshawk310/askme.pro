@@ -62,7 +62,6 @@ module.exports = _.extend({
             if (!user) {
                 return callback(new Error('Document not found'));
             }
-            console.log(config);
             if (user.top_bg) {
                 fsExtra.remove(config.topbg.dir + user.top_bg, function (err) {
                     if (err) {

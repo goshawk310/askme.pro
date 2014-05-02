@@ -2,7 +2,8 @@
 var LikeModel = require('../models/like'),
     mongoose = require('mongoose'),
     _ = require('underscore'),
-    validator = require('validator');
+    validator = require('validator'),
+    blockedWords = require('../lib/blockedWords');
 
 module.exports = _.defaults({
     create: function create(params, callback) {
@@ -80,7 +81,8 @@ module.exports = _.defaults({
             .exec(callback);
     },
     getByUsersFollowed: function getByUsersFollowed(params, callback) {
-        var where = {
+        var server = this.getServer(),
+            where = {
                 from: {$in: params.followed},
                 to: {$ne: params.userId}
             },
@@ -113,9 +115,13 @@ module.exports = _.defaults({
                 }
                 var results = [],
                     fromIds = [];
+                if (server && server.locals.siteSettings && server.locals.siteSettings.blockedWords) {
+                    blockedWords.setWords(server.locals.siteSettings.blockedWords);
+                }    
                 docs.forEach(function (doc) {
                     if (doc.from && fromIds.indexOf(String(doc.from._id)) < 0) {
                         fromIds.push(String(doc.from._id));
+                        doc.question_id = blockedWords.filter(doc.question_id, ['contents', 'answer']);
                         results.push(doc);
                         if (results.length === 5) {
                             return callback(null, results);

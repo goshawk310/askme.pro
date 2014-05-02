@@ -9,6 +9,7 @@ var userService = require('../../services/user'),
 module.exports = function(server) {
 
     server.get('/api/stream', auth.isAuthenticated, function (req, res) {
+        questionService.setServer(server);
         if (req.param('mode') === 'friends') {
             return Q.ninvoke(questionService, 'getAnswered', {
                 to: req.user.users.followed,
@@ -27,6 +28,7 @@ module.exports = function(server) {
                     data.likes = [];
                     return data;
                 }
+                likeService.setServer(server);
                 return Q.ninvoke(likeService, 'getByUsersFollowed', {
                     followed: req.user.users.followed, 
                     userId: req.user._id,
@@ -45,6 +47,7 @@ module.exports = function(server) {
                     data.comments = [];
                     return data;
                 }
+                commentService.setServer(server);
                 return Q.ninvoke(commentService, 'getByUsersFollowed', {
                     followed: req.user.users.followed, 
                     userId: req.user._id,

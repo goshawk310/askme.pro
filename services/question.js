@@ -7,7 +7,8 @@ var QuestionModel = require('../models/question'),
     redisClient = require('../lib/redis').client,
     FileUpload = require('../lib/file/upload'),
     Email = require('../lib/email'),
-    validator = require('validator');
+    validator = require('validator'),
+    blockedWords = require('../lib/blockedWords');
 
 module.exports = _.defaults({
     ask: function ask(callback) {
@@ -203,7 +204,8 @@ module.exports = _.defaults({
      * @return {void}
      */
     getAnswered: function getAnswered(params, callback) {
-        var skip = params.limit && params.page ? (params.limit) * params.page : null,
+        var server = this.getServer(),
+            skip = params.limit && params.page ? (params.limit) * params.page : null,
             limit = params.limit || null,
             where = {},
             blocked = null,
@@ -269,10 +271,17 @@ module.exports = _.defaults({
                                 output.push(question);
                                 index += 1;
                                 if (index === questionsCount) {
-                                    return callback(null, {
-                                        questions: output,
-                                        hasMore: hasMore
-                                    });
+                                    if (server && server.locals.siteSettings && server.locals.siteSettings.blockedWords) {
+                                        return callback(null, {
+                                            questions: blockedWords.setWords(server.locals.siteSettings.blockedWords).filter(output, ['contents', 'answer']),
+                                            hasMore: hasMore
+                                        });
+                                    } else {
+                                        return callback(null, {
+                                            questions: output,
+                                            hasMore: hasMore
+                                        });
+                                    }
                                 } else {
                                     isLikedByUser(questions[index]);
                                 }
