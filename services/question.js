@@ -18,12 +18,16 @@ module.exports = _.defaults({
             question = new QuestionModel();
         question.set({
             to: mongoose.Types.ObjectId(data.to),
-            contents: data.contents
+            contents: data.contents,
+            ip: req.ip
         });
         if (Boolean(parseInt(data.anonymous, 10))) {
             question.from = null;
+            if (req.user && req.user.id) {
+                question.og_from = mongoose.Types.ObjectId(req.user.id);
+            }
         } else {
-            question.from = mongoose.Types.ObjectId(req.user.id)
+            question.from = mongoose.Types.ObjectId(req.user.id);
         }
         question.save(function (err, doc) {
             if (!err && String(doc.to) !== String(doc.from)) {

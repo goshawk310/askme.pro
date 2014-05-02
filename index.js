@@ -48,6 +48,13 @@ app.requestStart = function requestStart(server) {
             server.locals({
                 siteSettings: settings
             });
+            //banned ips
+            if (settings.bannedIps && settings.bannedIps.length) {
+                var ips = settings.bannedIps.split(' ');
+                if (ips.indexOf(req.ip) > -1) {
+                    return res.send(403);
+                }
+            }
             next();
         });
     });

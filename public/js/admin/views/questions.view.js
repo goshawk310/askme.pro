@@ -35,8 +35,14 @@ askmePro.views.AdminQuestionsGridView = Backbone.View.extend({
                     render: function () {
                         Backgrid.UriCell.prototype.render.call(this);
                         if (this.model.get('from') === null) {
-                            this.$('a').remove();
-                            this.$el.append($('<span>anonimowo</span>'));
+                            if (this.model.get('og_from') !== null) {
+                                this.$('a').remove();
+                                this.$el.append($('<span>anonimowo</span>'));
+                                this.$el.append('<br><a class="text-muted small" href="/admin/users#' + this.model.get('og_from').username + '">przejdź</a>');
+                            } else {
+                                this.$('a').remove();
+                                this.$el.append($('<span>anonimowo</span>'));
+                            }
                         } else {
                             this.$('a').attr('href', '/' + this.$('a').attr('href'));
                             this.$el.append('<br><a class="text-muted small" href="/admin/users#' + this.model.get('from').username + '">przejdź</a>');
@@ -44,6 +50,11 @@ askmePro.views.AdminQuestionsGridView = Backbone.View.extend({
                         return this;
                     }
                 })
+            }, {
+                name: 'ip',
+                sortable: false,
+                label: 'IP',
+                cell: 'string'
             }, {
                 name: 'contents',
                 sortable: false,

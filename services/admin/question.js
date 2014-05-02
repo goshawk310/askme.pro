@@ -25,6 +25,7 @@ module.exports = _.extend({
         QuestionModel.count(conds, function (err, total) {
         	thisObj.paginate(QuestionModel.find(conds))
             .populate('from', 'username')
+            .populate('og_from', 'username')
             .populate('to', 'username')
             .sort({_id: -1})
             .exec(function (err, rows) {

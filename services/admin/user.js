@@ -23,6 +23,7 @@ module.exports = _.extend({
         }
         UserModel.count(conds, function (err, total) {
             thisObj.paginate(UserModel.find(conds))
+            .sort({_id: -1})
             .exec(function (err, rows) {
                 callback(err, rows, total);
             });

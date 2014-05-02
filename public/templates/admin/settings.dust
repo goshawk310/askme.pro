@@ -13,6 +13,19 @@
     <input type="hidden" name="_method" value="put">
     <button type="submit" class="btn btn-primary">{@__ phrase="Zapisz" /}</button>
 </form>
+<hr>
+<form role="form" method="post" action="/api/admin/settings" class="admin-form default">
+    <div class="form-group">
+        <label for="contents">{@__ phrase="Zbanowane ip" /}:</label>
+        <textarea name="setting[value]" class="form-control" rows="3" required>
+            {data.bannedIps}
+        </textarea>
+    </div>
+    <input type="hidden" name="setting[key]" value="bannedIps">
+    <input type="hidden" name="_csrf" value="{_csrf}">
+    <input type="hidden" name="_method" value="put">
+    <button type="submit" class="btn btn-primary">{@__ phrase="Zapisz" /}</button>
+</form>
 {/body}
 {<js}
 <script src="/components/validate/jquery.validate.min.js"></script>
