@@ -214,6 +214,10 @@ var User = function() {
                 required: false,
                 index: {unique: true, sparse: true}
             }
+        },
+        ips: {
+            type: Array,
+            default: []
         }
     }, {
         collection: 'users',

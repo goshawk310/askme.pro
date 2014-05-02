@@ -38,6 +38,17 @@ askmePro.views.AdminUsersGridView = Backbone.View.extend({
                     }
                 })
             }, {
+                name: 'ips',
+                sortable: false,
+                label: 'IP',
+                cell: Backgrid.StringCell.extend({
+                    render: function () {
+                        Backgrid.StringCell.prototype.render.call(this);
+                        this.$el.html(this.model.get('ips').join(', '));
+                        return this;
+                    }
+                })
+            }, {
                 name: 'name',
                 label: 'Imię',
                 cell: 'string'

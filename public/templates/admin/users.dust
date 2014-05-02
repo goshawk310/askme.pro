@@ -16,5 +16,5 @@
 <script src="/js/app/collections.js"></script>
 <script src="/js/admin/routes/users.router.js"></script>
 <script src="/js/admin/helpers.js"></script>
-<script src="/js/admin/views/users.view.js"></script>
+<script src="/js/admin/views/users.view.js?1"></script>
 {/js}
