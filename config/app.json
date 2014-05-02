@@ -9,7 +9,10 @@
          }
     },
     "i18n": {
-     "fallback": "pl-PL",
-     "contentPath": "path:./locales"
+        "fallback": "pl-PL",
+        "contentPath": "path:./locales"
+    },
+    "express": {
+        "trust proxy": true
     }
 }

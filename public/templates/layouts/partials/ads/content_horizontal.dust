@@ -1,4 +1,4 @@
-<div class="add-container content-horizontal text-center">
+{!<div class="add-container content-horizontal text-center">
     <!-- askme.pro 3 -->
     <ins class="adsbygoogle"
          style="display:inline-block;"
@@ -6,3 +6,4 @@
          data-ad-slot="2111897691"></ins>
 
 </div>
+!}
