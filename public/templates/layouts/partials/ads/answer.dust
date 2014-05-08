@@ -1,4 +1,4 @@
-{!<div class="col-md-12 add-container add-container-answer text-center">
+<div class="col-md-12 add-container add-container-answer text-center">
     <hr>
     <!-- askme wkadrat -->
     <ins class="adsbygoogle"
@@ -7,4 +7,4 @@
          data-ad-slot="9960553540"
          data-add-format="auto"></ins>
     <div class="clearfix"></div>
-</div>!}
+</div>

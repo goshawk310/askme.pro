@@ -10,7 +10,7 @@
 {<js}
 <script type="text/javascript">
     askmePro.settings.upload.answer = {
-        url: 'http://askme.pro{config.answer.url}'
+        url: '{config.answer.url}'
     };
 </script>
 <script src="/components/backgrid/lib/backgrid.min.js"></script>
