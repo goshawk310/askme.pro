@@ -132,6 +132,7 @@
     <div class="row">
         <div class="col-md-3 hidden-sm hidden-xs">
              {>"profile/partials/user_panel" user=profile /}
+             {>"layouts/partials/ads/left_wide"/}
         </div>
         <div class="col-md-7">
             <div class="center-block">
