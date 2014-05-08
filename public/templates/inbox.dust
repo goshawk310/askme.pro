@@ -1,7 +1,6 @@
 {>"layouts/master" /}
 {<body}
 <div class="container">
-    {>"layouts/partials/ads/top"/}
     <div class="row">
         <div class="col-md-2">
             {>"layouts/partials/ads/left"/}
