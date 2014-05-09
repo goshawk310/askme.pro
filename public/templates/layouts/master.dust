@@ -79,6 +79,8 @@
                             adds.each(function () {
                                 if ($(this).is(':visible') && !$(this).children().length) {
                                     (adsbygoogle = window.adsbygoogle || []).push({});
+                                } else if (!$(this).is(':visible')) {
+                                    $(this).remove();
                                 }
                             });
                         }
