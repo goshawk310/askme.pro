@@ -1,0 +1,63 @@
+<div class="panel-heading">
+    <%=askmePro.views.helpers.userAvatar({~lb}user: question['{avatarKey}'], size: 'cropped/100x', wrapper: true, cssClass: "avatar avatar-sm img-circle", linkClass: "pull-left mg-r-md"{~rb})%>
+    <div>
+        <%=askmePro.views.helpers.parseUsersText(question.contents, {url: {yt: 'link'}})%>
+        <small class="pull-right no-touch settings text-muted">
+            <a class="fa fa-chevron-down btn-collapsible pd-r-xs" href="#"></a>
+            <a class="fa fa-share pd-r-xs" href="/questions/<%=question._id%>" title="{@__ phrase="Przejdź" /}"></a>
+            {?user}
+                <% if((question.to && question.to._id === '{user._id}') || ['admin', 'moderator'].indexOf('{user.role}') > - 1) {~lb}%>
+                    <a class="fa fa-times panel-remove btn-remove" href="#" title="{@__ phrase="Usuń" /}"></a>
+                <%{~rb}%>
+            {/user}
+        </small>
+    </div>
+    <small class="text-muted"><% if(question.from){~lb}%> {@__ phrase="przez" /} <a href="/<%=question.from.username%>"><%=question.from.username%></a><%{~rb}else{~lb}%>{@__ phrase="anonimowo" /}<%{~rb}%></small>
+</div>
+<div class="collapsible">
+    <div class="panel-body no-padding">
+        <div class="pd-md">
+            <div class="answer">
+                <% if (question.image) {~lb} %>
+                    <div class="media-wrapper text-center">
+                        <img src="<%=askmePro.settings.upload.answer.url + question.image%>">
+                    </div>
+                <% {~rb} %>
+                <% if (question.yt_video) {~lb} %>
+                    <div class="media-wrapper panel no-border no-padding panel-link no-shadow">
+                        <div class="panel-body text-center no-padding">
+                            <div class="video-container visible">
+                                <iframe width="640" height="360" src="//www.youtube.com/embed/<%=question.yt_video%>?wmode=opaque" frameborder="0" allowfullscreen></iframe>
+                            </div>
+                        </div>
+                    </div>
+                <% {~rb} %>
+                <%=askmePro.views.helpers.parseUsersText(question.answer)%>
+            </div>
+            <small class="text-muted">
+                <i class="fa fa-clock-o mg-r-xs"></i><%=moment(question.answered_at).fromNow()%>
+            </small>
+            <div class="clearfix pull-right text-muted">
+                <a href="#" class="muted mg-r-md btn-comments">
+                    <i class="fa fa-comment-o  mg-r-xs"></i><span class="count"><%=question.stats.comments%></span> 
+                </a>
+                <span class="likes-wrapper<% if(question.stats.likes){~lb}%> visible<%{~rb}%>">
+                    {?user}
+                        <% if('{user._id}' !== question.to._id){~lb}%>
+                            <a href="#" class="btn-like<% if (question.liked){~lb}%> dislike-button <%{~rb} else {~lb}%> like-button<%{~rb}%>" <% if (question.liked){~lb}%> title="{@__ phrase="Ty to lubisz"/}"<%{~rb}%>>
+                                <i class="fa fa-heart text-danger mg-r-xs liked"></i>
+                                <i class="fa fa-heart mg-r-xs like"></i>
+                            </a>
+                        <% {~rb} else {~lb}%>
+                            <i class="fa fa-heart text-muted mg-r-xs"></i>
+                        <%{~rb}%>
+                    {:else}
+                        <i class="fa fa-heart text-muted mg-r-xs"></i>
+                    {/user}
+                    <a href="" class="likes btn-likes"><%=question.stats.likes%></a>
+                </span>
+            </div>
+        </div>
+    </div>
+    {>"partials/question/comments"/}
+</div>

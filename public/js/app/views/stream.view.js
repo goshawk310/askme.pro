@@ -161,7 +161,7 @@ askmePro.views.StreamView = Backbone.View.extend({
             commentsContainer.append('<div class="clearfix"></div>');
             firstBlock.after(commentsContainer);
         }
-        this.$('.btn-newest').hide();
+        this.$('.btn-newest-container').hide();
         thisObj.newestQuestions = [];
         thisObj.newestComments = [];
         thisObj.newestLikes = [];
@@ -178,7 +178,7 @@ askmePro.views.StreamView = Backbone.View.extend({
                         if (response.questions.length) {
                             thisObj.firstAnsweredAt = response.questions[0].answered_at;
                             thisObj.newestQuestions = response.questions.reverse().concat(thisObj.newestQuestions);
-                            thisObj.$('.btn-newest').show().children('strong').html(thisObj.newestQuestions.length);
+                            thisObj.$('.btn-newest-container').show().children('.btn-newest').children('strong').html(thisObj.newestQuestions.length);
                         }
                         if (response.likes && response.likes.length) {
                             thisObj.newestLikes = response.likes;

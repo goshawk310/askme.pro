@@ -22,9 +22,11 @@ askmePro.views.QuestionView = Backbone.View.extend({
         'click .btn-comments': 'lastComments',
         'click .btn-prev': 'prevComments',
         'click .btn-likes': 'showLikes',
-        'click .btn-remove': 'remove'
+        'click .btn-remove': 'remove',
+        'click .btn-collapsible': 'toggleCollapse'
     },
     like: function like(e) {
+        e.preventDefault();
         var thisObj = this,
             $this = $(e.currentTarget),
             question = this.model,
@@ -47,6 +49,7 @@ askmePro.views.QuestionView = Backbone.View.extend({
         });
     },
     dislike: function dislike(e) {
+        e.preventDefault();
         var thisObj = this,
             $this = $(e.currentTarget),
             question = this.model,
@@ -71,11 +74,11 @@ askmePro.views.QuestionView = Backbone.View.extend({
         });    
     },
     lastComments: function lastComments(e) {
+        e.preventDefault();
         var thisObj = this,
             $this = $(e.target),
             commentsWrapeprElement = this.$('.comments-wrapper'),
             submitButton = this.$('.btn-comment');
-        $this.blur();
         if (!commentsWrapeprElement.is(':visible')) {
             commentsWrapeprElement.show();
             if (!this.commentsFormInitialized) {
@@ -105,7 +108,6 @@ askmePro.views.QuestionView = Backbone.View.extend({
     prevComments: function prevComments(e) {
         var thisObj = this,
             $this = $(e.target);
-        $this.blur();
         $this.attr('disabled', true);
         this.commentsView.loadParams.page += 1;
         this.commentsView.loadPrev(this.model.get('_id'), function (data) {
@@ -119,9 +121,34 @@ askmePro.views.QuestionView = Backbone.View.extend({
     comment: function comment() {
         var thisObj = this,
             form = this.$('.comment-form'),
-            textarea = this.$('.comments-wrapper').find('textarea[name="comment[contents]"]');
+            textarea = this.$('.comments-wrapper').find('textarea[name="comment[contents]"]'),
+            btnToogleAnonymous = form.find('.toggle-anonymous');
         textarea.autosize();
         textarea.focus();
+        form.find('.submit').on('click', function () {
+            form.submit();
+        });
+        btnToogleAnonymous.tooltip({
+            container: thisObj.$el,
+            title: btnToogleAnonymous.data('title-on')
+        }).on('click', function () {
+            var $this = $(this),
+                el = $this.find('input[type="hidden"]');
+            el.val(parseInt(el.val(), 10) === 1 ? 0 : 1);
+            if ($this.hasClass('anonymous')) {
+                $this.removeClass('anonymous');
+                $this.tooltip('destroy').tooltip({
+                    container: thisObj.$el,
+                    title: btnToogleAnonymous.data('title-on')
+                }).tooltip('show');
+            } else {
+                $this.addClass('anonymous');
+                $this.tooltip('destroy').tooltip({
+                    container: thisObj.$el,
+                    title: btnToogleAnonymous.data('title-off')
+                }).tooltip('show');
+            }
+        });
         form.validate({
             rules: {
                 'comment[contents]': {
@@ -132,7 +159,7 @@ askmePro.views.QuestionView = Backbone.View.extend({
                 var comment = new askmePro.models.QuestionCommentModel();
                 comment.save({
                     contents: textarea.val(),
-                    anonymous: Boolean(thisObj.$('input[name="comment[anonymous]"]:checked').val()) || false
+                    anonymous: Boolean(parseInt(thisObj.$('input[name="comment[anonymous]"]').val(), 10)) || false
                 }, {
                     url: '/api/questions/' + thisObj.model.get('_id') + '/comments',
                     success: function (model, xhr) {
@@ -160,6 +187,7 @@ askmePro.views.QuestionView = Backbone.View.extend({
         }
     },
     showLikes: function showLikes(e) {
+        e.preventDefault();
         $(e.target).blur();
         if (this.likesView === null) {
             this.likesView = new askmePro.views.QuestionLikesView();
@@ -167,7 +195,8 @@ askmePro.views.QuestionView = Backbone.View.extend({
         }
         this.likesView.load(this.model.get('_id'));
     },
-    remove: function remove() {
+    remove: function remove(e) {
+        e.preventDefault();
         var thisObj = this,
             counter = $('.inbox-count');
         this.model.urlRoot = '/api/questions';
@@ -183,26 +212,32 @@ askmePro.views.QuestionView = Backbone.View.extend({
     showMessage: function showMessage(message, cls) {
         var interval = null,
             thisObj = this;
-        this.$('.question-container')
-            .html('<div class="col-md-12"><div class="alert ' + (cls || 'alert-success') + '">' + message + '</div></div>');
-        interval = setTimeout(function () {
-            thisObj.$el.slideUp(400, function () {
-                thisObj.$el.remove();
-                clearInterval(interval);
-                interval = null;
-            });
-        }, 2000);    
+        this.$el
+            .html('<div class="panel-body"><div class="alert ' + (cls || 'alert-success') + '">' + message + '</div></div>');
+            
     },
     showErrorMessage: function showErrorMessage(message) {
         var interval = null,
             thisObj = this;
-        this.$el.prepend('<div class="col-md-12"><div class="alert alert-danger">' + message + '</div></div>');
+        this.$el.prepend('<div class="panel-body"><div class="alert alert-danger">' + message + '</div></div>');
         interval = setTimeout(function () {
             thisObj.$('.alert').remove();
             clearInterval(interval);
             interval = null;
         }, 2000);
     },
+    toggleCollapse: function (e) {
+        e.preventDefault();
+        var el = this.$('.collapsible'),
+            $this = $(e.target);
+        if ($this.hasClass('fa-chevron-down')) {
+            $this.removeClass('fa-chevron-down').addClass('fa-chevron-up');
+            el.slideUp(200);
+        } else {
+            $this.removeClass('fa-chevron-up').addClass('fa-chevron-down');
+            el.slideDown(200);
+        }
+    }
 });
 
 askmePro.views.QuestionLikesView = Backbone.View.extend({

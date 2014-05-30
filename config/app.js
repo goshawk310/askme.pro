@@ -3,30 +3,30 @@ module.exports = {
     baseDir: dirname,
     avatar: {
         dir: dirname + '/uploads/avatars/',
-        url: '/uploads/avatars/',
+        url: 'http://www.askme.pro/uploads/avatars/',
         sizes: ['300x', '100x', '50x']
     },
     custom_background: {
         dir: dirname + '/uploads/backgrounds/',
-        url: '/uploads/backgrounds/'
+        url: 'http://www.askme.pro/uploads/backgrounds/'
     },
     predefined_background: {
         dir: dirname + '/public/images/themes/',
-        url: '/images/themes/'
+        url: 'http://www.askme.pro/images/themes/'
     },
     topbg: {
         dir: dirname + '/uploads/tops/',
-        url: '/uploads/tops/'
+        url: 'http://www.askme.pro/uploads/tops/'
     },
     answer: {
         dir: dirname + '/uploads/answers/',
-        url: '/uploads/answers/'
+        url: 'http://www.askme.pro/uploads/answers/'
     },
     sticker: {
         tmpDir: dirname + '/uploads/tmp/stickers/',
-        tmpUrl: '/tmp/stickers/',
+        tmpurl: 'http://www.askme.pro/tmp/stickers/',
         dir: dirname + '/public/images/stickers/',
-        url: '/images/stickers/'
+        url: 'http://www.askme.pro/images/stickers/'
     },
     locales: [{
         key: 'pl',

@@ -41,28 +41,23 @@
     </div>
 </script>
 <script type="text/template" id="question-comment-tpl">
-    <div class="row question-comment-container">
-        <div class="col-md-12">
-            <div class="media">
-                <%=askmePro.views.helpers.userAvatar({~lb}user: comment.from, size: 'cropped/100x', wrapper: true, cssClass: "box-shadow img-circle user-avatar xsmall", linkClass: "user-avatar-wrapper pull-left"{~rb})%>
-                <div class="media-body">
-                    <p>
-                        <% if (comment.from) {~lb} %>
-                            <a href="/<%=comment.from.username%>" class="text-primary"><%=comment.from.username%></a> 
-                        <% {~rb}%>
-                        <%=askmePro.views.helpers.parseUsersText(comment.contents)%>
-                    </p>
-                    <p class="text-muted small"><em><%=moment(comment.created_at).fromNow()%></em></p>
-                </div>
+    <div class="panel no-border question-comment-container">
+        <div class="panel-body">
+            <%=askmePro.views.helpers.userAvatar({~lb}user: comment.from, size: 'cropped/100x', wrapper: true, cssClass: "avatar avatar-sm img-circle", linkClass: "pull-left mg-r-md"{~rb})%>
+            <div>
+                <p>
+                    <% if (comment.from) {~lb} %>
+                        <a href="/<%=comment.from.username%>" class="text-primary"><%=comment.from.username%></a> 
+                    <% {~rb}%>
+                    <%=askmePro.views.helpers.parseUsersText(comment.contents)%>
+                </p>
+                <div class="text-muted small"><em><%=moment(comment.created_at).fromNow()%></em></div>
+                {?user}
+                    <% if((comment.from && comment.from._id === '{user._id}') || ['admin', 'moderator'].indexOf('{user.role}') > - 1) {~lb}%>
+                        <button type="button" class="comment-remove close" aria-hidden="true">&times;</button>
+                    <%{~rb}%>
+                {/user}
             </div>
-            {?user}
-                <% if((comment.from && comment.from._id === '{user._id}') || ['admin', 'moderator'].indexOf('{user.role}') > - 1) {~lb}%>
-                    <button type="button" class="comment-remove close" aria-hidden="true">&times;</button>
-                <%{~rb}%>
-            {/user}
-        </div>
-        <div class="col-md-12">
-            <hr>
         </div>
     </div>
 </script>

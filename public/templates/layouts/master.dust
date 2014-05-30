@@ -10,8 +10,10 @@
         <link rel="shortcut icon" href="/favicon.ico">
         <title>{+title}askme.pro{/title}</title>
         <!-- Bootstrap core CSS -->
-        <link href="/components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+        <link href="/cameo/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+        <link href="/cameo/min/main.min.css" rel="stylesheet" />
         <link href="/css/common.css?7" rel="stylesheet" />
+
         {+css /}
         {@hasPrivilegesOf user=user role="editor"}
             <link href="/css/admin.css" rel="stylesheet" />

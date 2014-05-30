@@ -1,0 +1,24 @@
+<div class="comments-wrapper">
+    <button role="button" class="btn btn-link btn-xs btn-block btn-prev">{@__ phrase="Pokaż wcześniejsze" /}</button>
+    <div class="comments-container">
+    </div>
+    {?user}
+        <div class="form-wrapper">
+            <form method="post" action="/api/questions/<%=question._id%>/comments" class="comment-form">
+                <div class="input-group ">
+                    <textarea class="form-control" placeholder="{@__ phrase="Dodaj komentarz" /}" rows="1" name="comment[contents]"></textarea>
+                    <% if(!question.to.settings.anonymous_disallowed){~lb}%>
+                        <span class="input-group-addon toggle-anonymous" data-toggle="tooltip" data-title-on="{@__ phrase="Jawnie" /}" data-title-off="{@__ phrase="Anonimowo" /}">
+                            <i class="fa fa-eye" title="{@__ phrase="Anonimowo" /}"></i>
+                            <i class="fa fa-eye-slash" title="{@__ phrase="Anonimowo" /}"></i>
+                            <input type="hidden" name="comment[anonymous]" value="0"> 
+                        </span>
+                    <%{~rb}%>
+                    <span class="input-group-addon submit">
+                        <i class="fa fa-plus"></i>
+                    </span>
+                </div>
+            </form>
+        </div>
+    {/user}
+</div>

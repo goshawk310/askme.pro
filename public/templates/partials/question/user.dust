@@ -1,203 +1,94 @@
 <script type="text/template" id="question-tpl">
-    <div class="row question-wrapper">
-        <div class="question-container">
-            <div class="col-md-12 question">
-                <div class="media">
-                    <%=askmePro.views.helpers.userAvatar({~lb}user: question.to, size: 'cropped/100x', wrapper: true, cssClass: "box-shadow img-circle user-avatar small", linkClass: "user-avatar-wrapper pull-left"{~rb})%>
-                    <div class="media-body">
-                        <h4>
-                            <%=askmePro.views.helpers.parseUsersText(question.contents, {url: {yt: 'link'}})%>
-                            <small class="text-muted"><% if(question.from){~lb}%> {@__ phrase="przez" /} <a href="/<%=question.from.username%>"><%=question.from.username%></a><%{~rb}else{~lb}%>, {@__ phrase="anonimowo" /}<%{~rb}%></small>
-                        </h4>
-                        <div class="asnwer"><%=askmePro.views.helpers.parseUsersText(question.answer)%></div>
-                        <div class="clearfix"></div>
-                        <% if (question.image) {~lb} %>
-                            <div class="media-wrapper panel panel-link no-shadow">
-                                <div class="panel-body text-center">
-                                    <img src="<%=askmePro.settings.upload.answer.url + question.image%>" class="img-thumbnail">
-                                </div>
-                            </div>
-                        <% {~rb} %>
-                        <% if (question.yt_video) {~lb} %>
-                            <div class="media-wrapper panel panel-link no-shadow">
-                                <div class="panel-body text-center">
-                                    <div class="video-container visible">
-                                        <iframe width="640" height="360" src="//www.youtube.com/embed/<%=question.yt_video%>?wmode=opaque" frameborder="0" allowfullscreen></iframe>
-                                    </div>
-                                </div>
-                            </div>
-                        <% {~rb} %>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <small class="text-muted">
-                                    {@__ phrase="Odpowiedziano" /} <em><%=moment(question.answered_at).fromNow()%></em>
-                                </small>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="pull-right">
-                                    <button type="button" class="btn btn-link btn-xs btn-comments"><span class="count"><%=question.stats.comments%></span> {@__ phrase="kom" /}. <span class="glyphicon glyphicon-comment"></span></button>
-                                    <small class="text-muted likes-wrapper<% if(question.stats.likes){~lb}%> visible<%{~rb}%>">
-                                        <span class="likes-container"><span class="separator">|</span>
-                                            <button type="button" class="btn btn-link btn-xs btn-likes">
-                                                <span class="likes"><%=question.stats.likes%></span> {@__ phrase="os." /}
-                                            </button><span>{@__ phrase="lubi to" /}</span>
-                                        </span>
-                                        {?user}
-                                            <% if('{user._id}' !== question.to._id){~lb}%>
-                                                <button type="button" class="btn btn-link btn-xs<% if (question.liked){~lb}%> dislike-button <%{~rb} else {~lb}%> like-button<%{~rb}%>"<% if (question.liked){~lb}%> title="{@__ phrase="Ty to lubisz"/}"<%{~rb}%> data-id="<%=question.liked%>">
-                                                    <span class="glyphicon glyphicon-heart"></span>
-                                                    <span class="glyphicon glyphicon-heart-empty"></span>
-                                                </button>
-                                            <%{~rb}%>
-                                        {/user}    
-                                    </small>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row comments-wrapper">
-                    <div class="col-md-12">
-                        <div class="well well-sm">
-                            <button role="button" class="btn btn-link btn-xs btn-block btn-prev">{@__ phrase="Pokaż wcześniejsze" /}</button>
-                            <div class="comments-container">
-                            </div>
-                            <form method="post" action="/api/questions/<%=question._id%>/comments" class="comment-form">
-                                <div class="form-group">
-                                    <textarea class="form-control" placeholder="{@__ phrase="Dodaj komentarz" /}" rows="1" name="comment[contents]"></textarea>
-                                    <div class="clearfix"></div>
-                                </div>
-                                <div class="form-group">
-                                    <div class="pull-right">
-                                        <% if(!question.to.settings.anonymous_disallowed){~lb}%>
-                                            <label class="checkbox-inline">
-                                                <input type="checkbox" name="comment[anonymous]" value="1"> {@__ phrase="Anonimowo" /}
-                                            </label>
-                                        <%{~rb}%>
-                                        <button type="submit" class="btn btn-success btn-comment">{@__ phrase="Dodaj" /}</button>
-                                    </div>
-                                    <div class="clearfix"></div>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-                <span class="triangle right"></span>
-                {?user}
-                    <div class="btn-group question-settings">
-                        <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">
-                            <span class="caret"></span>
-                        </button>
-                        <ul class="dropdown-menu">
-                            <li><button type="button" onclick="location.href='/questions/<%=question._id%>'" class="btn btn-link btn-xs">{@__ phrase="Przejdź" /}</button></li>
-                            
-                                <% if((question.to && question.to._id === '{user._id}') || ['admin', 'moderator'].indexOf('{user.role}') > - 1) {~lb}%>
-                                    <li><button type="button" class="btn btn-link btn-xs btn-remove">{@__ phrase="Usuń" /}</button></li>
-                                <%{~rb}%>
-                        </ul>
-                    </div>
-                {/user}
-            </div>
-        </div>
-        <div class="col-md-12">
-            <hr>
-            <div class="clearfix"></div>
-        </div>
-    </div>
+    <section class="panel no-border question-container">
+        {>"partials/question" avatarKey="to"/}
+        <% if (showAdd) {~lb}%>
+            {>"layouts/partials/ads/answer"/}
+        <%{~rb}%>
+    </section>
 </script>
 
 <script type="text/template" id="stream-like-tpl">
-    <div class="row question-wrapper stream-like-wrapper stream-likes-<%=pageIndex%> stream-likes-index-<%=index%>">
-        <div class="question-container stream-like-container">
-            <div class="col-md-12 question">
-                <div class="media">
-                    <%=askmePro.views.helpers.userAvatar({~lb}user: data.from, size: 'cropped/100x', wrapper: true, cssClass: "box-shadow img-circle user-avatar small", linkClass: "user-avatar-wrapper pull-left"{~rb})%>
-                    <div class="media-body">
-                        <div class="stream-action-descr-top">
-                            <a href="/<%=data.from.username%>"><%=data.from.username%></a> <span>{@__ phrase="lubi odpowiedź na pytanie" /}:</span>
-                        </div>
-                        <div class="well well-sm">
-                            <h5><%=askmePro.views.helpers.parseUsersText(data.question_id.contents, {url: {yt: 'link'}})%></h5>
-                            <div class="asnwer"><%=askmePro.views.helpers.parseUsersText(data.question_id.answer)%></div>
-                            <div class="clearfix"></div>
-                            <% if (data.question_id.image) {~lb} %>
-                                <div class="media-wrapper panel panel-link no-shadow">
-                                    <div class="panel-body text-center">
-                                        <img src="<%=askmePro.settings.upload.answer.url + data.question_id.image%>" class="img-thumbnail">
-                                    </div>
-                                </div>
-                            <% {~rb} %>
-                            <% if (data.question_id.yt_video) {~lb} %>
-                                <div class="media-wrapper panel panel-link no-shadow">
-                                    <div class="panel-body text-center">
-                                        <div class="video-container visible">
-                                            <iframe width="640" height="360" src="//www.youtube.com/embed/<%=data.question_id.yt_video%>?wmode=opaque" frameborder="0" allowfullscreen></iframe>
-                                        </div>
-                                    </div>
-                                </div>
-                            <% {~rb} %>
-                        </div>
-                        <div class="stream-action-descr-bottom">
-                            <% if (count > 1 && parseInt(index, 10) === 0) {~lb} %>
-                                <button class="btn btn-link btn-xs pull-left btn-show-more">{@__ phrase="zobacz inne" /}</button>
-                            <% {~rb} %>
-                            <a href="/questions/<%=data.question_id._id%>" class="pull-right">{@__ phrase="Idź do odpowiedzi" /}</a>
-                        </div>
-                    </div>
+    <div class="panel panel-success question-container stream-like-wrapper stream-likes-<%=pageIndex%> stream-likes-index-<%=index%>">
+        <div class="panel-heading">
+            <div class="media">
+                <%=askmePro.views.helpers.userAvatar({~lb}user: data.from, size: 'cropped/100x', wrapper: true, cssClass: "avatar avatar-sm img-circle", linkClass: "pull-left mg-r-md"{~rb})%>
+                <div class="media-body stream-action-descr-top">
+                    <a href="/<%=data.from.username%>"><strong><%=data.from.username%></strong></a> <span>{@__ phrase="lubi odpowiedź na pytanie" /}:</span>
                 </div>
             </div>
         </div>
-        <div class="col-md-12">
-            <hr>
-            <div class="clearfix"></div>
+        <div class="panel-body stream-like-container">
+            <div class="question">
+                <h5><%=askmePro.views.helpers.parseUsersText(data.question_id.contents, {url: {yt: 'link'}})%></h5>
+                <div class="answer">
+                    <% if (data.question_id.image) {~lb} %>
+                        <div class="media-wrapper text-center">
+                            <img src="<%=askmePro.settings.upload.answer.url + data.question_id.image%>">
+                        </div>
+                    <% {~rb} %>
+                    <% if (data.question_id.yt_video) {~lb} %>
+                        <div class="media-wrapper panel no-border no-padding panel-link no-shadow">
+                            <div class="panel-body text-center no-padding">
+                                <div class="video-container visible">
+                                    <iframe width="640" height="360" src="//www.youtube.com/embed/<%=data.question_id.yt_video%>?wmode=opaque" frameborder="0" allowfullscreen></iframe>
+                                </div>
+                            </div>
+                        </div>
+                    <% {~rb} %>
+                    <%=askmePro.views.helpers.parseUsersText(data.question_id.answer)%>
+                </div>
+            </div>
+        </div>
+        <div class="panel-footer">
+            <div class="stream-action-descr-bottom clearfix">
+                <% if (count > 1 && parseInt(index, 10) === 0) {~lb} %>
+                    <button class="btn btn-link btn-xs pull-left btn-show-more">{@__ phrase="zobacz inne" /}</button>
+                <% {~rb} %>
+                <a href="/questions/<%=data.question_id._id%>" class="pull-right">{@__ phrase="Idź do odpowiedzi" /}</a>
+            </div>
         </div>
     </div>
 </script>
 
 <script type="text/template" id="stream-comment-tpl">
-    <div class="row question-wrapper stream-comment-wrapper stream-comments-<%=pageIndex%> stream-comments-index-<%=index%>">
-        <div class="question-container stream-comment-container">
-            <div class="col-md-12 question">
-                <div class="media">
-                    <%=askmePro.views.helpers.userAvatar({~lb}user: data.from, size: 'cropped/100x', wrapper: true, cssClass: "box-shadow img-circle user-avatar small", linkClass: "user-avatar-wrapper pull-left"{~rb})%>
-                    <div class="media-body">
-                        <div class="stream-action-descr-top">
-                            <a href="/<%=data.from.username%>"><%=data.from.username%></a> <span>{@__ phrase="skomentował(a) odpowiedź na pytanie" /}:</span>
-                        </div>
-                        <div class="well well-sm">
-                            <h5><%=askmePro.views.helpers.parseUsersText(data.question_id.contents, {url: {yt: 'link'}})%></h5>
-                            <div class="asnwer"><%=askmePro.views.helpers.parseUsersText(data.question_id.answer)%></div>
-                            <div class="clearfix"></div>
-                            <% if (data.question_id.image) {~lb} %>
-                                <div class="media-wrapper panel panel-link no-shadow">
-                                    <div class="panel-body text-center">
-                                        <img src="<%=askmePro.settings.upload.answer.url + data.question_id.image%>" class="img-thumbnail">
-                                    </div>
-                                </div>
-                            <% {~rb} %>
-                            <% if (data.question_id.yt_video) {~lb} %>
-                                <div class="media-wrapper panel panel-link no-shadow">
-                                    <div class="panel-body text-center">
-                                        <div class="video-container visible">
-                                            <iframe width="640" height="360" src="//www.youtube.com/embed/<%=data.question_id.yt_video%>?wmode=opaque" frameborder="0" allowfullscreen></iframe>
-                                        </div>
-                                    </div>
-                                </div>
-                            <% {~rb} %>
-                        </div>
-                        <div class="stream-action-descr-bottom">
-                            <% if (count > 1 && parseInt(index, 10) === 0) {~lb} %>
-                                <button class="btn btn-link btn-xs pull-left btn-show-more">{@__ phrase="zobacz inne" /}</button>
-                            <% {~rb} %>
-                            <a href="/questions/<%=data.question_id._id%>" class="pull-right">{@__ phrase="Idź do odpowiedzi" /}</a>
-                        </div>
-                    </div>
+    <div class="panel panel-success question-container stream-comment-wrapper stream-comments-<%=pageIndex%> stream-comments-index-<%=index%>">
+        <div class="panel-heading">
+            <div class="media">
+                <%=askmePro.views.helpers.userAvatar({~lb}user: data.from, size: 'cropped/100x', wrapper: true, cssClass: "avatar avatar-sm img-circle", linkClass: "pull-left mg-r-md"{~rb})%>
+                <div class="media-body stream-action-descr-top">
+                    <a href="/<%=data.from.username%>"><strong><%=data.from.username%></strong></a> <span>{@__ phrase="skomentował(a) odpowiedź na pytanie" /}:</span>
                 </div>
             </div>
         </div>
-        <div class="col-md-12">
-            <hr>
-            <div class="clearfix"></div>
+        <div class="panel-body stream-comment-container">
+            <div class="question">
+                <h5><%=askmePro.views.helpers.parseUsersText(data.question_id.contents, {url: {yt: 'link'}})%></h5>
+                <div class="answer">
+                    <% if (data.question_id.image) {~lb} %>
+                        <div class="media-wrapper text-center">
+                            <img src="<%=askmePro.settings.upload.answer.url + data.question_id.image%>">
+                        </div>
+                    <% {~rb} %>
+                    <% if (data.question_id.yt_video) {~lb} %>
+                        <div class="media-wrapper panel no-border no-padding panel-link no-shadow">
+                            <div class="panel-body text-center no-padding">
+                                <div class="video-container visible">
+                                    <iframe width="640" height="360" src="//www.youtube.com/embed/<%=data.question_id.yt_video%>?wmode=opaque" frameborder="0" allowfullscreen></iframe>
+                                </div>
+                            </div>
+                        </div>
+                    <% {~rb} %>
+                    <%=askmePro.views.helpers.parseUsersText(data.question_id.answer)%>
+                </div>
+            </div>
+        </div>
+        <div class="panel-footer">
+            <div class="stream-action-descr-bottom clearfix">
+                <% if (count > 1 && parseInt(index, 10) === 0) {~lb} %>
+                    <button class="btn btn-link btn-xs pull-left btn-show-more">{@__ phrase="zobacz inne" /}</button>
+                <% {~rb} %>
+                <a href="/questions/<%=data.question_id._id%>" class="pull-right">{@__ phrase="Idź do odpowiedzi" /}</a>
+            </div>
         </div>
     </div>
 </script>

@@ -139,27 +139,17 @@
                 {?message}
                     {@message data=message /}
                 {/message}
-                <div class="panel panel-default box-shadow" id="question-form-wrapper">
-                    <div class="panel-body">
-                        <div class="row">
-                            <div class="col-md-12">
-                                {?user}
-                                    {>"profile/qform" profile=profile /}
-                                {:else}
-                                    {^profile.settings.anonymous_disallowed}
-                                        {>"profile/qform" profile=profile isAnonymous="1" /}
-                                    {/profile.settings.anonymous_disallowed}
-                                {/user}  
-                            </div>
-                        </div>
-                    </div>
+                <div id="question-form-wrapper">
+                    {?user}
+                        {>"profile/qform" profile=profile /}
+                    {:else}
+                        {^profile.settings.anonymous_disallowed}
+                            {>"profile/qform" profile=profile isAnonymous="1" /}
+                        {/profile.settings.anonymous_disallowed}
+                    {/user}
                 </div>
-                <div class="panel panel-default box-shadow">
-                    <div class="panel-body profile-info-wrapper">
-                        <div id="profile-tabs-content">
-                            <hr>
-                        </div>
-                    </div>
+                <div id="profile-tabs-content" class="sep-panels-container">
+                    <hr>
                 </div>
             </div>
         </div>
