@@ -142,6 +142,6 @@ $(function () {
         type:'image',
         mainClass: 'mfp-fade'
     });
-
+    $('#online-indicator').tooltip();
     var questionFormView = new askmePro.views.QuestionFormView();
 });

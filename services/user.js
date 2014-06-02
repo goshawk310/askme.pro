@@ -577,7 +577,6 @@ module.exports = _.defaults({
             if (err) {
                 return callback(err);
             }
-            console.log(total);
             if (!total) {
                 return callback(null, {
                     total: 0,
@@ -599,7 +598,7 @@ module.exports = _.defaults({
                         videos = [];
                     _.each(rows, function (row) {
                         if (row.yt_video !== null) {
-                            videos.push(_.pick(row, 'to', 'answered_at', 'yt_video'));
+                            videos.push(_.pick(row, 'to', 'answered_at', 'yt_video', '_id'));
                         }
                         var urlMatches = row.answer.match(urlRegexp);
                         if (urlMatches) {
@@ -613,8 +612,6 @@ module.exports = _.defaults({
                             });
                         } 
                     });
-                        
-                       
                     return callback(null, {
                         total: total,
                         videos: videos

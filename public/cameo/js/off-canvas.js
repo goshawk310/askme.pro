@@ -1,7 +1,7 @@
 ! function ($) {
     "use strict";
 
-    var container = $(".app"), canvasDirection;
+    var container = $("#content"), canvasDirection;
 
     function closeOffCanvas() {
         setTimeout(function(){
@@ -10,9 +10,9 @@
         }, 300);
     }
 
-    $(".main-content").append('<div class="site-overlay"></div>');
+    $(".col-md-7").append('<div class="site-overlay"></div>');
 
-    $(document).on("click", "[data-toggle=off-canvas]", function (e) {
+    $(document).on("click", "#navbar-logo > a", function (e) {
 
         e.preventDefault();
 

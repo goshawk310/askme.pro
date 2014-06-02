@@ -5,7 +5,7 @@ var askmePro = {
         helpers: {
             userAvatar: function userAvatar(params) {
                 var user = params.user || {},
-                    image = user.avatar ? ('/uploads/avatars/' + user.avatar) : '/images/default_avatar.png',
+                    image = user.avatar ? ('http://www.askme.pro/uploads/avatars/' + user.avatar) : '/images/default_avatar.png',
                     alt = user.username || 'askme.pro', 
                     href = user.username ? (' href="/' + user.username + '"'): '',
                     cssClass = params.cssClass || 'box-shadow img-circle user-avatar',

@@ -1,5 +1,5 @@
 <script type="text/template" id="question-tpl">
-    <section class="panel no-border question-container">
+    <section class="panel panel-default question-container">
         {>"partials/question" avatarKey="from"/}
         <% if (showAdd) {~lb}%>
             {>"layouts/partials/ads/answer"/}

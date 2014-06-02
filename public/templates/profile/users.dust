@@ -1,9 +1,11 @@
 <script type="text/template" id="profile-users-tpl">
-    <div id="profile-users-wrapper">
-        <div id="profile-users-container" class="row">
-            
+    <div id="profile-users-wrapper" class="panel panel-default">
+        <div class="panel-body">
+            <div id="profile-users-container" class="row">
+                
+            </div>
         </div>
-        <div class="panel-footer panel-footer-main">
+        <div class="panel-footer">
             <div class="row">
                 <div class="col-md-12 text-center" id="profile-users-pagination-container">
                     

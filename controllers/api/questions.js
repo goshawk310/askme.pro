@@ -260,19 +260,19 @@ module.exports = function(server) {
         if (!auth.hasPrivilegesOf('moderator', req.user.role)) {
             where.to = req.user._id;
         }
-	questionService
-            .removeImage(where, function (err) {
-                if (err) {
-                    return res.send(500, {
-                        status: 'error',
-                        message: res.__('Wystąpił nieoczekiwany błąd')
-                    });
-                }
-                return res.send({
-                    'status': 'success',
-                    'message': ''
+	    questionService
+        .removeImage(where, function (err) {
+            if (err) {
+                return res.send(500, {
+                    status: 'error',
+                    message: res.__('Wystąpił nieoczekiwany błąd')
                 });
+            }
+            return res.send({
+                'status': 'success',
+                'message': ''
             });
+        });
     });
 
     /**
@@ -282,25 +282,25 @@ module.exports = function(server) {
      * @return {void}
      */
     server.delete('/api/questions/:id/videos', auth.isAuthenticated, function (req, res) {
-	var where = {
+        var where = {
             _id: req.param('id')
         };
         if (!auth.hasPrivilegesOf('moderator', req.user.role)) {
             where.to = req.user._id;
         }        
-	questionService
-            .removeVideo(where, function (err) {
-                if (err) {
-                    return res.send(500, {
-                        status: 'error',
-                        message: res.__('Wystąpił nieoczekiwany błąd')
-                    });
-                }
-                return res.send({
-                    'status': 'success',
-                    'message': ''
+	    questionService
+        .removeVideo(where, function (err) {
+            if (err) {
+                return res.send(500, {
+                    status: 'error',
+                    message: res.__('Wystąpił nieoczekiwany błąd')
                 });
+            }
+            return res.send({
+                'status': 'success',
+                'message': ''
             });
+        });
     });
 
     /**

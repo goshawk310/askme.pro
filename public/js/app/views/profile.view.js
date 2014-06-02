@@ -78,7 +78,7 @@ askmePro.views.ProfileIndexView = Backbone.View.extend({
         this.render();
     },
     render: function() {
-        var buttonsContainer = $('#profile-info-container, #profile-buttons-container-small');
+        var buttonsContainer = $('.profile-buttons-container');
         this.setElement($(this.template()));
         this.loadAnswers();
         this.setupPointsProgress();
@@ -216,8 +216,8 @@ askmePro.views.ProfileIndexView = Backbone.View.extend({
                xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-param"]').attr('content'));
             }
         }).done(function () {
-            buttons.removeClass('btn-follow')
-                .addClass('btn-unfollow')
+            buttons.removeClass('btn-follow').removeClass('btn-success')
+                .addClass('btn-unfollow').addClass('btn-danger')
                 .html(altText).data('alttext', text);
         }).fail(function () {
 
@@ -242,8 +242,8 @@ askmePro.views.ProfileIndexView = Backbone.View.extend({
                xhr.setRequestHeader('X-HTTP-Method-Override', 'delete');
             }
         }).done(function () {
-            buttons.removeClass('btn-unfollow')
-                .addClass('btn-follow')
+            buttons.removeClass('btn-unfollow').removeClass('btn-danger')
+                .addClass('btn-follow').addClass('btn-success')
                 .html(altText).data('alttext', text);
         }).fail(function () {
 
@@ -676,6 +676,7 @@ askmePro.views.ProfilePhotosView = Backbone.View.extend({
     template: _.template($('#profile-photos-tpl').html()),
     loader: null,
     pagination: null,
+    masonryContainer: null,
     initialize: function(options) {
         this.limit = options.limit || 18;
     },
@@ -689,36 +690,67 @@ askmePro.views.ProfilePhotosView = Backbone.View.extend({
         this.loader = body.loading();
         this.loader('show');
         this.collection.url = '/api/users/' + askmePro.data.profile.username + '/photos';
+        thisObj.masonryContainer = body.masonry({
+            itemSelector: '.photo-container',
+            isAnimated: false
+        });
         this.collection.fetch({
             add: false,
             data: {limit: thisObj.limit, page: page || 0},
             success: function (collection, response, options) {
-                thisObj.loader('hide');
                 if (!response.total) {
                     return;
                 }
-                body.html('');
-                collection.add(response.photos);
-                collection.each(function (photo) {
-                    body.append(new askmePro.views.ProfilePhotoView({
-                        model: photo,
-                        parent: thisObj,
-                    }).render().$el);
-                });
-                body.find('.magnific').magnificPopup({
-                    type:'image',
-                    mainClass: 'mfp-fade'
-                });
-                if (response.total > thisObj.limit) {
-                    if (thisObj.pagination === null) {
-                        thisObj.pagination = new askmePro.views.PaginationView({
-                            total: response.total,
-                            limit: thisObj.limit,
-                            url: '#photos/'
+                var display = function display() {
+                    collection.add(response.photos);
+                    collection.each(function (photo) {
+                        body.append(new askmePro.views.ProfilePhotoView({
+                            model: photo,
+                            parent: thisObj,
+                        }).render().$el);
+                    });
+                    body.find('.magnific').magnificPopup({
+                        type:'image',
+                        mainClass: 'mfp-fade'
+                    });
+
+                    (function () {
+                        body.imagesLoaded().always(function () {
+                            body.fadeIn();
+                        }).progress(function (instance, image) {
+                            if (image.isLoaded) {
+                                $(image.img).addClass('loaded');
+                            }
+                        }).done(function () {
+                            thisObj.loader('hide');
+                            thisObj.masonryContainer.masonry('addItems', body.find('.photo-container'));
+                            thisObj.masonryContainer.masonry();
                         });
-                        thisObj.$('#profile-photos-pagination-container').html(thisObj.pagination.render().$el);
+                    })();
+                    
+                    if (response.total > thisObj.limit) {
+                        if (thisObj.pagination === null) {
+                            thisObj.pagination = new askmePro.views.PaginationView({
+                                total: response.total,
+                                limit: thisObj.limit,
+                                url: '#photos/'
+                            });
+                            thisObj.$('#profile-photos-pagination-container').html(thisObj.pagination.render().$el);
+                        }
+                        thisObj.pagination.setPage(page);
                     }
-                    thisObj.pagination.setPage(page);
+                },
+                elements = body.find('.photo-container'),
+                onRemoveComplete = function onRemoveComplete () {
+                    body.html('');
+                    display();
+                    thisObj.masonryContainer.masonry('off', 'removeComplete', onRemoveComplete);
+                };
+                if (elements.length) {
+                    thisObj.masonryContainer.masonry('remove', body.find('.photo-container'));
+                    thisObj.masonryContainer.masonry('on', 'removeComplete', onRemoveComplete);
+                } else {
+                    display();
                 }
             },
             error: function () {
@@ -747,7 +779,13 @@ askmePro.views.ProfilePhotoView = Backbone.View.extend({
         this.model.url = '/api/questions/' + this.model.get('_id') + '/photos';
         this.model.destroy({
             success: function () {
-                thisObj.remove();
+                function onRemoveComplete () {
+                    thisObj.remove();
+                    thisObj.parent.masonryContainer.masonry('off', 'removeComplete', onRemoveComplete);
+                }
+                thisObj.parent.masonryContainer.masonry('on', 'removeComplete', onRemoveComplete);
+                thisObj.parent.masonryContainer.masonry('remove', thisObj.$el);
+                thisObj.parent.masonryContainer.masonry();
                 if (thisObj.parent.pagination) {
                     thisObj.parent.pagination.total -= 1;
                     thisObj.parent.$('#profile-photos-pagination-container').html(thisObj.parent.pagination.render().$el);

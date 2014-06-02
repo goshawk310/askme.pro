@@ -1,9 +1,11 @@
 <script type="text/template" id="profile-photos-tpl">
-    <div id="profile-photos-wrapper">
-        <div id="profile-photos-container" class="row">
-            
+    <div id="profile-photos-wrapper" class="panel panel-default">
+        <div class="panel-body no-padding">
+            <div id="profile-photos-container">
+                
+            </div>
         </div>
-        <div class="panel-footer panel-footer-main">
+        <div class="panel-footer">
             <div class="row">
                 <div class="col-md-12 text-center" id="profile-photos-pagination-container">
                     
@@ -13,17 +15,13 @@
     </div>
 </script>
 <script type="text/template" id="profile-photo-tpl">
-    <div class="col-md-2 col-sm-3 col-xs-4 list-elem-container photo-container">
-        <div class="list-elem">
-            <a href="/uploads/answers/<%=photo.image%>" class="magnific">
-                <img src="/uploads/answers/<%=photo.image%>" class="img-thumbnail">
-            </a>
-        </div>
-        <div class="caption">
-            <p>
-                <em class="small"><%=moment(photo.answered_at).fromNow()%></em>
-            </p>
-        </div>
+    <div class="col-md-4 col-sm-6 col-xs-12 photo-container no-margin no-padding text-center">
+        <img src="http://askme.pro/uploads/answers/<%=photo.image%>">
+        <a href="http://askme.pro//uploads/answers/<%=photo.image%>" class="overlay magnific">
+            <div class="caption">
+                <%=moment(photo.answered_at).fromNow()%>
+            </div>
+        </a>
         {?user}
             <% if('{user._id}' === photo.to || ['admin', 'moderator'].indexOf('{user.role}') > - 1){~lb}%>
                 <button type="button" class="photo-remove close" aria-hidden="true">&times;</button>

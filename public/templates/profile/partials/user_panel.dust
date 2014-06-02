@@ -1,33 +1,71 @@
-<div class="panel panel-default box-shadow">
+<div class="panel panel-default">
     <div class="panel-body">
         <div class="user-info">
             <div class="text-center">
-                <h4>{profile.name} {profile.lastname}</h4>
-                {?profile.online}<div class="online text-success">online</div>{:else}<div class="offline text-muted">{@__ phrase="ostatnia wizyta" /}: {@dateTime date=profile.last_visit_at method="fromNow" /}</div>{/profile.online}
+                <h4 class="no-margin">{profile.name} {profile.lastname}</h4>
+                <small>@{profile.username}</small> 
+                {?profile.online}
+                    <i id="online-indicator" class="online text-success fa fa-circle" data-toggle="tooltip" data-placement="top" title="online"></i>
+                {:else}
+                    <i id="online-indicator" class="offline text-danger fa fa-circle" data-toggle="tooltip" data-placement="top" title="{@__ phrase="ostatnia wizyta" /}: {@dateTime date=profile.last_visit_at method="fromNow" /}"></i>
+                {/profile.online}
                 <div class="clearfix"></div>
-                <div class="fb-like" data-href="http://askme.pro/{profile.username}" data-layout="button_count" data-action="like" data-show-faces="false" data-share="true"></div>
-                <h5>@{profile.username}</h5>
+                <div class="mg-t-md mg-b-md">
+                    <div class="progress progress-striped active user-points-progress">  
+                        <div class="progress-bar" id="user-points-progress-bar" role="progressbar" aria-valuenow="{profile.pointsInt}" aria-valuemin="0" aria-valuemax="100">
+                        </div>
+                        <div class="progress-value">{profile.pointsInt} {@__ phrase="pkt." /}</div>
+                    </div>
+                    <div class="clearfix"></div>
+                    {?user}
+                        <div class="btn-group btn-group-justified btn-rounded profile-buttons-container">
+                            {@ne key="{user.id}" value="{profile.id}"}
+                                {?isFollowed}
+                                    <a class="btn btn-danger btn-unfollow"  role="button" data-alttext="{@__ phrase="Obserwuj" /}">{@__ phrase="Zrezygnuj" /}</a>
+                                {:else}
+                                    <a class="btn btn-success btn-follow"  role="button" data-alttext="{@__ phrase="Zrezygnuj" /}">{@__ phrase="Obserwuj" /}</a>
+                                {/isFollowed}
+                            {/ne}
+                            <a href="/{profile.username}#gifts/send" class="btn btn-primary"  role="button">{@__ phrase="Wyślij gifta" /}</a>
+                        </div>
+                        <div class="clearfix"></div>
+                    {/user}
+                </div>
+            </div>
+            <ul class="" id="profile-btns">
+                <li class="profile-btn profile-answers-btn">
+                    <i class="fa fa-angle-left"></i><i class="fa fa-angle-right"></i>
+                    <a href="/{profile.username}#">{@__ phrase="Odpowiedzi" /} <span class="badge pull-right">{profile.stats.questions_answered}</span></a>
+                </li>
+                <li class="profile-btn profile-info-btn">
+                    <i class="fa fa-angle-left"></i><i class="fa fa-angle-right"></i>
+                    <a href="/{profile.username}#info">{@__ phrase="Informacje" /}</a>
+                </li>
+                <li class="profile-btn profile-photos-btn">
+                    <i class="fa fa-angle-left"></i><i class="fa fa-angle-right"></i>
+                    <a href="/{profile.username}#photos">{@__ phrase="Zdjęcia" /}</a>
+                </li>
+                <li class="profile-btn profile-videos-btn">
+                    <i class="fa fa-angle-left"></i><i class="fa fa-angle-right"></i>
+                    <a href="/{profile.username}#videos">{@__ phrase="Video" /}</a>
+                </li>
+            </ul>
+            <div class="mg-t-md">
                 {?profile.profile.motto}
                     <em>"{profile.profile.motto}"</em>
+                    <div class="clearfix"></div>    
                 {/profile.profile.motto}
+                {?profile.profile.website}
+                    <div class="truncate">
+                        <a href="{profile.profile.website}" target="_blank"><i class="fa fa-globe mg-r-md"></i>{@strReplace value="{profile.profile.website}" search="http(s?)://" replace="" /}</a>
+                    </div>
+                    <div class="clearfix"></div>
+                {/profile.profile.website}
             </div>
-            <ul class="nav nav-pills nav-stacked" id="profile-btns">
-                <li class="profile-btn profile-answers-btn"><a href="/{profile.username}#">{@__ phrase="Odpowiedzi" /} <span class="badge pull-right">{profile.stats.questions_answered}</span></a></li>
-                <li class="profile-btn profile-info-btn"><a href="/{profile.username}#info">{@__ phrase="Informacje" /}</a></li>
-                <li class="profile-btn profile-photos-btn"><a href="/{profile.username}#photos">{@__ phrase="Zdjęcia" /}</a></li>
-                <li class="profile-btn profile-videos-btn"><a href="/{profile.username}#videos">{@__ phrase="Video" /}</a></li>
-            </ul>
         </div>
     </div>
-    <div class="user-info-footer panel-footer hidden-sm hidden-xs">
-    <div class="data-row-1">
-        <span class="stats-contaier">obserwuje<br><strong>{profile.stats.follows}</strong></span><span class="img-container"><img src="/images/icons/followers.png" alt="followers"></span><span class="stats-contaier">obserwujących<br><strong>{profile.stats.followers}</strong></span>
-    </div>
-    <div class="data-row-2">
-        <span class="stats-contaier"><img src="/images/icons/qa.png" alt="answers"> <strong>{profile.stats.questions_answered}</strong></span>
-        <span class="stats-contaier"><img src="/images/icons/likes.png" alt="likes"> <strong>{profile.stats.likes}</strong></span>
-        <span class="stats-contaier"><img src="/images/icons/giftbox.png" alt="gifts"> <strong>{profile.stats.gifts_received}</strong></span>
-    </div>
-    <div class="clearfix"></div>
+    <div class="user-info-footer panel-footer hidden-sm hidden-xs text-center">
+        <div class="fb-like" data-href="http://askme.pro/{profile.username}" data-layout="button_count" data-action="like" data-show-faces="false" data-share="true"></div>
+        <div class="clearfix"></div>
     </div>
 </div>

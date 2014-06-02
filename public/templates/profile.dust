@@ -11,20 +11,15 @@
             <div class="row" id="profile-top">
                 <div class="col-md-3 full-height hidden-sm hidden-xs" id="profile-top-left">
                     <div class="profile-avatar-wrapper">
-                        {@userAvatar user=profile size="cropped/300x" wrapper="true" enlarge="true" cssClass="box-shadow user-avatar"/}
-                        <div class="progress box-shadow user-points-progress">
-                            <div class="progress-bar" id="user-points-progress-bar" role="progressbar" aria-valuenow="{profile.pointsInt}" aria-valuemin="0" aria-valuemax="100">
-                            </div>
-                            <div class="progress-value">{profile.pointsInt} {@__ phrase="pkt." /}</div>
-                        </div>
+                        {@userAvatar user=profile size="cropped/300x" wrapper="true" enlarge="true" cssClass="user-avatar img-circle"/}
                         {?profile.sticker}
-                            <img src="/images/stickers/{profile.sticker}" alt="" class="profile-sticker" />
+                            <img src="/images/stickers/wstazka.png" alt="" class="profile-sticker" />
                         {/profile.sticker}
                     </div>
                 </div>
                 <div class="col-md-9 col-xs-12 col-sm-12 full-height" id="profile-info-container">
                     <div class="profile-avatar-wrapper visible-sm visible-xs">
-                        {@userAvatar user=profile size="cropped/300x" wrapper="true" enlarge="true" cssClass="box-shadow user-avatar"/}
+                        {@userAvatar user=profile size="cropped/300x" wrapper="true" enlarge="true" cssClass="user-avatar img-circle"/}
                     </div>
                     <div class="profile-name visible-sm visible-xs">
                         <p class="text-center">
@@ -34,20 +29,12 @@
                         </p>
                     </div>
                     {?user}
-                        <div id="profile-buttons-container">
-                            {@ne key="{user.id}" value="{profile.id}"}
-                                {?isFollowed}
-                                    <a class="btn btn-sm btn-unfollow" data-alttext="{@__ phrase="Obserwuj" /}">{@__ phrase="Zrezygnuj" /}</a>
-                                {:else}
-                                    <a class="btn btn-sm btn-follow" data-alttext="{@__ phrase="Zrezygnuj" /}">{@__ phrase="Obserwuj" /}</a>
-                                {/isFollowed}
-                            {/ne}
-                            <a href="/{profile.username}#gifts/send" class="btn btn-success btn-sm">{@__ phrase="Wyślij gifta" /}</a>
+                        <div id="profile-buttons-container" class="profile-buttons-container">
                             {@ne key="{user.id}" value="{profile.id}"}
                                 {^isBlocked}
-                                    <a class="btn btn-sm pull-right btn-block-user" data-alttext="{@__ phrase="Odblokuj" /}">{@__ phrase="Zablokuj" /}</a>
+                                    <a class="btn pull-left btn-rounded btn-block-user" data-alttext="{@__ phrase="Odblokuj" /}">{@__ phrase="Zablokuj" /}</a>
                                 {:else}
-                                    <a class="btn btn-sm pull-right btn-unblock-user" data-alttext="{@__ phrase="Zablokuj" /}">{@__ phrase="Odblokuj" /}</a>
+                                    <a class="btn pull-left btn-rounded btn-unblock-user" data-alttext="{@__ phrase="Zablokuj" /}">{@__ phrase="Odblokuj" /}</a>
                                 {/isBlocked}
                             {:else}
                                 {^profile.top_bg}
@@ -60,7 +47,7 @@
                     {/user}
                     <div class="clearfix"></div>
                 </div>
-                <div id="profile-buttons-container-small" class="btn-group">
+                <div id="profile-buttons-container-small" class="btn-group profile-buttons-container">
                     <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
                         <span class="glyphicon glyphicon-tasks"></span>
                     </button>
@@ -96,11 +83,17 @@
             </div>
         </div>
     </div>
-    <div class="menu-container">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-3"></div>    
-                <div class="col-md-7" id="profile-stats-wrapper">
+    
+</div>
+<div class="container profile">
+    <div class="row">
+        <div class="col-md-3 hidden-sm hidden-xs user-info-wrapper">
+             {>"profile/partials/user_panel" user=profile /}
+             {>"layouts/partials/ads/left_wide"/}
+        </div>
+        <div class="col-md-7">
+            <div class="menu-container panel panel-default">
+                <div id="profile-stats-wrapper" class="panel-body no-padding">
                     <div class="btn-group btn-group-justified" id="profile-stats-container">
                         <a id="profile-stats-link-likes" class="profile-btn btn btn-default no-left-border" role="button">
                             <span>{@__ phrase="lubi to" /}</span>
@@ -125,16 +118,6 @@
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
-</div>
-<div class="container profile">
-    <div class="row">
-        <div class="col-md-3 hidden-sm hidden-xs">
-             {>"profile/partials/user_panel" user=profile /}
-             {>"layouts/partials/ads/left_wide"/}
-        </div>
-        <div class="col-md-7">
             <div class="center-block">
                 {?message}
                     {@message data=message /}
@@ -154,7 +137,7 @@
             </div>
         </div>
         <div class="col-md-2">
-            <div class="panel panel-default box-shadow" id="online-users-wrapper">
+            <div class="panel panel-default" id="online-users-wrapper">
                 <div class="panel-heading">Warto odwiedzić</div>
                 <div class="panel-body">
                     {>"partials/users/online" type="all" onlineUsers="{onlineUsers}" /}
@@ -185,6 +168,8 @@
 <script src="/js/app/views/question.view.js?1"></script>
 <script src="/js/app/views/profile.view.js?5"></script>
 <script src="/js/app/routes/profile.router.js?1"></script>
+<script src="/components/imagesloaded/imagesloaded.pkgd.min.js"></script>
+<script src="/components/masonry/dist/masonry.pkgd.min.js"></script>
 <script type="text/javascript">
     askmePro.data.profile = {
         id: '{profile._id}',

@@ -1,9 +1,11 @@
 <script type="text/template" id="profile-videos-tpl">
-    <div id="profile-videos-wrapper">
-        <div id="profile-videos-container" class="row">
-            
+    <div id="profile-videos-wrapper" class="panel panel-default">
+        <div class="panel-body">
+            <div id="profile-videos-container" class="row">
+                
+            </div>
         </div>
-        <div class="panel-footer panel-footer-main">
+        <div class="panel-footer">
             <div class="row">
                 <div class="col-md-12 text-center" id="profile-videos-pagination-container">
                     
@@ -13,23 +15,26 @@
     </div>
 </script>
 <script type="text/template" id="profile-video-tpl">
-    <div class="col-md-12 list-elem-container">
-        <div class="list-elem">
-            <div class="video-container visible text-center">
-                <% if (video.yt_video) {~lb} %>
+    <div class="col-md-12 list-elem-container no-padding">
+        <div class="media-wrapper panel panel-default no-border no-padding panel-link no-shadow">
+            <div class="panel-heading">
+                <div class="truncate">
+                    <a href="https://www.youtube.com/watch?v=<%=video.yt_video%>" target="_blank"><i class="fa fa-youtube"></i> www.youtube.com/watch?v=<%=video.yt_video%></a>
+                </div>
+                {?user}
+                    <% if(video._id && ('{user._id}' === video.to || ['admin', 'moderator'].indexOf('{user.role}') > - 1)){~lb}%>
+                        <button type="button" class="video-remove close" aria-hidden="true">&times;</button>
+                    <%{~rb}%>
+                {/user}
+            </div>
+            <div class="panel-body text-center no-padding">
+                <div class="video-container visible">
                     <iframe width="640" height="360" src="//www.youtube.com/embed/<%=video.yt_video%>?wmode=opaque" frameborder="0" allowfullscreen></iframe>
-                <% {~rb} %>
+                </div>
+            </div>
+            <div class="panel-footer">
+                <em class="small"><%=moment(video.answered_at).fromNow()%></em>
             </div>
         </div>
-        <div class="caption">
-            <p>
-                <em class="small"><%=moment(video.answered_at).fromNow()%></em>
-            </p>
-        </div>
-        {?user}
-            <% if('{user._id}' === video.to || ['admin', 'moderator'].indexOf('{user.role}') > - 1){~lb}%>
-                <button type="button" class="video-remove close" aria-hidden="true">&times;</button>
-            <%{~rb}%>
-        {/user}
     </div>
 </script>
