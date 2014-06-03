@@ -1,35 +1,46 @@
 <div class="panel panel-default">
     <div class="panel-body">
-        <div class="user-info">
+        <div class="profile-info">
+            {?showAvatar}
+                <div class="text-center profile-avatar-wrapper"{?profile.top_bg} style="background-image: url('{config.topbg.url}{profile.top_bg}')"{/profile.top_bg}>
+                    {@userAvatar user=profile size="cropped/300x" enlarge="true" cssClass="user-avatar img-circle"/}
+                </div>
+            {/showAvatar}
             <div class="text-center">
                 <h4 class="no-margin">{profile.name} {profile.lastname}</h4>
                 <small>@{profile.username}</small> 
-                {?profile.online}
-                    <i id="online-indicator" class="online text-success fa fa-circle" data-toggle="tooltip" data-placement="top" title="online"></i>
-                {:else}
-                    <i id="online-indicator" class="offline text-danger fa fa-circle" data-toggle="tooltip" data-placement="top" title="{@__ phrase="ostatnia wizyta" /}: {@dateTime date=profile.last_visit_at method="fromNow" /}"></i>
-                {/profile.online}
+                {?showOnline}
+                    {?profile.online}
+                        <i id="online-indicator" class="online text-success fa fa-circle" data-toggle="tooltip" data-placement="top" title="online"></i>
+                    {:else}
+                        <i id="online-indicator" class="offline text-danger fa fa-circle" data-toggle="tooltip" data-placement="top" title="{@__ phrase="ostatnia wizyta" /}: {@dateTime date=profile.last_visit_at method="fromNow" /}"></i>
+                    {/profile.online}
+                {/showOnline}
                 <div class="clearfix"></div>
                 <div class="mg-t-md mg-b-md">
-                    <div class="progress progress-striped active user-points-progress">  
-                        <div class="progress-bar" id="user-points-progress-bar" role="progressbar" aria-valuenow="{profile.pointsInt}" aria-valuemin="0" aria-valuemax="100">
-                        </div>
-                        <div class="progress-value">{profile.pointsInt} {@__ phrase="pkt." /}</div>
-                    </div>
-                    <div class="clearfix"></div>
-                    {?user}
-                        <div class="btn-group btn-group-justified btn-rounded profile-buttons-container">
-                            {@ne key="{user.id}" value="{profile.id}"}
-                                {?isFollowed}
-                                    <a class="btn btn-danger btn-unfollow"  role="button" data-alttext="{@__ phrase="Obserwuj" /}">{@__ phrase="Zrezygnuj" /}</a>
-                                {:else}
-                                    <a class="btn btn-success btn-follow"  role="button" data-alttext="{@__ phrase="Zrezygnuj" /}">{@__ phrase="Obserwuj" /}</a>
-                                {/isFollowed}
-                            {/ne}
-                            <a href="/{profile.username}#gifts/send" class="btn btn-primary"  role="button">{@__ phrase="Wyślij gifta" /}</a>
+                    {?showPoints}
+                        <div class="progress progress-striped active user-points-progress">  
+                            <div class="progress-bar" id="user-points-progress-bar" role="progressbar" aria-valuenow="{profile.pointsInt}" aria-valuemin="0" aria-valuemax="100">
+                            </div>
+                            <div class="progress-value">{profile.pointsInt} {@__ phrase="pkt." /}</div>
                         </div>
                         <div class="clearfix"></div>
-                    {/user}
+                    {/showPoints}
+                    {?showButtons}
+                        {?user}
+                            <div class="btn-group btn-group-justified btn-rounded profile-buttons-container">
+                                {@ne key="{user.id}" value="{profile.id}"}
+                                    {?isFollowed}
+                                        <a class="btn btn-danger btn-unfollow"  role="button" data-alttext="{@__ phrase="Obserwuj" /}">{@__ phrase="Zrezygnuj" /}</a>
+                                    {:else}
+                                        <a class="btn btn-success btn-follow"  role="button" data-alttext="{@__ phrase="Zrezygnuj" /}">{@__ phrase="Obserwuj" /}</a>
+                                    {/isFollowed}
+                                {/ne}
+                                <a href="/{profile.username}#gifts/send" class="btn btn-primary"  role="button">{@__ phrase="Wyślij gifta" /}</a>
+                            </div>
+                            <div class="clearfix"></div>
+                        {/user}
+                    {/showButtons}
                 </div>
             </div>
             <ul class="" id="profile-btns">
@@ -64,8 +75,20 @@
             </div>
         </div>
     </div>
-    <div class="user-info-footer panel-footer hidden-sm hidden-xs text-center">
-        <div class="fb-like" data-href="http://askme.pro/{profile.username}" data-layout="button_count" data-action="like" data-show-faces="false" data-share="true"></div>
-        <div class="clearfix"></div>
+    <div class="profile-info-footer panel-footer hidden-sm hidden-xs text-center">
+        {?showStats}
+            <div class="data-row-1">
+                <span class="stats-contaier">obserwuje<br><strong>{user.stats.follows}</strong></span><span class="img-container"><img src="/images/icons/followers.png" alt="followers"></span><span class="stats-contaier">obserwujących<br><strong>{user.stats.followers}</strong></span>
+            </div>
+            <div class="data-row-2">
+                <span class="stats-contaier"><img src="/images/icons/qa.png" alt="answers"> <strong>{user.stats.questions_answered}</strong></span>
+                <span class="stats-contaier"><img src="/images/icons/likes.png" alt="likes"> <strong>{user.stats.likes}</strong></span>
+                <span class="stats-contaier"><img src="/images/icons/giftbox.png" alt="gifts"> <strong>{user.stats.gifts_received}</strong></span>
+            </div>
+            <div class="clearfix"></div>
+        {:else}
+            <div class="fb-like" data-href="http://askme.pro/{profile.username}" data-layout="button_count" data-action="like" data-show-faces="false" data-share="true"></div>
+            <div class="clearfix"></div>
+        {/showStats}
     </div>
 </div>

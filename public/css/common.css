@@ -27,8 +27,8 @@ body .popover {max-width: 100%;}
 
 #main-navbar {
     background: #0187bb !important;
-    box-shadow: 0 6px 4px rgba(0, 0, 0, 0.1);
     border-width: 0;
+    margin-bottom: 0;
 }
 
 .navbar-default {
@@ -111,7 +111,7 @@ a:hover, a:focus {color: #464646;}
 }
 
 #content > .container {
-    padding: 82px 15px 0;
+    padding: 62px 12px 0;
 }
 #content > .container.profile {
     padding: 0;
@@ -198,7 +198,7 @@ h1#index-h1 {
     display: block;
     width: 100%;
     height: 100px;
-    margin-bottom: 15px;
+    margin-bottom: 12px;
 }
 
 
@@ -226,7 +226,7 @@ h1#index-h1 {
 }
 
 .profile-info-wrapper .user-avatar-wrapper, .media .user-avatar-wrapper {
-    margin-bottom: 15px;
+    margin-bottom: 12px;
 }
 
 .profile-info-wrapper hr {
@@ -251,8 +251,8 @@ ul#profile-menu li.active a {
 }
 
 #profile-top {
-    padding-top: 15px;
-    padding-bottom: 15px;
+    padding-top: 12px;
+    padding-bottom: 12px;
     background-position: center center;
     background-size: 100% auto;
     background-repeat: no-repeat;
@@ -340,8 +340,8 @@ ul#profile-menu li.active a {
     max-width: 100%;
 }
 
-#question-form .pull-right .checkbox-inline{
-    margin-right: 15px;
+#question-form .pull-right .checkbox-inline {
+    margin-right: 12px;
 }
 
 #question-form-container {
@@ -364,7 +364,7 @@ ul#profile-menu li.active a {
 }
 
 #profile-tabs-content .mt15 {
-    margin-top: 15px;
+    margin-top: 12px;
 }
 
 #question-form-message-container .message {
@@ -502,12 +502,7 @@ ul#profile-menu li.active a {
 }
 
 #answers-container > .row:last-child  {
-    margin-bottom: 15px;
-}
-
-.question-wrapper > .col-md-12 > hr {
-    margin-top: 10px;
-    margin-bottom: 15px;
+    margin-bottom: 12px;
 }
 
 .more-container {
@@ -541,18 +536,18 @@ ul#profile-menu li.active a {
 }
 
 .question-container {
-    padding-top: 15px;
-    margin-bottom: 15px;
+    padding-top: 12px;
+    margin-bottom: 12px;
     position: relative;
 }
 
 .panel.add-container-answer {
-    margin-bottom: 15px;
+    margin-bottom: 12px;
 }
 
 .question-container .settings {
     position: absolute;
-    right: 15px;
+    right: 12px;
     top: 8px;
 }
 
@@ -562,7 +557,7 @@ ul#profile-menu li.active a {
 }
 
 .question-container .answer .media-wrapper {
-    margin: 0 -15px 15px -15px;
+    margin: 0 -12px 12px -12px;
     max-width: none;
 }
 
@@ -630,13 +625,13 @@ ul#profile-menu li.active a {
 
 .question-container .comments-wrapper .btn-prev {
     display: none;
-    padding-top: 15px;
+    padding-top: 12px;
     background: #f5f5f5;
 }
 
 .question-container .comments-wrapper .form-wrapper {
     background: #fff;
-    padding: 15px;
+    padding: 12px;
 }
 
 .comments-wrapper .toggle-anonymous, .comments-wrapper .submit {
@@ -667,7 +662,7 @@ ul#profile-menu li.active a {
 }
 
 .question-comment-container .panel-body:first-of-type {
-    padding-top: 15px;
+    padding-top: 12px;
 }
 
 .question-comment-container .panel-body p {
@@ -688,7 +683,7 @@ ul#profile-menu li.active a {
 
 .question-comment-container .close {
     position: absolute;
-    right: 15px;
+    right: 12px;
     top: 5px;
     font-size: 110%;
 }
@@ -790,7 +785,7 @@ ul#profile-menu li.active a {
     position: absolute;
     left: 0;
     bottom: 0;
-    padding: 0 15px 0 15px;
+    padding: 0 12px 0 12px;
 }
 
 #profile-buttons-container-small {
@@ -799,7 +794,7 @@ ul#profile-menu li.active a {
 
 #profile-tabs-content .panel-footer-main,
 #main-content-container .panel-footer-main {
-    margin-bottom: -15px;
+    margin-bottom: -12px;
 }
 
 #profile-tabs-content .panel-footer-main .pagination,
@@ -820,8 +815,8 @@ ul#profile-menu li.active a {
 
 .list-elem-container {
     text-align: center;
-    margin-top: 15px;
-    margin-bottom: 15px;
+    margin-top: 12px;
+    margin-bottom: 12px;
     position: relative;
 }
 
@@ -873,8 +868,8 @@ ul#profile-menu li.active a {
 
 .photo-container .overlay .caption {
     position: absolute;
-    left: 15px;
-    bottom: 15px;
+    left: 12px;
+    bottom: 12px;
     color: #fff;
     text-shadow: 1px 1px 1px #080707;
     font-weight: bold;
@@ -888,21 +883,11 @@ ul#profile-menu li.active a {
 }
 
 /*INDEX*/
-#user-info-wrapper .panel-body {
-    text-align: center;
-}
-#user-info-wrapper .panel-body .nav{
-    text-align: left;
-}
+
 #user-info-wrapper .user-avatar {
     max-width: 80%;
 }
 
-.user-info em {
-    display: inline-block;
-    margin-bottom: 10px;
-    font-size: 0.9em;
-}
 
 #activity-menu-wrapper .nav-justified > li {
     display: table-cell;
@@ -924,16 +909,12 @@ ul#profile-menu li.active a {
 }
 
 .btn-newest-container {
-    padding-bottom: 15px;
+    padding-bottom: 12px;
     display: none;
 }
 
-#user-info-wrapper .users-online-container {
-    padding: 0 8px 0 8px;
-}
-
 .users-online-wrapper {
-    margin-bottom: 15px;
+    margin-bottom: 12px;
 }
 
 .users-online-wrapper .users-online-container a img {
@@ -1058,7 +1039,7 @@ ul#profile-menu li.active a {
 
 #notifications-container .tab-content,
 #main-content-container .tab-content {
-    padding-top: 15px;
+    padding-top: 12px;
 }
 
 #notifications-container .tab-content .user-avatar-wrapper {
@@ -1094,11 +1075,11 @@ ul#profile-menu li.active a {
 #q {
     background-color: #007BAB;
     border: 0;
-    border-radius: 15px;
+    border-radius: 12px;
     color: #fff;
     text-align: left;
     padding-right: 30px;
-    padding-left: 15px;
+    padding-left: 12px;
     -webkit-box-shadow: inset 1px 1px 1px 0px #00364b;
     box-shadow: inset 1px 1px 1px 0px #00364b;
 }
@@ -1144,7 +1125,7 @@ ul#profile-menu li.active a {
 #live-search-results-container .live-search-results-item img {
     width: 50px;
     position: absolute;
-    left: 15px;
+    left: 12px;
     top: 10px;
 }
 
@@ -1196,7 +1177,7 @@ ul#profile-menu li.active a {
 
 #profile-videos-container .list-elem-container .close {
     top: 10px;
-    right: 15px;
+    right: 12px;
 }
 
 .short-text {
@@ -1213,7 +1194,7 @@ ul#profile-menu li.active a {
 }
 
 .add-container.content-horizontal {
-    margin-bottom: 15px;
+    margin-bottom: 12px;
 }
 
 .add-container-answer ins {
@@ -1228,7 +1209,7 @@ h1, .h1 {
 
 #profile-top-full{
     width: 100%;
-    margin-top: 52px;
+    margin-top: 50px;
 }
 
 #profile-top-full .bg-container {
@@ -1279,41 +1260,65 @@ h1, .h1 {
     border-top: 0;
 }
 
-.user-info-wrapper .panel-body {
+.profile-info-wrapper .panel-body {
     padding-top: 140px;
 } 
 
-.user-info-footer .stats-contaier, .user-info-footer .img-container {
+.profile-info-footer .stats-contaier, .profile-info-footer .img-container {
     display: inline-block; float: left; text-align: center;
 }
 
-.user-info-footer .data-row-1, .user-info-footer .data-row-2 {
+.profile-info-footer .data-row-1, .profile-info-footer .data-row-2 {
     clear: both;
     float: left;
     width: 100%;
 }
 
-.user-info-footer .data-row-1 .stats-contaier {
+.profile-info-footer .data-row-1 .stats-contaier {
     width: 50%;
 }
 
-.user-info-footer .data-row-1 .stats-contaier:first-child {
+.profile-info-footer .data-row-1 .stats-contaier:first-child {
     width: 40%;
 }
 
-.user-info-footer .data-row-1 .img-container {
+.profile-info-footer .data-row-1 .img-container {
     width: 10%;
 }
 
-.user-info-footer .data-row-2 {
+.profile-info-footer .data-row-2 {
     margin-top: 10px;
     padding-top: 10px;
     border-top: 1px solid #e4e4e4;
 }
 
-.user-info-footer .data-row-2 .stats-contaier {
+.profile-info-footer .data-row-2 .stats-contaier {
     width: 33.3333333%;
 }
+
+.profile-info-wrapper#user-info-wrapper .panel-body {
+    padding-top: 0;
+}
+
+.profile-info-wrapper#user-info-wrapper .profile-avatar-wrapper {
+    margin-left: -12px;
+    margin-right: -12px;
+    background-size:cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+    height: 200px;
+    position: relative;
+    margin-bottom: 50px;
+}
+
+.profile-info-wrapper#user-info-wrapper .profile-avatar-wrapper .user-avatar {
+    width: 50%;
+    position: absolute;
+    left: 50%;
+    bottom: -45px;
+    margin-left: -25%;
+}
+ 
 
 #question-form-wrapper {
     display: none;
@@ -1335,7 +1340,7 @@ h1, .h1 {
     .navbar-nav > li > a.btn {
         padding-top: 0;
         padding-bottom: 0;
-        margin: 15px 0 15px 0;
+        margin: 12px 0 12px 0;
     }
     #main-search-form-wrapper {
         margin-top: 2px;
@@ -1373,13 +1378,13 @@ h1, .h1 {
 
 @media (max-width: 1199px) { 
     .add-container-left, .add-container-right {
-        margin-left: -15px;
+        margin-left: -12px;
     }
 }
 
 @media (max-width: 991px) { 
     .profile-info-wrapper .progress {
-        margin-bottom: 15px;
+        margin-bottom: 12px;
     }
     #profile-top .col-md-3 {
         width: 20%;
@@ -1389,8 +1394,8 @@ h1, .h1 {
     #profile-buttons-container-small {
         display: inline-block;
         position: absolute;
-        right: 15px;
-        bottom: 15px;
+        right: 12px;
+        bottom: 12px;
     }
     #profile-buttons-container-small > .dropdown-menu {
         left: -120px;    
@@ -1574,7 +1579,7 @@ ul#profile-menu li a {
 
 .sep-panels-container#main-content-container > .panel-footer-main,
 .sep-panels-container#profile-tabs-content > .panel-footer-main {
-    margin-bottom: 20px;
+    margin-bottom: 12px;
 }
 
 #profile-btns li {

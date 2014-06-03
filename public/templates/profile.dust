@@ -87,8 +87,8 @@
 </div>
 <div class="container profile">
     <div class="row">
-        <div class="col-md-3 hidden-sm hidden-xs user-info-wrapper">
-             {>"profile/partials/user_panel" user=profile /}
+        <div class="col-md-3 hidden-sm hidden-xs profile-info-wrapper">
+             {>"profile/partials/user_panel" showButtons="1" showOnline="1"/}
              {>"layouts/partials/ads/left_wide"/}
         </div>
         <div class="col-md-7">

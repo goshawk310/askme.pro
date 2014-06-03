@@ -699,6 +699,7 @@ askmePro.views.ProfilePhotosView = Backbone.View.extend({
             data: {limit: thisObj.limit, page: page || 0},
             success: function (collection, response, options) {
                 if (!response.total) {
+                    thisObj.loader('hide');
                     return;
                 }
                 var display = function display() {

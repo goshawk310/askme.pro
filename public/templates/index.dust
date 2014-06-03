@@ -2,9 +2,8 @@
 {<body}
 <div class="container">
     <div class="row">
-        <div class="col-md-3 hidden-sm hidden-xs" id="user-info-wrapper">
-            {>"index/partials/user_panel" /}
-            {>"partials/users/online" type="friends" onlineUsers="{onlineUsers}" /}
+        <div class="col-md-3 hidden-sm hidden-xs profile-info-wrapper" id="user-info-wrapper">
+            {>"profile/partials/user_panel" profile=user showStats="1" showAvatar="1" /}
             {>"layouts/partials/ads/left_wide"/}
         </div>
         <div class="col-md-9 col-sm-12 col-xs-12" id="main-content-wrapper">
