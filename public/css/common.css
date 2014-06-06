@@ -1702,7 +1702,6 @@ ul#profile-menu li a {
 
 .canvas-left > .content, .canvas-right > .content {
     padding: 62px 12px 12px 12px;
-    font-size: 0.9em;
 }
 
 @media (min-width: 1100px) {
@@ -1800,6 +1799,10 @@ ul#profile-menu li a {
 
 /*canvas left content*/
 
+.canvas-left .content {
+    font-size: 0.9em;
+}
+
 .canvas-left .main-search-form-elems .popover {
     width: 274px;
 }
@@ -1815,4 +1818,8 @@ ul#profile-menu li a {
 
 .canvas-left .main-menu {
     margin-top: 12px;
+}
+
+.canvas-left .dropdown-menu.dropdown-menu {
+    top: auto;
 }
