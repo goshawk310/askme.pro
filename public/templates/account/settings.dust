@@ -8,9 +8,9 @@
                 {?message}
                     {@message data=message /}
                 {/message}
-                <div class="panel panel-default box-shadow">
+                <div class="panel panel-default">
                     <div class="panel-heading">
-                        <h4>{@__ phrase="Ustawienia" /}</h4>
+                        <h4 class="no-margin">{@__ phrase="Ustawienia" /}</h4>
                     </div>
                     <div class="panel-body">
                         <ul class="nav nav-pills" id="settings-tabs">

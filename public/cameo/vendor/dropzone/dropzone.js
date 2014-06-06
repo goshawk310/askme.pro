@@ -67,7 +67,7 @@ require.aliases = {};
  */
 
 require.resolve = function(path) {
-  if (path.charAt(0) === 'index.html') path = path.slice(1);
+  if (path.charAt(0) === '/') path = path.slice(1);
 
   var paths = [
     path,
@@ -98,8 +98,8 @@ require.normalize = function(curr, path) {
 
   if ('.' != path.charAt(0)) return path;
 
-  curr = curr.split('index.html');
-  path = path.split('index.html');
+  curr = curr.split('/');
+  path = path.split('/');
 
   for (var i = 0; i < path.length; ++i) {
     if ('..' == path[i]) {
@@ -109,7 +109,7 @@ require.normalize = function(curr, path) {
     }
   }
 
-  return curr.concat(segs).join('index.html');
+  return curr.concat(segs).join('/');
 };
 
 /**
@@ -183,10 +183,10 @@ require.relative = function(parent) {
     // resolve deps by returning
     // the dep in the nearest "deps"
     // directory
-    var segs = parent.split('index.html');
+    var segs = parent.split('/');
     var i = lastIndexOf(segs, 'deps') + 1;
     if (!i) i = 0;
-    path = segs.slice(0, i + 1).join('index.html') + '/deps/' + path;
+    path = segs.slice(0, i + 1).join('/') + '/deps/' + path;
     return path;
   };
 
@@ -200,7 +200,7 @@ require.relative = function(parent) {
 
   return localRequire;
 };
-require.register("component-emitter/index.html", function(exports, require, module){
+require.register("component-emitter/index.js", function(exports, require, module){
 
 /**
  * Expose `Emitter`.
@@ -351,16 +351,16 @@ Emitter.prototype.hasListeners = function(event){
 };
 
 });
-require.register("dropzone/index.html", function(exports, require, module){
+require.register("dropzone/index.js", function(exports, require, module){
 
 
 /**
  * Exposing dropzone
  */
-module.exports = require("lib/dropzone.html");
+module.exports = require("./lib/dropzone.js");
 
 });
-require.register("dropzone/lib/dropzone.html", function(exports, require, module){
+require.register("dropzone/lib/dropzone.js", function(exports, require, module){
 /*
 #
 # More info at [www.dropzonejs.com](http://www.dropzonejs.com)
@@ -1908,8 +1908,8 @@ require.register("dropzone/lib/dropzone.html", function(exports, require, module
 }).call(this);
 
 });
-require.alias("component-emitter/index.html", "dropzone/deps/emitter/index.html");
-require.alias("component-emitter/index.html", "emitter/index.html");
+require.alias("component-emitter/index.js", "dropzone/deps/emitter/index.js");
+require.alias("component-emitter/index.js", "emitter/index.js");
 if (typeof exports == "object") {
   module.exports = require("dropzone");
 } else if (typeof define == "function" && define.amd) {

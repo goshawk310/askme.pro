@@ -23,11 +23,4 @@ $(document).ready(function () {
         container.masonry({itemSelector: ".item"});
     });
 
-    $(".gallery .item").on("mouseenter",function(){
-        $(this).find(".overlay-text").addClass("bounceInUp");
-    });
-    $(".gallery .item").on("mouseleave",function(){
-        $(this).find(".overlay-text").removeClass("bounceInUp");
-    });
-
 });

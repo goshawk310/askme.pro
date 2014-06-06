@@ -1,37 +1,35 @@
-<div id="footer">
-    <div class="container">
-        <ul class="nav nav-pills navbar-left">
-            <li>&copy; {@dateTime format="YYYY" /} askme.pro {@__ phrase="All rights reserved."/}</li>
+<div class="container footer">
+    <ul class="nav nav-pills navbar-left rights-reserved-container">
+        <li>&copy; {@dateTime format="YYYY" /} askme.pro {@__ phrase="All rights reserved."/}</li>
+    </ul>
+    <div class="btn-group dropup pull-right change-lang-container">
+        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+            {#config.locales}
+                {@eq key=key value="{locale}"}
+                    <img src="/images/flags/{key}.png" alt="{name}"> {name} <span class="caret"></span>
+                {/eq}
+            {/config.locales}
+        </button>
+        <ul class="dropdown-menu pull-right">
+            {#config.locales}
+                {@ne key=key value="{locale}"}
+                    <li>
+                        <a href="/locale/{key}"><img src="/images/flags/{key}.png" alt="{name}"> {name}</a>
+                    </li>
+                {/ne}
+            {/config.locales}
         </ul>
-        <div class="btn-group dropup pull-right">
-            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-                {#config.locales}
-                    {@eq key=key value="{locale}"}
-                        <img src="/images/flags/{key}.png" alt="{name}"> {name} <span class="caret"></span>
-                    {/eq}
-                {/config.locales}
-            </button>
-            <ul class="dropdown-menu pull-right">
-                {#config.locales}
-                    {@ne key=key value="{locale}"}
-                        <li>
-                            <a href="/locale/{key}"><img src="/images/flags/{key}.png" alt="{name}"> {name}</a>
-                        </li>
-                    {/ne}
-                {/config.locales}
-            </ul>
-        </div>
-        <ul class="nav nav-pills navbar-right">
-            <li><a href="mailto:ask@askme.pro">{@__ phrase="Kontakt" /}</a></li>
-            <li><a href="/site/terms">{@__ phrase="Regulamin"/}</a></li>
-            <li><a href="/site/privacy">{@__ phrase="Polityka prywatności"/}</a></li>
-        </ul>
-        <div class="clearfix"></div>
-        <div class="center-block">
-            <hr>
-            <small>
-                {@__ phrase="Askme.pro, wysyłaj i odbieraj anonimowe pytania aby dowiedzieć się, co inni myślą o Tobie. Załóż darmowe konto i baw się razem z nami"/}
-            </small>
-        </div> 
     </div>
+    <ul class="nav nav-pills navbar-right footer-menu">
+        <li><a href="mailto:ask@askme.pro">{@__ phrase="Kontakt" /}</a></li>
+        <li><a href="/site/terms">{@__ phrase="Regulamin"/}</a></li>
+        <li><a href="/site/privacy">{@__ phrase="Polityka prywatności"/}</a></li>
+    </ul>
+    <div class="clearfix"></div>
+    <div class="center-block">
+        <hr>
+        <small>
+            {@__ phrase="Askme.pro, wysyłaj i odbieraj anonimowe pytania aby dowiedzieć się, co inni myślą o Tobie. Załóż darmowe konto i baw się razem z nami"/}
+        </small>
+    </div> 
 </div>

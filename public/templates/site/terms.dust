@@ -4,9 +4,9 @@
     <div class="row">
         <div class="col-md-12">
             <div class="center-block">
-                <div class="panel panel-default box-shadow" id="main-content-wrapper">
+                <div class="panel panel-default" id="main-content-wrapper">
                     <div class="panel-heading">
-                        <h1>{@__ phrase="Regulamin" /}</h1>
+                        <h1 class="no-margin">{@__ phrase="Regulamin" /}</h1>
                     </div>
                     <div class="panel-body" id="main-content-container">
                         <h3><b>askme.pro</b> jest serwisem społecznościowym, pytaj i odpowiadaj, sprawdź co inni myślą o Tobie!</h3>

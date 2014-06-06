@@ -11,7 +11,7 @@
         <title>{+title}askme.pro{/title}</title>
         <!-- Bootstrap core CSS -->
         <link href="/components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
-        <link href="/cameo/min/main.min.css" rel="stylesheet" />
+        <link href="/cameo/css/main.css" rel="stylesheet" />
         <link href="/css/theme.css" rel="stylesheet" />
         <link href="/css/common.css?7" rel="stylesheet" />
 
@@ -41,7 +41,7 @@
 
         </script>
     </head>
-    <body>
+    <body{?user} class="logged-in"{/user}>
         <div id="fb-root"></div>
         <script>(function(d, s, id) {
           var js, fjs = d.getElementsByTagName(s)[0];
@@ -50,6 +50,9 @@
           js.src = "//connect.facebook.net/pl_PL/all.js#xfbml=1&appId=600921269985597";
           fjs.parentNode.insertBefore(js, fjs);
         }(document, 'script', 'facebook-jssdk'));</script>
+        {?user}
+            {>"layouts/partials/canvas_left"/}
+        {/user}
         <div id="wrapper"{+wrapperAttribs}{?user.background} class="custom-bg" style="background-image: url('{user.background}')"{/user.background}{/wrapperAttribs}>
             {>"layouts/partials/top"/}
             <div id="content">
@@ -58,7 +61,13 @@
             </div>
             <div class="clearfix"></div>
         </div>
-        {>"layouts/partials/footer"/}
+        {?user}
+            <div class="canvas-right bg-dark">
+            </div>
+        {/user}
+        <div id="footer" class="hidden-xs">
+            {>"layouts/partials/footer"/}
+        </div>
         <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
         <script src="/js/ntfctns.js?1"></script>
         <script src="/components/underscore-min.js"></script>
@@ -66,6 +75,9 @@
         <script src="/components/deep-model.min.js"></script>
         <script src="/components/bootstrap/dist/js/bootstrap.min.js"></script>
         <script src="/js/app.js?1"></script>
+        {?user}
+            <script src="/js/off-canvas.js?1"></script>
+        {/user}
         <script type="text/javascript">
             askmePro.data.user = {
                 id: {?user._id}'{user._id}'{:else}null{/user._id}

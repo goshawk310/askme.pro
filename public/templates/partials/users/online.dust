@@ -5,7 +5,7 @@
         {/eq}
         <div class="users-online-container">
             {#onlineUsers}
-                <a href="/{.username}">{@userAvatar user=. size="cropped/100x" cssClass="box-shadow"/}</a>
+                <a href="/{.username}">{@userAvatar user=. size="cropped/100x"/}</a>
             {/onlineUsers}
         </div>
     {/onlineUsers}

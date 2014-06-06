@@ -12,9 +12,9 @@
                 {?message}
                     {@message data=message /}
                 {/message}
-                <div class="panel panel-default box-shadow">
+                <div class="panel panel-default">
                     <div class="panel-heading">
-                        <h4>{@__ phrase="Zaloguj się" /}</h4>
+                        <h4 class="no-margin">{@__ phrase="Zaloguj się" /}</h4>
                     </div>
                     <div class="panel-body">
                         <form role="form" method="post" action="/account/login">

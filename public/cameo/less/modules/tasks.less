@@ -1,0 +1,47 @@
+/*
+ *  $Tasks
+ *
+ */
+
+.tasks {
+    .task-toolbar {
+        .opacity(0);
+        .transition(opacity 0.5s);
+        .user {
+            display: inline-block;
+        }
+    }
+    .panel {
+        margin-top: 0!important;
+        border-bottom: 1px solid @border-color;
+
+    }
+    .panel-heading {
+        padding: 15px;
+    }
+    .panel:hover > .panel-heading > .task-toolbar {
+        .opacity(1);
+    }
+    .list-group-item {
+        display: block;
+    }
+    li {
+        display: block;
+        background: #fff;
+    }
+    li span {
+        float: left;
+    }
+    .checkbox {
+        display: inline-block!important;
+        float: left;
+        margin: 1px 5px 0 0;
+        padding: 0;
+    }
+    .checkbox-custom i {
+        background: transparent!important;
+    }
+}
+.panel-group.tasks .panel {
+    overflow: visible;
+}

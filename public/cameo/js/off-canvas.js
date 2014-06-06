@@ -1,23 +1,27 @@
 ! function ($) {
     "use strict";
 
-    var container = $("#content"), canvasDirection;
+    var container = $(".app"), canvasDirection, w = $(window), delay = 300;
 
-    function closeOffCanvas() {
+    function closeOffCanvas(delay) {
         setTimeout(function(){
           container.removeClass("off-canvas");
           canvasDirection = undefined;
-        }, 300);
+        }, delay);
     }
 
-    $(".col-md-7").append('<div class="site-overlay"></div>');
+    $(".main-content").append('<div class="site-overlay"></div>');
 
-    $(document).on("click", "#navbar-logo > a", function (e) {
+    $(document).on("click", "[data-toggle=off-canvas]", function (e) {
 
         e.preventDefault();
 
+        if (w.width() >= 767 ) {
+            delay = 0;
+        }
+
         if ($(this).data("move") === canvasDirection) {
-            closeOffCanvas();
+            closeOffCanvas(delay);
         }
 
         if ($(this).data("move") !== undefined && $(this).data("move") === "rtl") {
@@ -38,8 +42,12 @@
 
         e.preventDefault();
 
+        if (w.width() >= 767) {
+            delay = 0;
+        }
+
         if (container.hasClass("move-right") || container.hasClass("move-left")) {
-            closeOffCanvas();
+            closeOffCanvas(delay);
         }
 
         if (container.hasClass("move-right")) {

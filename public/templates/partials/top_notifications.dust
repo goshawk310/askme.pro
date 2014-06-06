@@ -7,7 +7,7 @@
                         <div class="list-group-item">
                             <div class="media">
                                 <a class="pull-left user-avatar-wrapper" href="/<%=elements[i].from.username%>">
-                                    <%=askmePro.views.helpers.userAvatar({user: elements[i].from, size: 'cropped/100x', link: false, cssClass: 'media-object box-shadow img-circle'})%>
+                                    <%=askmePro.views.helpers.userAvatar({user: elements[i].from, size: 'cropped/100x', link: false, cssClass: 'media-object img-circle'})%>
                                 </a>
                                 <div class="media-body">
                                     <a href="/questions/<%=elements[i].question_id%>" class="question-link"> 
@@ -37,7 +37,7 @@
                     <div class="list-group-item">
                         <div class="media">
                             <a class="pull-left user-avatar-wrapper"<% if (elements[i].from) {~lb}%> href="/<%=elements[i].from.username%>"<% {~rb} %>>
-                                <%=askmePro.views.helpers.userAvatar({user: elements[i].from, size: 'cropped/100x', link: false, cssClass: 'media-object box-shadow img-circle'})%>
+                                <%=askmePro.views.helpers.userAvatar({user: elements[i].from, size: 'cropped/100x', link: false, cssClass: 'media-object img-circle'})%>
                             </a>
                             <div class="media-body">
                                 <a href="/inbox" class="question-link"> 
@@ -74,7 +74,7 @@
                                 <div class="list-group-item">
                                     <div class="media">
                                         <a class="pull-left user-avatar-wrapper" href="/<%=answers[i].to.username%>">
-                                            <%=askmePro.views.helpers.userAvatar({user: answers[i].to, size: 'cropped/100x', link: false, cssClass: 'media-object box-shadow img-circle'})%>
+                                            <%=askmePro.views.helpers.userAvatar({user: answers[i].to, size: 'cropped/100x', link: false, cssClass: 'media-object img-circle'})%>
                                         </a>
                                         <div class="media-body">
                                             <a href="/questions/<%=answers[i]._id%>" class="question-link"> 
@@ -104,7 +104,7 @@
                                 <div class="list-group-item">
                                     <div class="media">
                                         <a class="pull-left user-avatar-wrapper" href="/<%=comments[i].from.username%>">
-                                            <%=askmePro.views.helpers.userAvatar({user: comments[i].from, size: 'cropped/100x', link: false, cssClass: 'media-object box-shadow img-circle'})%>
+                                            <%=askmePro.views.helpers.userAvatar({user: comments[i].from, size: 'cropped/100x', link: false, cssClass: 'media-object img-circle'})%>
                                         </a>
                                         <div class="media-body">
                                             <a href="/questions/<%=comments[i].question_id%>" class="question-link"> 

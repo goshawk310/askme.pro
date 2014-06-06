@@ -1,0 +1,45 @@
+/*
+ * Bootstrap $Navs
+ *
+ */
+
+/* Pills */
+.nav-pills > li.active > a,
+.nav-pills > li.active > a:hover,
+.nav-pills > li.active > a:focus {
+    color: #fff;
+    background-color: @brand-primary;
+}
+.nav-pills > li > a {
+    .rounded(@border-radius-base);
+}
+/* Tabs */
+.nav-tabs {
+    border-bottom: 0;
+    border-radius: @border-radius-base @border-radius-base 0 0;
+    background: @brand-default;
+    & > li {
+        margin: 0;
+    }
+    & > li >a {
+        border: 0;
+        border-radius: @border-radius-base @border-radius-base 0 0;
+    }
+    & > li.active > a,
+    & > li.active > a:hover,
+    & > li.active > a:focus {
+        border: 0;
+    }
+    & > li > a:hover,
+    & > li > a:hover,
+    & > li > a:focus {
+        border: 0;
+        background-color: #f9f9f9;
+    }
+}
+.nav .open > a,
+.nav .open > a:hover,
+.nav .open > a:focus {
+    border-color: transparent;
+    background-color: transparent;
+}

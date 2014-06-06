@@ -1,0 +1,309 @@
+/*
+ * $FuelUX Checkbox
+ *
+ */
+
+.form-inline .checkbox-custom .checkbox {
+    padding-left: 16px;
+}
+.checkbox-custom,
+.radio-custom {
+    padding: 0;
+    min-height: 16px
+}
+.checkbox-custom {
+    display: block!important;
+    font-weight: 400;
+    margin-bottom: 0;
+    margin-top: 0;
+    i.checked:before {
+        position: absolute;
+        top: 0px;
+        right: 2px;
+        content: @check-tick;
+        font-size: 13px;
+        font-family: @checkbox-tick-fontfamily;
+    }
+    i.disabled:before {
+        border-color: #ccc;
+        color: #ccc;
+    }
+}
+.checkbox-custom input[type=checkbox],
+.radio-custom input[type=radio] {
+    position: relative;
+    left: -99999px;
+}
+.checkbox-custom i,
+.radio-custom i {
+    min-height: 16px!important;
+    position: relative;
+    display: inline-block;
+    overflow: hidden;
+    margin-top: 1px;
+    margin-bottom: 0;
+    padding: 0!important;
+    width: 18px;
+    height: 18px;
+    border: 1px solid @black-30;
+    .rounded(@border-radius-base);
+    background: #fff;
+    content: "";
+    cursor: pointer;
+}
+.checkbox-custom:hover i.checked {
+    border-color: #ccc;
+}
+
+/*
+ * FuelUX Radio button
+ *
+ */
+.radio-custom.highlight {
+    padding: 4px 4px 4px 24px;
+}
+.radio-custom.highlight.checked {
+    .rounded(@border-radius-base);
+    background: @brand-default;
+}
+.radio-custom {
+    font-weight: 400;
+    i {
+        .rounded(50%);
+    }
+    i.checked:before {
+        position: absolute;
+        top: -2px;
+        right: 1px;
+        color: @brand-success;
+        content: @radio-tick;
+        text-transform: none;
+        font-weight: normal;
+        font-style: normal;
+        font-variant: normal;
+        font-size: 16px;
+        font-family: @radio-tick-fontfamily;
+        speak: none;
+    }
+    i.disabled:before {
+        border-color: @black-20;
+        color: @black-20;
+    }
+}
+.radio-custom:hover i.checked {
+    border-color: @black-20;
+}
+
+/*
+ * FuelUX Pill
+ *
+ */
+
+.pillbox {
+    margin-bottom: 10px;
+    padding: 5px;
+    border: 1px solid @input-border;
+    .rounded(@border-radius-base);
+    line-height: 1;
+    ul {
+        display: inline-block;
+        margin: 0;
+    }
+    li {
+        display: inline-block;
+        margin: 2px;
+        padding: 4px;
+        vertical-align: middle;
+        cursor: pointer;
+        .rounded(@border-radius-base);
+        font-weight: bold;
+    }
+    li:after {
+        position: relative;
+        float: right;
+        padding-left: 4px;
+        content: " \00D7";
+        font-size: 12px;
+    }
+    li.status-important {
+        background-color: @brand-danger;
+    }
+    li.status-warning {
+        background-color: @brand-warning;
+    }
+    li.status-success {
+        background-color: @brand-success;
+    }
+    li.status-info {
+        background-color: @brand-info;
+    }
+}
+
+/*
+ * FuelUX Spinner
+ *
+ */
+
+.spinner {
+    width: 100%;
+    position: relative;
+    input {
+        float: left;
+        width: 43px;
+    }
+    .btn {
+        position: relative;
+        padding-top: 0;
+        padding-right: 9px;
+        padding-left: 9px;
+        height: 16px;
+        width: 26px;
+        .rounded(0);
+    }
+    .btn.disabled {
+        cursor: not-allowed;
+    }
+    .spinner-buttons {
+        width: 26px;
+        position: absolute;
+        right: 1px;
+        top: 1px;
+        left: auto;
+        z-index: @zindex-spinner;
+        .btn {
+            margin: 0;
+            padding: 0;
+        }
+    }
+}
+.spinner .spinner-up,
+.spinner .spinner-down {
+    top: 0px;
+    padding: 0 0 4px 1px;
+    line-height: 1;
+    vertical-align: middle;
+}
+
+/*
+ * FuelUX Wizard
+ *
+ */
+.wizard {
+    position: relative;
+    overflow: hidden;
+    border-bottom: 1px solid @wizard-color;
+    background-color: @wizard-color;
+    .border-radius(@border-radius-base, 0, 0, @border-radius-base);
+    ul {
+        margin: 0;
+        float: left;
+        li {
+            position: relative;
+            display: inline-block;
+            margin: 0;
+            padding: 0 20px 0 30px;
+            height: 40px;
+            line-height: 40px;
+            background: transparent;
+            cursor: default;
+            &:before {
+                position: absolute;
+                top: 0;
+                right: -15px;
+                z-index: 9;
+                display: block;
+                border: 21px solid transparent;
+                border-right: 0;
+                border-left: 14px solid @wizard-color;
+                content: "";
+            }
+            &:after {
+                position: absolute;
+                top: -1px;
+                right: -16px;
+                z-index: 1;
+                display: block;
+                border: 22px solid transparent;
+                border-right: 0;
+                border-left: 15px solid #B8BEC4;
+                content: "";
+            }
+            .badge {
+                margin-right: 8px;
+            }
+        }
+        li.complete {
+            background: @wizard-color;
+            .badge {
+                background: @brand-success;
+            }
+            &:before {
+                border-left: 14px solid @wizard-color;
+            }
+        }
+        li.complete:hover {
+            background: #e7eff8;
+            cursor: pointer;
+            &:before {
+                border-left: 14px solid #e7eff8;
+            }
+        }
+        li.active {
+            background: #fff;
+            color: @brand-info;
+            &:before {
+                border-left: 14px solid #fff;
+                right: -14px;
+            }
+            &:after {
+                right: -15px;
+            }
+        }
+        li:first-child {
+            padding-left: 20px;
+            .border-radius(0, 0, 0, @border-radius-base);
+        }
+    }
+    ul.previous-disabled {
+        li.complete {
+            cursor: default;
+        }
+        li.complete:hover {
+            background: #f3f4f5;
+            &:before {
+                border-left-color: #f3f4f5;
+            }
+        }
+    }
+    .actions {
+        position: absolute;
+        right: 0;
+        z-index: 1000;
+        float: right;
+        padding-top: 6px;
+        padding-right: @size-base;
+        padding-left: @size-base;
+        vertical-align: middle;
+        line-height: 37px;
+        a {
+            margin-right: 8px;
+            font-size: 12px;
+            line-height: 45px;
+        }
+    }
+}
+.step-content {
+    padding: @size-base;
+
+.step-pane {
+        display: none;
+    }
+    .active {
+        display: block;
+        .btn-group {
+            .active {
+                display: inline-block;
+            }
+        }
+    }
+}

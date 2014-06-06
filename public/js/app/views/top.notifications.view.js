@@ -36,7 +36,8 @@ $(function () {
             }
         }  
     };
-    $('#notify-likes').on('click', function () {
+    $('#notify-likes').on('click', function (e) {
+        e.preventDefault();
         var $this = $(this);
         hideActive('likes');
         if (!likesInitialized) {
@@ -53,7 +54,8 @@ $(function () {
         }
         $this.popover('toggle');
     });
-    $('#notify-questions').on('click', function () {
+    $('#notify-questions').on('click', function (e) {
+        e.preventDefault();
         var $this = $(this);
         hideActive('questions');
         if (!questionsInitialized) {
@@ -69,7 +71,8 @@ $(function () {
         }
         $this.popover('toggle');
     });
-    $('#notify-feed').on('click', function () {
+    $('#notify-feed').on('click', function (e) {
+        e.preventDefault();
         var $this = $(this);
         hideActive('feed');
         if (!feedInitialized) {
@@ -90,6 +93,7 @@ $(function () {
         var popover = $('#main-navbar > .container').children('.popover'),
             arrow = null;
         if (popover.length && activePopover !== null) {
+            popover.css({top: '40px'});
             arrow = popover.find('.arrow');
             arrow.css({left: (activePopover.position().left + activePopover.width() / 2  - arrow.width() / 2) + 'px'});
         }

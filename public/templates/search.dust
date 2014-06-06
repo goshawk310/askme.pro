@@ -12,7 +12,7 @@
                 {?message}
                     {@message data=message /}
                 {/message}
-                <div class="panel panel-default box-shadow" id="main-content-wrapper">
+                <div class="panel panel-default" id="main-content-wrapper">
                     <div class="panel-heading">
                         <h4>{@__ phrase="Wyniki wyszukiwania" /}:</h4>
                     </div>

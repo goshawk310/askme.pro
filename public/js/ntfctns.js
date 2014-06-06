@@ -9,7 +9,7 @@ $(function () {
                     counter = feedButton.children('span');
                 askmePro.notifications.top.views[key] = null;    
                 if (!counter.length) {
-                    counter = $('<span>' + count + '</span>');
+                    counter = $('<span class="badge badge-top bg-danger animated flash">' + count + '</span>');
                     feedButton.append(counter);
                 } else {
                     counter.html(count);
@@ -27,7 +27,7 @@ $(function () {
                 .done(function (response) {
                     updateCounter('notify-questions', 'questions', response.questions, function (count) {
                         $('.inbox-count').html(count);
-                        $('#inbox-count').show();
+                        $('.inbox-count-container').show();
                     });
                     askmePro.utils.title.update(response.questions, 'Nowe pytanie');
                     updateCounter('notify-feed', 'feed', response.feed);
@@ -38,6 +38,6 @@ $(function () {
                     ready = true;
                 });
             }, 15000);
-            askmePro.utils.title.update(parseInt($('#inbox-count > .inbox-count').text(), 10), false);
+            askmePro.utils.title.update(parseInt($('.inbox-count-container > .inbox-count').text(), 10), false);
     }
 })

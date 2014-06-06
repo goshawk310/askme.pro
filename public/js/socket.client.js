@@ -25,7 +25,7 @@ $(function () {
         socket.on('questions', function (data) {
             updateCounter('notify-questions', 'questions', function (count) {
                 $('.inbox-count').html(count);
-                $('#inbox-count').show();
+                $('.inbox-count-container').show();
             });
         });
         socket.on('likes', function (data) {

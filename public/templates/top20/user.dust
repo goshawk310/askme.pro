@@ -2,7 +2,7 @@
     <div class="row user-container" id="<%=user._id%>">
         <div class="col-md-10">
             <div class="media">
-                <span class="pull-left top-20-index">#<%=user.index%></span><%=askmePro.views.helpers.userAvatar({~lb}user: user, size: 'cropped/100x', wrapper: true, cssClass: "box-shadow img-circle user-avatar small", linkClass: "user-avatar-wrapper pull-left"{~rb})%>
+                <span class="pull-left top-20-index">#<%=user.index%></span><%=askmePro.views.helpers.userAvatar({~lb}user: user, size: 'cropped/100x', wrapper: true, cssClass: "img-circle user-avatar small", linkClass: "user-avatar-wrapper pull-left"{~rb})%>
                 <div class="media-body">
                     <a href="/<%=user.username%>"><%=user.username%></a>
                     <p><%=modeLabel%>: <strong><%=modeValue%></strong></p>

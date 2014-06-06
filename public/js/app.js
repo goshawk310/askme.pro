@@ -148,7 +148,7 @@ var askmePro = {
         title: {
             titleInterval: null,
             title: document.title,
-            unansweredQuestions: parseInt($('#inbox-count > .inbox-count').text(), 10),
+            unansweredQuestions: parseInt($('.inbox-count-container > .inbox-count').text(), 10),
             update: function update(count, message) {
                 var i = 0,
                     thisObj = this;
@@ -157,7 +157,7 @@ var askmePro = {
                 }
                 if (count > this.unansweredQuestions && message) {
                     this.titleInterval = setInterval(function () {
-                        if (parseInt($('#inbox-count > .inbox-count').text(), 10) <= thisObj.unansweredQuestions) {
+                        if (parseInt($('.inbox-count-container > .inbox-count').text(), 10) <= thisObj.unansweredQuestions) {
                             document.title = thisObj.title;
                             clearInterval(thisObj.titleInterval);
                             thisObj.titleInterval = null;
@@ -245,9 +245,9 @@ $(document).ready(function () {
     if (!('ontouchstart' in window) && (!window.DocumentTouch || !(document instanceof DocumentTouch))) {
         $('body').addClass('no-touch');
     }
-    var inboxCount = parseInt($('#inbox-count > span').html(), 10);
+    var inboxCount = parseInt($('.inbox-count-container > span').html(), 10);
     if (inboxCount > 0) {
-        $('#inbox-count').show();
+        $('.inbox-count-container').show();
     }
     if (askmePro.routerIndex !== null) {
         Backbone.emulateHTTP = true;
@@ -261,21 +261,18 @@ $(document).ready(function () {
         askmePro.router = new askmePro.routers[askmePro.routerIndex]();
         Backbone.history.start();
     }
-    $('#q-submit').on('click', function () {
-        $('#main-search-form').submit();
+    $('.q-submit').on('click', function () {
+        $('.main-search-form').submit();
     });
-    $('#main-search-form').on('submit', function (e) {
-        if ($('#q').val().length < 3) {
+    $('.main-search-form').on('submit', function (e) {
+        if ($('.q').val().length < 3) {
             e.preventDefault();
         }
     });
     
     (function() {
-        if (!$('body').hasClass('no-touch')) {
-            return;
-        }
-        var $q = $('#q'),
-            container = $('#main-search-form-elems'),
+        var $q = $('.q'),
+            container = null,
             options = {
                 html: true,
                 trigger: 'manual',
@@ -283,29 +280,29 @@ $(document).ready(function () {
                 content: '&nbsp;'
             },
             template = null,
-            popoverInitialized = false,
             searching = false,
             timeout = null,
             lastQuery = null,
             activePopoverElem = null,
-            init = function init() {
-                $q.popover(options);
+            init = function init(elem) {
+                elem.popover(options);
                 template = _.template($('#live-search-results-tpl').html());
                 $('body').on('click', function (e) {
                     if (activePopoverElem && activePopoverElem.is(':visible') && !container.is(e.target) && container.has(e.target).length === 0) {
                         if (!activePopoverElem.is(e.target) && activePopoverElem.has(e.target).length === 0) {
-                            $q.popover('hide');
+                            elem.popover('hide');
                         }
                     }
                 });
             };
            
-        $('#q').on('keyup', function () {
+        $('.q').on('keyup', function () {
             var $this = $(this),
                 val = $this.val();
             if (searching || val === lastQuery) {
                 return;
             }
+            container = $this.parents('.main-search-form-elems');
             if ($this.val().length > 2) {
                 searching = true;
                 timeout = setTimeout(function () {
@@ -313,11 +310,12 @@ $(document).ready(function () {
                     $.get('/api/users/search', {
                         q: lastQuery, limit: 10
                     }).done(function(response) {
-                        if (!popoverInitialized) {
-                            init();
-                            popoverInitialized = true;
+                        console.log($this.data('initialized'));
+                        if (!$this.data('initialized')) {
+                            init($this);
+                            $this.data('initialized', true);
                         }
-                        $q.popover('show');
+                        $this.popover('show');
                         activePopoverElem = container.find('.popover');
                         container.find('.popover-content').html(template({
                             elements: response.users,
@@ -327,7 +325,7 @@ $(document).ready(function () {
                         searching = false;
                     }).fail(function () {
                         searching = false;
-                        $q.popover('hide');
+                        $this.popover('hide');
                     });
                     clearTimeout(timeout);
                 }, 800);

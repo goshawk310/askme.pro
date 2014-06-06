@@ -1,4 +1,4 @@
-<div class="panel panel-default box-shadow">
+<div class="panel panel-default">
     <div class="panel-body">
         <a href="/{user.username}" class="user-avatar-link">{@userAvatar user=user size="cropped/300x" /}</a>
         <div class="user-info">

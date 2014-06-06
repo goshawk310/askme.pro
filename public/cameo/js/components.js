@@ -13,7 +13,7 @@ $(document).ready(function () {
         }, 500);
     });
 
-    $("[data-toggle=tooltip]").tooltip("show");
+    $("[data-toggle=tooltip]").tooltip();
     
     $("[data-toggle=popover]")
     .popover()

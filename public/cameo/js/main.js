@@ -1,6 +1,6 @@
 var options = {
     "storageName": "cameo",
-    "menuStateStorage": true
+    "menuStateStorage": false
 };
 
 var app = {
@@ -78,6 +78,8 @@ var app = {
         if ($.isFunction($.fn.audioPlayer)) {
             $("audio").audioPlayer();
         }
+        
+        $('input, textarea').placeholder();
 
         $(document).on("click", ".view-options label", function (e) {
             e.preventDefault();
@@ -87,12 +89,6 @@ var app = {
             } else if ($(this).data("view") === "list") {
                 $(".switcher").addClass("view-list").removeClass("view-grid");
             }
-        });
-
-        $(document).on("click", ".toggle-chat", function (e) {
-            e.preventDefault();
-
-            $(".chat-sidebar").toggleClass("active");
         });
 
         $(document).on("click", ".toggle-sidebar ", function (e) {
@@ -172,7 +168,7 @@ var app = {
         });
 
         $(document).on("click", ".collapsible .main-navigation > ul > li > a", function (e) {
-            e.preventDefault();
+            e.stopPropagation();
 
             var subMenu = $(this).next(),
                 parent = $(this).closest("li");
@@ -201,6 +197,8 @@ var app = {
 
 
         app.initialize();
+
+        //$(".canvas-right").css("-webkit-overflow-scrolling", "touch");
 
     });
 

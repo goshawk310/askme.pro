@@ -1,0 +1,6 @@
+<form class="{cssClass}main-search-form" action="/search">
+    <div class="main-search-form-elems">
+        <input name="q" type="text" class="q form-control input-sm" placeholder="{@__ phrase="Szukaj" /}..."{?query} value="{query}"{/query} autocomplete="off">
+        <span class="q-submit glyphicon glyphicon-search"></span>
+    </div>
+</form>

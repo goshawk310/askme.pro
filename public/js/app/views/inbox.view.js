@@ -113,7 +113,8 @@ askmePro.mixins.inboxQuestion = {
         var thisObj = this;
         this.attributes.parent.$('.buttons').hide();    
         this.$('.answer-form-wrapper').show();
-        $(window).scrollTop(this.$('.answer-form-wrapper').position().top);
+        console.log(this.$('.question-container').offset().top);
+        $(window).scrollTop(this.$('.question-container').offset().top - 60);
         if (!this.validationInitialized) {
             this.$('form').validate({
                 rules: {

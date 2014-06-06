@@ -6,8 +6,8 @@
             {>"profile/partials/user_panel" profile=user showStats="1" showAvatar="1" /}
             {>"layouts/partials/ads/left_wide"/}
         </div>
-        <div class="col-md-9 col-sm-12 col-xs-12" id="main-content-wrapper">
-            <div class="panel">
+        <div class="col-md-7 col-sm-12 col-xs-12" id="main-content-wrapper">
+            <div class="panel panel-default">
                 <div class="panel-body">
                     {>"layouts/partials/ads/content_horizontal"/}
                 </div>
@@ -19,6 +19,8 @@
             <div id="main-content-container" class="sep-panels-container">
                 
             </div>
+        </div>
+        <div class="col-md-2">
         </div>
     </div>
 </div>

@@ -17,7 +17,7 @@
    <div class="row question-like-container">
        <div class="col-md-10">
             <div class="media">
-                <%=askmePro.views.helpers.userAvatar({~lb}user: like.from, size: 'cropped/100x', wrapper: true, cssClass: "box-shadow img-circle user-avatar small", linkClass: "user-avatar-wrapper pull-left"{~rb})%>
+                <%=askmePro.views.helpers.userAvatar({~lb}user: like.from, size: 'cropped/100x', wrapper: true, cssClass: "img-circle user-avatar small", linkClass: "user-avatar-wrapper pull-left"{~rb})%>
                 <div class="media-body">
                     <p><a href="/<%=like.from.username%>" target="_blank" class="username text-primary">@<%=like.from.username%></a></p>
                     <p><%=like.from.stats.questions_answered%> {@__ phrase="odpowiedzi" /}</p>

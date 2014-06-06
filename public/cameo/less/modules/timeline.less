@@ -1,0 +1,122 @@
+/*
+ * $Timeline styles
+ *
+ */
+
+.timeline {
+    position: relative;
+    display: table;
+    padding: 0;
+    width: 100%;
+    margin-bottom: -@size-base;
+    &:before {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 50%;
+        width: 2px;
+        background: @timeline-shade-color;
+        content: '';
+    }
+    .panel {
+        position: relative;
+        margin-bottom: 40px;
+        p {
+            margin: 0;
+        }
+    }
+}
+.timeline-heading {
+    display: table;
+    margin: 0 auto;
+    margin-bottom: 30px;
+    padding: 5px 15px;
+    min-width: 80px;
+    .rounded(@border-radius-base);
+    background: @timeline-shade-color;
+    text-align: center;
+    position: relative;
+}
+.timeline-panel {
+    position: relative;
+    display: block;
+    float: left;
+    clear: both;
+    width: 100%;
+    background: transparent;
+    &:before {
+        position: absolute;
+        top: 0;
+        left: 50%;
+        margin: 0 0 0 -7px;
+        width: 16px;
+        height: 16px;
+        border: 1px solid @timeline-shade-color;
+        .rounded(50%);
+        background: #ffffff;
+        content: "";
+    }
+}
+.timeline-content {
+    float: right;
+    width: 50%;
+    padding: 0 0 0 20px;
+    position: relative;
+    margin-top: -10px;
+    & > .panel {
+        border: 1px solid @timeline-border-color;
+        .box-shadow(0 1px 1px rgba(0, 0, 0, 0.05));
+    }
+    & > .panel:after {
+        position: absolute;
+        top: 11px;
+        right: 100%;
+        width: 0;
+        height: 0;
+        border-width: 6px;
+        border-style: solid;
+        border-color: transparent #fff transparent transparent;
+        content: " ";
+        pointer-events: none;
+    }
+    & > .panel:before {
+        position: absolute;
+        top: 10px;
+        right: 100%;
+        width: 0;
+        height: 0;
+        border-width: 7px;
+        border-style: solid;
+        border-color: transparent @timeline-border-color transparent transparent;
+        content: " ";
+        pointer-events: none;
+    }
+}
+.timeline-panel:nth-child(even) .timeline-date {
+    left: -170px;
+    position: absolute;
+    text-align: right;
+    top: 10px;
+    width: 150px;
+}
+.timeline-panel:nth-child(odd) {
+    .timeline-content {
+        float: left;
+        padding: 0 20px 0 0;
+    }
+    .timeline-date {
+        right: -170px;
+        text-align: left;
+        position: absolute;
+        top: 10px;
+        width: 150px;
+    }
+    .panel:after {
+        left: 100%;
+        border-color: transparent transparent transparent #ffffff;
+    }
+    .panel:before {
+        left: 100%;
+        border-color: transparent transparent transparent @timeline-border-color;
+    }
+}

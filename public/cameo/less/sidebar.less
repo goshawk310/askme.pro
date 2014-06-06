@@ -1,0 +1,272 @@
+/*
+ * $Sidebar layout
+ *
+ * Core theme layout styles
+ */
+
+/* main sidebar */
+.sidebar {
+    position: relative;
+    background: @sidebar-default-color;
+    width: @sidebar-width;
+}
+
+/* Menu links */
+.main-navigation {
+    top: 0;
+    bottom: 50px;
+    left: 0;
+    right: 0;
+    position: absolute;
+    
+    /* App layout menu */
+    &.app-navigation {
+        position: relative;
+        & > ul > li > a {
+            padding: 10px 15px;
+        }
+    }
+    ul {
+        margin: 0;
+        & > li > a {
+            display: block;
+            padding: 16px 15px;
+            text-decoration: none;
+        }
+        & > li.active,
+        & > li:hover,
+        & > li.open {
+            background: rgba(0, 0, 0, .05);
+        }
+        & > li i {
+            padding-right: 10px;
+            min-width: 25px;
+            text-align: center;
+        }
+    }
+}
+@media (max-width: @screen-xs-max) {
+    .main-navigation {
+        overflow-x: hidden;
+        overflow-y: auto;
+    }
+    .main-navigation.app-navigation {
+        position: absolute;
+        top: 50px;
+    }
+}
+
+/* Sidebar footer */
+aside footer {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    min-height: 50px;
+    .footer-toolbar {
+        line-height: 50px;
+        padding: 0 @size-base;
+        width: 100%;
+    }
+    .about-app {
+        display: none;
+        &.open {
+            display: block;
+        }
+        img {
+            float: left;
+            margin-right: 10px;
+            width: 50px;
+        }
+    }
+    .toggle-sidebar i {
+        padding: 5px 10px;
+        background: rgba(0, 0, 0, .1);
+        .rounded(2px);
+    }
+}
+
+/* Disable background highlighting on touch devices */
+.touch {
+    li:hover,
+    li:active,
+    li:visited,
+    li:focus,
+    a:hover,
+    a:active,
+    a:visited,
+    a:focus,{
+        background-color: transparent!important;
+    }
+}
+
+/* collapsible menu */
+.app:not(.small-sidebar) .collapsible {
+    .main-navigation,
+    .slimScrollDiv {
+        height: 100%!important;
+    }
+    ul > li {
+        position: relative;
+        clear: both;
+        &.collapse-open {
+            background: rgba(0, 0, 0, .1);
+            & > .dropdown-menu {
+                display: block;
+            }
+            & > a {
+                .toggle-accordion:before {
+                    content: "\f107";
+                }
+            }
+        }
+        & > ul {
+            background: rgba(0, 0, 0, .1);
+            position: relative;
+            left: 0;
+            width: 100%;
+            border-bottom: 1px solid rgba(0,0,0,.2);
+            border-top: 0;
+            border-left: 0!important;
+            border-right: 0!important;
+            display: none;
+            .box-shadow(0);
+        }
+    }
+    li {
+        ul li a {
+            padding: 9px 15px 9px 40px!important;
+            background: transparent;
+            &:hover {
+                background: transparent;
+            }
+        }
+        a {
+            .toggle-accordion:before {
+                font-family: FontAwesome;
+                font-style: normal;
+                font-weight: normal;
+                content: "\f105";
+                position: absolute;
+                right: 15px;
+                top: 15px;
+            }
+        }
+    }
+}
+.app.small-sidebar .collapsible {
+    .main-navigation {
+        & > ul >.show-on-hover:hover {
+            .dropdown-menu {
+                display: block!important;
+            }
+        }
+        & > ul > li.collapse-open > ul {
+            display: none!important;
+        }
+    }
+}
+.scroll-menu {
+    position: absolute;
+    top: 0;
+    bottom: 50px;
+    width: 100%;
+    .main-navigation {
+        position: relative;
+    }
+}
+@media screen and (min-width: @screen-sm-min) {
+    .small-sidebar {
+        .brand {
+            width: 60px;
+        }
+        .navbar-brand {
+            width: 100%;
+            text-align: center;
+            span {
+                display: none;
+                visibility: hidden;
+            }
+            i {
+                margin: 0;
+            }
+        }
+        .sidebar {
+            width: 60px;
+            footer {
+                .footer-toolbar a {
+                    width: 100%;
+                    text-align: center;
+                }
+                span {
+                    display: none;
+                    visibility: hidden;
+                }
+            }
+        }
+        .main-navigation:not(.app-navigation) > ul > li {
+            position: relative;
+            text-align: center;
+            & > a .badge {
+                position: absolute;
+                top: 10px;
+            }
+            & > a > span {
+                display: none;
+                visibility: hidden;
+            }
+            & i {
+                display: block;
+                padding: 0;
+                min-width: 100%;
+            }
+        }
+        .collapsible .slimScrollDiv,
+        .collapsible .slimScrollDiv .main-navigation {
+            overflow: visible!important;
+        }
+        .collapsible .main-navigation > ul > li:hover > ul {
+            display: block!important;
+        }
+        .collapsible .main-navigation > ul > li > ul > li > a {
+            color: @text-color;
+
+text-align: left;
+        }
+    }
+}
+/* Sidebar sizes */
+@media screen and (min-width: @screen-sm-min) {
+    .sidebar-300 {
+        width: 300px
+    }
+    .sidebar-250 {
+        width: 250px
+    }
+}
+@media (max-width: @screen-xs-max) {
+    .sidebar-300,
+    .sidebar-250 {
+        width: 100%
+    }
+}
+
+/* Sidebar profile */
+.profile {
+    .profile-cover {
+        background: #fff url(../img/profile-cover.jpg) no-repeat center center;
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        -o-background-size: cover;
+        background-size: cover;
+        height: 200px;
+        padding: 0;
+        margin-bottom: 40px;
+        .profile-avatar {
+            position: absolute;
+            left: 0;
+            right: 0;
+            bottom: -50px;
+        }
+    }
+}

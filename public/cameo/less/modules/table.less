@@ -1,0 +1,273 @@
+/*
+ * Bootstrap $Tables
+ *
+ */
+
+.table > thead > tr > th,
+.table > tbody > tr > th,
+.table > tfoot > tr > th,
+.table > thead > tr > td,
+.table > tbody > tr > td,
+.table > tfoot > tr > td {
+    padding: @table-cell-padding;
+    border-color: @table-border-color;
+}
+.table-hover > tbody > tr:hover > td,
+.table-hover > tbody > tr:hover > th {
+    background-color: @table-bg-hover;
+}
+.table-hover > tbody > tr > td.active:hover,
+.table-hover > tbody > tr > th.active:hover,
+.table-hover > tbody > tr.active:hover > td,
+.table-hover > tbody > tr.active:hover > th {
+    background-color: @table-bg-active;
+}
+.table-condensed > thead > tr > th,
+.table-condensed > tbody > tr > th,
+.table-condensed > tfoot > tr > th,
+.table-condensed > thead > tr > td,
+.table-condensed > tbody > tr > td,
+.table-condensed > tfoot > tr > td {
+    padding: @table-condensed-cell-padding;
+}
+.table-striped > tbody > tr:nth-child(odd) > td,
+.table-striped > tbody > tr:nth-child(odd) > th {
+    background-color: @table-bg;
+}
+.table-striped > tbody > tr:nth-child(even) > td,
+.table-striped > tbody > tr:nth-child(even) >th {
+    background-color: @table-bg-accent;
+}
+.table-bordered > thead > tr > th,
+.table-bordered > tbody > tr > th,
+.table-bordered > tfoot > tr > th,
+.table-bordered > thead > tr > td,
+.table-bordered > tbody > tr > td,
+.table-bordered > tfoot > tr > td {
+    border: 1px solid @table-border-color;
+}
+.table-row-variant(success; @brand-success; @brand-success);
+
+.table-row-variant(info; @brand-info; @brand-info);
+
+.table-row-variant(danger; @brand-danger; @brand-danger);
+
+.table-row-variant(warning; @brand-warning; @brand-warning);
+
+/* No More tables */
+
+@media (max-width: @screen-xs-max) {    
+    /* Source:: http://elvery.net/demo/responsive-tables/#no-more-tables */
+    /* Force table to not be like tables anymore */
+    .no-more-tables table, 
+    .no-more-tables thead, 
+    .no-more-tables tbody, 
+    .no-more-tables th, 
+    .no-more-tables td, 
+    .no-more-tables tr { 
+        display: block; 
+    }
+ 
+    /* Hide table headers (but not display: none;, for accessibility) */
+    .no-more-tables thead tr { 
+        position: absolute;
+        top: -9999px;
+        left: -9999px;
+    }
+ 
+    .no-more-tables tr { border: 1px solid #ccc; }
+ 
+    .no-more-tables td { 
+        /* Behave  like a "row" */
+        border-top: 0!important;
+        border-bottom: 1px solid #eee; 
+        position: relative;
+        padding-left: 50%!important; 
+        white-space: normal;
+        text-align:left;
+    }
+
+    .no-more-tables td:before { 
+        /* Now like a table header */
+        position: absolute;
+        /* Top/left values mimic padding */
+        top: 6px;
+        left: 6px;
+        width: 45%; 
+        padding-right: 10px; 
+        white-space: nowrap;
+        text-align:left;
+        font-weight: bold;
+    }
+ 
+    /*
+    Label the data
+    */
+    .no-more-tables td:before { content: attr(data-title); }
+}
+
+
+/*
+ * Pricing Tables
+ *
+ */
+
+.plan-features {
+    border-top: 1px solid @border-color;
+
+    & > li {
+        padding: 10px 0;
+    }
+}
+
+.plan-price {
+    margin: 20px 0;
+    span {
+        font-size: 40px;
+        display: block;
+    }
+}
+
+/* Pricing table 2 */
+.pricing-table-2 {
+    text-align: center;
+    position: relative;
+    .panel-body {
+        padding: 0;
+    }
+
+    .plan-features > li {
+        padding: 10px @size-base;
+        border-bottom: 1px solid @border-color;
+    }
+    .plan-features > li:last-child {
+        border-bottom: 0;
+    }
+
+    .plan-price span {
+        font-size: 40px;
+        height: 140px;
+        width: 140px;
+        border: 1px solid;
+        display: inline-block;
+        border-radius: 50%;
+        transition: all .5s;
+        text-align: center;
+        line-height: 140px;
+        margin: 20px 0;
+    }
+}
+
+/* Pricing table 2 Colors */
+.panel-default.pricing-table-2 {
+    .plan-price span {
+        border-color: @brand-default;
+    }
+    &:hover .plan-price span {
+        background: @brand-default;
+    }
+}
+.panel-primary.pricing-table-2 {
+    .plan-price span {
+        border-color: @brand-primary;
+    }
+    &:hover .plan-price span {
+        background: @brand-primary;
+        color: #ffffff;
+    }
+}
+.panel-success.pricing-table-2 {
+    .plan-price span {
+        border-color: @brand-success;
+    }
+    &:hover .plan-price span {
+        background: @brand-success;
+        color: #ffffff;
+    }
+}
+.panel-warning.pricing-table-2 {
+    .plan-price span {
+        border-color: @brand-warning;
+    }
+    &:hover .plan-price span {
+        background: @brand-warning;
+        color: #ffffff;
+    }
+}
+.panel-danger.pricing-table-2 {
+    .plan-price span {
+        border-color: @brand-danger;
+    }
+    &:hover .plan-price span {
+        background: @brand-danger;
+        color: #ffffff;
+    }
+}
+.panel-info.pricing-table-2 {
+    .plan-price span {
+        border-color: @brand-info;
+    }
+    &:hover .plan-price span {
+        background: @brand-info;
+        color: #ffffff;
+    }
+}
+.panel-dark.pricing-table-2 {
+    .plan-price span {
+        border-color: @brand-dark;
+    }
+    &:hover .plan-price span {
+        background: @brand-dark;
+        color: #ffffff;
+    }
+}
+
+/* Attached Pricing tables */
+@media screen and (min-width: @screen-sm-min) {
+
+    .pricing-attached {
+        .panel {
+            border: 0;
+        }
+        & > div:first-child .panel-heading{
+            border-radius: @border-radius-base 0 0;
+        }
+        & > div:last-child .panel-heading{
+            border-radius: 0 @border-radius-base 0 0;
+        }
+        .panel {
+            border-radius: 0;
+            border: 0;
+        }
+    }
+}
+
+.pricing-attached {
+    padding: @size-base;
+    text-align: center;
+
+    & > div {
+        padding: 0;
+    }
+
+    .panel-body {
+        .box-shadow(0 0 1px rgba(0, 0, 0, 0.2));
+    }
+
+    .recommended {
+        margin-top: -@size-base;
+        .box-shadow(0 0 10px rgba(0, 0, 0, 0.2););
+        position: relative;
+        border-radius: @border-radius-base;
+        padding-bottom: (@size-base * 2);
+        overflow: hidden;
+        z-index: 99;
+        .panel-heading {
+            border-radius: @border-radius-base @border-radius-base 0 0;
+        }
+    }
+
+    .recommended .panel-body {
+        box-shadow: none
+    }
+}

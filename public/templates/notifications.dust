@@ -12,9 +12,9 @@
                 {?message}
                     {@message data=message /}
                 {/message}
-                <div class="panel panel-default box-shadow" id="notifications-wrapper">
+                <div class="panel panel-default" id="notifications-wrapper">
                     <div class="panel-heading">
-                        <h4>{@__ phrase="Powiadomienia" /}:</h4>
+                        <h4 class="no-margin">{@__ phrase="Powiadomienia" /}:</h4>
                     </div>
                     <div class="panel-body">
                         <div id="notifications-container">

@@ -4490,7 +4490,7 @@
 			 * have to append the file name to the cookie name. Appalling. Thanks to vex for adding the
 			 * patch to use at least some of the path
 			 */
-			var aParts = window.location.pathname.split('index.html');
+			var aParts = window.location.pathname.split('/');
 			var sNameFile = sName + '_' + aParts.pop().replace(/[\/:]/g,"").toLowerCase();
 			var sFullCookie, oData;
 			
@@ -4499,12 +4499,12 @@
 				oData = (typeof $.parseJSON === 'function') ? 
 					$.parseJSON( sValue ) : eval( '('+sValue+')' );
 				sFullCookie = fnCallback( sNameFile, oData, date.toGMTString(),
-					aParts.join('index.html')+"/" );
+					aParts.join('/')+"/" );
 			}
 			else
 			{
 				sFullCookie = sNameFile + "=" + encodeURIComponent(sValue) +
-					"; expires=" + date.toGMTString() +"; path=" + aParts.join('index.html')+"/";
+					"; expires=" + date.toGMTString() +"; path=" + aParts.join('/')+"/";
 			}
 			
 			/* Are we going to go over the cookie limit of 4KiB? If so, try to delete a cookies
@@ -4552,7 +4552,7 @@
 					
 					var old = aOldCookies.pop();
 					document.cookie = old.name+"=; expires=Thu, 01-Jan-1970 00:00:01 GMT; path="+
-						aParts.join('index.html') + "/";
+						aParts.join('/') + "/";
 				}
 			}
 			
@@ -4569,7 +4569,7 @@
 		function _fnReadCookie ( sName )
 		{
 			var
-				aParts = window.location.pathname.split('index.html'),
+				aParts = window.location.pathname.split('/'),
 				sNameEQ = sName + '_' + aParts[aParts.length-1].replace(/[\/:]/g,"").toLowerCase() + '=',
 			 	sCookieContents = document.cookie.split(';');
 			

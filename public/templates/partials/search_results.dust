@@ -1,11 +1,11 @@
 <script type="text/template" id="live-search-results-tpl">
-    <div id="live-search-results-container">
+    <div class="live-search-results-container">
         <% if (typeof elements !== 'undefined' && elements && elements.length) {~lb} %>
             <div class="list-group">
                 <% _.each(elements, function (element) {~lb} %>
                     <div class="list-group-item live-search-results-item">
                         <a href="/<%=element.username%>">
-                            <%=askmePro.views.helpers.userAvatar({user: element, size: 'cropped/100x', link: false, cssClass: 'box-shadow img-circle'})%>
+                            <%=askmePro.views.helpers.userAvatar({user: element, size: 'cropped/100x', link: false, cssClass: ' img-circle'})%>
                             <span>
                                 <%=element.name%> <%=element.lastname%><br/>
                                 <em><%=element.profile.location%></em>

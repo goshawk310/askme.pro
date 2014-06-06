@@ -1,37 +1,47 @@
 <div class="navbar navbar-default navbar-fixed-top" role="navigation" id="main-navbar">
     <div class="container">
         <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
             <ul class="nav navbar-nav notifications">
-                <li id="navbar-logo"><a class="" href="/"><img src="/images/logo.png" alt="askme.pro" /></a></li>
+                <li id="navbar-logo">
+                    {?user}
+                        <a href="#" class="visible-xs btn btn-link toggle-canvas-left"><i class="fa fa-bars"></i></a>
+                    {/user}
+                    <a href="/" class="logo">
+                        <img src="/images/logo.png" alt="askme.pro" />
+                    </a>
+                </li>
                 {?user}
                 <li class="notify notifylikes" id="notify-likes" data-title="{@__ phrase="Polubienia" /}">
-                    {@if cond="{user.notifications.likes} > 0"}
-                        <span>{user.notifications.likes}</span>
-                    {/if}
+                    <a href="#" data-toggle="dropdown">
+                        <i class="fa fa-heart"></i>
+                        {@if cond="{user.notifications.likes} > 0"}
+                            <span class="badge badge-top bg-danger animated flash">{user.notifications.likes}</span>
+                        {/if}
+                    </a>
                 </li>
                 <li class="notify notifyquestions" id="notify-questions" data-title="{@__ phrase="Pytania" /}">
-                    {@if cond="{user.stats.questions_unanswered} > 0"}
-                        <span>{user.stats.questions_unanswered}</span>
-                    {/if}
+                    <a href="#" data-toggle="dropdown">
+                        <i class="fa fa-envelope"></i>
+                        {@if cond="{user.stats.questions_unanswered} > 0"}
+                            <span class="badge badge-top bg-danger animated flash">{user.stats.questions_unanswered}</span>
+                        {/if}
+                    </a>
                 </li>
                 <li class="notify notifyanswers" id="notify-feed" data-title="{@__ phrase="Feed" /}">
-                    {@if cond="{user.notifications.feed} > 0"}
-                        <span>{user.notifications.feed}</span>
-                    {/if}
+                    <a href="#" data-toggle="dropdown">
+                        <i class="fa fa-bell"></i>
+                        {@if cond="{user.notifications.feed} > 0"}
+                            <span class="badge badge-top bg-danger animated flash">{user.notifications.feed}</span>
+                        {/if}
+                    </a>
                 </li>
                 {/user}
             </ul>
         </div>
-        <div class="navbar-collapse collapse">
+        <div class="hidden-xs">
             <ul class="nav navbar-nav navbar-right">
                 {?user} 
-                    <li><a href="/inbox">{@__ phrase="Pytania"/} <span id="inbox-count">(<span class="inbox-count">{user.stats.questions_unanswered}</span>)</span></a></li>
+                    <li><a class="btn btn-link" href="/inbox">{@__ phrase="Pytania"/} <span id="inbox-count">(<span class="inbox-count">{user.stats.questions_unanswered}</span>)</span></a></li>
                 {/user}
                 <li><a href="/top20" role="button" class="btn btn-primary">{@__ phrase="TOP 20"/}</a></li>
                 {^user} 
@@ -39,7 +49,7 @@
                     <li><a href="/account/login">Zaloguj</a></li>
                 {:else}
                     <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">{user.name} {user.lastname} <span class="caret"></span></a>
+                        <a href="#" class="dropdown-toggle btn-avatar" data-toggle="dropdown">{@userAvatar user=user size="cropped/100x" cssClass="user-avatar img-circle"/}<span class="caret"></span></a>
                         <ul class="dropdown-menu">
                             <li><a href="/{user.username}">{@__ phrase="Profil"/}</a></li>
                             <li><a href="/account/settings">{@__ phrase="Ustawienia"/}</a></li>
@@ -50,13 +60,11 @@
                 {/user}
             </ul>
             {?user} 
-            <form class="navbar-form navbar-right" id="main-search-form" action="/search">
-                <div id="main-search-form-elems">
-                    <input name="q" id="q" type="text" class="form-control input-sm" placeholder="{@__ phrase="Szukaj" /}..."{?query} value="{query}"{/query} autocomplete="off">
-                    <span id="q-submit" class="glyphicon glyphicon-search"></span>
-                </div>
-            </form>
+                {>"layouts/partials/search_form" cssClass="navbar-form navbar-right  " /}
             {/user}
         </div>
     </div>
+    {?user}
+        <a href="#" class="btn btn-link toggle-canvas-right"><i class="fa fa-align-right"></i></a>
+    {/user}
 </div>

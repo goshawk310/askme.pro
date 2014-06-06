@@ -43,7 +43,7 @@ $(document).ready(function () {
       var switchery = new Switchery(html);
     });
 
-    videojs.options.flash.swf = "video-js.html";
+    videojs.options.flash.swf = "video-js.swf";
 
     $(".sliders input").slider();
 

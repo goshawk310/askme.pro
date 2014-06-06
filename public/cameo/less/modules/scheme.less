@@ -1,0 +1,153 @@
+/*
+ * $Color Scheme
+ *
+ */
+
+/*
+ * Color Variant: Dark;
+ *
+ */
+.bg-dark {
+    .bg-variant(@brand-white; @brand-dark);
+}
+
+/*
+ * Color Variant: Primary;
+ *
+ */
+.bg-primary {
+    .bg-variant(@brand-white; @brand-primary);
+}
+
+/*
+ * Color Variant: Default;
+ *
+ */
+.bg-default {
+    .bg-variant(#000; @brand-default);
+}
+
+/*
+ * Color Variant: Warning;
+ *
+ */
+.bg-warning {
+    .bg-variant(@brand-white; @brand-warning);
+}
+
+/*
+ * Color Variant: Success;
+ *
+ */
+.bg-success {
+    .bg-variant(@brand-white; @brand-success);
+}
+
+/*
+ * Color Variant: Info;
+ *
+ */
+.bg-info {
+    .bg-variant(@brand-white; @brand-info);
+}
+
+/*
+ * Color Variant: Danger;
+ *
+ */
+.bg-danger {
+    .bg-variant(@brand-white; @brand-danger);
+}
+
+/*
+ * Color Variant: White;
+ *
+ */
+.bg-white {
+    .bg-variant(#000; @brand-white);
+    .nav > li {
+        &:hover > a,
+        &:focus > a,
+        &:active > a,
+        &.active > a,
+        & > a:hover,
+        & > a:focus {
+            background-color: rgba(0,0,0,.1);
+        }
+    }
+}
+
+/*
+ * Text Color Variant
+ *
+ */
+.text-variant(primary; @brand-primary);
+
+.text-variant(default; @brand-default);
+
+.text-variant(warning; @brand-warning);
+
+.text-variant(success; @brand-success);
+
+.text-variant(info; @brand-info);
+
+.text-variant(@white; @brand-white);
+
+.text-variant(danger; @brand-danger);
+
+.text-variant(dark; @brand-dark);
+
+.text-variant(muted;  @black-30);
+
+
+/*
+ * Toastr Color Variants
+ *
+ */
+
+#toast-container > .toast-info {
+  background-color: @brand-info;
+}
+#toast-container > .toast-error {
+  background-color: @brand-danger;
+}
+#toast-container > .toast-success {
+  background-image: @brand-success;
+}
+#toast-container > .toast-warning {
+  background-color: @brand-warning;
+}
+
+/*
+ * Slider Color Variants
+ *
+ */
+.slider-info .slider-selection
+{
+    background-color: @brand-info;
+}
+
+.slider-primary .slider-selection
+{
+    background-color: @brand-primary;
+}
+
+.slider-success .slider-selection
+{
+    background-color: @brand-success;
+}
+
+.slider-warning .slider-selection
+{
+    background-color: @brand-warning;
+}
+
+.slider-danger .slider-selection
+{
+    background-color: @brand-danger;
+}
+
+.slider-dark .slider-selection
+{
+    background-color: @brand-dark;
+}

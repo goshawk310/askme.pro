@@ -1,0 +1,349 @@
+/*
+ * $Utilities Classes
+ *
+ */
+
+@xs: 5px;
+@sm: 10px;
+@md: 15px;
+@df: 20px;
+@lg: 25px;
+
+/* pd,mg,bd = padding,margin,border
+ * Directions
+ * t,b,r,l,n = top,bottom,right,left, negative
+ * Sizing
+ * xs,sm,md,df,lg = extra-small(@xs),small(@sm),medium(@md),default(@df),large(@lg)
+ */
+
+/* Set background color to transparent */
+.bg-none,
+.bg-none > .list-group-item {
+    background-color: transparent;
+    .box-shadow(none);
+}
+
+.box-shadow {
+    .box-shadow(0 0 5px rgba(0, 0, 0, .2));
+}
+
+.position-relative {
+    position: relative;
+}
+
+/* Remove border */
+.no-border,
+.no-border > .list-group-item,
+.table.no-border > thead > tr > th,
+.table.no-border > tbody > tr > th,
+.table.no-border > tfoot > tr > th,
+.table.no-border > thead > tr > td,
+.table.no-border > tbody > tr > td,
+.table.no-border > tfoot > tr > td {
+    border: 0;
+}
+
+/* Remove box shadow */
+.no-shadow {
+    .box-shadow(none);
+}
+
+.overflow {
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+/* Hides overflow content */
+.overflow-hidden {
+    overflow: hidden;
+}
+
+/* Margins */
+.no-margin {
+    margin: 0;
+}
+.mg-n {
+    margin-right: -@md;
+
+margin-left: -@md;
+
+}
+.mg-r-n {
+    margin-right: -@md;
+
+}
+.mg-l-n {
+    margin-left: -@md;
+
+}
+.no-mg-l {
+    margin-left: 0;
+}
+.no-mg-r {
+    margin-right: 0;
+}
+.no-mg-t {
+    margin-top: 0;
+}
+.no-mg-b {
+    margin-bottom: 0;
+}
+.mg-lg {
+    margin: @lg;
+
+}
+.mg-r-lg {
+    margin-right: @lg;
+
+}
+.mg-l-lg {
+    margin-left: @lg;
+
+}
+.mg-t-lg {
+    margin-top: @lg;
+
+}
+.mg-b-lg {
+    margin-bottom: @lg;
+
+}
+.mg {
+    margin: @df;
+
+}
+.mg-r {
+    margin-right: @df;
+
+}
+.mg-l {
+    margin-left: @df;
+
+}
+.mg-t {
+    margin-top: @df;
+
+}
+.mg-b {
+    margin-bottom: @df;
+
+}
+.mg-md {
+    margin: @md;
+
+}
+.mg-r-md {
+    margin-right: @md;
+
+}
+.mg-l-md {
+    margin-left: @md;
+
+}
+.mg-t-md {
+    margin-top: @md;
+
+}
+.mg-b-md {
+    margin-bottom: @md;
+
+}
+.mg-sm {
+    margin: @sm;
+
+}
+.mg-r-sm {
+    margin-right: @sm;
+
+}
+.mg-l-sm {
+    margin-left: @sm;
+
+}
+.mg-t-sm {
+    margin-top: @sm;
+
+}
+.mg-b-sm {
+    margin-bottom: @sm;
+
+}
+.mg-xs {
+    margin: @xs;
+
+}
+.mg-r-xs {
+    margin-right: @xs;
+
+}
+.mg-l-xs {
+    margin-left: @xs;
+
+}
+.mg-t-xs {
+    margin-top: @xs;
+
+}
+.mg-b-xs {
+    margin-bottom: @xs;
+
+}
+
+/* Padding space */
+.no-padding {
+    padding: 0!important;
+}
+.no-pd-l {
+    padding-left: 0;
+}
+.no-pd-r {
+    padding-right: 0;
+}
+.no-pd-t {
+    padding-top: 0;
+}
+.no-pd-b {
+    padding-bottom: 0;
+}
+.pd-lg {
+    padding: @lg;
+
+}
+.pd-r-lg {
+    padding-right: @lg;
+
+}
+.pd-l-lg {
+    padding-left: @lg;
+
+}
+.pd-t-lg {
+    padding-top: @lg;
+
+}
+.pd-b-lg {
+    padding-bottom: @lg;
+
+}
+.pd {
+    padding: @df;
+
+}
+.pd-r {
+    padding-right: @df;
+
+}
+.pd-l {
+    padding-left: @df;
+
+}
+.pd-t {
+    padding-top: @df;
+
+}
+.pd-b {
+    padding-bottom: @df;
+
+}
+.pd-md {
+    padding: @md;
+
+}
+.pd-r-md {
+    padding-right: @md;
+
+}
+.pd-l-md {
+    padding-left: @md;
+
+}
+.pd-t-md {
+    padding-top: @md;
+
+}
+.pd-b-md {
+    padding-bottom: @md;
+
+}
+.pd-sm {
+    padding: @sm;
+
+}
+.pd-r-sm {
+    padding-right: @sm;
+
+}
+.pd-l-sm {
+    padding-left: @sm;
+
+}
+.pd-t-sm {
+    padding-top: @sm;
+
+}
+.pd-b-sm {
+    padding-bottom: @sm;
+
+}
+.pd-xs {
+    padding: @xs;
+
+}
+.pd-r-xs {
+    padding-right: @xs;
+
+}
+.pd-l-xs {
+    padding-left: @xs;
+
+}
+.pd-t-xs {
+    padding-top: @xs;
+
+}
+.pd-b-xs {
+    padding-bottom: @xs;
+
+}
+
+/* Borders */
+.bordered {
+    border: 1px solid @border-color;
+
+}
+.bd-b {
+    border-bottom: 1px solid @border-color;
+}
+.bd-t {
+    border-top: 1px solid @border-color;
+}
+.bd-l {
+    border-left: 1px solid @border-color;
+}
+.bd-r {
+    border-right: 1px solid @border-color;
+}
+
+/* Radius */
+.no-radius {
+    .rounded(0);
+    .list-group-item:first-child {
+        border-top-left-radius: 0;
+        border-top-right-radius: 0;
+    }
+    .list-group-item:last-child {
+        border-bottom-right-radius: 0;
+        border-bottom-left-radius: 0;
+    }
+}
+
+/* text utilities */
+.text-uppercase {
+    text-transform: uppercase;
+}
+.strike {
+    text-decoration: line-through;
+}
+.full-width {
+    width: 100%;
+}

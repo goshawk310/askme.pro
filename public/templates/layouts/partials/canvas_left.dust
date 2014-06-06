@@ -1,0 +1,29 @@
+<div class="canvas-left bg-dark">
+    <div class="content">
+        {?user} 
+            {>"layouts/partials/search_form" cssClass="" /}
+        {/user}
+        <ul class="nav nav-pills nav-stacked main-menu">
+            {?user} 
+                <li>
+                    <a href="/{user.username}">{@userAvatar user=user size="cropped/100x" cssClass="user-avatar img-circle"/} {user.name} {user.lastname}</a>
+                </li>
+                <li><a href="/">{@__ phrase="Strona główna"/}</a></li>
+                <li><a href="/inbox">{@__ phrase="Pytania"/} <span class="inbox-count-container">(<span class="inbox-count">{user.stats.questions_unanswered}</span>)</span></a></li>
+            {:else}
+                <li><a href="/">{@__ phrase="Strona główna"/}</a></li>    
+            {/user}
+            <li><a href="/top20">{@__ phrase="TOP 20"/}</a></li>
+            {^user} 
+                <li><a href="/account/signup">Zarejestruj się</a></li>
+                <li><a href="/account/login">Zaloguj</a></li>
+            {:else}
+                <li><a href="/account/settings">{@__ phrase="Ustawienia"/}</a></li>
+                <li class="divider"></li>
+                <li><a href="/account/logout">{@__ phrase="Wyloguj"/}</a></li>
+            {/user}
+        </ul>
+        <hr>
+        {>"layouts/partials/footer"/}
+    </div>
+</div>

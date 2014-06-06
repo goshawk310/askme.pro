@@ -32,7 +32,6 @@ $(document).ready(function () {
 
     $('.sliders input').slider();
 
-    $('.parsley-form').parsley();
 
     $('.datepicker').datepicker();
 

@@ -2,20 +2,22 @@
 {<body}
 <div class="container">
     <div class="row">
-        <div class="col-md-3 hidden-sm hidden-xs" id="user-info-wrapper">
-            {>"index/partials/user_panel" /}
+        <div class="col-md-3 hidden-sm hidden-xs profile-info-wrapper" id="user-info-wrapper">
+            {>"profile/partials/user_panel" profile=user showStats="1" showAvatar="1" /}
         </div>
-        <div class="col-md-9 col-sm-12 col-xs-12" id="main-content-wrapper">
-            <div class="panel panel-default box-shadow">
+        <div class="col-md-7 col-sm-12 col-xs-12" id="main-content-wrapper">
+            <div class="panel panel-default">
                 <div class="panel-body">
-                    <div class="row">
-                        {>"index/partials/menu" mode="online"/}
-                        <div id="main-content-container" class="col-md-12">
-                            
-                        </div>
-                    </div>
+                    {>"index/partials/menu" mode="online"/}
                 </div>
             </div>
+            <div class="panel panel-default">
+                <div id="main-content-container" class="sep-panels-container">
+                    
+                </div>
+            </div>
+        </div>
+        <div class="col-md-2">
         </div>
     </div>
 </div>
@@ -30,20 +32,13 @@
 {<jsTemplates}
 {>"partials/pagination" /}
 <script type="text/template" id="online-tpl">
-    <div class="row">
-        <div class="col-md-12">
-            <div id="online-wrapper">
-                <div id="online-container">
-                    
-                </div>
-            </div>
+    <div id="online-wrapper">
+        <div id="online-container" class="panel-body">
+            
         </div>
     </div>
-    <div class="panel-footer panel-footer-main">
-        <div class="row">
-            <div class="col-md-12 text-center" id="online-pagination-container">
-            </div>
-        </div>
+    <div class="panel-footer panel-footer-main" id="online-pagination-container">
+        
     </div>
 </script>
 <script type="text/template" id="online-user-tpl">
