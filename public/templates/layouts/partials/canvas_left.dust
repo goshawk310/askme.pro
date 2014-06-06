@@ -1,7 +1,9 @@
 <div class="canvas-left bg-dark">
     <div class="content">
         {?user} 
-            {>"layouts/partials/search_form" cssClass="" /}
+            <div class="pd-l-md pd-r-md">
+                {>"layouts/partials/search_form" cssClass="" /}
+            </div>
         {/user}
         <ul class="nav nav-pills nav-stacked main-menu">
             {?user} 
@@ -23,7 +25,8 @@
                 <li><a href="/account/logout">{@__ phrase="Wyloguj"/}</a></li>
             {/user}
         </ul>
-        <hr>
-        {>"layouts/partials/footer"/}
+        <div class="pd-md bd-t mg-t-md">
+            {>"layouts/partials/footer"/}
+        </div>
     </div>
 </div>

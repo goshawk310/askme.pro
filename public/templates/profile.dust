@@ -38,9 +38,9 @@
                                 {/isBlocked}
                             {:else}
                                 {^profile.top_bg}
-                                    <a href="/account/settings#/topbg" class="btn btn-warning btn-sm pull-right"><span class="glyphicon glyphicon-plus"></span>&nbsp;&nbsp;{@__ phrase="Dodaj zdjęcie w tle" /}</a>
+                                    <a href="/account/settings#/topbg" class="btn btn-default pull-right" title="{@__ phrase="Dodaj zdjęcie w tle" /}"><i class="fa fa-camera"></i></a>
                                 {:else}
-                                    <a href="/account/settings#/topbg" class="btn btn-warning btn-sm pull-right"><span class="glyphicon glyphicon-pencil"></span>&nbsp;&nbsp;{@__ phrase="Zmień zdjęcie w tle" /}</a>
+                                    <a href="/account/settings#/topbg" class="btn btn-default pull-right" title="{@__ phrase="Zmień zdjęcie w tle" /}"><i class="fa fa-camera"></i></a>
                                 {/profile.top_bg}
                             {/ne}
                         </div>

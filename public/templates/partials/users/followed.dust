@@ -1,0 +1,30 @@
+<script type="text/template" id="canvas-users-followed-tpl">
+    <div class="side-bar-users-container">
+        <% if (typeof elements !== 'undefined' && elements && elements.length) {~lb} %>
+            <ul class="nav nav-pills nav-stacked">
+                <% for (var i = 0; i < elements.length; i += 1) {~lb} %>
+                    <% if (elements[i]) {~lb} %>
+                        <li>
+                            <a href="/<%=elements[i].username%>">
+                                <%=askmePro.views.helpers.userAvatar({user: elements[i], size: 'cropped/100x', link: false, cssClass: 'img-circle pull-left avatar avatar-sm mg-r-sm'})%>
+                                <span class="user">
+                                    <span class="truncate"><%=elements[i].name%> <%=elements[i].lastname%></span>
+                                    <% if (elements[i].online) {~lb} %>
+                                        <i class="fa fa-circle text-success pull-right"></i>
+                                    <% {~rb} else {~lb} %>
+                                        <i class="fa fa-circle text-danger pull-right"></i>
+                                    <% {~rb} %>
+                                </span>
+                                <small><%=elements[i].username%></small>
+                            </a>
+                        </li>
+                    <% {~rb} %>
+                <% {~rb} %>
+            </ul>
+        <% {~rb} else {~lb} %>
+            <div class="no-notifications">
+                {@__ phrase="Brak" /}
+            </div>
+        <% {~rb} %>
+    </div>
+</script>

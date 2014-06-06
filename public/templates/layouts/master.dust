@@ -27,6 +27,7 @@
         {+jsTemplates /}
         {>"partials/top_notifications"/}
         {>"partials/search_results"/}
+        {>"partials/users/followed"/}
         <script type="text/javascript">
 
           var _gaq = _gaq || [];
@@ -63,6 +64,7 @@
         </div>
         {?user}
             <div class="canvas-right bg-dark">
+                <div class="content"></div>
             </div>
         {/user}
         <div id="footer" class="hidden-xs">
@@ -76,7 +78,9 @@
         <script src="/components/bootstrap/dist/js/bootstrap.min.js"></script>
         <script src="/js/app.js?1"></script>
         {?user}
+            <script src="/components/slimScroll/jquery.slimscroll.min.js"></script>
             <script src="/js/off-canvas.js?1"></script>
+            <script src="/js/app/views/right.canvas.view.js"></script>
         {/user}
         <script type="text/javascript">
             askmePro.data.user = {

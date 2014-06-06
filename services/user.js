@@ -757,5 +757,38 @@ module.exports = _.defaults({
                 callback(user);
             });
         });
-    }
+    },
+    /**
+     * 
+     * @param  {Object}   params
+     * @param  {Function} callback
+     * @return {void}
+     */
+    getFollowedUsers: function getFollowedUsers(params, callback) {
+        var whereAnd = [];
+        params = params || {};
+        whereAnd.push({'status.value': 1});
+        if (params.followed && _.isArray(params.followed)) {
+            whereAnd.push({_id: {$in: params.followed}});
+        }
+        if (params.blocked && _.isArray(params.blocked)) {
+            whereAnd.push({_id: {$nin: params.blocked}});
+        }
+        UserModel
+            .find({$and: whereAnd})
+            .select('username name lastname avatar last_visit_at')
+            .sort({last_visit_at: -1})
+            .exec(function (err, docs) {
+                if (err) {
+                    return callback(err);
+                }
+                var users = [];
+                docs.forEach(function (doc) {
+                    var user = doc.toObject();
+                    user.online = doc.online;
+                    users.push(user);
+                });
+                callback(null, users);
+            });
+    },
 }, require('../lib/service'));

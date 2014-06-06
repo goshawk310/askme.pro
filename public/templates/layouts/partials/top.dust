@@ -41,7 +41,7 @@
         <div class="hidden-xs">
             <ul class="nav navbar-nav navbar-right">
                 {?user} 
-                    <li><a class="btn btn-link" href="/inbox">{@__ phrase="Pytania"/} <span id="inbox-count">(<span class="inbox-count">{user.stats.questions_unanswered}</span>)</span></a></li>
+                    <li><a class="btn btn-link" href="/inbox">{@__ phrase="Pytania"/} <span class="inbox-count-container">(<span class="inbox-count">{user.stats.questions_unanswered}</span>)</span></a></li>
                 {/user}
                 <li><a href="/top20" role="button" class="btn btn-primary">{@__ phrase="TOP 20"/}</a></li>
                 {^user} 
@@ -60,7 +60,7 @@
                 {/user}
             </ul>
             {?user} 
-                {>"layouts/partials/search_form" cssClass="navbar-form navbar-right  " /}
+                {>"layouts/partials/search_form" cssClass="navbar-form navbar-right " /}
             {/user}
         </div>
     </div>

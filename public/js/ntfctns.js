@@ -38,6 +38,6 @@ $(function () {
                     ready = true;
                 });
             }, 15000);
-            askmePro.utils.title.update(parseInt($('.inbox-count-container > .inbox-count').text(), 10), false);
+            askmePro.utils.title.update(parseInt($('.inbox-count-container > .inbox-count').first().text(), 10), false);
     }
 })

@@ -22,7 +22,7 @@
 
 .no-touch #admin-bar-container #btn-admin-bar {
     position: absolute;
-    right: 10px;
+    left: 10px;
     top: 10px;
 }
 
@@ -31,7 +31,7 @@
 }
 
 .no-touch .closed#admin-bar-container .navbar-fixed-bottom {
-    left: auto;
+    left: 0;
     width: 60px;
     border-left: 1px solid #e7e7e7;
     height: 51px;

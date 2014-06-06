@@ -315,4 +315,23 @@ module.exports = function(server) {
                 return res.send(results);
             });
     });
+
+    /**
+     * 
+     * @param  {Object} req
+     * @param  {Object} res
+     * @return {void}
+     */
+    server.get('/api/users/followed', auth.isAuthenticated, function (req, res) {
+        userService
+            .getFollowedUsers({
+                followed: req.user.users.followed,
+                blocked: req.user.users.blocked
+            }, function (err, users) {
+                if (err) {
+                    return res.send(500, {});
+                }
+                res.send(users);
+            });
+    });
 };

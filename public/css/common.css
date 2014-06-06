@@ -139,10 +139,6 @@ a:hover, a:focus {color: #464646;}
 #footer .center-block {text-align: center;}
 #footer hr {border-top: 1px solid #0a0a0a; margin-top: 5px; margin-bottom: 5px;}
 
-.canvas-left > .content .footer {
-    margin-top: 12px;
-}
-
 .canvas-left > .content .footer .footer-menu {
     float: left;
 }
@@ -1474,6 +1470,9 @@ h1, .h1 {
     #q {
         width: 100%;
     }
+    #wrapper {
+        background-image: none !important;
+    }
 }
 
 @media (max-width: 479px) { 
@@ -1658,7 +1657,7 @@ ul#profile-menu li a {
 
 .canvas-left, .canvas-right {
     position: fixed;
-    top: 0;
+    top: 50px;
     height: 100%;
     overflow-y: auto;
     z-index: 5;
@@ -1701,7 +1700,7 @@ ul#profile-menu li a {
 }
 
 .canvas-left > .content, .canvas-right > .content {
-    padding: 62px 12px 12px 12px;
+    padding: 12px 0 0 0;
 }
 
 @media (min-width: 1100px) {
@@ -1822,4 +1821,36 @@ ul#profile-menu li a {
 
 .canvas-left .dropdown-menu.dropdown-menu {
     top: auto;
+}
+
+.side-bar-users-container {
+    font-size: 0.9em;
+}
+
+.side-bar-users-container .nav-stacked li {
+    float: left;
+    width: 100%;
+}
+
+.side-bar-users-container .nav-stacked li a {
+    float: left;
+    width: 100%;
+}
+
+.side-bar-users-container .nav-stacked li .user {
+    position: relative;
+    display: block;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.side-bar-users-container .nav-stacked li .user span {
+    display: block;
+    width: 70%;
+}
+
+.side-bar-users-container .nav-stacked li .user i {
+    position: absolute;
+    right: 0;
+    top: 9px;
 }
