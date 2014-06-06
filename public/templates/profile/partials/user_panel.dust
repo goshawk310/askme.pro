@@ -3,7 +3,7 @@
         <div class="profile-info">
             {?showAvatar}
                 <div class="text-center profile-avatar-wrapper"{?profile.top_bg} style="background-image: url('{config.topbg.url}{profile.top_bg}')"{/profile.top_bg}>
-                    {@userAvatar user=profile size="cropped/300x" enlarge="true" cssClass="user-avatar img-circle"/}
+                    {@userAvatar user=profile size="cropped/300x" cssClass="user-avatar img-circle"/}
                 </div>
             {/showAvatar}
             <div class="text-center">

@@ -64,3 +64,35 @@
 .panel-body {
   padding: 12px;
 }
+
+.mg-md {
+    margin: 12px;
+}
+.mg-r-md {
+    margin-right: 12px;
+}
+.mg-b-md {
+    margin-bottom: 12px;
+}
+.mg-l-md {
+    margin-left: 12px;
+}
+.mg-t-md {
+    margin-top: 12px;
+}
+
+.pd-md {
+    padding: 12px;
+}
+.pd-r-md {
+    padding-right: 12px;
+}
+.pd-b-md {
+    padding-bottom: 12px;
+}
+.pd-l-md {
+    padding-left: 12px;
+}
+.pd-t-md {
+    padding-top: 12px;
+}
