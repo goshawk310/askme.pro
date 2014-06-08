@@ -33,7 +33,7 @@ module.exports = function(server) {
                     followed: req.user.users.followed, 
                     userId: req.user._id,
                     lastCreatedAt: req.param('lastLikeAt') || null,
-                    firstCreatedAt: req.param('firstLikeAt') || null,
+                    firstCreatedAt: req.param('firstLikeAt') || data.questions[data.questions.length - 1].created_at,
                 })
                 .then(function (docs) {
                     data.likes = docs;
@@ -52,7 +52,7 @@ module.exports = function(server) {
                     followed: req.user.users.followed, 
                     userId: req.user._id,
                     lastCreatedAt: req.param('lastCommentAt') || null,
-                    firstCreatedAt: req.param('firstCommentAt') || null,
+                    firstCreatedAt: req.param('firstCommentAt')  || data.questions[data.questions.length - 1].created_at,
                 })
                 .then(function (docs) {
                     data.comments = docs;

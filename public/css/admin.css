@@ -38,19 +38,19 @@
 }
 
 .no-touch #admin-bar-container #btn-admin-bar span.glyphicon-chevron-right {
-    display: inline-block;
+    display: none;
 }
 
 .no-touch #admin-bar-container #btn-admin-bar span.glyphicon-chevron-left {
-    display: none;
+    display: inline-block;
 }
 
 .no-touch .closed#admin-bar-container #btn-admin-bar span.glyphicon-chevron-right {
-    display: none;
+    display: inline-block;
 }
 
 .no-touch .closed#admin-bar-container #btn-admin-bar span.glyphicon-chevron-left {
-    display: inline-block;
+    display: none;
 }
 
 #admin-content-wrapper {

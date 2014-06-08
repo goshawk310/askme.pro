@@ -815,7 +815,7 @@ ul#profile-menu li.active a {
 
 #profile-tabs-content .panel-footer-main,
 #main-content-container .panel-footer-main {
-    margin-bottom: -12px;
+    margin-bottom: 12px;
 }
 
 #profile-tabs-content .panel-footer-main .pagination,
@@ -1439,7 +1439,7 @@ h1, .h1 {
         width: 120px;
     }
     .profile-name {
-        color: #fff;
+        color: #fff;    
         text-shadow: 2px 2px 2px #0A0A0A;
     }
     .profile-name strong {
@@ -1447,6 +1447,11 @@ h1, .h1 {
     }
     #profile-buttons-container .btn.pull-right {
         margin-right: 60px;
+    }
+
+    #wrapper {
+        margin: 0 auto 0;
+        padding: 0 0 0;
     }
 }
 
@@ -1509,6 +1514,7 @@ body {
     font-family: "Open Sans","Helvetica Neue",Helvetica,Arial,sans-serif;
     font-size: 14px;
     line-height: 1.42857;
+    background: #fff;
 }
 
 .btn-success {
@@ -1853,4 +1859,14 @@ ul#profile-menu li a {
     position: absolute;
     right: 0;
     top: 9px;
+}
+
+/*suggestions*/
+
+.suggestion-users-container.suggestions-loading {
+    color: #f9f9f9;
+}
+
+.suggestion-users-container.suggestions-loading .txt:before {
+    content: ""
 }

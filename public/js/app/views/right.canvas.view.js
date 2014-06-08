@@ -27,16 +27,24 @@ askmePro.views.RightCanvasView = Backbone.View.extend({
         });
     },
     load: function load(callback) {
-        var thisObj = this;
+        var thisObj = this
+            canvasRight = $('.canvas-right');
         if (this.response !== null) {
             return this.setHtml();
         }
-        $.ajax('/api/users/followed')
+        canvasRight.loading()('show');
+        $.ajax('/api/users/followed', {
+            localCache: true,
+            cacheTTL : 60,
+            cacheKey: 'canvas_right_users',
+            dataType: 'json',
+        })
         .done(function(response) {
             thisObj.response = response;
         })
         .always(function () {
             thisObj.setHtml();
+            canvasRight.loading()('hide');
         });
     }
 });

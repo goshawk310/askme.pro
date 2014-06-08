@@ -165,7 +165,7 @@ askmePro.mixins.inboxQuestion = {
     removeQuestion: function removeQuestion() {
         var thisObj = this,
             counter = $('.inbox-count'),
-            notifyCounter = $('#notify-questions > span');
+            notifyCounter = $('#notify-questions').find('span.badge');
         this.model.destroy({
             success: function (model, xhr) {
                 var count = parseInt(counter.html(), 10) - 1;

@@ -17,7 +17,9 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-2">
+        <div class="col-md-2 col-sm-12 col-xs-12">
+            {>"partials/suggestions/users"/}
+            {>"partials/suggestions/users"/}
         </div>
     </div>
 </div>
@@ -32,13 +34,15 @@
 {<jsTemplates}
 {>"partials/pagination" /}
 <script type="text/template" id="online-tpl">
-    <div id="online-wrapper">
-        <div id="online-container" class="panel-body">
+    <div>
+        <div id="online-wrapper">
+            <div id="online-container" class="panel-body">
+                
+            </div>
+        </div>
+        <div class="panel-footer panel-footer-main" id="online-pagination-container">
             
         </div>
-    </div>
-    <div class="panel-footer panel-footer-main" id="online-pagination-container">
-        
     </div>
 </script>
 <script type="text/template" id="online-user-tpl">

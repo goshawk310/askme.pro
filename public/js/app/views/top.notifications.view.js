@@ -48,7 +48,7 @@ $(function () {
                 } else {
                     askmePro.notifications.top.views.likes.setHtml();
                 }
-                $this.children('span').remove();
+                $this.parent().children('span.badge').remove();
             });
             likesInitialized = true;
         }
@@ -83,7 +83,7 @@ $(function () {
                 } else {
                     askmePro.notifications.top.views.feed.setHtml();
                 }
-                $this.children('span').remove();
+                $this.parent().children('span.badge').remove();
             });
             feedInitialized = true;
         }

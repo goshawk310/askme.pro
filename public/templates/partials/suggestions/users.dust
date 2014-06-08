@@ -1,0 +1,17 @@
+<div class="panel panel-success bg-success suggestion-users-container suggestions-loading">
+    <div class="panel-body small">
+        <div class="pull-left mg-r-md s-avatar">
+            <img src="/images/default_avatar.png" class="avatar avatar-sm img-circle" alt="">
+        </div>
+        <div class="truncate">
+            <b class="txt s-username"></b>
+        </div>
+        <div>
+            <span class="txt s-motto"></span>
+            <div class="btn-group pull-right mg-t-xs">
+                <a class="btn btn-dark btn-xs btn-see-profile disabled" role="button">Zobacz</a>
+                <a class="btn btn-default btn-xs btn-follow disabled" role="button">+ Obserwuj</a>
+            </div>
+        </div>
+    </div>
+</div>

@@ -136,13 +136,9 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-2">
-            <div class="panel panel-default" id="online-users-wrapper">
-                <div class="panel-heading">Warto odwiedzić</div>
-                <div class="panel-body">
-                    {>"partials/users/online" type="all" onlineUsers="{onlineUsers}" /}
-                </div>
-            </div>
+        <div class="col-md-2 col-sm-12 col-xs-12">
+            {>"partials/suggestions/users"/}
+            {>"partials/suggestions/users"/}
             {>"layouts/partials/ads/right"/}
         </div>
     </div>
