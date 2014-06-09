@@ -1,1 +1,39 @@
-503
+{>"layouts/master" /}
+{<body}
+<div class="container">
+    <div class="row">
+        <div class="col-md-2">
+            {>"layouts/partials/ads/left"/}
+        </div>
+        <div class="col-md-8">
+            <div class="center-block">
+                <div class="panel panel-default" id="main-content-wrapper">
+                    <div class="panel-body bg-default" id="main-content-container">
+                        <div class="row">
+                            <div class="col-md-6 col-sm-6  col-xs-6">
+                                <div class="panda-err">
+                                    
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-sm-6  col-xs-6">
+                                <div class="panda-err-cloud">
+                                    <div>503#%</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                    </div>
+                    <div class="panel-footer">
+                        <div class="text-center">
+                            <p>{@__ phrase="Przejdź do strony" /} <a href="/">{@__ phrase="głownej" /}</a></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-2">
+            {>"layouts/partials/ads/right"/}
+        </div>
+    </div>
+</div>
+{/body}

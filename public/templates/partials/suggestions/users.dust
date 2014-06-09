@@ -11,7 +11,9 @@
             <div class="clearfix"></div>
             <div class="btn-group pull-right mg-t-xs">
                 <a class="btn btn-dark btn-xs btn-see-profile disabled" role="button">{@__ phrase="Zobacz" /}</a>
-                <a class="btn btn-default btn-xs btn-follow disabled" role="button">+ {@__ phrase="Obserwuj" /}</a>
+                {?user}
+                    <a class="btn btn-default btn-xs btn-follow disabled" role="button">+ {@__ phrase="Obserwuj" /}</a>
+                {/user}
             </div>
         </div>
     </div>

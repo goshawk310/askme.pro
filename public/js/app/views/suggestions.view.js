@@ -85,7 +85,7 @@ askmePro.views.SuggesstionQuestionsView = Backbone.View.extend({
         $.ajax('/api/suggestions/questions', {
             localCache: true,
             cacheTTL : 180,
-            cacheKey: 'suggestions_questions',
+            cacheKey: 'suggestions_questions' + (askmePro.data.user.id ? '' : '_'),
             dataType: 'json',
             data: {
                 limit: 2
@@ -105,7 +105,7 @@ $(function () {
         $.ajax('/api/suggestions/users', {
             localCache: true,
             cacheTTL : 180,
-            cacheKey: 'suggestions_users',
+            cacheKey: 'suggestions_users' + (askmePro.data.user.id ? '' : '_'),
             dataType: 'json',
             data: {
                 limit: 2

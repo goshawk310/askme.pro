@@ -8,15 +8,26 @@
         <div class="col-md-8">
             <div class="center-block">
                 <div class="panel panel-default" id="main-content-wrapper">
-                    <div class="panel-heading">
-                        <h4 class="no-margin">404</h4>
-                    </div>
-                    <div class="panel-body" id="main-content-container">
-                        <p>{@__ phrase="Szukana strona nie została znaleziona" /}</p>
-                        <p>{@__ phrase="Przejdź do strony" /} <a href="/">{@__ phrase="głownej" /}</a></p>
-                    </div>
-                    <div class="panel-footer panel-footer-main" id="main-content-footer">
+                    <div class="panel-body bg-default" id="main-content-container">
+                        <div class="row">
+                            <div class="col-md-6 col-sm-6  col-xs-6">
+                                <div class="panda-err">
+                                    
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-sm-6  col-xs-6">
+                                <div class="panda-err-cloud">
+                                    <div>404#%</div>
+                                </div>
+                            </div>
+                        </div>
                         
+                    </div>
+                    <div class="panel-footer">
+                        <div class="text-center">
+                            <p>{@__ phrase="Szukana strona nie została znaleziona" /}</p>
+                            <p>{@__ phrase="Przejdź do strony" /} <a href="/">{@__ phrase="głownej" /}</a></p>
+                        </div>
                     </div>
                 </div>
             </div>

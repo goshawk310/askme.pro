@@ -869,6 +869,14 @@ ul#profile-menu li.active a {
     background-color: #fff;
 }
 
+.is-loading#profile-photos-container img {
+    opacity: 0;
+}
+
+#profile-photos-container img {
+    opacity: 1;
+}
+
 .photo-container {
     position: relative;
 }
@@ -1871,10 +1879,42 @@ ul#profile-menu li a {
     content: ""
 }
 
-.is-loading#profile-photos-container img {
-    opacity: 0;
+/*error pages*/
+
+.panda-err {
+    position: relative;
+    float: right;
+    background: url('../images/panda_err.png') no-repeat center center;
+    -webkit-background-size: 100%;
+    -moz-background-size: 100%;
+    -o-background-size: 100%;
+    background-size: 100%;
+    width: 258px;
+    height: 370px;
+    max-width: 100%;
+    margin-top: 30%;
 }
 
-#profile-photos-container img {
-    opacity: 1;
+.panda-err-cloud {
+    float: left;
+    background: url('../images/panda_err_cloud.png') no-repeat center center;
+    -webkit-background-size: 100%;
+    -moz-background-size: 100%;
+    -o-background-size: 100%;
+    background-size: 100%;
+    width: 276px;
+    height: 219px;
+    max-width: 100%;
+    text-align: center;
+    position: relative;
+}
+
+.panda-err-cloud div {
+    position: absolute;
+    left: 0;
+    top: 30%;
+    width: 100%;
+    font-size: 3.5em;
+    font-weight: bold;
+    color: #0187bb;
 }
