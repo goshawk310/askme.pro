@@ -61,9 +61,46 @@ askmePro.views.SuggesstionUsersView = Backbone.View.extend({
     }
 });
 
+askmePro.views.SuggesstionQuestionsView = Backbone.View.extend({
+    questions: null,
+    elemTpl:  _.template('\
+        <li class="list-group-item">\
+            <small><a class="text-white" href="/questions/<%=_id%>"><%=askmePro.views.helpers.parseUsersText(contents)%></a>\
+                <a href="/<%=to.username%>">@<%=to.username%></a>\
+            </small>\
+            <small class="center-block"><i class="fa fa-clock-o mg-r-xs"></i><%=moment(answered_at).fromNow()%></small>\
+        </li>\
+    '),
+    initialize: function(options) {
+    },
+    render: function () {
+        var thisObj = this;
+        _.each(this.questions, function (question) {
+            thisObj.$el.find('ul').append(thisObj.elemTpl(question));
+        });
+        return this;
+    },
+    load: function load(callback) {
+        var thisObj = this;
+        $.ajax('/api/suggestions/questions', {
+            localCache: true,
+            cacheTTL : 180,
+            cacheKey: 'suggestions_questions',
+            dataType: 'json',
+            data: {
+                limit: 2
+            }
+        })
+        .done(function(response) {
+            thisObj.questions = response;
+            thisObj.render();
+        });
+    }
+});
+
 $(function () {
     var userElems = $('.suggestion-users-container'),
-        views = [];
+        questionElems = $('.suggestion-questions-container');
     if (userElems.length) {
         $.ajax('/api/suggestions/users', {
             localCache: true,
@@ -83,5 +120,10 @@ $(function () {
                 view.render();
             });
         });
+    }
+    if (questionElems.length) {
+        var suggestionQuestion = new askmePro.views.SuggesstionQuestionsView();
+        suggestionQuestion.setElement(questionElems.first());
+        suggestionQuestion.load();
     }
 });

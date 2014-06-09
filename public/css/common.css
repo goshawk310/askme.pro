@@ -1870,3 +1870,11 @@ ul#profile-menu li a {
 .suggestion-users-container.suggestions-loading .txt:before {
     content: ""
 }
+
+.is-loading#profile-photos-container img {
+    opacity: 0;
+}
+
+#profile-photos-container img {
+    opacity: 1;
+}

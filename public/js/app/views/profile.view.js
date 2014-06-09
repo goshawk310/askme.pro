@@ -716,16 +716,14 @@ askmePro.views.ProfilePhotosView = Backbone.View.extend({
                     });
 
                     (function () {
-                        body.imagesLoaded().always(function () {
-                            body.fadeIn();
-                        }).progress(function (instance, image) {
-                            if (image.isLoaded) {
-                                $(image.img).addClass('loaded');
-                            }
-                        }).done(function () {
-                            thisObj.loader('hide');
+                        body.addClass('is-loading');
+                        body.imagesLoaded(function () {
                             thisObj.masonryContainer.masonry('addItems', body.find('.photo-container'));
-                            thisObj.masonryContainer.masonry();
+                            body.removeClass('is-loading');
+                            setTimeout(function () {
+                                thisObj.masonryContainer.masonry();
+                                thisObj.loader('hide');
+                            }, 100);
                         });
                     })();
                     

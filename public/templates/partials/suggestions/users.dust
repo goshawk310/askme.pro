@@ -8,9 +8,10 @@
         </div>
         <div>
             <span class="txt s-motto"></span>
+            <div class="clearfix"></div>
             <div class="btn-group pull-right mg-t-xs">
-                <a class="btn btn-dark btn-xs btn-see-profile disabled" role="button">Zobacz</a>
-                <a class="btn btn-default btn-xs btn-follow disabled" role="button">+ Obserwuj</a>
+                <a class="btn btn-dark btn-xs btn-see-profile disabled" role="button">{@__ phrase="Zobacz" /}</a>
+                <a class="btn btn-default btn-xs btn-follow disabled" role="button">+ {@__ phrase="Obserwuj" /}</a>
             </div>
         </div>
     </div>

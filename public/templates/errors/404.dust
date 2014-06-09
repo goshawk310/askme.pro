@@ -9,7 +9,7 @@
             <div class="center-block">
                 <div class="panel panel-default" id="main-content-wrapper">
                     <div class="panel-heading">
-                        <h1>404</h1>
+                        <h4 class="no-margin">404</h4>
                     </div>
                     <div class="panel-body" id="main-content-container">
                         <p>{@__ phrase="Szukana strona nie została znaleziona" /}</p>

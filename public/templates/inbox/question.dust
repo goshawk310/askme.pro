@@ -50,6 +50,11 @@
                             </div>
                             <div class="clearfix"></div>
                             <div class="col-md-12">
+                                <div class="small">
+                                    <i class="fa fa-exclamation-circle text-danger"></i> <span class="text-muted">{@__ phrase="Zabrania się używania treści powszechnie uznawanych za obraźliwe, zaś zamieszczenie materiałów o charakterze erotycznym będzie skutkowało natychmiastowym banem."/}</span>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
                                 <div class="progress progress-container">
                                     <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
                                         <span class="sr-only"></span>

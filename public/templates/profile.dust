@@ -86,7 +86,7 @@
     
 </div>
 <div class="container profile">
-    <div class="row">
+    <div class="row custom-row">
         <div class="col-md-3 hidden-sm hidden-xs profile-info-wrapper">
              {>"profile/partials/user_panel" showButtons="1" showOnline="1"/}
              {>"layouts/partials/ads/left_wide"/}
@@ -139,6 +139,7 @@
         <div class="col-md-2 col-sm-12 col-xs-12">
             {>"partials/suggestions/users"/}
             {>"partials/suggestions/users"/}
+            {>"partials/suggestions/questions"/}
             {>"layouts/partials/ads/right"/}
         </div>
     </div>

@@ -1,0 +1,8 @@
+<div class="panel panel-primary post bg-primary suggestion-questions-container">
+    <div class="panel-heading">
+        <i class="fa fa-star pd-r-sm"></i>{@__ phrase="Popularne pytania" /}
+    </div>
+    <ul class="list-group bg-none">
+        
+    </ul>
+</div>
