@@ -15,21 +15,31 @@ module.exports = function(server) {
             if (!req.isAuthenticated() && user.settings.anonymous_disallowed) {
                 throw new Error('unauthorized');
             }
-            if (req.isAuthenticated() && user.users && req.user.isBlocked(user.users.blocked)) {
-                throw new Error('notFound');        
-            }
             var isFollowed = false,
                 isBlocked = false;
-            if (req.isAuthenticated() && req.user.users) {
-
-                isFollowed = req.user.users.followed ? user.isFollowed(req.user.users.followed) : false;
-                isBlocked = req.user.users.blocked ? user.isBlocked(req.user.users.blocked) : false;
+            if (req.isAuthenticated()) {
+                return Q.ninvoke(req.user, 'isBlockedBy', user._id)
+                    .then(function (isBlocked) {
+                        if (isBlocked) {
+                            throw new Error('blocked');
+                        }
+                        if (req.user.users) {
+                            isFollowed = req.user.users.followed ? user.isFollowed(req.user.users.followed) : false;
+                            isBlocked = req.user.users.blocked ? user.isBlocked(req.user.users.blocked) : false;
+                        }
+                        return [user, {
+                            profile: user,
+                            isFollowed: isFollowed,
+                            isBlocked: isBlocked
+                        }];
+                    });
+            } else {
+                return [user, {
+                    profile: user,
+                    isFollowed: isFollowed,
+                    isBlocked: isBlocked
+                }];
             }
-            return [user, {
-                profile: user,
-                isFollowed: isFollowed,
-                isBlocked: isBlocked
-            }];
         })
         .spread(function (user, data) {
             data.gifts = [];
@@ -65,7 +75,9 @@ module.exports = function(server) {
                 if (err.message === 'unauthorized') {
                     req.flash('error', res.__('Aby przeglądać tą stronę trzeba się zalogować'));
                     return res.redirect('/account/login');
-                } else if (err.message === 'notFound') {
+                } else if (err.message === 'blocked') {
+                    return res.render('errors/blocked');
+                } else {
                     return next();
                 }
             }

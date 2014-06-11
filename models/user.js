@@ -266,6 +266,23 @@ var User = function() {
     };
 
     /**
+     * isBlockedBy
+     * @param  {Object}  user
+     * @param  {Function}  callback
+     */
+    schema.methods.isBlockedBy = function (userId, callback) {
+        require('./user/blocked').findOne({
+            by: userId,
+            user: this._id
+        }, function (err, doc) {
+            if (err || !doc) {
+                return callback(null, false);
+            }
+            callback(null, true);
+        });
+    };
+
+    /**
      * [isFollowing description]
      * @param  {String}  followed
      * @return {Boolean}

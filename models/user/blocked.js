@@ -36,8 +36,20 @@ var UserBlocked = function() {
      * @return void
      */
     schema.pre('save', function(next) {
+        var userBlocked = this;
         this.wasNew = this.isNew;
-        next();
+        if (this.isNew) {
+            require('../user').findOne({
+                _id: userBlocked.user
+            }, function (err, doc) {
+                if (err || !doc || doc.role !== 'user') {
+                    return next(new Error('Invalid user'));
+                }
+                next();
+            });
+        } else {
+            next();
+        }
     });
 
     /**
@@ -58,8 +70,17 @@ var UserBlocked = function() {
             UserModel.update({
                 _id: blocked.by
             }, {
-                $push: {
+                $addToSet: {
                     'users.blocked': blocked.user
+                }
+            }, function (err, user) {
+            
+            });
+            UserModel.update({
+                _id: blocked.user
+            }, {
+                $addToSet: {
+                    'users.blocked': blocked.by
                 }
             }, function (err, user) {
             
@@ -73,14 +94,30 @@ var UserBlocked = function() {
      */
     schema.post('remove', function(blocked) {
         var UserModel = require('../user');
-        UserModel.update({
-            _id: blocked.by
-        }, {
-            $pull: {
-                'users.blocked': blocked.user
+        this.model('UserBlocked').findOne({
+            by: blocked.user
+        }, function (err, doc) {
+            if (err || doc) {
+                return;
             }
-        }, function (err, user) {
-        
+            UserModel.update({
+                _id: blocked.by
+            }, {
+                $pull: {
+                    'users.blocked': blocked.user
+                }
+            }, function (err, user) {
+            
+            });
+            UserModel.update({
+                _id: blocked.user
+            }, {
+                $pull: {
+                    'users.blocked': blocked.by
+                }
+            }, function (err, user) {
+            
+            });
         });
     });
     return mongoose.model('UserBlocked', schema);

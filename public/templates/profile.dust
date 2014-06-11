@@ -33,11 +33,13 @@
                     {?user}
                         <div id="profile-buttons-container" class="profile-buttons-container">
                             {@ne key="{user.id}" value="{profile.id}"}
-                                {^isBlocked}
-                                    <a class="btn pull-left btn-rounded btn-block-user" data-alttext="{@__ phrase="Odblokuj" /}">{@__ phrase="Zablokuj" /}</a>
-                                {:else}
-                                    <a class="btn pull-left btn-rounded btn-unblock-user" data-alttext="{@__ phrase="Zablokuj" /}">{@__ phrase="Odblokuj" /}</a>
-                                {/isBlocked}
+                                {@eq key="{profile.role}" value="user"}
+                                    {^isBlocked}
+                                        <a class="btn pull-left btn-rounded btn-block-user" data-alttext="{@__ phrase="Odblokuj" /}">{@__ phrase="Zablokuj" /}</a>
+                                    {:else}
+                                        <a class="btn pull-left btn-rounded btn-unblock-user" data-alttext="{@__ phrase="Zablokuj" /}">{@__ phrase="Odblokuj" /}</a>
+                                    {/isBlocked}
+                                {/eq}
                             {:else}
                                 {^profile.top_bg}
                                     <a href="/account/settings#/topbg" class="btn btn-default pull-right" title="{@__ phrase="Dodaj zdjęcie w tle" /}"><i class="fa fa-camera"></i></a>
@@ -69,14 +71,16 @@
                             {/ne}
                             <li><a href="/{profile.username}#gifts/send" class="text-success">{@__ phrase="Wyślij gifta" /}</a></li>
                             {@ne key="{user.id}" value="{profile.id}"}
-                                <li class="divider"></li>
-                                <li>
-                                    {^isBlocked}
-                                        <a href="" class="btn-block-user" data-alttext="{@__ phrase="Odblokuj" /}">{@__ phrase="Zablokuj" /}</a>
-                                    {:else}
-                                        <a href="" class="btn-unblock-user" data-alttext="{@__ phrase="Zablokuj" /}">{@__ phrase="Odblokuj" /}</a>
-                                    {/isBlocked}
-                                </li>
+                                {@eq key="{profile.role}" value="user"}
+                                    <li class="divider"></li>
+                                    <li>
+                                        {^isBlocked}
+                                            <a href="" class="btn-block-user" data-alttext="{@__ phrase="Odblokuj" /}">{@__ phrase="Zablokuj" /}</a>
+                                        {:else}
+                                            <a href="" class="btn-unblock-user" data-alttext="{@__ phrase="Zablokuj" /}">{@__ phrase="Odblokuj" /}</a>
+                                        {/isBlocked}
+                                    </li>
+                                {/eq}
                             {/ne}
                         {/user}
                     </ul>
