@@ -46,9 +46,10 @@ module.exports = function(server) {
      */
     server.post('/api/users/:id/follow', auth.isAuthenticated, function (req, res) {
         userService
+            .setRes(res)
             .follow(req.user._id, req.param('id'), function (err) {
                 if (err) {
-                    return res.send(500, {});
+                    return res.send(500, err);
                 }
                 res.send({
                     status: 'success'

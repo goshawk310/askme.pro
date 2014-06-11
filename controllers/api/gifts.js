@@ -32,6 +32,7 @@ module.exports = function(server) {
     server.post('/api/gifts/:id/send', auth.isAuthenticated, function (req, res) {
         giftService
             .setReq(req)
+            .setRes(res)
             .send(function (err, gift) {
                 if (err) {
                     return res.send(500, {

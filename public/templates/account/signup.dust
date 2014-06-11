@@ -1,10 +1,8 @@
 {>"layouts/master" /}
 {<body}
     <div class="container">
-        {>"layouts/partials/ads/top"/}
     <div class="row">
         <div class="col-md-2">
-            {>"layouts/partials/ads/left"/}
         </div>
         <div class="col-md-8">
             <div class="center-block">
@@ -120,7 +118,7 @@
                                     <div class="col-md-12">
                                         <div class="checkbox">
                                             <label>
-                                                <input type="checkbox" name="terms_accepted" id="terms" value="1"{?formData.terms_accepted} checked="checked"{/formData.terms_accepted}> {@__ phrase="Klikając zarejestruj, zatwierdzasz"/} <a href="/site/terms" target="_blank">{@__ phrase="Regulamin" /}</a>
+                                                <input type="checkbox" name="terms_accepted" id="terms" value="1"{?formData.terms_accepted} checked="checked"{/formData.terms_accepted}> <b>{@__ phrase="Klikając zarejestruj, zatwierdzasz"/} <a href="/site/terms" target="_blank">{@__ phrase="Regulamin" /}</a></b>
                                             </label>
                                         </div>
                                     </div>
@@ -130,7 +128,11 @@
                             </div>
                             <input type="hidden" name="_csrf" value="{_csrf}">
                             <div class="form-group">
-                                <button type="submit" class="btn btn-primary">{@__ phrase="Zarejestruj" /}</button>
+                                <div class="col-md-6">
+                                    <button type="submit" class="btn btn-info btn-block">{@__ phrase="Zarejestruj" /}</button>
+                                    <p class="center-block mg-t mg-b text-center">{@__ phrase="Masz juz konto?" /}</p>
+                                    <a class="btn btn-primary btn-block mg-b-sm" href="/account/login">{@__ phrase="Zaloguj się" /}</a>
+                                </div>
                             </div>
                         </form>
                     </div>
@@ -138,7 +140,6 @@
             </div>
         </div>
         <div class="col-md-2">
-            {>"layouts/partials/ads/right"/}
         </div>
     </div>
 </div>

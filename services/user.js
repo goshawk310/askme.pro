@@ -430,10 +430,40 @@ module.exports = _.defaults({
     },
     follow: function follow(by, user, callback) {
         var userFollowed = new UserFollowedModel({
-            by: by,
-            user: user
+                by: by,
+                user: user
+            }),
+            res = this.getRes();
+        userFollowed.save(function (err) {
+            if (err) {
+                return callback(err);
+            }
+            UserModel.findOne({
+                _id: user
+            }, function (err, doc) {
+                if (err || !doc) {
+                    return;
+                }
+                var email = new Email();
+                email.setTemplate(res.locals.getLocale() + '/followed', {
+                    username: doc.username
+                }, function (err, html, text) {
+                    if (err) {
+                        console.log(err);
+                        return;
+                    }
+                    this.setSubject(res.__('Masz nowego obserwatora na askme.pro!'))
+                        .setTo(doc.email)
+                        .setHtml(html)
+                        .send(function (err, msg) {
+                            if (err) {
+                                console.log(err);
+                            }
+                        });
+                });
+            });
+            callback(err);
         });
-        userFollowed.save(callback);
     },
     unfollow: function unfollow(by, user, callback) {
         UserFollowedModel
