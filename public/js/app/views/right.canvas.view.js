@@ -56,7 +56,7 @@ $(function () {
         var rightCanvasView = new askmePro.views.RightCanvasView();
         rightCanvasView.load();
     });
-    if ($(window).width() > 1680) {
+    if ($('body').hasClass('app-layout') && $(window).width() > 1680) {
         toggleRight.trigger('click');
     }
 })

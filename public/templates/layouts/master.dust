@@ -42,7 +42,7 @@
 
         </script>
     </head>
-    <body{?user} class="logged-in"{/user}>
+    <body class="app-layout{?user} logged-in{/user}">
         <div id="fb-root"></div>
         <script>(function(d, s, id) {
           var js, fjs = d.getElementsByTagName(s)[0];
@@ -88,7 +88,7 @@
         <script src="/js/app/views/suggestions.view.js"></script>
         {?user}
             <script src="/js/vendor/slimScroll/jquery.slimscroll.min.js"></script>
-            <script src="/js/off-canvas.js?1"></script>
+            <script src="/js/off-canvas.js?22"></script>
             <script src="/js/app/views/right.canvas.view.js"></script>
         {/user}
         <script type="text/javascript">
@@ -96,7 +96,7 @@
                 id: {?user._id}'{user._id}'{:else}null{/user._id}
             };
         </script>
-        <script src="/js/app/views/top.notifications.view.js"></script>
+        <script src="/js/app/views/top.notifications.view.js?22"></script>
         <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
         <script>
             $(function () {

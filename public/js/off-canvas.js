@@ -1,6 +1,6 @@
 $(function () {
 	var w = $(window),
-		containers = $('#main-navbar > .container, #content > .container, #profile-top-full > .bg-container > .container'),
+		containers = $('.app-layout #main-navbar > .container, .app-layout #content > .container, .app-layout #profile-top-full > .bg-container > .container'),
 		mainContainer = $('#content > .container'),
 		canvasRight = $('.canvas-right'),
 		canvasLeft = $('.canvas-left'),

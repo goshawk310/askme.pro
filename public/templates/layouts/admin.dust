@@ -26,7 +26,7 @@
         {>"partials/search_results"/}
         {>"partials/users/followed"/}
     </head>
-    <body>
+    <body{?user} class="logged-in"{/user}>
         {?user}
             {>"layouts/partials/canvas_left"/}
         {/user}
@@ -89,7 +89,7 @@
         <script src="/js/app.js?1"></script>
         {?user}
             <script src="/js/vendor/slimScroll/jquery.slimscroll.min.js"></script>
-            <script src="/js/off-canvas.js?1"></script>
+            <script src="/js/off-canvas.js?22"></script>
             <script src="/js/app/views/right.canvas.view.js"></script>
         {/user}
         <script type="text/javascript">
@@ -97,7 +97,7 @@
                 id: {?user._id}'{user._id}'{:else}null{/user._id}
             };
         </script>
-        <script src="/js/app/views/top.notifications.view.js"></script>
+        <script src="/js/app/views/top.notifications.view.js?22"></script>
         {+js /}
         <script src="/components/jquery.cookie.js"></script>
         <script src="/js/admin.js?1"></script>

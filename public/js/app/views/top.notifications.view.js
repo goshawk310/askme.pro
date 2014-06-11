@@ -48,7 +48,7 @@ $(function () {
                 } else {
                     askmePro.notifications.top.views.likes.setHtml();
                 }
-                $this.parent().children('span.badge').remove();
+                $this.children('span.badge').remove();
             });
             likesInitialized = true;
         }
@@ -83,7 +83,7 @@ $(function () {
                 } else {
                     askmePro.notifications.top.views.feed.setHtml();
                 }
-                $this.parent().children('span.badge').remove();
+                $this.children('span.badge').remove();
             });
             feedInitialized = true;
         }
@@ -100,7 +100,7 @@ $(function () {
     });
     $('body').on('click', function (e) {
         if (activePopoverElem && activePopoverElem.is(':visible') && !activePopover.is(e.target) && activePopover.has(e.target).length === 0) {
-            if (!activePopoverElem.is(e.target) && activePopoverElem.has(e.target).length === 0) {
+            if (!activePopoverElem.is(e.target) && !$(e.target).hasClass('badge-top') && activePopoverElem.has(e.target).length === 0) {
                 activePopover.trigger('click');
             }
         }

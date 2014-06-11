@@ -14,26 +14,26 @@
                 <li class="notify notifylikes" id="notify-likes" data-title="{@__ phrase="Polubienia" /}">
                     <a href="#">
                         <i class="fa fa-heart"></i>
-                        {@if cond="{user.notifications.likes} > 0"}
-                            <span class="badge badge-top bg-danger animated flash">{user.notifications.likes}</span>
-                        {/if}
                     </a>
+                    {@if cond="{user.notifications.likes} > 0"}
+                        <span class="badge badge-top bg-danger animated flash">{user.notifications.likes}</span>
+                    {/if}
                 </li>
                 <li class="notify notifyquestions" id="notify-questions" data-title="{@__ phrase="Pytania" /}">
                     <a href="#">
                         <i class="fa fa-envelope"></i>
-                        {@if cond="{user.stats.questions_unanswered} > 0"}
-                            <span class="badge badge-top bg-danger animated flash">{user.stats.questions_unanswered}</span>
-                        {/if}
                     </a>
+                    {@if cond="{user.stats.questions_unanswered} > 0"}
+                        <span class="badge badge-top bg-danger animated flash">{user.stats.questions_unanswered}</span>
+                    {/if}
                 </li>
                 <li class="notify notifyanswers" id="notify-feed" data-title="{@__ phrase="Feed" /}">
                     <a href="#">
                         <i class="fa fa-bell"></i>
-                        {@if cond="{user.notifications.feed} > 0"}
-                            <span class="badge badge-top bg-danger animated flash">{user.notifications.feed}</span>
-                        {/if}
                     </a>
+                    {@if cond="{user.notifications.feed} > 0"}
+                        <span class="badge badge-top bg-danger animated flash">{user.notifications.feed}</span>
+                    {/if}
                 </li>
                 {/user}
             </ul>
