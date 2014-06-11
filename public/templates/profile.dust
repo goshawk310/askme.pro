@@ -94,7 +94,7 @@
 <div class="container profile">
     <div class="row custom-row">
         <div class="col-md-3 hidden-sm hidden-xs profile-info-wrapper">
-             {>"profile/partials/user_panel" showButtons="1" showOnline="1" user=user profile=profile/}
+             {>"profile/partials/user_panel" showButtons="1" showOnline="1" showPoints="1" user=user profile=profile/}
              {>"layouts/partials/ads/left_wide"/}
         </div>
         <div class="col-md-7 custom-col-md-7">

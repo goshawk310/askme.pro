@@ -17,15 +17,17 @@
                     {/profile.online}
                 {/showOnline}
                 <div class="clearfix"></div>
-                <div class="mg-t-md mg-b-md">
-                    {?showPoints}
+                {?showPoints}
+                    <div class="mg-t-md">
                         <div class="progress progress-striped active user-points-progress">  
                             <div class="progress-bar" id="user-points-progress-bar" role="progressbar" aria-valuenow="{profile.pointsInt}" aria-valuemin="0" aria-valuemax="100">
                             </div>
                             <div class="progress-value">{profile.pointsInt} {@__ phrase="pkt." /}</div>
                         </div>
                         <div class="clearfix"></div>
-                    {/showPoints}
+                    </div>
+                {/showPoints}
+                <div class="mg-t-md mg-b-md">
                     {?showButtons}
                         {?user}
                             <div class="btn-group btn-group-justified btn-rounded profile-buttons-container">
@@ -61,18 +63,20 @@
                     <a href="/{profile.username}#videos">{@__ phrase="Video" /}</a>
                 </li>
             </ul>
-            <div class="mg-t-md">
-                {?profile.profile.motto}
+            {?profile.profile.motto}
+                <div class="mg-t-md">
                     <em>"{profile.profile.motto}"</em>
-                    <div class="clearfix"></div>    
-                {/profile.profile.motto}
-                {?profile.profile.website}
+                </div>
+                <div class="clearfix"></div>    
+            {/profile.profile.motto}
+            {?profile.profile.website}
+                <div class="mg-t-md">
                     <div class="truncate">
                         <a href="{profile.profile.website}" target="_blank"><i class="fa fa-globe mg-r-md"></i>{@strReplace value="{profile.profile.website}" search="http(s?)://" replace="" /}</a>
                     </div>
-                    <div class="clearfix"></div>
-                {/profile.profile.website}
-            </div>
+                </div>
+                <div class="clearfix"></div>
+            {/profile.profile.website}
         </div>
     </div>
     <div class="profile-info-footer panel-footer hidden-sm hidden-xs text-center">
