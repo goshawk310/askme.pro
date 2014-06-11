@@ -3,24 +3,24 @@ module.exports = {
     baseDir: dirname,
     avatar: {
         dir: dirname + '/uploads/avatars/',
-        url: 'http://www.askme.pro/uploads/avatars/',
+        url: '/uploads/avatars/',
         sizes: ['300x', '100x', '50x']
     },
     custom_background: {
         dir: dirname + '/uploads/backgrounds/',
-        url: 'http://www.askme.pro/uploads/backgrounds/'
+        url: '/uploads/backgrounds/'
     },
     predefined_background: {
         dir: dirname + '/public/images/themes/',
-        url: 'http://www.askme.pro/images/themes/'
+        url: '/images/themes/'
     },
     topbg: {
         dir: dirname + '/uploads/tops/',
-        url: 'http://www.askme.pro/uploads/tops/'
+        url: '/uploads/tops/'
     },
     answer: {
         dir: dirname + '/uploads/answers/',
-        url: 'http://www.askme.pro/uploads/answers/'
+        url: '/uploads/answers/'
     },
     sticker: {
         tmpDir: dirname + '/uploads/tmp/stickers/',
