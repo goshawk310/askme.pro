@@ -24,9 +24,9 @@ module.exports = {
     },
     sticker: {
         tmpDir: dirname + '/uploads/tmp/stickers/',
-        tmpurl: 'http://www.askme.pro/tmp/stickers/',
+        tmpurl: '/tmp/stickers/',
         dir: dirname + '/public/images/stickers/',
-        url: 'http://www.askme.pro/images/stickers/'
+        url: '/images/stickers/'
     },
     locales: [{
         key: 'pl',

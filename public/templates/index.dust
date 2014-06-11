@@ -6,7 +6,7 @@
             {>"profile/partials/user_panel" profile=user showStats="1" showAvatar="1" /}
             {>"layouts/partials/ads/left_wide"/}
         </div>
-        <div class="col-md-7 col-sm-12 col-xs-12" id="main-content-wrapper">
+        <div class="col-md-7 custom-col-md-7 col-sm-12 col-xs-12" id="main-content-wrapper">
             <div class="panel panel-default">
                 <div class="panel-body">
                     {>"layouts/partials/ads/content_horizontal"/}
@@ -21,7 +21,7 @@
             </div>
             <div class="clearfix"></div>
         </div>
-        <div class="col-md-2 col-sm-12 col-xs-12">
+        <div class="col-md-2 custom-col-md-2 col-sm-12 col-xs-12">
             {>"partials/suggestions/users"/}
             {>"partials/suggestions/users"/}
             {>"partials/suggestions/questions"/}
@@ -30,12 +30,10 @@
 </div>
 {/body}
 {<js}
-<script src="/components/momentjs/min/moment.min.js"></script>
 <script src="/components/validate/jquery.validate.min.js"></script>
 <script src="/components/validate/additional-methods.js"></script>
 {@ne key="en" value="{locale}"}
     <script src="/components/validate/localization/messages_{locale}.js"></script>
-    <script src="/components/momentjs/lang/{locale}.js"></script>
 {/ne}
 <script src="/components/jquery.autosize.min.js"></script>
 <script src="/components/magnific-popup/jquery.magnific-popup.min.js"></script>

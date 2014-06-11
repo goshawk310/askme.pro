@@ -13,7 +13,9 @@
                     <div class="profile-avatar-wrapper">
                         {@userAvatar user=profile size="cropped/300x" wrapper="true" enlarge="true" cssClass="user-avatar img-circle"/}
                         {?profile.sticker}
-                            <img src="/images/stickers/wstazka.png" alt="" class="profile-sticker" />
+                            <div class="profile-sticker-wrapper">
+                                <img src="{config.sticker.url}{profile.sticker}" alt="" class="profile-sticker" />
+                            </div>
                         {/profile.sticker}
                     </div>
                 </div>
@@ -91,7 +93,7 @@
              {>"profile/partials/user_panel" showButtons="1" showOnline="1"/}
              {>"layouts/partials/ads/left_wide"/}
         </div>
-        <div class="col-md-7">
+        <div class="col-md-7 custom-col-md-7">
             <div class="menu-container panel panel-default">
                 <div id="profile-stats-wrapper" class="panel-body no-padding">
                     <div class="btn-group btn-group-justified" id="profile-stats-container">
@@ -136,7 +138,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-2 col-sm-12 col-xs-12">
+        <div class="col-md-2 custom-col-md-2 col-sm-12 col-xs-12">
             {>"partials/suggestions/users"/}
             {>"partials/suggestions/users"/}
             {>"partials/suggestions/questions"/}
@@ -150,12 +152,10 @@
 {/css}
 {<js}
 <script src="/js/vendor/jquery-ui-1.10.4.custom.min.js"></script>
-<script src="/components/momentjs/min/moment.min.js"></script>
 <script src="/components/validate/jquery.validate.min.js"></script>
 <script src="/components/validate/additional-methods.js"></script>
 {@ne key="en" value="{locale}"}
     <script src="/components/validate/localization/messages_{locale}.js"></script>
-    <script src="/components/momentjs/lang/{locale}.js"></script>
 {/ne}
 <script src="/components/jquery.autosize.min.js"></script>
 <script src="/components/magnific-popup/jquery.magnific-popup.min.js"></script>

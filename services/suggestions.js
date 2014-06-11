@@ -5,8 +5,12 @@ var UsergModel = require('../models/user'),
 
 module.exports = _.defaults({
     getUsers: function getUsers(params, callback) {
-        var whereAnd = [];
         params = params || {};
+        var whereAnd = [],
+            limit = params.limit ? parseInt(params.limit, 10) : 1;
+        if (limit < 0 || limit > 2) {
+            limit = 2;
+        }
         whereAnd.push({'status.value': 1});
         if (params.followed && _.isArray(params.followed)) {
             whereAnd.push({_id: {$nin: params.followed}});
@@ -18,8 +22,18 @@ module.exports = _.defaults({
             .find({$and: whereAnd})
             .select('username avatar name lastname profile.motto')
             .sort({'stats.likes': -1})
-            .limit(params.limit ? parseInt(params.limit, 10) : 1)
-            .exec(callback);
+            .limit(limit * 20)
+            .exec(function (err, docs) {
+                if (err) {
+                    return callback(err);
+                }
+                var picked = [],
+                    i = 0;
+                for (i = 0; i < limit; i++) {
+                    picked = picked.concat(docs.splice(parseInt(Math.random() * docs.length, 10), 1));    
+                }
+                callback(null, picked);
+            });
     },
     getQuestions: function getQuestions(params, callback) {
         var whereAnd = [],

@@ -39,12 +39,10 @@
 <script src="/components/fileupload/jquery.fileupload.js"></script>
 <script src="/components/fileupload/jquery.fileupload-process.js"></script>
 <script src="/components/fileupload/jquery.fileupload-validate.js"></script>
-<script src="/components/momentjs/min/moment.min.js"></script>
 <script src="/components/validate/jquery.validate.min.js"></script>
 <script src="/components/validate/additional-methods.js"></script>
 {@ne key="en" value="{locale}"}
     <script src="/components/validate/localization/messages_{locale}.js"></script>
-    <script src="/components/momentjs/lang/{locale}.js"></script>
 {/ne}
 <script src="/js/utils/upload.js"></script>
 <script src="/js/app/models.js"></script>

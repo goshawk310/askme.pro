@@ -19,12 +19,10 @@
 {/body}
 {<js}
 <script src="/components/fileupload/vendor/jquery.ui.widget.js"></script>
-<script src="/components/momentjs/min/moment.min.js"></script>
 <script src="/components/validate/jquery.validate.min.js"></script>
 <script src="/components/validate/additional-methods.js"></script>
 {@ne key="en" value="{locale}"}
     <script src="/components/validate/localization/messages_{locale}.js"></script>
-    <script src="/components/momentjs/lang/{locale}.js"></script>
 {/ne}
 <script src="/components/jquery.autosize.min.js"></script>
 <script src="/components/magnific-popup/jquery.magnific-popup.min.js"></script>
