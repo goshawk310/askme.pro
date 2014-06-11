@@ -65,7 +65,7 @@ askmePro.views.SuggesstionQuestionsView = Backbone.View.extend({
     questions: null,
     elemTpl:  _.template('\
         <li class="list-group-item">\
-            <small><a class="text-white" href="/questions/<%=_id%>"><%=askmePro.views.helpers.parseUsersText(contents)%></a>\
+            <small><span class="text-white"><a href="/questions/<%=_id%>"><%=askmePro.views.helpers.parseUsersText(contents)%></a></span>\
                 <a href="/<%=to.username%>">@<%=to.username%></a>\
             </small>\
             <small class="center-block"><i class="fa fa-clock-o mg-r-xs"></i><%=moment(answered_at).fromNow()%></small>\

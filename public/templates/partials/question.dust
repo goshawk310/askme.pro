@@ -1,7 +1,7 @@
 <div class="panel-heading">
     <%=askmePro.views.helpers.userAvatar({~lb}user: question['{avatarKey}'], size: 'cropped/100x', wrapper: true, cssClass: "avatar avatar-sm img-circle", linkClass: "pull-left mg-r-md"{~rb})%>
     <div>
-        <%=askmePro.views.helpers.parseUsersText(question.contents, {url: {yt: 'link'}})%>
+        <b><%=askmePro.views.helpers.parseUsersText(question.contents, {url: {yt: 'link'}})%></b>
         <small class="pull-right no-touch settings text-muted">
             <a class="fa fa-chevron-down btn-collapsible pd-r-xs" href="#"></a>
             <a class="fa fa-share pd-r-xs" href="/questions/<%=question._id%>" title="{@__ phrase="Przejdź" /}"></a>

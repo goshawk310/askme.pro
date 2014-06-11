@@ -40,9 +40,9 @@
 <script src="/js/app/models.js"></script>
 <script src="/js/app/collections.js"></script>
 <script src="/js/app/views.js"></script>
-<script src="/js/app/views/question.view.js"></script>
-<script src="/js/app/views/stream.view.js?1"></script>
-<script src="/js/app/routes/stream.router.js?1"></script>
+<script src="/js/app/views/question.view.js?22"></script>
+<script src="/js/app/views/stream.view.js?22"></script>
+<script src="/js/app/routes/stream.router.js?22"></script>
 <script type="text/javascript">
     askmePro.data.user = {
         id: {?user._id}'{user._id}'{:else}null{/user._id}

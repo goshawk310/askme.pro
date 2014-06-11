@@ -120,6 +120,6 @@
 {<js}
 <script src="/js/app/models.js"></script>
 <script src="/js/app/collections.js"></script>
-<script src="/js/app/views/notifications.view.js"></script>
-<script src="/js/app/routes/notifications.router.js"></script>
+<script src="/js/app/views/notifications.view.js?22"></script>
+<script src="/js/app/routes/notifications.router.js?22"></script>
 {/js}

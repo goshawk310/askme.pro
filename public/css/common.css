@@ -605,6 +605,12 @@ ul#profile-menu li.active a {
     color: #333;
 }
 
+.question-container .answer a,
+.question-container .panel-default .panel-heading a,
+.comments-container a {
+    color: #428bca;
+}
+
 #likes-modal .modal-dialog {
     max-height: 90%;
 }

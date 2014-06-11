@@ -13,7 +13,7 @@
         <link href="/components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
         <link href="/cameo/css/main.css" rel="stylesheet" />
         <link href="/css/theme.css" rel="stylesheet" />
-        <link href="/css/common.css?7" rel="stylesheet" />
+        <link href="/css/common.css?22" rel="stylesheet" />
 
         {+css /}
         {@hasPrivilegesOf user=user role="editor"}
@@ -74,7 +74,7 @@
             {>"layouts/partials/ads/bottom"/}
         </div>
         <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
-        <script src="/js/ntfctns.js?1"></script>
+        <script src="/js/ntfctns.js?22"></script>
         <script src="/components/underscore-min.js"></script>
         <script src="/components/backbone-min.js"></script>
         <script src="/components/deep-model.min.js"></script>
@@ -83,7 +83,7 @@
         {@ne key="en" value="{locale}"}
             <script src="/components/momentjs/lang/{locale}.js"></script>
         {/ne}
-        <script src="/js/app.js?1"></script>
+        <script src="/js/app.js?22"></script>
         <script src="/js/vendor/jquery-ajax-localstorage-cache.js"></script>
         <script src="/js/app/views/suggestions.view.js"></script>
         {?user}
