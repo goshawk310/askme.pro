@@ -156,10 +156,10 @@ a:hover, a:focus {color: #464646;}
 }
 
 h1#index-h1 {
-    color: #fff;
-    font-size: 36px;
-    text-shadow: 2px 2px 2px #000;
+    color: #0187BB;
+    font-size: 26px;
     margin-top: 0;
+    text-shadow: -1px -1px #FFFFFF;
 }
 
 .panel-heading .add-wrapper-top {
