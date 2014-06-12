@@ -83,7 +83,7 @@
         {@ne key="en" value="{locale}"}
             <script src="/components/momentjs/lang/{locale}.js"></script>
         {/ne}
-        <script src="/js/app.js?22"></script>
+        <script src="/js/app.js?23"></script>
         <script src="/js/vendor/jquery-ajax-localstorage-cache.js"></script>
         <script src="/js/app/views/suggestions.view.js"></script>
         {?user}

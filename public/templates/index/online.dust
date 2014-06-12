@@ -3,7 +3,7 @@
 <div class="container">
     <div class="row custom-row">
         <div class="col-md-3 hidden-sm hidden-xs profile-info-wrapper" id="user-info-wrapper">
-            {>"profile/partials/user_panel" profile=user showStats="1" showAvatar="1" /}
+            {>"profile/partials/user_panel" profile=user showStats="1" showAvatar="1" showPoints="1" /}
         </div>
         <div class="col-md-7 custom-col-md-7 col-sm-12 col-xs-12" id="main-content-wrapper">
             <div class="panel panel-default">
@@ -31,6 +31,11 @@
 <script src="/js/app/views.js"></script>
 <script src="/js/app/views/online.view.js"></script>
 <script src="/js/app/routes/online.router.js"></script>
+<script type="text/javascript">
+    $(function () {
+        askmePro.utils.setupPointsProgress();
+    });
+</script>
 {/js}
 {<jsTemplates}
 {>"partials/pagination" /}

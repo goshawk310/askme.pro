@@ -176,6 +176,28 @@ var askmePro = {
                     document.title = thisObj.title;
                 }
             }
+        },
+        setupPointsProgress: function setupPointsProgress() {
+            var progressElem = $('#user-points-progress-bar'),
+                points = parseInt(progressElem.attr('aria-valuenow'), 10),
+                progress = 0,
+                cssClass = 'levelone';
+            if (points < 101) {
+                progress = points;
+            } else if (points > 100 && points < 501) {
+                progress = (progress - 100) / 400 * 100;
+                cssClass = 'leveltwo';
+            } else if (points > 500 && points < 1001) {
+                progress = (points - 500) / 500 * 100;
+                cssClass = 'levelthree';
+            } else if (points > 1000 && points < 5001) {
+                progress = (points - 1000) / 4000 * 100;
+                cssClass = 'levelfour';
+            } else if (points > 5000) {
+                progress = 100;
+                cssClass = 'levelfive';
+            }
+            progressElem.addClass(cssClass).css('width', progress + '%');
         }
     },
     index: function index() {
