@@ -16,8 +16,6 @@ app.configure = function configure(nconf, next) {
     db.config(nconf.get('database'));
     //Configure i18n
     i18n.configure(nconf.get('middleware').i18n);
-    //configure passport
-    auth.configure(i18n);
     //configure redis client
     redisClient.configure();
     
@@ -26,7 +24,6 @@ app.configure = function configure(nconf, next) {
 
 app.requestStart = function requestStart(server) {
     // Fired at the beginning of an incoming request
-    
     server.stack.some(function (middleware, idx, stack) {
         if (middleware.handle.name === 'favicon') {
             stack.splice(idx, 1);
@@ -34,7 +31,6 @@ app.requestStart = function requestStart(server) {
             return true;
         }
     });
-
     var config = require('./config/app');
     server.locals({
         config: config
@@ -81,11 +77,6 @@ app.requestBeforeRoute = function requestBeforeRoute(server) {
     // Fired before routing occurs
     server.use(express.methodOverride());
     server.use(i18n.init);
-    server.use(function (req, res, next) {
-        i18n.setLocale(res.getLocale());
-        server.set('i18n', i18n);
-        next();
-    });
     server.use(flash());
     //init passport
     auth.init(server);
@@ -134,7 +125,11 @@ app.requestBeforeRoute = function requestBeforeRoute(server) {
         next();
     });
     //init dustjs custom helpers
-    dustjsHelper(server).init(dust);
+    server.use(function (req, res, next) {
+        dustjsHelper(req, res).init(dust);
+        next();
+    });
+    
     server.use('/captcha.jpg', require('easy-captcha').generate());
 };
 

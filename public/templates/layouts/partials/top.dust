@@ -45,8 +45,8 @@
                 {/user}
                 <li><a href="/top20" role="button" class="btn btn-primary">{@__ phrase="TOP 20"/}</a></li>
                 {^user} 
-                    <li><a href="/account/signup">Zarejestruj się</a></li>
-                    <li><a href="/account/login">Zaloguj</a></li>
+                    <li><a href="/account/signup">{@__ phrase="Zarejestruj się"/}</a></li>
+                    <li><a href="/account/login">{@__ phrase="Zaloguj"/}</a></li>
                 {:else}
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle btn-avatar" data-toggle="dropdown">{@userAvatar user=user size="cropped/100x" cssClass="user-avatar img-circle"/}<span class="caret"></span></a>

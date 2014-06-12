@@ -38,7 +38,6 @@ module.exports = function(server) {
             maxAge: 900000,
             httpOnly: true
         });
-        res.setLocale(req.param('locale'));
         res.redirect('back');
     });
 };

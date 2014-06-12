@@ -16,7 +16,8 @@
         	"locales": ["pl", "en"],
       		"defaultLocale": "pl",
       		"cookie": "locale",
-      		"directory": "./locales"
+      		"directory": "./locales",
+            "updateFiles": true
         },
         "errorPages": {
             "404": "errors/404",
