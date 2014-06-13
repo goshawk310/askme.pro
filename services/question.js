@@ -280,6 +280,7 @@ module.exports = _.defaults({
                                 index += 1;
                                 if (index === questionsCount) {
                                     if (server && server.locals.siteSettings && server.locals.siteSettings.blockedWords) {
+                                        questions = null;
                                         return callback(null, {
                                             questions: blockedWords.setWords(server.locals.siteSettings.blockedWords).filter(output, ['contents', 'answer']),
                                             hasMore: hasMore
@@ -300,6 +301,7 @@ module.exports = _.defaults({
                 }
                 questionsCount = questions.length;
                 if (!questionsCount) {
+                    questions = null;
                     return callback(null, {
                         questions: [],
                         hasMore: false

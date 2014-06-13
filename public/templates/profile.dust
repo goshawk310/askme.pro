@@ -4,6 +4,14 @@
         {?profile.background} class="custom-bg profile" style="background-image: url('{profile.background}')"{/profile.background}
     {/profile}
 {/wrapperAttribs}
+{?profile}
+    {?profile.profile.motto}
+        {<ogTitle}Zadaj mi pytanie | www.askme.pro/{profile.username}{/ogTitle}
+    {/profile.profile.motto}
+    {?profile.profile.motto}
+        {<ogDescription}{profile.profile.motto}{/ogDescription}
+    {/profile.profile.motto}
+{/profile}
 {<body}
 <div id="profile-top-full">
     <div class="bg-container"{?profile.top_bg} style="background-image: url('{config.topbg.url}{profile.top_bg}')"{/profile.top_bg}>
