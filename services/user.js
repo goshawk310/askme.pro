@@ -818,6 +818,7 @@ module.exports = _.defaults({
                     user.online = doc.online;
                     users.push(user);
                 });
+                docs = null;
                 callback(null, users);
             });
     },
