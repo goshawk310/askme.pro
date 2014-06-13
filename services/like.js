@@ -124,10 +124,12 @@ module.exports = _.defaults({
                         doc.question_id = blockedWords.filter(doc.question_id, ['contents', 'answer']);
                         results.push(doc);
                         if (results.length === 5) {
+                            docs = null;
                             return callback(null, results);
                         }
                     }
                 });
+                docs = null;
                 return callback(null, results);
             });
     }

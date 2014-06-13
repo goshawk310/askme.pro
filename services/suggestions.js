@@ -33,6 +33,7 @@ module.exports = _.defaults({
                     picked = picked.concat(docs.splice(parseInt(Math.random() * docs.length, 10), 1));    
                 }
                 callback(null, picked);
+                docs = null;
             });
     },
     getQuestions: function getQuestions(params, callback) {
@@ -58,6 +59,7 @@ module.exports = _.defaults({
                 picked = picked.concat(docs.splice(parseInt(Math.random() * docs.length, 10), 1));
                 picked = picked.concat(docs.splice(parseInt(Math.random() * docs.length, 10), 1));
                 callback(null, picked);
+                docs = null;
             });
     }
 }, require('../lib/service'));
