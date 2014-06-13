@@ -52,10 +52,10 @@
 <script type="text/javascript">
     askmePro.utils.setupDefaultValidator();
     askmePro.settings.upload.messages = {
-        maxNumberOfFiles: '{@__ phrase="Przekroczono limit ilości plików." /}',
-        acceptFileTypes: '{@__ phrase="Niedozwolony rodzaj pliku." /}',
-        maxFileSize: '{@__ phrase="Plik jest za duży." /}',
-        minFileSize: '{@__ phrase="Plik jest za mały." /}'
+        maxNumberOfFiles: '{@__ phrase="Przekroczono limit ilości plików." escape="1" /}',
+        acceptFileTypes: '{@__ phrase="Niedozwolony rodzaj pliku." escape="1" /}',
+        maxFileSize: '{@__ phrase="Plik jest za duży." escape="1" /}',
+        minFileSize: '{@__ phrase="Plik jest za mały." escape="1" /}'
     };
     askmePro.settings.upload.answer = {
         url: '{config.answer.url}'

@@ -9,6 +9,13 @@
         <meta name="csrf-param" content="{_csrf}">
         <link rel="shortcut icon" href="/favicon.ico">
         <title>{+title}askme.pro{/title}</title>
+        <meta property="fb:app_id" content="600921269985597" />
+        <meta property="og:site_name" content="askme.pro" />
+        <meta property="og:type" content="article" />
+        <meta property="og:url" content="http://www.askme.pro" />
+        <meta property="og:description" content="Askme.pro, wysyłaj i odbieraj anonimowe pytania aby dowiedzieć się, co inni myślą o Tobie. Załóż darmowe konto i baw się razem z nami" />
+        <meta property="og:title" content="Askme.pro" />
+        <meta property="og:image" content="http://www.askme.pro/images/ask.jpg" />
         <!-- Bootstrap core CSS -->
         <link href="/components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
         <link href="/css/main.min.css" rel="stylesheet" />
@@ -83,7 +90,7 @@
         {@ne key="en" value="{locale}"}
             <script src="/components/momentjs/lang/{locale}.js"></script>
         {/ne}
-        <script src="/js/app.js?23"></script>
+        <script src="/js/app.js?23S"></script>
         <script src="/js/vendor/jquery-ajax-localstorage-cache.js"></script>
         <script src="/js/app/views/suggestions.view.js"></script>
         {?user}
