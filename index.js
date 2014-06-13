@@ -125,11 +125,7 @@ app.requestBeforeRoute = function requestBeforeRoute(server) {
         next();
     });
     //init dustjs custom helpers
-    server.use(function (req, res, next) {
-        dustjsHelper(req, res).init(dust);
-        next();
-    });
-    
+    dustjsHelper().init(dust);
     server.use('/captcha.jpg', require('easy-captcha').generate());
 };
 
