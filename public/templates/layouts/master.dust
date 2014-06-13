@@ -31,10 +31,6 @@
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
         < ![endif]-->
-        {+jsTemplates /}
-        {>"partials/top_notifications"/}
-        {>"partials/search_results"/}
-        {>"partials/users/followed"/}
         <script type="text/javascript">
 
           var _gaq = _gaq || [];
@@ -80,6 +76,10 @@
         <div class="add-container-bottom-fixed-container">
             {>"layouts/partials/ads/bottom"/}
         </div>
+        {+jsTemplates /}
+        {>"partials/top_notifications"/}
+        {>"partials/search_results"/}
+        {>"partials/users/followed"/}
         <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
         <script src="/js/ntfctns.js?22"></script>
         <script src="/components/underscore-min.js"></script>
