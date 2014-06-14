@@ -18,7 +18,8 @@ app.configure = function configure(nconf, next) {
     i18n.configure(nconf.get('middleware').i18n);
     //configure redis client
     redisClient.configure();
-    
+    //auth configure
+    auth.configure(i18n);
     next(null);
 };
 
