@@ -1,4 +1,5 @@
 {>"layouts/master" /}
+{<ogUrl}http://www.askme.pro/questions/{question._id}{/ogUrl}
 {<ogTitle}{question.contents}{/ogTitle}
 {<ogDescription}{question.contents}{/ogDescription}
 {?question.image}
