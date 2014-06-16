@@ -10,7 +10,7 @@
         <title>{+title}askme.pro{/title}</title>
         <meta property="fb:app_id" content="600921269985597" />
         <meta property="og:site_name" content="askme.pro" />
-        <meta property="og:type" content="article" />
+        <meta property="og:type" content="{+ogType}article{/ogType}" />
         <meta property="og:url" content="{+ogUrl}http://www.askme.pro{/ogUrl}" />
         <meta property="og:description" content="{+ogDescription}Askme.pro, wysyłaj i odbieraj anonimowe pytania aby dowiedzieć się, co inni myślą o Tobie. Załóż darmowe konto i baw się razem z nami{/ogDescription}" />
         <meta property="og:title" content="{+ogTitle}askme.pro{/ogTitle}" />

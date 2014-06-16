@@ -4,7 +4,9 @@
         <b><%=askmePro.views.helpers.parseUsersText(question.contents, {url: {yt: 'link'}})%></b>
         <small class="pull-right no-touch settings text-muted">
             <a class="fa fa-chevron-down btn-collapsible pd-r-xs" href="#"></a>
-            <a class="fa fa-share pd-r-xs" href="/questions/<%=question._id%>" title="{@__ phrase="Przejdź" /}"></a>
+            {^hideQuestionLink}
+                <a class="fa fa-share pd-r-xs" href="/questions/<%=question._id%>" title="{@__ phrase="Przejdź" /}"></a>
+            {/hideQuestionLink}
             {?user}
                 <% if((question.to && question.to._id === '{user._id}') || ['admin', 'moderator'].indexOf('{user.role}') > - 1) {~lb}%>
                     <a class="fa fa-times panel-remove btn-remove" href="#" title="{@__ phrase="Usuń" /}"></a>

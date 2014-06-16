@@ -1,6 +1,6 @@
 <script type="text/template" id="question-tpl">
     <section class="panel panel-default question-container">
-        {>"partials/question" avatarKey="to"/}
+        {>"partials/question" avatarKey="to" hideQuestionLink=hideQuestionLink/}
         <% if (showAdd) {~lb}%>
             {>"layouts/partials/ads/answer"/}
         <%{~rb}%>

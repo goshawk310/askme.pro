@@ -1,10 +1,15 @@
 {>"layouts/master" /}
+{<ogType}askmepro:question{/ogType}
 {<ogUrl}http://www.askme.pro/questions/{question._id}{/ogUrl}
 {<ogTitle}{question.contents}{/ogTitle}
 {<ogDescription}{question.contents}{/ogDescription}
-{?question.image}
-    {<ogImage}http://www.askme.pro{config.answer.url}{question.image}{/ogImage}
-{/question.image}
+{<ogImage}
+    {?question.image}
+        http://www.askme.pro{config.answer.url}{question.image}
+    {:else}
+        http://www.askme.pro/images/askme-pro.jpg
+    {/question.image}
+{/ogImage}
 {<body}
 <div class="container">
     {>"layouts/partials/ads/top"/}
@@ -45,6 +50,6 @@
 <script id="question-data" type="application/json" data-editable="{@eq key="{user._id}" value="{question.to._id}"}true{:else}false{/eq}">{question|js|s}</script>
 {/js}
 {<jsTemplates}
-    {>"partials/question/user" /}
+    {>"partials/question/user" hideQuestionLink="1"/}
     {>"partials/question/elements" /}
 {/jsTemplates}

@@ -267,11 +267,15 @@ module.exports = _.defaults({
                     questionsCount = 0,
                     index = 0,
                     isLikedByUser = function isLikedByUser(question) {
+                        var where = {question_id: question._id};
+                        if (params.from) {
+                            where.from = params.from;
+                        }
                         question = question.toObject();
                         LikeModel
-                            .findOne({question_id: question._id, from: params.from})
+                            .findOne(where)
                             .exec(function (err, like) {
-                                if (!err && like) {
+                                if (!err && params.from && like) {
                                     question.liked = like._id;
                                 } else {
                                     question.liked = false;
