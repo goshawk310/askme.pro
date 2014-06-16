@@ -1,4 +1,9 @@
 {>"layouts/master" /}
+{<ogTitle}{question.contents}{/ogTitle}
+{<ogDescription}{question.contents}{/ogDescription}
+{?question.image}
+    {<ogImage}http://www.askme.pro{config.answer.url}{question.image}{/ogImage}
+{/question.image}
 {<body}
 <div class="container">
     {>"layouts/partials/ads/top"/}
