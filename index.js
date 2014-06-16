@@ -113,6 +113,10 @@ app.requestBeforeRoute = function requestBeforeRoute(server) {
                     url: '/admin/stickers',
                     role: 'admin',
                     label: 'Wstążki'
+                }, {
+                    url: '/admin/questions/random',
+                    role: 'admin',
+                    label: 'Losowe pytania'
                 }
             ];
             for (var i = 0; i < elements.length; i += 1) {
