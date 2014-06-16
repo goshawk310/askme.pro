@@ -77,6 +77,7 @@ askmePro.views.InboxIndexView = Backbone.View.extend({
 askmePro.mixins.inboxQuestion = {
     template: _.template($('#inbox-question-tpl').html()),
     validationInitialized: false,
+    shareOnFacebook: false,
     initialize: function () {
         
     },
@@ -107,13 +108,13 @@ askmePro.mixins.inboxQuestion = {
         'click button.show-answer-form': 'showAnswerForm',
         'click button.cancel': 'cancel',
         'click button.remove': 'removeQuestion',
-        'click .btn.yt': 'record'
+        'click .btn.yt': 'record',
+        'change .share-fb': 'handleFacebookShare'
     },
     showAnswerForm: function showAnswerForm() {
         var thisObj = this;
         this.attributes.parent.$('.buttons').hide();    
         this.$('.answer-form-wrapper').show();
-        console.log(this.$('.question-container').offset().top);
         $(window).scrollTop(this.$('.question-container').offset().top - 60);
         if (!this.validationInitialized) {
             this.$('form').validate({
@@ -151,6 +152,11 @@ askmePro.mixins.inboxQuestion = {
                 }
                 thisObj.showMessage(xhr.message);
                 askmePro.utils.title.update(count, false);
+                if (thisObj.shareOnFacebook) {
+                    FB.api('/me/feed', 'post', {
+                        link: 'http://www.askme.pro/questions/' + model.get('_id'),
+                    });
+                }
             },
             error: function (model, xhr) {
                 submitButton.attr('disabled', false);
@@ -237,6 +243,23 @@ askmePro.mixins.inboxQuestion = {
                 }
             });
         });
+    },
+    handleFacebookShare: function handleFacebookShare() {
+        var thisObj = this,
+            val = this.$('.share-fb:checked').val();
+        if (parseInt(val, 10) === 1) {
+            FB.getLoginStatus(function(response) {
+                if (response.status !== 'connected') {
+                    FB.login(function(){
+                        thisObj.shareOnFacebook = true;
+                    }, {scope: 'publish_actions'});
+                } else {
+                    thisObj.shareOnFacebook = true;
+                }
+            });
+        } else {
+            thisObj.shareOnFacebook = false;
+        }
     }
 };
 

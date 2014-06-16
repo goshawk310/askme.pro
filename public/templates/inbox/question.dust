@@ -35,6 +35,12 @@
                                         <span type="button" class="btn btn-link yt">
                                             <span class="glyphicon glyphicon-film"></span>
                                         </span>
+                                        <small class="pd-l-md">
+                                            {@__ phrase="Podziel się" /}: 
+                                            <span class="pd-l-md">
+                                                <label><input type="checkbox" name="question[share_fb]" class="share-fb" value="1"> Facebook</label>
+                                            </span>
+                                        </small>
                                     </div>
                                     <div class="clearfix"></div>
                                 </div>

@@ -33,6 +33,26 @@
     </div>
 </div>
 {/body}
+{<fbInitScript}
+    <div id="fb-root"></div>
+    <script>
+      window.fbAsyncInit = function() {
+        FB.init({
+          appId: '600921269985597',
+          cookie: true,
+          xfbml: false,
+          version: 'v2.0'
+        });
+      };
+      (function(d, s, id){
+         var js, fjs = d.getElementsByTagName(s)[0];
+         if (d.getElementById(id)) {return;}
+         js = d.createElement(s); js.id = id;
+         js.src = "//connect.facebook.net/en_US/sdk.js";
+         fjs.parentNode.insertBefore(js, fjs);
+       }(document, 'script', 'facebook-jssdk'));
+    </script>
+{/fbInitScript}
 {<js}
 <script src="/components/fileupload/vendor/jquery.ui.widget.js"></script>
 <script src="/components/fileupload/jquery.iframe-transport.js"></script>
@@ -47,7 +67,7 @@
 <script src="/js/utils/upload.js"></script>
 <script src="/js/app/models.js"></script>
 <script src="/js/app/collections.js"></script>
-<script src="/js/app/views/inbox.view.js?1"></script>
+<script src="/js/app/views/inbox.view.js?2"></script>
 <script src="/js/app/routes/inbox.router.js"></script>
 <script type="text/javascript">
     askmePro.utils.setupDefaultValidator();
