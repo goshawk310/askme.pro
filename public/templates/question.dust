@@ -2,7 +2,7 @@
 {<ogType}askmepro:question{/ogType}
 {<ogUrl}http://www.askme.pro/questions/{question._id}{/ogUrl}
 {<ogTitle}{question.contents}{/ogTitle}
-{<ogDescription}{question.contents}{/ogDescription}
+{<ogDescription}{question.answer}{/ogDescription}
 {<ogImage}
     {?question.image}
         http://www.askme.pro{config.answer.url}{question.image}
