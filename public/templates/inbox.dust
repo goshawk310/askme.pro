@@ -74,8 +74,8 @@
 <script src="/js/utils/upload.js"></script>
 <script src="/js/app/models.js"></script>
 <script src="/js/app/collections.js"></script>
-<script src="/js/app/views/inbox.view.js?3"></script>
-<script src="/js/app/routes/inbox.router.js"></script>
+<script src="/js/app/views/inbox.view.js?4"></script>
+<script src="/js/app/routes/inbox.router.js?4"></script>
 <script type="text/javascript">
     askmePro.utils.setupDefaultValidator();
     askmePro.settings.upload.messages = {
