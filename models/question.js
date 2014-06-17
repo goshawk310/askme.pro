@@ -92,6 +92,11 @@ var Question = function Question() {
                 type: Boolean,
                 default: false
             }
+        },
+        random_id: {
+            type: mongoose.Schema.Types.ObjectId,
+            default: null,
+            ref: 'QuestionRandom'
         }
     }, {
         collection: 'questions',

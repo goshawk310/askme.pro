@@ -1,6 +1,7 @@
 'use strict';
 var questionService = require('../../services/question'),
     questionOfTheDayService = require('../../services/question/ofTheDay'),
+    questionRandomService = require('../../services/question/random'),
     likeService = require('../../services/like'),
     commentService = require('../../services/comment'),
     auth = require('../../lib/auth'),
@@ -100,6 +101,25 @@ module.exports = function(server) {
             });
     });
 
+    server.delete('/api/questions/unanswered', auth.isAuthenticated, function (req, res) {
+        questionService
+        .setReq(req)
+        .removeUnanswered({
+            to: req.user._id,
+            answer: null
+        }, function (err) {
+            if (err) {
+                return res.send(500, {
+                    status: 'error',
+                    message: res.__('Wystąpił nieoczekiwany błąd')
+                });
+            }
+            res.send({
+                status: 'success'
+            });
+        });
+   });
+    
     /**
      * 
      * @param  {Object} req
@@ -333,5 +353,21 @@ module.exports = function(server) {
             }
             res.send(question);
         })
+    });
+
+    server.get('/api/questions/random', auth.isAuthenticated, function (req, res) {
+        questionRandomService
+        .setReq(req)
+        .getRandom({
+            to: req.user._id
+        }, function (err, doc) {
+            if (err) {
+                return res.send(500, {
+                    status: 'error',
+                    message: res.__('Wystąpił nieoczekiwany błąd')
+                });
+            }
+            res.send(doc);
+        });
     });
 };

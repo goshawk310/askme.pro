@@ -198,6 +198,23 @@ var askmePro = {
                 cssClass = 'levelfive';
             }
             progressElem.addClass(cssClass).css('width', progress + '%');
+        },
+        updateCounter: function updateCounter(id, key, count, callback) {
+            if (!count) {
+                return;
+            }
+            var feedButton = $('#' + id),
+                counter = feedButton.children('span');
+            askmePro.notifications.top.views[key] = null;    
+            if (!counter.length) {
+                counter = $('<span class="badge badge-top bg-danger animated flash">' + count + '</span>');
+                feedButton.append(counter);
+            } else {
+                counter.html(count);
+            }
+            if (typeof callback === 'function') {
+                callback(count);
+            }
         }
     },
     index: function index() {

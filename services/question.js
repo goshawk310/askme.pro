@@ -399,5 +399,27 @@ module.exports = _.defaults({
             .sort({answered_at: -1})
             .skip(0).limit(limit)
             .exec(callback);
+    },
+    /**
+     * 
+     * @param  {Object}   params
+     * @param  {Function} callback
+     * @return {void}
+     */
+    removeUnanswered: function removeUnanswered(params, callback) {
+        QuestionModel
+            .find(params)
+            .exec(function (err, docs) {
+                if (err) {
+                    return callback(err);
+                }
+                if (!docs) {
+                    return callback(new Error('Questions not found'));
+                }
+                docs.forEach(function (doc) {
+                    doc.remove();
+                });
+                callback(null);
+            });
     }
 }, require('../lib/service'));

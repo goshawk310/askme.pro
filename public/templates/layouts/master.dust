@@ -82,7 +82,7 @@
         {>"partials/search_results"/}
         {>"partials/users/followed"/}
         <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
-        <script src="/js/ntfctns.js?22"></script>
+        <script src="/js/ntfctns.js?23"></script>
         <script src="/components/underscore-min.js"></script>
         <script src="/components/backbone-min.js"></script>
         <script src="/components/deep-model.min.js"></script>
@@ -91,7 +91,7 @@
         {@ne key="en" value="{locale}"}
             <script src="/components/momentjs/lang/{locale}.js"></script>
         {/ne}
-        <script src="/js/app.js?23S"></script>
+        <script src="/js/app.js?24"></script>
         <script src="/js/vendor/jquery-ajax-localstorage-cache.js"></script>
         <script src="/js/app/views/suggestions.view.js"></script>
         {?user}

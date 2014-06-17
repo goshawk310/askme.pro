@@ -3,28 +3,20 @@ askmePro.views.InboxIndexView = Backbone.View.extend({
     ytWidget: null,
     ytWidgetWidth: null,
     questionOfTheDay: null,
+    perPage: 10,
+    page: 0,
+    total: 0,
     initialize: function () {
         this.setElement($('#questions-wrapper'));
     },
-    render: function () {
+    render: function render(collection) {
         var thisObj = this,
             container = this.$('#questions-container > .questions');
-        if (!this.collection.length) {
+        if (!collection.length) {
             var npqTpl = _.template($('#inbox-no-questions-tpl').html());
             container.html($(npqTpl()));
         } else {
-            container.html('');
-            this.collection.each(function (question) {
-                container.append(new askmePro.views.InboxQuestionView({
-                    model: question,
-                    attributes: {
-                        parent: thisObj
-                    }
-                }).render().$el);
-            });
-        }
-        if (this.attributes.total > this.attributes.perPage) {
-            this.$('.panel-footer').html($(this.template(this.attributes)));
+            this.appendElements(collection);
         }
         if (this.questionOfTheDay === null) {    
             $.get('/api/questions/of-the-day')
@@ -42,7 +34,32 @@ askmePro.views.InboxIndexView = Backbone.View.extend({
         }
         return this;
     },
+    appendElements: function appendElements(collection) {
+        var thisObj = this,
+            container = this.$('#questions-container > .questions');   
+        collection.each(function (question) {
+            container.append(new askmePro.views.InboxQuestionView({
+                model: question,
+                attributes: {
+                    parent: thisObj
+                }
+            }).render().$el);
+        });
+        if (this.total >= this.perPage * (this.page + 1)) {
+            this.$('.panel-footer').removeClass('hidden');
+        } else {
+            this.$('.panel-footer').addClass('hidden');
+        }
+        if (this.total) {
+            this.$('#btn-remove-all').removeClass('hidden');
+        } else {
+            this.$('#btn-remove-all').addClass('hidden');
+        }
+    },
     events: {
+        'click .more': 'load',
+        'click #btn-random-question': 'getRandomQuestion',
+        'click #btn-remove-all': 'removeAll'
     },
     initYt: function initYt (params) {
         var thisObj = this,
@@ -71,6 +88,76 @@ askmePro.views.InboxIndexView = Backbone.View.extend({
                 createUploadWidget(params)
             }
         }
+    },
+    load: function load() {
+        var thisObj = this,
+            loader = $('#questions-wrapper > .panel-body').loading();
+        loader('show');
+        $.get('/inbox/questions?perPage=' + this.perPage + '&p=' + this.page)
+        .done(function (response) {
+            var collection = new askmePro.collections.QuestionCollection(response.questions);
+            collection.url = '/api/questions';
+            if (!thisObj.page) {
+                thisObj.total = response.total;
+                thisObj.render(collection);
+            } else {
+                thisObj.appendElements(collection);
+            }
+            thisObj.page += 1;
+        })
+        .fail(function () {
+
+        })
+        .always(function () {
+            loader('hide');
+        });
+    },
+    getRandomQuestion: function getRandomQuestion() {
+        var thisObj = this,
+            loader = $('#questions-wrapper > .panel-body').loading();
+        loader('show');
+        $.get('/api/questions/random')
+        .done(function (response) {
+            var container = thisObj.$('#questions-container > .questions'),
+                model = new askmePro.models.QuestionModel(response);
+            if (container.children('#inbox-no-questions-container').length) {
+                container.children('#inbox-no-questions-container').remove();
+            }    
+            model.urlRoot = '/api/questions';    
+            container.prepend(new askmePro.views.InboxQuestionView({
+                model: model,
+                attributes: {
+                    parent: thisObj
+                }
+            }).render().$el);
+            var count = parseInt($('.inbox-count').html(), 10) + 1;
+            askmePro.utils.updateCounter('notify-questions', 'questions', count, function (count) {
+                $('.inbox-count').html(count);
+                $('.inbox-count-container').show();
+            });
+            thisObj.$('#btn-remove-all').removeClass('hidden');
+        })
+        .fail(function () {
+            thisObj.$('#btn-random-question').remove();
+        })
+        .always(function () {
+            loader('hide');
+        });
+    },
+    removeAll: function removeAll() {
+        var thisObj = this;
+        $.ajax('/api/questions/unanswered', {
+            type: 'post',
+            dataType: 'json',
+            beforeSend: function(xhr) {
+                xhr.setRequestHeader('X-CSRF-Token', $("meta[name='csrf-param']").attr('content'));
+                xhr.setRequestHeader('X-HTTP-Method-Override', 'DELETE');
+            }
+        }).done(function () {
+            thisObj.$('#questions-container > .questions').html('');
+            thisObj.$('.panel-footer').addClass('hidden');
+            thisObj.$('#btn-remove-all').addClass('hidden');
+        });
     }
 });
 

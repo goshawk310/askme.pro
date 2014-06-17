@@ -117,7 +117,7 @@
     </ul>    
 </script>
 <script type="text/template" id="inbox-no-questions-tpl">
-    <div class="text-center">
+    <div class="text-center" id="inbox-no-questions-container">
         <p><img src="/images/empty.png" /></p>
         <p class="alert alert-info">{@__ phrase="Brak pytań?  Udostępniaj swój profil na ulubionej platformie!" /}</p>
         <p class="share-box">
