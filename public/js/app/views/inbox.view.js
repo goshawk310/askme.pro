@@ -157,6 +157,10 @@ askmePro.views.InboxIndexView = Backbone.View.extend({
             thisObj.$('#questions-container > .questions').html('');
             thisObj.$('.panel-footer').addClass('hidden');
             thisObj.$('#btn-remove-all').addClass('hidden');
+            askmePro.utils.updateCounter('notify-questions', 'questions', '0', function (count) {
+                $('.inbox-count').html(count);
+                $('.inbox-count-container').hide();
+            });
         });
     }
 });
