@@ -11,6 +11,7 @@
     {?profile.profile.motto}
         {<ogDescription}{profile.profile.motto}{/ogDescription}
     {/profile.profile.motto}
+    {<ogUrl}http://www.askme.pro/{profile.username}{/ogUrl}
 {/profile}
 {<body}
 <div id="profile-top-full">
