@@ -8,3 +8,5 @@ logs/
 controllers/importer/
 .nide
 /.project
+*.sublime-project
+*.sublime-workspace
