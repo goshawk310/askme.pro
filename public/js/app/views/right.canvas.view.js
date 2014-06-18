@@ -36,7 +36,7 @@ askmePro.views.RightCanvasView = Backbone.View.extend({
         $.ajax('/api/users/followed', {
             localCache: true,
             cacheTTL : 60,
-            cacheKey: 'canvas_right_users',
+            cacheKey: 'canvas_right_users_' + askmePro.data.user.id,
             dataType: 'json',
         })
         .done(function(response) {

@@ -97,7 +97,7 @@
         {?user}
             <script src="/js/vendor/slimScroll/jquery.slimscroll.min.js"></script>
             <script src="/js/off-canvas.js?22"></script>
-            <script src="/js/app/views/right.canvas.view.js"></script>
+            <script src="/js/app/views/right.canvas.view.js?1"></script>
         {/user}
         <script type="text/javascript">
             askmePro.data.user = {
