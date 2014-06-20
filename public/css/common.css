@@ -590,6 +590,7 @@ ul#profile-menu li.active a {
 
 .question-container div.answer {
     padding-bottom: 10px;
+    word-wrap: break-word;
 }
 
 .question-container.panel-default > .panel-heading {
@@ -609,6 +610,15 @@ ul#profile-menu li.active a {
 .question-container .panel-default .panel-heading a,
 .comments-container a {
     color: #428bca;
+}
+
+.question-container.panel-default > .panel-heading b {
+    font-weight: 300;
+    font-size: 1.15em;
+}
+
+.question-container.panel-default > .panel-heading .text-muted a {
+    color: #428BCA;
 }
 
 #likes-modal .modal-dialog {
@@ -940,6 +950,11 @@ ul#profile-menu li.active a {
 .btn-newest-container {
     padding-bottom: 12px;
     display: none;
+}
+
+.btn-newest strong {
+    font-weight: 300;
+    font-size: 1.15em;
 }
 
 .users-online-wrapper {
@@ -1957,4 +1972,8 @@ ul#profile-menu li a {
     .side-bar-users-container {
         padding-bottom: 116px;    
     }
+}
+
+.text-muted, .text-muted a {
+    color: #ccc;
 }

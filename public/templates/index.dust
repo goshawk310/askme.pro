@@ -8,9 +8,6 @@
         </div>
         <div class="col-md-7 custom-col-md-7 col-sm-12 col-xs-12" id="main-content-wrapper">
             <div class="panel panel-default">
-                <div class="panel-body hidden-xs hidden-sm">
-                    {>"layouts/partials/ads/content_horizontal"/}
-                </div>
                 <div class="panel-body">
                     {>"index/partials/menu" mode="{mode}" /}
                 </div>
