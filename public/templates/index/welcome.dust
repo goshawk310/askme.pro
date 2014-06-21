@@ -44,11 +44,42 @@
         </div>
     </div>
 </div>
+<div class="welcome-users-wrapper hidden-sm hidden-xs pd-b-md">
+    <div class="container">
+        <div class="row welcome-users-container">
+            <div class="col-md-12">
+                <p></p>
+                <p>{@__ phrase="Oni już tu są" /}:</p>
+            </div>
+            <div class="col-md-1"></div>
+            {#users}
+                <div class="col-md-1 welcome-user-container">
+                    <a href="/{.username}" class="welcome-user" data-username="{.username}" data-followers="{.stats.followers}" data-answers="{.stats.questions_answered}" data-likes="{.stats.likes}" data-gifts="{.stats.gifts_sent}">{@userAvatar user=. size="cropped/300x" /}</a>
+                </div>
+            {/users}
+            <div class="col-md-1"></div>
+        </div>
+    </div>
+</div>
 {/body}
 {<js}
 <script type="text/javascript">
     $(function() {
         askmePro.index();
+        $('.welcome-user').popover({
+            trigger: 'hover',
+            html: true,
+            placement: 'top',
+            container: 'body',
+            content: function () {
+                var $this = $(this);
+                return '<table class=" welcome-user-table">
+                <tr><th class="text-center"><b>' + $this.data('username') + '</b></th><th></th></tr>
+                <tr><td><img src="' + $this.children('img').attr('src') + '" class="img-circle user-avatar"/></td>
+                <td class="stats text-muted"><i class="fa fa-users"></i> ' + $this.data('followers') + '<br/><i class="fa fa-comments-o"></i> ' + $this.data('answers') + '<br/><i class="fa fa-heart-o"></i> ' + $this.data('likes') + '<br/><i class="fa fa-gift"></i> ' + $this.data('gifts') + '</td>
+                </tr></table>';
+            }
+        });
     });
 </script>
 {/js}

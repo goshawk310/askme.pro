@@ -822,4 +822,15 @@ module.exports = _.defaults({
                 callback(null, users);
             });
     },
+    getSome: function getSome(params, callback) {
+        var whereAnd = [];
+        params = params || {};
+        whereAnd.push({'status.value': 1});
+        whereAnd.push({'settings.anonymous_disallowed': false});
+        UserModel
+            .find({$and: whereAnd})
+            .sort({last_visit_at: -1})
+            .limit(params.limit ? parseInt(params.limit, 10) : null)
+            .exec(callback);
+    }
 }, require('../lib/service'));

@@ -19,7 +19,7 @@
         <link href="/components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
         <link href="/css/main.min.css?23" rel="stylesheet" />
         <link href="/css/theme.css" rel="stylesheet" />
-        <link href="/css/common.css?23" rel="stylesheet" />
+        <link href="/css/common.css?24" rel="stylesheet" />
         {+css /}
         {@hasPrivilegesOf user=user role="editor"}
             <link href="/css/admin.css" rel="stylesheet" />
@@ -70,12 +70,14 @@
                 <div class="content"></div>
             </div>
         {/user}
-        <div id="footer" class="hidden-xs">
+        <div id="footer" class="{?user._id}hidden-xs{/user._id}">
             {>"layouts/partials/footer"/}
         </div>
-        <div class="add-container-bottom-fixed-container">
-            {>"layouts/partials/ads/bottom"/}
-        </div>
+        {?user}
+            <div class="add-container-bottom-fixed-container">
+                {>"layouts/partials/ads/bottom"/}
+            </div>
+        {/user}
         {+jsTemplates /}
         {>"partials/top_notifications"/}
         {>"partials/search_results"/}

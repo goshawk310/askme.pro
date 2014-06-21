@@ -12,7 +12,7 @@ body {
     -webkit-box-shadow: none;
 }
 .fade-carousel {position: relative; min-height: 483px;}
-.fade-carousel img {display: none; position: absolute; left: 0; top: 0; max-width: 100%;}
+.fade-carousel img {display: none; position: absolute; left: 0; bottom: 0; max-width: 100%;}
 .fade-carousel img.active {display: block;}
 .single-form-panel {max-width: 600px; margin: 0 auto;}
 .center-form-block {margin:0 auto; float: none;}
@@ -115,6 +115,7 @@ a:hover, a:focus {color: #464646;}
 
 .welcome#wrapper {
     min-height: inherit;
+    background:url("../images/welcome-bg.jpg") repeat scroll 0 -200px rgba(0, 0, 0, 0);
 }
 
 #content > .container {
@@ -156,10 +157,9 @@ a:hover, a:focus {color: #464646;}
 }
 
 h1#index-h1 {
-    color: #0187BB;
+    color: #fff;
     font-size: 26px;
     margin-top: 0;
-    text-shadow: -1px -1px #FFFFFF;
 }
 
 .panel-heading .add-wrapper-top {
@@ -1808,6 +1808,15 @@ ul#profile-menu li a {
     .off-canvas.left #wrapper {
         left: 300px;
     }
+    .canvas-left .footer .fb-like {
+        margin-top: 8px;
+    }
+    #footer {
+        font-size: 0.9em;
+    }
+    #footer .nav>li>a {
+        padding: 10px 5px;
+    }
 }
 
 @media (max-width: 479px) { 
@@ -1976,4 +1985,35 @@ ul#profile-menu li a {
 
 .text-muted, .text-muted a {
     color: #ccc;
+}
+
+.welcome-users-wrapper {
+    background: #fff;
+}
+
+.welcome-users-wrapper .welcome-users-container .welcome-user-container a {
+    display: inline-block;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+}
+
+.welcome-users-wrapper .welcome-users-container .welcome-user-container img {
+    max-width: 80%;
+}
+
+.welcome-user-table .user-avatar {
+    max-width: 120px;
+}
+.welcome-user-table td, .welcome-user-table th{
+    vertical-align: middle;
+}
+
+.welcome-user-table th {
+    padding-bottom: 8px;
+}
+
+.welcome-user-table td.stats {
+    padding-left: 8px;
+    line-height: 1.6em;
 }
