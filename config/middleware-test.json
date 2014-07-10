@@ -10,7 +10,7 @@
             "secret": "d280b1874789e060b95fc9890d646a1845e71b55"
         },
         "appsec": {
-            "csrf": true
+            "csrf": false
         },
         "i18n": {
             "locales": ["pl", "en"],

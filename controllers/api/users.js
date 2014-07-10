@@ -335,4 +335,17 @@ module.exports = function(server) {
                 res.send(users);
             });
     });
+
+    server.post('/api/users/login', auth.getPassport().authenticate('local', {}), function (req, res) {
+        res.json({id: req.user.id});    
+    });
+
+    server.get('/api/users/logout', function (req, res) {
+        if (req.user) {
+            userService.logout(req.user._id);
+        }
+        server.locals.user = null;
+        req.logout();
+        res.redirect('/');
+    });
 };

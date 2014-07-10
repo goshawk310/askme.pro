@@ -218,6 +218,10 @@ var User = function() {
         ips: {
             type: Array,
             default: []
+        },
+        api_token: {
+            type: String,
+            index: true 
         }
     }, {
         collection: 'users',
