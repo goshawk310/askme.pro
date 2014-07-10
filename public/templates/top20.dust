@@ -14,7 +14,7 @@
                 {/message}
                 <div class="panel panel-default" id="main-content-wrapper">
                     <div class="panel-heading">
-                        <h4 class="no-margin">{@__ phrase="Top 20 fejmów na" /} askme.pro</h4>
+                        <h4 class="no-margin">{@__ phrase="Top 20 fejmów na" /} myask.co</h4>
                     </div>
                     <div class="panel-body" id="main-content-container" data-noresults="{@__ phrase="Brak wyników" /}">
                         <ul class="nav nav-pills nav-justified" id="top20-tabs">

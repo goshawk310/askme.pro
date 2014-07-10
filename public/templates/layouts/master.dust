@@ -7,14 +7,14 @@
         <meta name="description" content="{+metaDescription}Wysyłaj i odbieraj anonimowe pytania aby dowiedzieć się, co inni myślą o tobie.{/metaDescription}">
         <meta name="csrf-param" content="{_csrf}">
         <link rel="shortcut icon" href="/favicon.ico">
-        <title>{+title}askme.pro{/title}</title>
+        <title>{+title}myask.co{/title}</title>
         <meta property="fb:app_id" content="600921269985597" />
-        <meta property="og:site_name" content="askme.pro" />
+        <meta property="og:site_name" content="myask.co" />
         <meta property="og:type" content="{+ogType}article{/ogType}" />
-        <meta property="og:url" content="{+ogUrl}http://www.askme.pro{/ogUrl}" />
-        <meta property="og:description" content="{+ogDescription}Askme.pro, wysyłaj i odbieraj anonimowe pytania aby dowiedzieć się, co inni myślą o Tobie. Załóż darmowe konto i baw się razem z nami{/ogDescription}" />
-        <meta property="og:title" content="{+ogTitle}askme.pro{/ogTitle}" />
-        <meta property="og:image" content="{+ogImage}http://www.askme.pro/images/askme-pro.jpg{/ogImage}" />
+        <meta property="og:url" content="{+ogUrl}http://www.myask.co{/ogUrl}" />
+        <meta property="og:description" content="{+ogDescription}myask.co, wysyłaj i odbieraj anonimowe pytania aby dowiedzieć się, co inni myślą o Tobie. Załóż darmowe konto i baw się razem z nami{/ogDescription}" />
+        <meta property="og:title" content="{+ogTitle}myask.co{/ogTitle}" />
+        <meta property="og:image" content="{+ogImage}http://www.myask.co/images/askme-pro.jpg{/ogImage}" />
         <!-- Bootstrap core CSS -->
         <link href="/components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
         <link href="/css/main.min.css?23" rel="stylesheet" />

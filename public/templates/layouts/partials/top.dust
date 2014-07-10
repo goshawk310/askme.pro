@@ -7,7 +7,7 @@
                         <a href="#" class="visible-xs btn btn-link toggle-canvas-left"><i class="fa fa-bars"></i></a>
                     {/user}
                     <a href="/" class="logo">
-                        <img src="/images/logo.png" alt="askme.pro" />
+                        <img src="/images/logo.png" alt="myask.co" />
                     </a>
                 </li>
                 {?user}

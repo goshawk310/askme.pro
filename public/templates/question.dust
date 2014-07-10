@@ -1,13 +1,13 @@
 {>"layouts/master" /}
 {<ogType}askmepro:question{/ogType}
-{<ogUrl}http://www.askme.pro/questions/{question._id}{/ogUrl}
+{<ogUrl}http://www.myask.co/questions/{question._id}{/ogUrl}
 {<ogTitle}{question.contents}{/ogTitle}
 {<ogDescription}{question.answer}{/ogDescription}
 {<ogImage}
     {?question.image}
-        http://www.askme.pro{config.answer.url}{question.image}
+        http://www.myask.co{config.answer.url}{question.image}
     {:else}
-        http://www.askme.pro/images/askme-pro.jpg
+        http://www.myask.co/images/askme-pro.jpg
     {/question.image}
 {/ogImage}
 {<body}

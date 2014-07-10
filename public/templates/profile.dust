@@ -6,12 +6,12 @@
 {/wrapperAttribs}
 {?profile}
     {?profile.profile.motto}
-        {<ogTitle}Zadaj mi pytanie | www.askme.pro/{profile.username}{/ogTitle}
+        {<ogTitle}Zadaj mi pytanie | www.myask.co/{profile.username}{/ogTitle}
     {/profile.profile.motto}
     {?profile.profile.motto}
         {<ogDescription}{profile.profile.motto}{/ogDescription}
     {/profile.profile.motto}
-    {<ogUrl}http://www.askme.pro/{profile.username}{/ogUrl}
+    {<ogUrl}http://www.myask.co/{profile.username}{/ogUrl}
 {/profile}
 {<body}
 <div id="profile-top-full">

@@ -245,7 +245,7 @@ askmePro.mixins.inboxQuestion = {
                 askmePro.utils.title.update(count, false);
                 if (thisObj.shareOnFacebook) {
                     FB.api('/me/feed', 'post', {
-                        link: 'http://www.askme.pro/questions/' + model.get('_id'),
+                        link: 'http://www.myask.co/questions/' + model.get('_id'),
                     });
                 }
             },

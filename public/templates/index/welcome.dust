@@ -4,7 +4,7 @@
 <div class="container">
     <div class="row">
         <div class="col-md-7">
-            <h1 id="index-h1" class="text-center">{@__ phrase="Poznaj mnie na ASKME.pro" /}</h1>
+            <h1 id="index-h1" class="text-center">{@__ phrase="Poznaj mnie na myask.co" /}</h1>
             <div id="fade-carousel" class="fade-carousel visible-md visible-lg">
                 <img src="/images/slides/1m.png" alt="">
             </div>

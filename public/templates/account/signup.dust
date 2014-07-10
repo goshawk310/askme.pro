@@ -25,7 +25,7 @@
                                     </div>
                                     <div class="col-md-6">
                                         <span class="help-block">
-                                            <small>{@__ phrase="Twój profil (tylko litery i cyfry bez polskich znaków): http://askme.pro/twoj_login" /}</small>
+                                            <small>{@__ phrase="Twój profil (tylko litery i cyfry bez polskich znaków): http://myask.co/twoj_login" /}</small>
                                         </span>
                                     </div>
                                     <div class="clearfix"></div>

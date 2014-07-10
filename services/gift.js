@@ -42,7 +42,7 @@ module.exports = _.defaults({
                         console.log(err);
                         return;
                     }
-                    this.setSubject(res.__('Ktoś podarował Ci gifta na askme.pro!'))
+                    this.setSubject(res.__('Ktoś podarował Ci gifta na myask.co!'))
                         .setTo(doc.email)
                         .setHtml(html)
                         .send(function (err, msg) {
