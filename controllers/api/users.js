@@ -1,5 +1,6 @@
 'use strict';
 var userService = require('../../services/user'),
+    questionService = require('../../services/question'),
     auth = require('../../lib/auth');
 
 module.exports = function(server) {
@@ -347,5 +348,17 @@ module.exports = function(server) {
         server.locals.user = null;
         req.logout();
         res.redirect('/');
+    });
+
+    server.get('/api/users/:id/answers', auth.isAuthenticated, function (req, res) {
+        questionService.setServer(server);
+        questionService.getAnswered({
+            to: req.param('id'),
+            limit: 10,
+            page: parseInt(req.param('p'), 10) || 0,
+            from: req.user._id
+        }, function(err, results) {
+            res.send(results);
+        });
     });
 };

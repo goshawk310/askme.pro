@@ -36,7 +36,7 @@ module.exports = function(server) {
                     apiToken = doc.api_token;
                 }
 
-                var user = _.pick(req.user, '_id', 'username', 'settings');
+                var user = _.pick(req.user, '_id', 'username', 'settings', 'users');
                 user.api_token = apiToken;
                 res.send(user);
             } else {
