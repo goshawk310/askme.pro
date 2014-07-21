@@ -51,10 +51,10 @@ var askmePro = {
                             matches = url.match(ytRegExp);
                             if (matches && matches[2].length) {
                                 if (options.yt === 'video') {
-                                    replacedHtml = ytVideoHtmlTpl.replace('src=""', 'src="http://www.youtube.com/embed/' + matches[2].replace('<br>', '') + '?wmode=opaque"');
+                                    replacedHtml = ytVideoHtmlTpl.replace('src=""', 'src="https://www.youtube.com/embed/' + matches[2].replace('<br>', '') + '?wmode=opaque"');
                                     value = value.replace(url, replacedHtml);
                                 } else if (options.yt === 'link') {
-                                    replacedHtml = '<a href="http://www.youtube.com/watch?v=' + matches[2].replace('<br>', '') + ' " target="_blank">http://www.youtube.com/watch?v=' + matches[2] + ' </a>';
+                                    replacedHtml = '<a href="https://www.youtube.com/watch?v=' + matches[2].replace('<br>', '') + ' " target="_blank">http://www.youtube.com/watch?v=' + matches[2] + ' </a>';
                                     value = value.replace(url, replacedHtml);
                                 }
                             }

@@ -11,7 +11,7 @@
         <title>{+title /}</title>
         <!-- Bootstrap core CSS -->
         <link href="/components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
-        <link href="/css/main.min.css" rel="stylesheet" />
+        <link href="/css/main.min.css?24" rel="stylesheet" />
         <link href="/css/theme.css" rel="stylesheet" />
         <link href="/css/common.css?7" rel="stylesheet" />
         {+css /}
