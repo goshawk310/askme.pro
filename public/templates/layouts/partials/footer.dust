@@ -1,7 +1,7 @@
 <div class="container footer">
     <div class="col-md-6">
         <ul class="nav nav-pills navbar-left rights-reserved-container">
-            <li><div class="pd-r-md">&copy; {@dateTime format="YYYY" /} myask.co {@__ phrase="All rights reserved."/}</div></li>
+            <li><div class="pd-r-md">&copy; {@dateTime format="YYYY" /} askme.pro {@__ phrase="All rights reserved."/}</div></li>
             <li>
                 <div class="fb-like" data-href="https://www.facebook.com/askmeofficial" data-layout="button_count" data-action="like" data-show-faces="false" data-share="false"></div>
             </li>
@@ -27,7 +27,7 @@
             </ul>
         </div>
         <ul class="nav nav-pills navbar-right footer-menu">
-            <li><a href="mailto:ask@myask.co">{@__ phrase="Kontakt" /}</a></li>
+            <li><a href="mailto:ask@askme.pro">{@__ phrase="Kontakt" /}</a></li>
             <li><a href="/site/terms">{@__ phrase="Regulamin"/}</a></li>
             <li><a href="/site/privacy">{@__ phrase="Polityka prywatności"/}</a></li>
         </ul>
@@ -36,7 +36,7 @@
     <div class="center-block">
         <hr>
         <small>
-            {@__ phrase="myask.co, wysyłaj i odbieraj anonimowe pytania aby dowiedzieć się, co inni myślą o Tobie. Załóż darmowe konto i baw się razem z nami"/}
+            {@__ phrase="askme.pro, wysyłaj i odbieraj anonimowe pytania aby dowiedzieć się, co inni myślą o Tobie. Załóż darmowe konto i baw się razem z nami"/}
         </small>
     </div>
 </div>

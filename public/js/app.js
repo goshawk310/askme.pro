@@ -6,7 +6,7 @@ var askmePro = {
             userAvatar: function userAvatar(params) {
                 var user = params.user || {},
                     image = user.avatar ? ('/uploads/avatars/' + user.avatar) : '/images/default_avatar.png',
-                    alt = user.username || 'myask.co', 
+                    alt = user.username || 'askme.pro', 
                     href = user.username ? (' href="/' + user.username + '"'): '',
                     cssClass = params.cssClass || 'box-shadow img-circle user-avatar',
                     cssId = params.cssId ? ' id="' + params.cssId + '"' : '',
@@ -31,7 +31,7 @@ var askmePro = {
             parseUrls: function parseUrls(value, params) {
                 var urlRegexp = /((https?:\/\/)?[\w-]+(\.[\w-]+)+\.?(:\d+)?(\/\S*)?)/gi,
                     ytRegExp = /.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/,
-                    allowedLinksRegExp = /^((https?:\/\/)(www[.])?(myask.co|facebook.com)(.*))$/,
+                    allowedLinksRegExp = /^((https?:\/\/)(www[.])?(askme.pro|facebook.com)(.*))$/,
                     urlMatches = value.match(urlRegexp),
                     matches = null,
                     ytVideoHtmlTpl = '<div class="media-wrapper panel panel-link no-shadow">' +
@@ -62,7 +62,7 @@ var askmePro = {
                         if (options.links) {
                             matches = url.match(allowedLinksRegExp);
                             if (matches) {
-                                if (matches[4] === 'myask.co') {
+                                if (matches[4] === 'askme.pro') {
                                     value = value.replace(url, '<a href="' + url + '">' + url + '</a>');
                                 } else {
                                     value = value.replace(url, '<a href="' + url + '" target="_blank">' + url + '</a>');

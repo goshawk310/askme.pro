@@ -16,8 +16,8 @@
 </script>
 <script type="text/template" id="profile-photo-tpl">
     <div class="col-md-4 col-sm-6 col-xs-12 photo-container no-margin no-padding text-center">
-        <img src="http://myask.co/uploads/answers/<%=photo.image%>">
-        <a href="http://myask.co//uploads/answers/<%=photo.image%>" class="overlay magnific">
+        <img src="http://askme.pro/uploads/answers/<%=photo.image%>">
+        <a href="http://askme.pro//uploads/answers/<%=photo.image%>" class="overlay magnific">
             <div class="caption">
                 <%=moment(photo.answered_at).fromNow()%>
             </div>

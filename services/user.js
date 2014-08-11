@@ -53,7 +53,7 @@ module.exports = _.defaults({
                     return callback(req, res, err);
                 }
                 var email = new Email();
-                email.setSubject('Odzyskiwanie hasla dla konta myask.co!')
+                email.setSubject('Odzyskiwanie hasla dla konta askme.pro!')
                     .setTo(user.email)
                     .setHtml('Witaj<br/>Nowe haslo to: ' + newPassword)
                     .send(function(err, message) {
@@ -452,7 +452,7 @@ module.exports = _.defaults({
                         console.log(err);
                         return;
                     }
-                    this.setSubject(res.__('Masz nowego obserwatora na myask.co!'))
+                    this.setSubject(res.__('Masz nowego obserwatora na askme.pro!'))
                         .setTo(doc.email)
                         .setHtml(html)
                         .send(function (err, msg) {
