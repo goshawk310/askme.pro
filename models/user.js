@@ -230,7 +230,7 @@ var User = function() {
 
     schema.virtual('online').get(function () {
         if (this.last_visit_at) {
-            return Date.now() - this.last_visit_at.getTime() < 240000;
+            return Date.now() - this.last_visit_at.getTime() < 360000;
         }
         return false;
     });

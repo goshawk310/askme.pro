@@ -659,7 +659,7 @@ module.exports = _.defaults({
         var whereAnd = [];
         params = params || {};
         whereAnd.push({'status.value': 1});
-        whereAnd.push({last_visit_at: {$gt: Date.now() - 240000}});
+        whereAnd.push({last_visit_at: {$gt: Date.now() - 360000}});
         if (params.followed && _.isArray(params.followed)) {
             whereAnd.push({_id: {$in: params.followed}});
         }
