@@ -61,4 +61,21 @@ module.exports = function(server) {
                 'to': req.user._id
             });
     });
+
+    /**
+     * [description]
+     * @param  {[type]} req
+     * @param  {[type]} res
+     * @return {[type]}
+     */
+    server.post('/inbox/image/:id', auth.isAuthenticated, function (req, res) {
+        questionService
+            .setServer(server)
+            .setReq(req)
+            .setRes(res)
+            .uploadImage({
+                'id': req.param('id'),
+                'to': req.user._id
+            });
+    })
 };

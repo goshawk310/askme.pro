@@ -46,4 +46,9 @@ module.exports = function(server) {
         
         
     });
+
+    server.get('/api/auth/user', auth.isAuthenticated, function (req, res, next) {
+        var user = _.pick(req.user, '_id', 'username', 'settings', 'users', 'name', 'lastname', 'stats', 'api_token');
+        res.send(user);
+    });
 };
