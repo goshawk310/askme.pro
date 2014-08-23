@@ -504,14 +504,31 @@ module.exports = _.defaults({
                     return callback(err);
                 }
                 if (blocked === null) {
-                    return callback(new Error('Blocked not found'));
+                    UserModel.findOne({
+                        _id: by
+                    }).exec(function (err, doc) {
+                        if (!err || doc.users.blocked.indexOf(user) !== -1) {
+                            UserModel.update({
+                                _id: doc._id
+                            }, {
+                                $pull: {
+                                    'users.blocked': user
+                                }
+                            }, function (err, doc) {
+                                return callback(null, user);
+                            });
+                        } else {
+                            return callback(new Error('Blocked not found'));
+                        }
+                    });
+                } else {
+                    blocked.remove(function (err) {
+                        if (err) {
+                            return callback(err);
+                        }
+                        callback(null, blocked);
+                    });
                 }
-                blocked.remove(function (err) {
-                    if (err) {
-                        return callback(err);
-                    }
-                    callback(null, blocked);
-                });
             });
     },
     getFollowedById: function getFollowedById(id, params, callback) {
