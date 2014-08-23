@@ -95,7 +95,8 @@ var UserBlocked = function() {
     schema.post('remove', function(blocked) {
         var UserModel = require('../user');
         this.model('UserBlocked').findOne({
-            by: blocked.user
+            by: blocked.user,
+            user: blocked.by
         }, function (err, doc) {
             if (err || doc) {
                 return;
