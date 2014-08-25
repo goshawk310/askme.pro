@@ -1,8 +1,45 @@
 'use strict';
 var userService = require('../../services/user'),
-    auth = require('../../lib/auth');
+    questionService = require('../../services/question'),
+    auth = require('../../lib/auth'),
+    Q = require('q');
 
 module.exports = function(server) {
+
+    server.get('/api/user/:username', auth.isAuthenticated, function(req, res, next) {
+        return Q.npost(userService, 'getByUsername', [req.param('username')])
+        .then(function (user) {
+            if (!user) {
+                throw new Error('notFound');
+            }
+            var isFollowed = false,
+                isBlocked = false;
+            return Q.ninvoke(req.user, 'isBlockedBy', user._id)
+                .then(function (isBlocked) {
+                    if (isBlocked) {
+                        throw new Error('blocked');
+                    }
+                    if (req.user.users) {
+                        isFollowed = req.user.users.followed ? user.isFollowed(req.user.users.followed) : false;
+                        isBlocked = req.user.users.blocked ? user.isBlocked(req.user.users.blocked) : false;
+                    }
+                    return {
+                        profile: user,
+                        isFollowed: isFollowed,
+                        isBlocked: isBlocked
+                    };
+                });
+        })
+        .then(function (data) {
+            return res.send(data);
+        })
+        .fail(function (err) {
+            if (err) {
+                res.send(500, err);
+            }
+        })
+        .done(); 
+    });
 
     /**
      * 
@@ -334,5 +371,31 @@ module.exports = function(server) {
                 }
                 res.send(users);
             });
+    });
+
+    server.post('/api/users/login', auth.getPassport().authenticate('local', {}), function (req, res) {
+        res.json({id: req.user.id});    
+    });
+
+    server.get('/api/users/logout', function (req, res) {
+        if (req.user) {
+            userService.logout(req.user._id);
+        }
+        server.locals.user = null;
+        req.logout();
+        res.redirect('/');
+    });
+
+    server.get('/api/users/:id/answers', auth.isAuthenticated, function (req, res) {
+        questionService.setServer(server);
+        questionService.getAnswered({
+            to: req.param('id'),
+            limit: 10,
+            page: parseInt(req.param('p'), 10) || 0,
+            from: req.user._id,
+            liked: parseInt(req.param('liked'), 10) === 1 ? true : false
+        }, function(err, results) {
+            res.send(results);
+        });
     });
 };

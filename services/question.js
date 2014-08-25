@@ -217,6 +217,7 @@ module.exports = _.defaults({
             limit = params.limit || null,
             where = {},
             blocked = null,
+            sort = {answered_at: -1},
             $and = [{answered_at: {'$ne': null}}];
         if (_.isArray(params.to)) {
             where.to = {$in: params.to};
@@ -246,6 +247,10 @@ module.exports = _.defaults({
                 };
             }
         }
+        if (params.liked) {
+            sort = {'stats.likes': -1};
+            $and.push({'stats.likes': {'$gt' : 0}});
+        }
         var obj = {};
         for (var i in where) {
             obj = {};
@@ -256,7 +261,7 @@ module.exports = _.defaults({
             .find({'$and': $and})
             .populate('from', 'username avatar')
             .populate('to', 'username avatar settings.anonymous_disallowed')
-            .sort({answered_at: -1})
+            .sort(sort)
             .skip(skip).limit(limit ? limit + 1 : null)
             .exec(function (err, questions) {
                 if (err) {

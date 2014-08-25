@@ -823,7 +823,7 @@ module.exports = _.defaults({
         }
         UserModel
             .find({$and: whereAnd})
-            .select('username name lastname avatar last_visit_at')
+            .select('username name lastname avatar last_visit_at profile.location')
             .sort({last_visit_at: -1})
             .exec(function (err, docs) {
                 if (err) {

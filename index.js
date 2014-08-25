@@ -76,7 +76,19 @@ app.requestStart = function requestStart(server) {
 
 app.requestBeforeRoute = function requestBeforeRoute(server) {
     // Fired before routing occurs
-    server.use(express.methodOverride());
+    // Add headers
+    server.use(function (req, res, next) {
+        var acrh = req.headers['access-control-request-headers'];
+        if (req.headers['api-token'] || (acrh && acrh.search('api-token') !== -1)) {
+            res.setHeader('Access-Control-Allow-Origin', '*');
+            res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+            res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type,api-token');
+            res.setHeader('Access-Control-Allow-Credentials', false);
+            next();
+        } else {
+            express.methodOverride()(req, res, next);
+        }
+    });
     server.use(i18n.init);
     server.use(function (req, res, next) {
         i18n.setLocale(res.getLocale());
