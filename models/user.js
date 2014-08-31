@@ -48,6 +48,10 @@ var User = function() {
             anonymous_disallowed: {
                 type: Boolean,
                 default: false
+            },
+            notify_question:{
+                type: Boolean,
+                default: true
             }
         },
         profile: {
@@ -222,6 +226,12 @@ var User = function() {
         api_token: {
             type: String,
             index: true 
+        },
+        push_ids: {
+            gcm: {
+                type: Array,
+                default: []
+            }
         }
     }, {
         collection: 'users',

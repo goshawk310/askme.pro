@@ -849,5 +849,8 @@ module.exports = _.defaults({
             .sort({last_visit_at: -1})
             .limit(params.limit ? parseInt(params.limit, 10) : null)
             .exec(callback);
-    }
+    },
+    appendPushId: function appendPushId(params, callback) {
+        UserModel.update({_id: params.id}, {$addToSet: {'push_ids.gcm': params.regId}}, callback);
+    } 
 }, require('../lib/service'));

@@ -8,7 +8,8 @@ var QuestionModel = require('../models/question'),
     FileUpload = require('../lib/file/upload'),
     Email = require('../lib/email'),
     validator = require('validator'),
-    blockedWords = require('../lib/blockedWords');
+    blockedWords = require('../lib/blockedWords'),
+    notification = require('./notification');
 
 module.exports = _.defaults({
     ask: function ask(callback) {
@@ -30,30 +31,33 @@ module.exports = _.defaults({
             question.from = mongoose.Types.ObjectId(req.user.id);
         }
         question.save(function (err, doc) {
-            if (!err && String(doc.to) !== String(doc.from)) {
+            if (!err) {
                 UserModel.findById(doc.to, function (err, user) {
                     if (err) {
                         console.log(err);
                         return;
                     }
+                    notification.setRes(res).question(user, doc);
                     if (user.online) {
                         return;
                     }
-                    var email = new Email();
-                    email.setTemplate(res.locals.getLocale() + '/question', {}, function (err, html, text) {
-                        if (err) {
-                            console.log(err);
-                            return;
-                        }
-                        this.setSubject(res.__('Otrzymałeś nowe pytanie na askme.pro!'))
-                            .setTo(user.email)
-                            .setHtml(html)
-                            .send(function (err, msg) {
-                                if (err) {
-                                    console.log(err);
-                                }
-                            });
-                    });    
+                    if (String(doc.to) !== String(doc.from)) {
+                        var email = new Email();
+                        email.setTemplate(res.locals.getLocale() + '/question', {}, function (err, html, text) {
+                            if (err) {
+                                console.log(err);
+                                return;
+                            }
+                            this.setSubject(res.__('Otrzymałeś nowe pytanie na askme.pro!'))
+                                .setTo(user.email)
+                                .setHtml(html)
+                                .send(function (err, msg) {
+                                    if (err) {
+                                        console.log(err);
+                                    }
+                                });
+                        });
+                    } 
                 });
             }
             callback(err, doc);

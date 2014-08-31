@@ -398,4 +398,16 @@ module.exports = function(server) {
             res.send(results);
         });
     });
+
+    server.post('/api/users/push/register', auth.isAuthenticated, function (req, res) {
+        userService.appendPushId({
+            id: req.user._id,
+            regId: req.body.regid,
+            key: 'gcm'
+        }, function (err, result) {
+            res.send({
+                status: 'success'
+            });
+        })
+    });
 };
