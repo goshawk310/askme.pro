@@ -851,6 +851,23 @@ module.exports = _.defaults({
             .exec(callback);
     },
     appendPushId: function appendPushId(params, callback) {
-        UserModel.update({_id: params.id}, {$addToSet: {'push_ids.gcm': params.regId}}, callback);
-    } 
+        UserModel.update({'push_ids.gcm': {$in: [params.regId]}}, {
+            $pull: {'push_ids.gcm': params.regId}
+        }, {
+            multi: true
+        },
+        function (err, u) {
+            UserModel.update({_id: params.id}, {$addToSet: {'push_ids.gcm': params.regId}}, callback);
+        });
+    },
+    removePushId: function removePushId(params, callback) {
+        console.log(params.regId);
+        UserModel.update({
+            _id: params.id
+        }, {
+            $pull: {'push_ids.gcm': params.regId}
+        }, {
+            safe: true
+        }, callback);
+    }
 }, require('../lib/service'));

@@ -410,4 +410,16 @@ module.exports = function(server) {
             });
         })
     });
+
+    server.delete('/api/users/push/register', auth.isAuthenticated, function (req, res) {
+        userService.removePushId({
+            id: req.user._id,
+            regId: req.param('regid'),
+            key: 'gcm'
+        }, function (err, result) {
+            res.send({
+                status: 'success'
+            });
+        })
+    });
 };
