@@ -8,7 +8,11 @@ var userService = require('../../services/user'),
 
 module.exports = function(server) {
     server.get('/api/notifications/likes/top', auth.isAuthenticated,  function(req, res) {
-        likeService.getTop({to: req.user._id, limit: 3}, function (err, results) {
+        var limit = 3;
+        if (req.query.limit && req.query.limit > 0 && req.query.limit < 20) {
+            limit = parseInt(req.query.limit, 10);
+        }
+        likeService.getTop({to: req.user._id, limit: limit}, function (err, results) {
             if (err) {
                 return res.send(500, {});
             }
@@ -34,7 +38,6 @@ module.exports = function(server) {
     });
 
     server.get('/api/notifications/feed/top', auth.isAuthenticated,  function(req, res) {
-        questionService.setServer(server);
         questionService.getAnsweredByUserFrom({from: req.user._id, limit: 3}, function (err, questions) {
             if (err) {
                 return res.send(500, {});
@@ -55,6 +58,44 @@ module.exports = function(server) {
                 });
             })
             
+        });
+    });
+
+    server.get('/api/notifications/comments/top', auth.isAuthenticated,  function(req, res) {
+        var limit = 3;
+        if (req.query.limit && req.query.limit > 0 && req.query.limit < 20) {
+            limit = parseInt(req.query.limit, 10);
+        }
+        commentService.getByUserTo({to: req.user._id, limit: limit}, function (err, comments) {
+            if (err) {
+                return res.send(500, {});
+            }
+            userService.resetNotifications({
+                id: req.user._id,
+                key: ['comments']
+            }, function () {
+
+            });
+            res.send(comments);
+        });
+    });
+
+    server.get('/api/notifications/answers/top', auth.isAuthenticated,  function(req, res) {
+        var limit = 3;
+        if (req.query.limit && req.query.limit > 0 && req.query.limit < 20) {
+            limit = parseInt(req.query.limit, 10);
+        }
+        questionService.getAnsweredByUserFrom({from: req.user._id, limit: limit}, function (err, questions) {
+            if (err) {
+                return res.send(500, {});
+            }
+            userService.resetNotifications({
+                id: req.user._id,
+                key: ['answers']
+            }, function () {
+
+            });
+            res.send(questions);
         });
     });
 }
