@@ -49,6 +49,8 @@ module.exports = function(server) {
             });
     });
 
+
+
     /**
      * 
      * @param  {Object} req
@@ -368,6 +370,16 @@ module.exports = function(server) {
                 });
             }
             res.send(doc);
+        });
+    });
+
+    server.get('/api/questions/:id', auth.isAuthenticated, function(req, res) {
+        questionService.setServer(server);
+        questionService.getAnswered({id: req.param('id'), from: req.user._id}, function (err, results) {
+            if (err) {
+                return res.send(500, err);
+            }
+            res.send(results.questions.length ? results.questions[0] : null);
         });
     });
 };

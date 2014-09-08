@@ -84,7 +84,7 @@ askmePro.views.InboxIndexView = Backbone.View.extend({
             tag.src = 'https://www.youtube.com/iframe_api';
             firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
             window.onYouTubeIframeAPIReady = function onYouTubeIframeAPIReady() {
-                thisObj.ytWidgetWidth = thisObj.$('#yt-modal').find('.modal-body').width();
+                thisObj.ytWidgetWidth = 400;//thisObj.$('#yt-modal').find('.modal-body').width();
                 createUploadWidget(params)
             }
         }
