@@ -72,7 +72,7 @@ askmePro.views.ProfileIndexView = Backbone.View.extend({
     giftBounds: [],
     page: 0,
     path: null,
-    adDisplayed: false,
+    adDisplayed: true,
     initialize: function(options) {
         this.path = options.path || null;
         this.render();

@@ -104,7 +104,7 @@
     <div class="row custom-row">
         <div class="col-md-3 hidden-sm hidden-xs profile-info-wrapper">
              {>"profile/partials/user_panel" showButtons="1" showOnline="1" showPoints="1" user=user profile=profile/}
-             {>"layouts/partials/ads/left_wide"/}
+             {>"layouts/partials/ads/right" attrClass="add-container add-container-left hidden-xs hidden-sm" /}
         </div>
         <div class="col-md-7 custom-col-md-7">
             <div class="menu-container panel panel-default">
@@ -155,7 +155,6 @@
             {>"partials/suggestions/users"/}
             {>"partials/suggestions/users"/}
             {>"partials/suggestions/questions"/}
-            {>"layouts/partials/ads/right"/}
         </div>
     </div>
 </div>
@@ -176,7 +175,7 @@
 <script src="/js/app/collections.js"></script>
 <script src="/js/app/views.js"></script>
 <script src="/js/app/views/question.view.js?24"></script>
-<script src="/js/app/views/profile.view.js?24"></script>
+<script src="/js/app/views/profile.view.js?25"></script>
 <script src="/js/app/routes/profile.router.js?24"></script>
 <script src="/components/imagesloaded/imagesloaded.pkgd.min.js"></script>
 <script src="/components/masonry/dist/masonry.pkgd.min.js"></script>
