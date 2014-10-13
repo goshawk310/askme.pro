@@ -89,20 +89,19 @@
 }
 .pd-b-md {
     padding-bottom: 12px;
-}
+}ss
 .pd-l-md {
-    padding-left: 12px;
+    padding-left: 12px; 
 }
 .pd-t-md {
     padding-top: 12px;
 }
 
-
 @media (min-width: 992px) {
   .custom-row .custom-col-md-7 {
-      width: 53.333333333333336%;
+      width: 48%;
   }
   .custom-row .custom-col-md-2 {
-      width: 21.666666666666664%;
+      width: 27%;
   }
 }

@@ -4,7 +4,7 @@
     <div class="row custom-row">
         <div class="col-md-3 hidden-sm hidden-xs profile-info-wrapper" id="user-info-wrapper">
             {>"profile/partials/user_panel" profile=user showStats="1" showAvatar="1" showPoints="1" /}
-            {>"layouts/partials/ads/right" attrClass="add-container add-container-left hidden-xs hidden-sm"/}
+            {>"layouts/partials/ads/left"/}
         </div>
         <div class="col-md-7 custom-col-md-7 col-sm-12 col-xs-12" id="main-content-wrapper">
             <div class="panel panel-default">
@@ -22,6 +22,8 @@
             {>"partials/suggestions/users"/}
             {>"partials/suggestions/users"/}
             {>"partials/suggestions/questions"/}
+            {>"layouts/partials/ads/300x250"/}
+            {>"layouts/partials/ads/300x250"/}
         </div>
     </div>
 </div>

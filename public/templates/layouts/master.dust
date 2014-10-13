@@ -18,7 +18,7 @@
         <!-- Bootstrap core CSS -->
         <link href="/components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
         <link href="/css/main.min.css?24" rel="stylesheet" />
-        <link href="/css/theme.css" rel="stylesheet" />
+        <link href="/css/theme.css?1" rel="stylesheet" />
         <link href="/css/common.css?24" rel="stylesheet" />
         {+css /}
         {@hasPrivilegesOf user=user role="editor"}
