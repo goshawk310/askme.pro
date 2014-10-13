@@ -1,4 +1,4 @@
-<div class="{^attrClass}add-container add-container-right hidden-xs hidden-sm{:else}{attrClass}{/attrClass}">
+<div class="{^attrClass}add-container hidden-xs hidden-sm{:else}{attrClass}{/attrClass}">
     <!-- askme 300 -->
     <ins class="adsbygoogle"
          style="display:inline-block;width:300px;height:250px"

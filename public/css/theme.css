@@ -89,12 +89,18 @@
 }
 .pd-b-md {
     padding-bottom: 12px;
-}ss
+}
 .pd-l-md {
     padding-left: 12px; 
 }
 .pd-t-md {
     padding-top: 12px;
+}
+
+@media (min-width: 991px) and (max-width: 1415px) { 
+  #content > .container {
+      width: 100%;
+  }
 }
 
 @media (min-width: 992px) {
