@@ -83,6 +83,7 @@
         {>"partials/top_notifications"/}
         {>"partials/search_results"/}
         {>"partials/users/followed"/}
+        {>"partials/post_modal"/}
         <script src="/js/vendor/jquery-1.10.2.min.js"></script>
         <script src="/js/ntfctns.js?23"></script>
         <script src="/components/underscore-min.js"></script>
@@ -96,6 +97,7 @@
         <script src="/js/app.js?25"></script>
         <script src="/js/vendor/jquery-ajax-localstorage-cache.js"></script>
         <script src="/js/app/views/suggestions.view.js"></script>
+        <script src="/js/app/views/post.view.js"></script>
         {?user}
             <script src="/js/vendor/slimScroll/jquery.slimscroll.min.js"></script>
             <script src="/js/off-canvas.js?22"></script>

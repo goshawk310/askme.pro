@@ -349,7 +349,6 @@ $(document).ready(function () {
                     $.get('/api/users/search', {
                         q: lastQuery, limit: 10
                     }).done(function(response) {
-                        console.log($this.data('initialized'));
                         if (!$this.data('initialized')) {
                             init($this);
                             $this.data('initialized', true);
@@ -372,6 +371,13 @@ $(document).ready(function () {
         });
     }());
     
+    (function() {
+        $('#add-post > i').tooltip();
+        $('#add-post').on('click', function (e) {
+            e.preventDefault();
+            (new askmePro.views.PostIndexView()).render();
+        });
+    }());
 });
 
 (function($) {

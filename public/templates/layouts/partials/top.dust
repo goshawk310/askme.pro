@@ -59,10 +59,17 @@
                     </li>
                 {/user}
             </ul>
-            {?user} 
-                {>"layouts/partials/search_form" cssClass="navbar-form navbar-right " /}
-            {/user}
         </div>
+        {?user} 
+            {>"layouts/partials/search_form" cssClass="navbar-form navbar-right " /}
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a class="btn btn-link btn-lg" href="#" id="add-post">
+                        <i class="fa fa-plus-circle" data-toggle="tooltip" data-placement="bottom" title="{@__ phrase="Dodaj wpis" /}"></i>    
+                    </a>
+                </li>
+            </ul>
+        {/user}
     </div>
     {?user}
         <a href="#" class="btn btn-link toggle-canvas-right"><i class="fa fa-align-right"></i></a>

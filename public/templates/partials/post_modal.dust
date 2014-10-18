@@ -1,0 +1,72 @@
+<script type="text/template" id="post-modal-tpl">
+   <div class="modal fade" tabindex="-1" role="dialog" id="post-modal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title">{@__ phrase="Dodaj wpis" /}</h4>
+                </div>
+                <div class="modal-body">
+                    <form action="/inbox/image/" method="post" enctype="multipart/form-data" class="answer-form">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <textarea name="question[answer]" class="form-control" placeholder="{@__ phrase="Treść" /}:"></textarea>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-xs-4">
+                                <div class="form-group">
+                                    <div class="pull-left">
+                                        <span class="btn btn-link fileinput-button">
+                                            <span class="glyphicon glyphicon-picture"></span><input type="file" name="image">
+                                        </span>
+                                        <span type="button" class="btn btn-link yt">
+                                            <span class="glyphicon glyphicon-film"></span>
+                                        </span>
+                                        <small class="pd-l-md">
+                                            {@__ phrase="Podziel się" /}: 
+                                            <span class="pd-l-md">
+                                                <label><input type="checkbox" name="question[share_fb]" class="share-fb" value="1"> Facebook</label>
+                                            </span>
+                                        </small>
+                                    </div>
+                                    <div class="clearfix"></div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-xs-8">
+                                <div class="form-group">
+                                    <div class="pull-right">
+                                        <button type="submit" class="btn btn-success answer">{@__ phrase="Wyślij" /}</button>
+                                    </div>
+                                    <div class="clearfix"></div>
+                                </div>
+                            </div>
+                            <div class="clearfix"></div>
+                            <div class="col-md-12">
+                                <div class="small">
+                                    <i class="fa fa-exclamation-circle text-danger"></i> <span class="text-muted">{@__ phrase="Zabrania się używania treści powszechnie uznawanych za obraźliwe, zaś zamieszczenie materiałów o charakterze erotycznym będzie skutkowało natychmiastowym banem."/}</span>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="progress progress-container">
+                                    <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
+                                        <span class="sr-only"></span>
+                                    </div>
+                                </div>
+
+                                <div class="image-container text-center">
+                                    
+                                </div>
+                                <div class="video-container text-center">
+                                    
+                                </div>
+                            </div>
+                        </div>
+                        <input type="hidden" name="_csrf" value="{_csrf}"> 
+                        <input type="hidden" name="_method" value="patch"> 
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</script>
