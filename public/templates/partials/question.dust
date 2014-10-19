@@ -1,10 +1,14 @@
 <div class="panel-heading">
     <%=askmePro.views.helpers.userAvatar({~lb}user: question['{avatarKey}'], size: 'cropped/100x', wrapper: true, cssClass: "avatar avatar-sm img-circle", linkClass: "pull-left mg-r-md"{~rb})%>
     <div>
+        <% if (question.mode === 'post') {~lb} %>
+            <small class="post-by"><a href="/<%=question.from.username%>"><%=question.from.username%></a></small><br>
+            <small class="text-muted">
+                <i class="fa fa-clock-o mg-r-xs"></i><%=moment(question.answered_at).fromNow()%>
+            </small>
+        <%{~rb}%>
         <% if (question.mode !== 'post') {~lb} %>
             <b><%=askmePro.views.helpers.parseUsersText(question.contents, {url: {yt: 'link'}})%></b>
-        <% {~rb} else {~lb} %>
-            <b><%=askmePro.views.helpers.parseUsersText(question.answer)%></b>
         <% {~rb} %>
         <small class="pull-right no-touch settings text-muted">
             <a class="fa fa-chevron-down btn-collapsible pd-r-xs" href="#"></a>
@@ -18,12 +22,19 @@
             {/user}
         </small>
     </div>
-    <small class="text-muted"><% if(question.from){~lb}%> {@__ phrase="przez" /} <a href="/<%=question.from.username%>"><%=question.from.username%></a><%{~rb}else{~lb}%>{@__ phrase="anonimowo" /}<%{~rb}%></small>
+    <% if (question.mode !== 'post') {~lb} %>
+        <small class="text-muted"><% if(question.from){~lb}%> {@__ phrase="przez" /} <a href="/<%=question.from.username%>"><%=question.from.username%></a><%{~rb}else{~lb}%>{@__ phrase="anonimowo" /}<%{~rb}%></small>
+    <%{~rb}%>
 </div>
 <div class="collapsible">
     <div class="panel-body no-padding">
         <div class="pd-md">
             <div class="answer">
+                <% if (question.mode === 'post') {~lb} %>
+                    <div class="post-contents">
+                        <%=askmePro.views.helpers.parseUsersText(question.answer)%>
+                    </div>
+                <% {~rb} %>
                 <% if (question.image) {~lb} %>
                     <div class="media-wrapper text-center">
                         <img src="<%=askmePro.settings.upload.answer.url + question.image%>">
@@ -42,9 +53,15 @@
                     <%=askmePro.views.helpers.parseUsersText(question.answer)%>
                 <% {~rb} %>
             </div>
-            <small class="text-muted">
-                <i class="fa fa-clock-o mg-r-xs"></i><%=moment(question.answered_at).fromNow()%>
-            </small>
+            <% if (question.mode !== 'post') {~lb} %>
+                <small class="text-muted">
+                    <i class="fa fa-clock-o mg-r-xs"></i><%=moment(question.answered_at).fromNow()%>
+                </small>
+            <%{~rb} else {~lb}%>
+                <small class="text-muted">
+                    &nbsp;
+                </small>   
+            <% {~rb} %>
             <div class="clearfix pull-right text-muted">
                 <a href="#" class="muted mg-r-md btn-comments">
                     <i class="fa fa-comment-o  mg-r-xs"></i><span class="count"><%=question.stats.comments%></span> 

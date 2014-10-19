@@ -2030,3 +2030,10 @@ ul#profile-menu li a {
     display: inline-block;
     font-size: 1.4em;
 }
+
+.post-by > a {
+    color: #428bca !important;
+}
+.post-container .answer .media-wrapper {
+    margin: 12px -12px 12px -12px;
+}

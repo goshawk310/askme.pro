@@ -3,17 +3,26 @@ askmePro.views.PostIndexView = Backbone.View.extend({
     modal: null,
     ytWidget: null,
     ytWidgetWidth: null,
+    ytWidgetCreated: false,
     initialize: function () {
+        var self = this;
         this.setElement($(this.template()));
         this.modal = this.$el.modal();
+        this.modal.on('hide.bs.modal', function () {
+            if (self.ytWidget !== null) {
+                self.ytWidget.destroy();
+                self.ytWidget = null;
+                self.$('.video-container').hide();
+            }
+        });
     },
     events: {
         'click .btn.yt': 'record'
     },
     render: function () {
+        var self = this;
         this.modal.modal('show');
         this.initImageUpload();
-        var self = this;
         this.$('.modal-body.main').removeClass('hidden');
         this.$('.modal-body.message').addClass('hidden');
         this.$('textarea[name="post[contents]"]').val('');
@@ -79,16 +88,26 @@ askmePro.views.PostIndexView = Backbone.View.extend({
             tag,
             firstScriptTag,
             createUploadWidget = function createUploadWidget(params) {
-                self.ytWidget = new YT.UploadWidget('post-video-widget', {
+                self.ytWidget = new YT.UploadWidget('yt-video-widget', {
                     width: self.ytWidgetWidth,
                     events: {
-                        'onUploadSuccess': params.onUploadSuccess,
-                        'onProcessingComplete': params.onProcessingComplete
+                        onUploadSuccess: params.onUploadSuccess,
+                        onProcessingComplete: params.onProcessingComplete
                     }
+                });
+                var top = 30 + self.$('.modal-content').outerHeight() - self.$('.video-container').outerHeight(),
+                    left = self.$('.modal-content').offset().left + (self.$('.modal-content').outerWidth() / 2 - 200);
+                $('#yt-video-widget-container').css({
+                    position: 'fixed',
+                    left: left + 'px',
+                    top: top + 'px',
+                    zIndex: 9999
                 });
             };
         if (this.ytWidget) {
             this.ytWidget.destroy();
+            createUploadWidget(params);
+        } else if (this.ytWidgetCreated) {
             createUploadWidget(params);
         } else {
             tag = document.createElement('script'),
@@ -99,6 +118,7 @@ askmePro.views.PostIndexView = Backbone.View.extend({
                 self.ytWidgetWidth = 400;
                 createUploadWidget(params)
             }
+            this.ytWidgetCreated = true;
         }
     },
     record: function record() {
@@ -106,6 +126,8 @@ askmePro.views.PostIndexView = Backbone.View.extend({
             videoContainer = this.$('.video-container');
         if (videoContainer.is(':visible')) {
             videoContainer.hide();
+            this.ytWidget.destroy();
+            this.ytWidget = null;
             return;
         } else {
             videoContainer.show();  
