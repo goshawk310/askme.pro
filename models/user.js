@@ -148,6 +148,10 @@ var User = function() {
             followers: {
                 type: Number,
                 default: 0
+            },
+            posts: {
+                type: Number,
+                default: 0
             }
         },
         notifications: {

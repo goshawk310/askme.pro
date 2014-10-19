@@ -985,6 +985,7 @@ ul#profile-menu li.active a {
 #main-navbar > .container > .navbar-header {
     margin-left: 0;
     margin-right: 0;
+    position: relative;
 }
 
 #main-navbar .popover .popover-title {
@@ -2016,4 +2017,16 @@ ul#profile-menu li a {
 .welcome-user-table td.stats {
     padding-left: 8px;
     line-height: 1.6em;
+}
+
+#add-post-btn-container {
+    border-left: 1px solid #007BAB;
+    padding-left: 15px;
+    margin-left: 15px;
+}
+
+#add-post-btn {
+    color: #fff;
+    display: inline-block;
+    font-size: 1.4em;
 }

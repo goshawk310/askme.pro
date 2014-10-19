@@ -1,5 +1,5 @@
 <script type="text/template" id="question-tpl">
-    <section class="panel panel-default question-container">
+    <section class="panel panel-default question-container<% if (question.mode === 'post') {~lb} %> post-container<%{~rb}%>">
         {>"partials/question" avatarKey="from"/}
         <% if (showAdd) {~lb}%>
             {>"layouts/partials/ads/answer"/}

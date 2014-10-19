@@ -165,12 +165,6 @@
 <link href="/components/magnific-popup/magnific-popup.css" rel="stylesheet" />
 {/css}
 {<js}
-<script src="/js/vendor/jquery-ui-1.10.4.custom.min.js"></script>
-<script src="/components/validate/jquery.validate.min.js"></script>
-<script src="/components/validate/additional-methods.js"></script>
-{@ne key="en" value="{locale}"}
-    <script src="/components/validate/localization/messages_{locale}.js"></script>
-{/ne}
 <script src="/components/jquery.autosize.min.js"></script>
 <script src="/components/magnific-popup/jquery.magnific-popup.min.js"></script>
 <script src="/js/app/models.js"></script>
@@ -186,10 +180,6 @@
         id: '{profile._id}',
         username: '{profile.username}',
         stats: {profile.stats|js|s}
-    };
-    askmePro.utils.setupDefaultValidator();
-    askmePro.settings.upload.answer = {
-        url: '{config.answer.url}'
     };
 </script>
 <script id="gifts-data" type="application/json" data-editable="{@eq key="{user.id}" value="{profile.id}"}true{:else}false{/eq}">{gifts|js|s}</script>

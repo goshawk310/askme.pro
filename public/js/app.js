@@ -372,10 +372,14 @@ $(document).ready(function () {
     }());
     
     (function() {
-        $('#add-post > i').tooltip();
-        $('#add-post').on('click', function (e) {
+        var postIndexView = null;
+        $('#add-post-btn').tooltip();
+        $('#add-post-btn').on('click', function (e) {
             e.preventDefault();
-            (new askmePro.views.PostIndexView()).render();
+            if (postIndexView === null) {
+                postIndexView = new askmePro.views.PostIndexView();    
+            }
+            postIndexView.render();
         });
     }());
 });

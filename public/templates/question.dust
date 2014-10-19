@@ -29,24 +29,12 @@
 </div>
 {/body}
 {<js}
-<script src="/components/fileupload/vendor/jquery.ui.widget.js"></script>
-<script src="/components/validate/jquery.validate.min.js"></script>
-<script src="/components/validate/additional-methods.js"></script>
-{@ne key="en" value="{locale}"}
-    <script src="/components/validate/localization/messages_{locale}.js"></script>
-{/ne}
 <script src="/components/jquery.autosize.min.js"></script>
 <script src="/components/magnific-popup/jquery.magnific-popup.min.js"></script>
 <script src="/js/app/models.js"></script>
 <script src="/js/app/collections.js"></script>
 <script src="/js/app/views/question.view.js?1"></script>
 <script src="/js/app/routes/question.router.js?1"></script>
-<script type="text/javascript">
-    askmePro.utils.setupDefaultValidator();
-    askmePro.settings.upload.answer = {
-        url: '{config.answer.url}'
-    };
-</script>
 <script id="question-data" type="application/json" data-editable="{@eq key="{user._id}" value="{question.to._id}"}true{:else}false{/eq}">{question|js|s}</script>
 {/js}
 {<jsTemplates}

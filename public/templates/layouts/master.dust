@@ -131,6 +131,29 @@
                 });
             });
         </script>
+        <script src="/components/fileupload/vendor/jquery.ui.widget.js"></script>
+        <script src="/components/fileupload/jquery.iframe-transport.js"></script>
+        <script src="/components/fileupload/jquery.fileupload.js"></script>
+        <script src="/components/fileupload/jquery.fileupload-process.js"></script>
+        <script src="/components/fileupload/jquery.fileupload-validate.js"></script>
+        <script src="/components/validate/jquery.validate.min.js"></script>
+        <script src="/components/validate/additional-methods.js"></script>
+        {@ne key="en" value="{locale}"}
+            <script src="/components/validate/localization/messages_{locale}.js"></script>
+        {/ne}
+        <script src="/js/utils/upload.js"></script>
+        <script type="text/javascript">
+            askmePro.utils.setupDefaultValidator();
+            askmePro.settings.upload.messages = {
+                maxNumberOfFiles: '{@__ phrase="Przekroczono limit ilości plików." escape="1" /}',
+                acceptFileTypes: '{@__ phrase="Niedozwolony rodzaj pliku." escape="1" /}',
+                maxFileSize: '{@__ phrase="Plik jest za duży." escape="1" /}',
+                minFileSize: '{@__ phrase="Plik jest za mały." escape="1" /}'
+            };
+            askmePro.settings.upload.answer = {
+                url: '{config.answer.url}'
+            };
+        </script>
         {+js /}
         {@hasPrivilegesOf user=user role="editor"}
             <script src="/components/jquery.cookie.js"></script>

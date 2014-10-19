@@ -1,7 +1,11 @@
 <div class="panel-heading">
     <%=askmePro.views.helpers.userAvatar({~lb}user: question['{avatarKey}'], size: 'cropped/100x', wrapper: true, cssClass: "avatar avatar-sm img-circle", linkClass: "pull-left mg-r-md"{~rb})%>
     <div>
-        <b><%=askmePro.views.helpers.parseUsersText(question.contents, {url: {yt: 'link'}})%></b>
+        <% if (question.mode !== 'post') {~lb} %>
+            <b><%=askmePro.views.helpers.parseUsersText(question.contents, {url: {yt: 'link'}})%></b>
+        <% {~rb} else {~lb} %>
+            <b><%=askmePro.views.helpers.parseUsersText(question.answer)%></b>
+        <% {~rb} %>
         <small class="pull-right no-touch settings text-muted">
             <a class="fa fa-chevron-down btn-collapsible pd-r-xs" href="#"></a>
             {^hideQuestionLink}
@@ -34,7 +38,9 @@
                         </div>
                     </div>
                 <% {~rb} %>
-                <%=askmePro.views.helpers.parseUsersText(question.answer)%>
+                <% if (question.mode !== 'post') {~lb} %>
+                    <%=askmePro.views.helpers.parseUsersText(question.answer)%>
+                <% {~rb} %>
             </div>
             <small class="text-muted">
                 <i class="fa fa-clock-o mg-r-xs"></i><%=moment(question.answered_at).fromNow()%>

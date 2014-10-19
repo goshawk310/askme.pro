@@ -6,12 +6,12 @@
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                     <h4 class="modal-title">{@__ phrase="Dodaj wpis" /}</h4>
                 </div>
-                <div class="modal-body">
-                    <form action="/inbox/image/" method="post" enctype="multipart/form-data" class="answer-form">
+                <div class="modal-body main">
+                    <form action="/api/posts/image" method="post" enctype="multipart/form-data" class="post-form">
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="form-group">
-                                    <textarea name="question[answer]" class="form-control" placeholder="{@__ phrase="Treść" /}:"></textarea>
+                                    <textarea name="post[contents]" class="form-control" placeholder="{@__ phrase="Treść" /}:"></textarea>
                                 </div>
                             </div>
                             <div class="col-md-6 col-xs-4">
@@ -23,12 +23,6 @@
                                         <span type="button" class="btn btn-link yt">
                                             <span class="glyphicon glyphicon-film"></span>
                                         </span>
-                                        <small class="pd-l-md">
-                                            {@__ phrase="Podziel się" /}: 
-                                            <span class="pd-l-md">
-                                                <label><input type="checkbox" name="question[share_fb]" class="share-fb" value="1"> Facebook</label>
-                                            </span>
-                                        </small>
                                     </div>
                                     <div class="clearfix"></div>
                                 </div>
@@ -36,7 +30,7 @@
                             <div class="col-md-6 col-xs-8">
                                 <div class="form-group">
                                     <div class="pull-right">
-                                        <button type="submit" class="btn btn-success answer">{@__ phrase="Wyślij" /}</button>
+                                        <button type="submit" class="btn btn-success">{@__ phrase="Wyślij" /}</button>
                                     </div>
                                     <div class="clearfix"></div>
                                 </div>
@@ -58,14 +52,16 @@
                                     
                                 </div>
                                 <div class="video-container text-center">
-                                    
+                                    <div id="post-video-widget"></div>
+                                    <div id="post-video-player"></div>
                                 </div>
                             </div>
                         </div>
                         <input type="hidden" name="_csrf" value="{_csrf}"> 
-                        <input type="hidden" name="_method" value="patch"> 
+                        <input type="hidden" name="_method" value="post"> 
                     </form>
                 </div>
+                <div class="modal-body message hidden"></div>
             </div>
         </div>
     </div>

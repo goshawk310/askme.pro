@@ -72,7 +72,7 @@ module.exports = _.defaults({
     getUnansweredByUserId: function getUnansweredByUserId(id, limit, page, callback) {
         var skip = limit * page;
         QuestionModel
-            .find({to: id, answer: null})
+            .find({to: id, answer: null, mode: {$in: [null, 'question']}})
             .populate('from', 'username avatar')
             .sort({_id: -1})
             .skip(skip).limit(limit)

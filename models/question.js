@@ -97,6 +97,11 @@ var Question = function Question() {
             type: mongoose.Schema.Types.ObjectId,
             default: null,
             ref: 'QuestionRandom'
+        },
+        mode: {
+            type: String,
+            enum: ['question', 'post'],
+            default: 'question'
         }
     }, {
         collection: 'questions',
@@ -128,6 +133,18 @@ var Question = function Question() {
      */
     schema.post('save', function(question) {
         var UserModel = require('./user');
+        if (this.mode === 'post') {
+            if (this.answer !== null) {
+                UserModel.update({
+                    _id: question.to
+                }, {
+                    $inc: {'stats.posts': 1}
+                }, function (err, user) {
+                
+                });
+            }
+            return;
+        }
         if (this.sync && this.sync.id) {
             if (this.answer === null) {
                 UserModel.update({
@@ -164,7 +181,7 @@ var Question = function Question() {
                     id: question._id
                 });
             }*/
-        } else if (this._original.answer === null && this.answer !== null) {
+        } else if (this._original && this._original.answer === null && this.answer !== null) {
             UserModel.update({
                 _id: question.to
             }, {
@@ -193,7 +210,7 @@ var Question = function Question() {
                     });
                 }*/
             }
-        } else if (this._original.image !== null && this.image === null) {
+        } else if (this._original && this._original.image !== null && this.image === null) {
             fsExtra.remove(config.answer.dir + this._original.image);
         }
     });
@@ -206,6 +223,16 @@ var Question = function Question() {
         var UserModel = require('./user'),
             CommentModel = require('./comment'),
             LikeModel = require('./like');
+        if (this.mode === 'post') {
+            UserModel.update({
+                _id: question.to
+            }, {
+                $inc: {'stats.posts': -1}
+            }, function (err, user) {
+            
+            });
+            return;
+        }    
         if (question.answer === null) {
             UserModel.update({
                 _id: question.to
