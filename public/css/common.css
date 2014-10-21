@@ -2025,6 +2025,20 @@ ul#profile-menu li a {
     margin-left: 15px;
 }
 
+@media (max-width: 991px) {
+    #add-post-btn-container {
+        padding-left: 5px;
+        margin-left: 5px;
+    }
+}
+
+@media (max-width: 767px) {
+    #add-post-btn-container {
+        padding-left: 15px;
+        margin-left: 15px;
+    }
+}
+
 #add-post-btn {
     color: #fff;
     display: inline-block;

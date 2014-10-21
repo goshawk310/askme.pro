@@ -165,6 +165,7 @@
 <link href="/components/magnific-popup/magnific-popup.css" rel="stylesheet" />
 {/css}
 {<js}
+<script src="/js/vendor/jquery-ui-1.10.4.custom.min.js"></script>
 <script src="/components/jquery.autosize.min.js"></script>
 <script src="/components/magnific-popup/jquery.magnific-popup.min.js"></script>
 <script src="/js/app/models.js"></script>
