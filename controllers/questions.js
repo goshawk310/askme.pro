@@ -12,13 +12,13 @@ module.exports = function(server) {
         .then(function (results) {
             var question = results.questions.length ? results.questions[0] : null;
             if (!question) {
-                throw new Error('Question not found');
+                //throw new Error('Question not found');
             }
             return Q.ninvoke(userService, 'getById', question.to._id)
             .then(function (profile) {
                 var isFollowed = false,
                     isBlocked = false;
-                if (req.user.users) {
+                if (req.user && req.user.users) {
                     isFollowed = req.user.users.followed ? profile.isFollowed(req.user.users.followed) : false;
                     isBlocked = req.user.users.blocked ? profile.isBlocked(req.user.users.blocked) : false;
                 }    

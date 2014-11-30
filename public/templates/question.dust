@@ -45,23 +45,25 @@
                                 </div>
                             {/profile.profile.website}
                         </div>
-                        <div class="pull-right">
-                            {@ne key="{user.id}" value="{profile.id}"}
-                                {@eq key="{profile.role}" value="user"}
-                                    {^isBlocked}
-                                        <a class="btn btn-danger btn-xs btn-block-user" data-alttext="{@__ phrase="Odblokuj" /}">{@__ phrase="Zablokuj" /}</a>
+                        {?user}
+                            <div class="pull-right">
+                                {@ne key="{user.id}" value="{profile.id}"}
+                                    {@eq key="{profile.role}" value="user"}
+                                        {^isBlocked}
+                                            <a class="btn btn-danger btn-xs btn-block-user" data-alttext="{@__ phrase="Odblokuj" /}">{@__ phrase="Zablokuj" /}</a>
+                                        {:else}
+                                            <a class="btn btn-info btn-xs btn-unblock-user" data-alttext="{@__ phrase="Zablokuj" /}">{@__ phrase="Odblokuj" /}</a>
+                                        {/isBlocked}
+                                    {/eq}    
+                                    <span>&nbsp;</span>
+                                    {?isFollowed}
+                                        <a class="btn btn-default btn-xs btn-unfollow" data-alttext="{@__ phrase="Obserwuj" /}">{@__ phrase="Zrezygnuj" /}</a>
                                     {:else}
-                                        <a class="btn btn-info btn-xs btn-unblock-user" data-alttext="{@__ phrase="Zablokuj" /}">{@__ phrase="Odblokuj" /}</a>
-                                    {/isBlocked}
-                                {/eq}    
-                                <span>&nbsp;</span>
-                                {?isFollowed}
-                                    <a class="btn btn-default btn-xs btn-unfollow" data-alttext="{@__ phrase="Obserwuj" /}">{@__ phrase="Zrezygnuj" /}</a>
-                                {:else}
-                                    <a class="btn btn-success btn-xs btn-follow" data-alttext="{@__ phrase="Zrezygnuj" /}">{@__ phrase="Obserwuj" /}</a>
-                                {/isFollowed}
-                            {/ne}
-                        </div>
+                                        <a class="btn btn-success btn-xs btn-follow" data-alttext="{@__ phrase="Zrezygnuj" /}">{@__ phrase="Obserwuj" /}</a>
+                                    {/isFollowed}
+                                {/ne}
+                            </div>
+                        {/user}
                     </div>
                 </div>
             </div>
