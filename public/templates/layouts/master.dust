@@ -19,7 +19,7 @@
         <link href="/components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
         <link href="/css/main.min.css?24" rel="stylesheet" />
         <link href="/css/theme.css?1" rel="stylesheet" />
-        <link href="/css/common.css?25" rel="stylesheet" />
+        <link href="/css/common.css?26" rel="stylesheet" />
         {+css /}
         {@hasPrivilegesOf user=user role="editor"}
             <link href="/css/admin.css" rel="stylesheet" />

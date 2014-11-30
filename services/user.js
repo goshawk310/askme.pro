@@ -296,7 +296,9 @@ module.exports = _.defaults({
     getByUsername: function getByUsername(username, callback) {
         UserModel.findOne({username: new RegExp('^' + username + '$', 'i')}, callback);
     },
-
+    getById: function getById(id, callback) {
+        UserModel.findOne({_id: id}, callback);
+    },
     changeTopbg: function changeTopbg() {
         var server = this.getServer(),
             req = this.getReq(),

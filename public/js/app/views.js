@@ -141,3 +141,63 @@ askmePro.mixins.userFollow = {
         });
     }
 };
+
+askmePro.mixins.userBlock = {
+    idKey: '_id',
+    events: {
+        'click .btn-block-user':  'block',
+        'click .btn-unblock-user':  'unblock'
+    },
+    block: function block (e) {
+        var $this = $(e.target),
+            altText = $this.data('alttext'),
+            text = $this.html();
+        if ($this.hasClass('disabled')) {
+            return;
+        }    
+        $this.addClass('disabled');
+        $.ajax('/api/users/' + this.model.get(this.idKey) + '/block', {
+            type: 'post',
+            beforeSend: function(xhr){
+               xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-param"]').attr('content'));
+            }
+        }).done(function () {
+            $this.removeClass('btn-block-user')
+                .removeClass('btn-danger')
+                .addClass('btn-unblock-user')
+                .addClass('btn-info')
+                .html(altText).data('alttext', text);
+        }).fail(function () {
+
+        }).always(function () {
+            $this.removeClass('disabled');
+        });
+    },
+    unblock: function unblock (e) {
+        e.preventDefault();
+        var $this = $(e.target),
+            altText = $this.data('alttext'),
+            text = $this.html();
+        if ($this.hasClass('disabled')) {
+            return;
+        }    
+        $this.addClass('disabled');
+        $.ajax('/api/users/' + this.model.get(this.idKey) + '/block', {
+            type: 'post',
+            beforeSend: function(xhr){
+               xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-param"]').attr('content'));
+               xhr.setRequestHeader('X-HTTP-Method-Override', 'delete');
+            }
+        }).done(function () {
+            $this.removeClass('btn-unblock-user')
+                .removeClass('btn-info')
+                .addClass('btn-block-user')
+                .addClass('btn-danger')
+                .html(altText).data('alttext', text);
+        }).fail(function () {
+
+        }).always(function () {
+            $this.removeClass('disabled');
+        });
+    }
+};

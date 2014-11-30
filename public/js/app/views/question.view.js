@@ -409,3 +409,16 @@ askmePro.views.QuestionCommentView = Backbone.View.extend({
         });
     }
 });
+
+askmePro.views.QuestionProfileTopView = Backbone.View.extend(_.extend({
+    initialize: function () {
+        this.setElement($('#question-profile-top-container'));
+    }
+}, askmePro.mixins.userFollow, askmePro.mixins.userBlock, {
+    events: {
+        'click .btn-follow':  'follow',
+        'click .btn-unfollow':  'unfollow',
+        'click .btn-block-user':  'block',
+        'click .btn-unblock-user':  'unblock'
+    }
+}));

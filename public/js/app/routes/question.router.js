@@ -14,5 +14,14 @@ askmePro.routers.Question = Backbone.Router.extend({
         $('#answers-container').html(this.views.question.$el);
         this.views.question.$el.find('.btn-comments').trigger('click');
         this.views.question.$el.find('.question-settings').remove();
+    
+        if (typeof this.views.top === 'undefined') {
+            this.views.top = new askmePro.views.QuestionProfileTopView({
+                model: new askmePro.models.UserModel({
+                    _id: this.views.question.model.get('to')._id
+                })
+            });
+            this.views.top.delegateEvents();
+        }
     }
 });

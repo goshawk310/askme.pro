@@ -1,6 +1,6 @@
 <script type="text/template" id="question-tpl">
     <section class="panel panel-default question-container<% if (question.mode === 'post') {~lb} %> post-container<%{~rb}%>">
-        {>"partials/question" avatarKey="to" hideQuestionLink=hideQuestionLink/}
+        {>"partials/question" avatarKey="to" hideQuestionLink=hideQuestionLink hideActionsBar=hideActionsBar hideAvatar=hideAvatar showFbPlugin=showFbPlugin /}
         <% if (showAdd) {~lb}%>
             {>"layouts/partials/ads/answer"/}
         <%{~rb}%>

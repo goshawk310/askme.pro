@@ -1,5 +1,7 @@
 <div class="panel-heading">
-    <%=askmePro.views.helpers.userAvatar({~lb}user: question['{avatarKey}'], size: 'cropped/100x', wrapper: true, cssClass: "avatar avatar-sm img-circle", linkClass: "pull-left mg-r-md"{~rb})%>
+    {^hideAvatar}
+        <%=askmePro.views.helpers.userAvatar({~lb}user: question['{avatarKey}'], size: 'cropped/100x', wrapper: true, cssClass: "avatar avatar-sm img-circle", linkClass: "pull-left mg-r-md"{~rb})%>
+    {/hideAvatar}
     <div>
         <% if (question.mode === 'post') {~lb} %>
             <small class="post-by"><a href="/<%=question.from.username%>"><%=question.from.username%></a></small><br>
@@ -10,17 +12,19 @@
         <% if (question.mode !== 'post') {~lb} %>
             <b><%=askmePro.views.helpers.parseUsersText(question.contents, {url: {yt: 'link'}})%></b>
         <% {~rb} %>
-        <small class="pull-right no-touch settings text-muted">
-            <a class="fa fa-chevron-down btn-collapsible pd-r-xs" href="#"></a>
-            {^hideQuestionLink}
-                <a class="fa fa-share pd-r-xs" href="/questions/<%=question._id%>" title="{@__ phrase="Przejdź" /}"></a>
-            {/hideQuestionLink}
-            {?user}
-                <% if((question.to && question.to._id === '{user._id}') || ['admin', 'moderator'].indexOf('{user.role}') > - 1) {~lb}%>
-                    <a class="fa fa-times panel-remove btn-remove" href="#" title="{@__ phrase="Usuń" /}"></a>
-                <%{~rb}%>
-            {/user}
-        </small>
+        {^hideActionsBar}
+            <small class="pull-right no-touch settings text-muted">
+                <a class="fa fa-chevron-down btn-collapsible pd-r-xs" href="#"></a>
+                {^hideQuestionLink}
+                    <a class="fa fa-share pd-r-xs" href="/questions/<%=question._id%>" title="{@__ phrase="Przejdź" /}"></a>
+                {/hideQuestionLink}
+                {?user}
+                    <% if((question.to && question.to._id === '{user._id}') || ['admin', 'moderator'].indexOf('{user.role}') > - 1) {~lb}%>
+                        <a class="fa fa-times panel-remove btn-remove" href="#" title="{@__ phrase="Usuń" /}"></a>
+                    <%{~rb}%>
+                {/user}
+            </small>
+        {/hideActionsBar}
     </div>
     <% if (question.mode !== 'post') {~lb} %>
         <small class="text-muted"><% if(question.from){~lb}%> {@__ phrase="przez" /} <a href="/<%=question.from.username%>"><%=question.from.username%></a><%{~rb}else{~lb}%>{@__ phrase="anonimowo" /}<%{~rb}%></small>
@@ -62,6 +66,9 @@
                     &nbsp;
                 </small>   
             <% {~rb} %>
+            {?showFbPlugin}
+                &nbsp;&nbsp;&nbsp;<div class="fb-like" data-href="http://askme.pro/questions/<%=question._id%>" data-layout="button_count" data-action="like" data-show-faces="false" data-share="true"></div>
+            {/showFbPlugin}
             <div class="clearfix pull-right text-muted">
                 <a href="#" class="muted mg-r-md btn-comments">
                     <i class="fa fa-comment-o  mg-r-xs"></i><span class="count"><%=question.stats.comments%></span> 
