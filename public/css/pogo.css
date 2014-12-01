@@ -1,0 +1,153 @@
+.bg-success, .bg-success footer {
+    color: #fff;
+} 
+
+#answers-wrapper #answers-container .panel-success  {border:none !important;} 
+
+.panel-default { border-color: #eee; }
+
+div#wrapper.custom-bg div#content div.container.off-canvas-container div.row.custom-row div#user-info-wrapper.col-md-3.hidden-sm.hidden-xs.profile-info-wrapper div.panel.panel-default div.panel-body div.profile-info div.mg-t-md  { text-align:center; }
+
+div#wrapper.custom-bg.profile div#content div.container.profile.off-canvas-container div.row.custom-row div.col-md-3.hidden-sm.hidden-xs.profile-info-wrapper div.panel.panel-default div.panel-body div.profile-info div.mg-t-md  { text-align:center; }
+
+div#wrapper.custom-bg div#content div.container.off-canvas-container div.row.custom-row div#user-info-wrapper.col-md-3.hidden-sm.hidden-xs.profile-info-wrapper div.panel.panel-default div.panel-body div.profile-info div.mg-t-md div.truncate a  { color: #17c3e5 }
+
+div#wrapper.custom-bg.profile div#content div.container.profile.off-canvas-container div.row.custom-row div.col-md-3.hidden-sm.hidden-xs.profile-info-wrapper div.panel.panel-default div.panel-body div.profile-info div.mg-t-md div.truncate a { color: #17c3e5 }
+
+.panel-default > .panel-heading { border-color: #eee; }
+
+.nav-pills > li.active > a, .nav-pills > li.active > a:hover, .nav-pills > li.active > a:focus { background-color: #2dcb73; }
+
+#profile-stats-wrapper a.btn:hover { border-bottom: 3px solid #0083b7 }
+
+div#wrapper.custom-bg div#content div.container.off-canvas-container div.row.custom-row div#main-content-wrapper.col-md-7.custom-col-md-7.col-sm-12.col-xs-12 div#main-content-container.sep-panels-container div div#answers-wrapper.loading-container div#answers-container section.panel.panel-default.question-container.q-page-1 div.collapsible div.comments-wrapper div.form-wrapper { background: #f6f7f8 }
+
+div#wrapper.custom-bg.profile div#content div.container.profile.off-canvas-container div.row.custom-row div.col-md-7.custom-col-md-7 div.center-block div#profile-tabs-content.sep-panels-container div div.row div.col-md-12 div#answers-wrapper.loading-container div#answers-container section.panel.panel-default.question-container div.collapsible div.comments-wrapper div.form-wrapper { background: #f6f7f8 }
+
+.question-container.panel-default > .panel-heading b {font-weight:bold !important; font-size:14px !important;}
+
+html body.app-layout.logged-in.no-touch div#wrapper.custom-bg.profile div#content div.container.profile.off-canvas-container {background: none}
+
+html body.app-layout.logged-in.no-touch div#wrapper.custom-bg.profile div#content div.container.profile.off-canvas-container div.row.custom-row div.col-md-3.hidden-sm.hidden-xs.profile-info-wrapper div.panel.panel-default {border:0 !important;}
+
+html body.app-layout.logged-in.no-touch div#wrapper.custom-bg.profile div#content div.container.profile.off-canvas-container div.row.custom-row div.col-md-7.custom-col-md-7 div.menu-container.panel.panel-default {border:0 !important;}
+
+html body.app-layout.no-touch div#wrapper.custom-bg.profile div#content div.container.profile {background:none}
+
+html body.app-layout.no-touch div#wrapper.custom-bg.profile div#content div.container.profile div.row.custom-row div.col-md-3.hidden-sm.hidden-xs.profile-info-wrapper div.panel.panel-default {border: 0 !important;}
+
+html body.app-layout.no-touch div#wrapper.custom-bg.profile div#content div.container.profile div.row.custom-row div.col-md-7.custom-col-md-7 div.menu-container.panel.panel-default {border: 0 !important;}
+
+html body.app-layout.no-touch div#wrapper.custom-bg.profile {background-attachment:fixed;}
+
+html body.app-layout.logged-in.no-touch div#wrapper.custom-bg.profile div#content div.container.profile.off-canvas-container div.row.custom-row div.col-md-7.custom-col-md-7 {/*background:#fff;*/}
+
+html body.app-layout.no-touch div#wrapper.custom-bg.profile div#content div.container.profile div.row.custom-row div.col-md-7.custom-col-md-7 {/*background:#fff;*/}
+
+/*.custom-row .custom-col-md-7 {
+    width: 49.333% !important;
+}
+
+.custom-row .custom-col-md-2 {
+    width: 24.667% !important;
+}
+
+#profile-stats-wrapper a.btn {
+    font-size: 10px !important;
+} */
+
+.q {
+    background-color: #fff !important;
+	}
+	
+.question-container div.answer {
+    font-family: helvetica;
+    font-size: 15px;
+    padding-bottom: 10px;
+    word-wrap: break-word;
+}
+
+.question-container.panel-default > .panel-heading .text-muted a {
+    color: #2dcb73;
+}
+
+.panel-heading {border-bottom:0;}
+
+html body.app-layout.logged-in.no-touch div#wrapper.custom-bg div#content div.container.off-canvas-container div.row.custom-row div#main-content-wrapper.col-md-7.custom-col-md-7.col-sm-12.col-xs-12 div#main-content-container.sep-panels-container div div#answers-wrapper.loading-container div#answers-container section.panel.panel-default.question-container.q-page-1 div.collapsible div.comments-wrapper div.form-wrapper form.comment-form div.input-group textarea.form-control {height:30px !important; font-size:11px;}
+
+html body.app-layout.logged-in.no-touch div#wrapper.custom-bg div#content div.container.off-canvas-container div.row div.col-md-8 div#answers-container section.panel.panel-default.question-container div.collapsible div.comments-wrapper div.form-wrapper form.comment-form div.input-group textarea.form-control {height:30px !important; font-size:11px;}
+
+.side-bar-users-container .nav-stacked li .user i {
+    border-radius: 50%;
+    left: 20px;
+    position: absolute;
+    top: 0;
+}
+
+.question-of-the-day > .row {
+    background-color: #fff;
+    border: 1px dashed #ebebeb;
+    margin-bottom: 10px;
+    padding-top: 10px;
+}
+
+.bg-danger, .bg-danger footer {
+    background-color: #ff604f;
+    color: #fff;
+}
+
+/*
+ * Color Variant: White;
+ *
+ */
+.bg-dark,
+.bg-dark footer {
+  background-color: #fff;
+  color: #4d4d4d;
+}
+.bg-dark .form-control {
+  -webkit-font-smoothing: antialiased;
+}
+.bg-dark .form-control:-moz-placeholder {
+  color: #4d4d4d;
+}
+.bg-dark .form-control::-moz-placeholder {
+  color: #4d4d4d;
+}
+.bg-dark .form-control:-ms-input-placeholder {
+  color: #4d4d4d;
+}
+.bg-dark .form-control::-webkit-input-placeholder {
+  color: #4d4d4d;
+}
+.bg-dark .nav > li > a {
+  color: #4d4d4d;
+}
+.bg-dark .nav > li:hover > a,
+.bg-dark .nav > li:focus > a,
+.bg-dark .nav > li:active > a,
+.bg-dark .nav > li.active > a,
+.bg-dark .nav > li > a:hover,
+.bg-dark .nav > li > a:focus {
+  background-color: #f2f2f2;
+}
+.bg-dark .main-navigation > ul > li > a,
+.app:not(.small-sidebar) .collapsible.bg-dark .main-navigation > ul > li > ul > li > a,
+.bg-dark footer a,
+.bg-dark > a {
+  color: #4d4d4d;
+}
+.bg-dark .nav > li:hover > a,
+.bg-dark .nav > li:focus > a,
+.bg-dark .nav > li:active > a,
+.bg-dark .nav > li.active > a,
+.bg-dark .nav > li > a:hover,
+.bg-dark .nav > li > a:focus {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+.alert-info {
+    background-color: #4ee0e4;
+    border: 0 none;
+    color: #fff;
+}
