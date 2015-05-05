@@ -3,7 +3,7 @@ var passport = require('passport');
 
 module.exports = function(server) {
 
-    server.get('/auth/facebook', passport.authenticate('facebook', {scope: ['email', 'user_location']}));
+    server.get('/auth/facebook', passport.authenticate('facebook', {scope: ['email']}));
     
     server.get('/auth/facebook/callback', 
         passport.authenticate('facebook', {
