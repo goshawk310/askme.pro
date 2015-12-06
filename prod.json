@@ -1,7 +1,7 @@
 [{
     "name"       : "www",
     "script"     : "./index.js",
-    "instances"  : "8",
+    "instances"  : "6",
     "exec_mode"  : "cluster_mode",
     "env": {
         "NODE_ENV": "production"
